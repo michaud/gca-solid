@@ -1,0 +1,27 @@
+.c-header {
+    margin: .5rem 0 .5rem 0;
+    font-weight: bold;
+}
+  
+.header--action {
+    display: flex;
+    padding: 0 1rem .5rem 1rem;
+
+    margin: 0;
+    align-items: center;
+    font-size: 1.5rem;
+    flex-direction: row;
+    position: relative;
+}
+
+.header--screen {
+    padding: 0 1rem 0 5rem;
+    min-height: 4rem;
+    margin-bottom: 1rem;
+    color: rgba(255,255,255,.95);
+    background: linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%);
+}
+
+.header--action__text {
+    flex: 1 0;
+}

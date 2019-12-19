@@ -1,0 +1,37 @@
+{
+  "@context": {
+    "thing": "https://schema.org/Thing#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "rdf": "<http://www.w3.org/1999/02/22-rdf-syntax-ns#>",
+    "as": "https://www.w3.org/ns/activitystreams#",
+    "terms": "http://purl.org/dc/terms/",
+    "game": "http://data.totl.net/game/",
+    "golf": "https://michaud.inrupt.net/public/golf/",
+    "me": "https://michaud.inrupt.net/profile/card#me"
+  },
+  "shape": [
+    {
+      "prefix": "golf",
+      "predicate": "courseName",
+      "type": "http://www.w3.org/2001/XMLSchema#string",
+      "label": "Name",
+      "value": ""
+    },
+    {
+      "prefix": "golf",
+      "predicate": "courseSlope",
+      "type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+      "label": "Slope",
+      "value": 0
+    },
+    {
+      "prefix": "golf",
+      "predicate": "courseHoles",
+      "type": "https://michaud.inrupt.net/public/golf/Hole",
+      "label": "Holes",
+      "value": []
+    }
+  ]
+}  

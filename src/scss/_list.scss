@@ -1,0 +1,36 @@
+.plain-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.item-list {
+
+    padding: 0 1rem 1rem 1rem;
+}
+
+.list__item {
+
+    display: flex;
+    min-height: 3rem;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.list-item__container {
+
+    display: flex;
+    flex: 1;
+}
+
+.list-item__label {
+
+    flex: 5;
+
+    &:before {
+        display: inline-block;
+        content: '';
+        height: 100%;
+        vertical-align: middle;
+    }
+}

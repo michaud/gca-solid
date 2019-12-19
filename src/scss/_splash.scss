@@ -1,0 +1,45 @@
+.splash {
+    flex: 1;
+    display: flex;
+    text-align: center;
+    background: linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%);
+    flex-direction: column;
+
+    height: 100%;
+    
+    &:before {
+        flex: 1;
+        content: '';
+    }
+    &:after {
+        flex: 1;
+        content: '';
+    }
+}
+
+.splash-graph {
+    z-index: 0;
+    width: 100vw;
+    // height: 100vh;
+    height: 100%;
+    min-width: 30rem;
+    // position: absolute;
+    // top: 0;
+    // left: 0;
+    // right: 0;
+    // bottom: 0;
+    max-width: 60rem;
+    // transform: translate(-50%,0);
+    // left: 50%;
+}
+
+.splash__title {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    font-weight: bold;
+    font-size: 3rem;
+    color: rgba(255,255,255,.8);
+    text-shadow: 1px 2px 1rem rgb(30, 62, 0);
+    margin-top: 24rem;
+}
