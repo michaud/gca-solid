@@ -1,3 +1,7 @@
+# Golf Course Assistant
+
+App build in the [solid-react](https://github.com/inrupt/generator-solid-react) app framework using Linked Open Data using a Solid Pod as a data repository
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
