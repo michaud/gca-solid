@@ -48,7 +48,6 @@ const getClubDefinitions = async () => {
         iri: ''
     }
 
-    console.log('clubTypes, clubType: ', clubTypes, clubType);
     return { clubTypes, clubType };
 };
 

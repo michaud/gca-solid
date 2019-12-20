@@ -43,7 +43,6 @@ const getFieldData = (field, course) => {
         case golf.classes.Hole: {
 
             value = course.fields[field.predicate].field.value;
-            console.log('course.fields[field.predicate]: ', course.fields[field.predicate]);
 
             break;
         }
@@ -70,7 +69,7 @@ const display = {
 }
 
 const CourseDetail = ({ course, onSave, onDelete }) => {
-    // console.log('course: ', course);
+
     const [displayState, setDisplayState] = useState(display.detail);
 
     const onEdit = () => {

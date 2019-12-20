@@ -47,7 +47,7 @@ const useClubList = (clubTypeDefinitions, dirty) => {
                         if (typeof clubListUrl !== 'string') return;
 
                         const listDoc = await fetchClubList(clubListUrl);
-                        const listData = await getClubList(listDoc, clubType, clubTypes);
+                        const listData = await getClubList(listDoc, clubTypes, clubType);
 
                         setClubList({list: listData, doc: listDoc});
                     }

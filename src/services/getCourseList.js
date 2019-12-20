@@ -37,12 +37,10 @@ const getFieldData = (field, course, doc) => {
             const holeRefs = holeIds.map(id => doc.getSubject(id));
 
             const holes = holeRefs.map(holeRef => {
-                console.log('holeRef: ', holeRef.getTriples());
 
                 const fields = {};
 
                 holeShape.shape.forEach(field => {
-                    console.log('field: ', field);
 
                     const prefix = holeShape['@context'][field.prefix];
                     const predicate = `${prefix}${field.predicate}`;
@@ -81,7 +79,6 @@ const getFieldData = (field, course, doc) => {
                     fields
                 }
 
-                console.log('hole: ', hole);
                 return hole;
             });
 
