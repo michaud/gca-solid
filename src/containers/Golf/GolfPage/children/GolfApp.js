@@ -5,6 +5,7 @@ import NavigationShell from './NavigationShell';
 import ManageBag from './ManageBag';
 import SplashScreen from './SplashScreen';
 import ManageCourses from './ManageCourses';
+import ManagePlayers from './ManagePlayers';
 
 // import EditBagComponent from 'components/bag/EditBagComponent';
 // import AddCourseComponent from 'components/course/AddCourseComponent';
@@ -22,16 +23,20 @@ const GolfApp = ({ webId }) => {
                         <Route exact path="/golf"
                             render={ routerProps => <SplashScreen
                                 { ...routerProps }
-                                webId={ webId }/> } />
+                                webId={ webId }/> }/>
                         <Route path="/golf/settings/bag"
                             render={ routerProps => <ManageBag
                                 { ...routerProps }
-                                webId={ webId } /> } />
-                        <Route path="/golf/settings/courses" render={ (routerProps) => <ManageCourses
+                                webId={ webId } /> }/>
+                        <Route path="/golf/settings/courses"
+                            render={ (routerProps) => <ManageCourses
+                                { ...routerProps }
+                                webId={ webId }/> }/>
+                        <Route path="/golf/settings/players"
+                            render={ (routerProps) => <ManagePlayers
                                 { ...routerProps }
                                 webId={ webId }/> }/>
                         {/* <Route path="/golf/settings/game/new" render={ () => <NewGameContainer/> }/>
-                            <Route path="/golf/settings/players" render={ () => <PlayersComponent/> }/>
 
                             <Route path="/golf/settings/games" render={ () => <GameListContainer/> }/> */}
                     </Switch>

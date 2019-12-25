@@ -74,8 +74,8 @@ const ManageCourses = ({ match, webId, history }) => {
         <>
             <ModuleHeader label="Courses" screenheader={ true }/>
             <PageContainer>
-                <CourseForm onSave={ onSaveCourse }/>
                 <CourseList courses={ courses }/>
+                <CourseForm onSave={ onSaveCourse }/>
             </PageContainer>
         </>
     )

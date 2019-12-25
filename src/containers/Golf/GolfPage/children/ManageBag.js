@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import styled from 'styled-components';
-
 import { StylesProvider } from '@material-ui/core/styles';
 import { errorToaster } from '@utils';
 import { useNotification } from '@inrupt/solid-react-components';
@@ -21,17 +19,7 @@ import ClubForm from './ClubForm';
 import ClubList from './ClubList';
 import ModuleHeader from './ModuleHeader';
 import BagTransferList from './BagTransferList';
-
-const PageContainer = styled.div`
-    margin: 0 2rem 2rem 2rem;
-    > * {
-        margin-bottom: 2rem;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
-`;
+import { PageContainer } from '@styles/page.style';
 
 const ManageBag = ({ match, webId, history }) => {
 
@@ -118,7 +106,7 @@ const ManageBag = ({ match, webId, history }) => {
     return (
         <StylesProvider>
             <ClubTypeContext.Provider value={ clubTypeDefinitions }>
-                <ModuleHeader label="What's in the bag" screenheader={ true }/>
+                <ModuleHeader label={ t('golf.whatsInTheBag') } screenheader={ true }/>
                 <PageContainer>
                     <BagTransferList
                         clubs={ clubs }

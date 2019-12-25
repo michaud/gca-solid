@@ -82,7 +82,7 @@ const getFieldData = (field, course, doc) => {
                 return hole;
             });
 
-            value = holes.length;
+            value = holes;
 
             break;
         }

@@ -167,7 +167,8 @@
     "alreadyExists": "file already exists in the Pod. "
   },
   "golf": {
-    "selectClubType": "Select club type"
+    "selectClubType": "Select club type",
+    "cancelLabel": "Cancel"
   },
   "noInboxOpponent": {
     "message": "Your opponent does not have an inbox in their Pod",

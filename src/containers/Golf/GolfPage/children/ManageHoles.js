@@ -1,7 +1,7 @@
 import React from 'react';
 
-import HoleDetail from './HoleDetail';
 import HoleForm from './HoleForm';
+import HoleList from './HoleList';
 
 const ManageHoles = ({ onSave, listTitle = 'Holes', holes = [] }) => {
 
@@ -12,10 +12,7 @@ const ManageHoles = ({ onSave, listTitle = 'Holes', holes = [] }) => {
 
     return <div>
         <HoleForm onSave={ onSaveHoleHandler }/>
-        <header className="c-header">{ listTitle }</header>
-        {
-            holes.map((hole, index) => <HoleDetail key={ index } hole={ hole }/>)
-        }
+        <HoleList holes listTitle/>
     </div>
 }
 

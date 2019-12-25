@@ -90,7 +90,8 @@ const HoleForm = ({ hole: holeData, onSave, onCancel, title = 'Add hole', action
                     className={ classes.textField }
                     size="normal"
                     value={ field.field.value }
-                    onChange={ onChangeHoleField(field) }/>
+                    onChange={ onChangeHoleField(field) }
+                    variant="outlined"/>
             }
 
             case golf.types.nonNegativeInteger : {
@@ -102,7 +103,8 @@ const HoleForm = ({ hole: holeData, onSave, onCancel, title = 'Add hole', action
                     className={ classes.textFieldNumber }
                     size="normal"
                     value={ field.field.value }
-                    onChange={ onChangeHoleField(field) }/>
+                    onChange={ onChangeHoleField(field) }
+                    variant="outlined"/>
             }
 
             default: {
@@ -151,7 +153,7 @@ const HoleForm = ({ hole: holeData, onSave, onCancel, title = 'Add hole', action
                     disabled={ !canSave }
                     onClick={ onCancel }
                     className={ classes.button }
-                    color="primary">Cancel</Button>
+                    color="primary">{ t('golf.cancel') }</Button>
                 }
                 </FlexItemRight>
             </FlexContainer>

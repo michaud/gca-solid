@@ -6,6 +6,7 @@ const golf = {
     classes: {
         Club: `${ namespace }Club`,
         Player: `${ namespace }Player`,
+        Marker: `${ namespace }Marker`,
         Bag: `${ namespace }Bag`,
         Course: `${ namespace }Course`,
         Hole: `${ namespace }Hole`
@@ -22,7 +23,9 @@ const golf = {
     },
     types: {
         string: 'http://www.w3.org/2001/XMLSchema#string',
-        nonNegativeInteger: 'http://www.w3.org/2001/XMLSchema#nonNegativeInteger'
+        nonNegativeInteger: 'http://www.w3.org/2001/XMLSchema#nonNegativeInteger',
+        text: 'https://schema.org/Text',
+        integer: 'http://www.w3.org/2001/XMLSchema#integer'
     }
 };
 

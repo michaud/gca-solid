@@ -72,6 +72,11 @@
     }
 }
 
+.f-label--row {
+
+    margin-bottom: .5rem;
+}
+
 .f-input.f-input {
 
     @include f-box-input;

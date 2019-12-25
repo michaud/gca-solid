@@ -131,7 +131,8 @@ const CourseForm = ({ onSave, course, title ='Add course', actionLabel = 'add co
                     className={ classes.textField }
                     size="normal"
                     value={ field.field.value }
-                    onChange={ onChangeCourseField(field) }/>
+                    onChange={ onChangeCourseField(field) }
+                    variant="outlined"/>
             }
 
             case golf.types.nonNegativeInteger : {
@@ -143,7 +144,8 @@ const CourseForm = ({ onSave, course, title ='Add course', actionLabel = 'add co
                     className={ classes.textField }
                     size="normal"
                     value={ field.field.value }
-                    onChange={ onChangeCourseField(field) }/>
+                    onChange={ onChangeCourseField(field) }
+                    variant="outlined"/>
             }
 
             case golf.classes.Hole : {

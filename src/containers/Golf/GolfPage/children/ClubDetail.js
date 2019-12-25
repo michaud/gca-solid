@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import ClubForm  from './ClubForm';
+import displayStates from "@utils/displayStates";
 
 const FlexContainer = styled.div`
     display: flex;
@@ -73,30 +74,25 @@ const getFieldData = (field, club, clubType, clubTypes) => {
     return { value, label };
 };
 
-const display = {
-    detail: 'detail',
-    edit: 'edit'
-}
-
 const ClubDetail = ({ club, onSave, onDelete }) => {
 
-    const [displayState, setDisplayState] = useState(display.detail);
+    const [displayState, setDisplayState] = useState(displayStates.detail);
 
     const onEdit = () => {
 
-        setDisplayState(display.edit);
+        setDisplayState(displayStates.edit);
     }
 
     const cancelEdit = () => {
 
-        setDisplayState(display.detail);
+        setDisplayState(displayStates.detail);
     };
 
     const onSaveHandler = club => {
 
         onSave(club);
 
-        setDisplayState(display.detail);
+        setDisplayState(displayStates.detail);
     };
 
     const onDeleteHandler = () => {
@@ -125,7 +121,7 @@ const ClubDetail = ({ club, onSave, onDelete }) => {
                 });
             }
             
-            if(displayState === display.edit) {
+            if(displayState === displayStates.edit) {
 
                 return <ClubForm
                     club={ club }

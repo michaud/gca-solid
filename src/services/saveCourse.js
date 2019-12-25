@@ -1,5 +1,5 @@
-import courseShape from '@contexts/course-shape.json';
-import holeShape from '@contexts/hole-shape.json';
+// import courseShape from '@contexts/course-shape.json';
+// import holeShape from '@contexts/hole-shape.json';
 import golf from '@utils/golf-namespace';
 import { rdf } from 'rdf-namespaces';
 

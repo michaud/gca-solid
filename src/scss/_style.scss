@@ -1,3 +1,19 @@
+@import 'node_modules/@inrupt/solid-style-guide/scss/Variables/_Variables.scss';
+@import 'node_modules/@inrupt/solid-style-guide/scss/Animation/_Animations.scss';
+@import 'node_modules/@inrupt/solid-style-guide/scss/Core/_Core.scss';
+//@import 'node_modules/@inrupt/solid-style-guide/scss/Atoms/_Atoms.scss';
+@import "node_modules/@inrupt/solid-style-guide/scss/Atoms/_Buttons";
+@import "node_modules/@inrupt/solid-style-guide/scss/Atoms/_Pills";
+//@import "node_modules/@inrupt/solid-style-guide/scss/Atoms/_Input";
+//@import "node_modules/@inrupt/solid-style-guide/scss/Atoms/_Select";
+@import "node_modules/@inrupt/solid-style-guide/scss/Atoms/_Checkbox";
+@import "node_modules/@inrupt/solid-style-guide/scss/Atoms/_Radio";
+@import "node_modules/@inrupt/solid-style-guide/scss/Atoms/_Toggle";
+@import "node_modules/@inrupt/solid-style-guide/scss/Atoms/_Range-Slider";
+@import "node_modules/@inrupt/solid-style-guide/scss/Atoms/_Card";
+//@import 'node_modules/@inrupt/solid-style-guide/scss/Molecules/_Molecules.scss';
+@import "node_modules/@inrupt/solid-style-guide/scss/Molecules/_Notifications";
+@import 'node_modules/@inrupt/solid-style-guide/scss/Organisms/_Organisms.scss';
 @import 'base';
 @import 'body';
 @import 'headings';
@@ -6,6 +22,7 @@
 @import 'list';
 @import 'layout';
 @import 'panel';
+@import 'table';
 @import 'splash';
 @import 'header';
 @import 'game-nav';

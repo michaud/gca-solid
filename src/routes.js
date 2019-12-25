@@ -41,6 +41,11 @@ const privateRoutes = [
     component: GolfPage
   },
   {
+    id: 'golf',
+    path: '/golf/settings/players',
+    component: GolfPage
+  },
+  {
     id: 'tictactoe',
     path: '/tictactoe',
     component: GameList
