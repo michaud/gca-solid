@@ -50,11 +50,9 @@ const getFieldData = (field, player) => {
     return { value, label };
 };
 
-const PlayerDetail = ({ player, onSave, onDelete, title = 'Player' }) => {
+const PlayerDetail = ({ player, onSave, onDelete, target = 'player' }) => {
 
     const [displayState, setDisplayState] = useState(displayStates.detail);
-
-    //const [playerState, setPlayerState] = useState();
     //const { t } = useTranslation();
 
 
@@ -81,15 +79,22 @@ const PlayerDetail = ({ player, onSave, onDelete, title = 'Player' }) => {
         fields.push(data);
     });
 
-    if(!player.iri || displayState === displayStates.edit) return <PlayerForm
-        title={ title }
+    if(!player.iri) return <PlayerForm
+        title={ `Create ${ target }` }
         onSave={ onSave }
         onCancel={ cancelEdit }
         player={ player }/>;
 
+    if(displayState === displayStates.edit) return <PlayerForm
+        title={ `Edit ${ target }` }
+        onSave={ onSave }
+        onCancel={ cancelEdit }
+        player={ player }/>
+
     if(displayState === displayStates.detail) {
 
-        return (
+        return (<>
+            <header className="c-header">{ target }</header>
             <FieldContainer>
                 <FlexContainer>
                     <FlexItemData>
@@ -114,6 +119,7 @@ const PlayerDetail = ({ player, onSave, onDelete, title = 'Player' }) => {
                     </FlexItemTools>
                 </FlexContainer>
             </FieldContainer>
+            </>
         );
     }
 };

@@ -61,7 +61,6 @@ const ManagePlayers = ({ match, webId, history }) => {
     return <>
         <ModuleHeader label={ t('golf.players') } screenheader={ true }/>
         <PageContainer>
-            <header className="c-header">Player</header>
             { player && <PlayerDetail onSave={ onSavePlayer } player={ player }/> }
             <ManageMarkers webId={ webId }/>
         </PageContainer>

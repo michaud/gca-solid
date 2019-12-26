@@ -65,7 +65,7 @@ const ManageMarkers = ({ webId }) => {
     return <>
         <header className="c-header">Markers</header>
         <PlayerDetail
-            title="Add marker"
+            target="marker"
             player={ marker }
             onSave={ onSaveMarker }/>
         <MarkerList markers={ markers }/>

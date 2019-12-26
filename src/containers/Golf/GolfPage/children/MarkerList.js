@@ -6,7 +6,10 @@ const MarkerList = ({ markers }) => {
 
     return markers.map((marker, idx) => {
 
-        return <PlayerDetail key={ idx } player={ marker }/>;
+        return <PlayerDetail
+            key={ idx }
+            player={ marker }
+            target="marker"/>;
     })
 }
 
