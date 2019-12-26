@@ -41,8 +41,8 @@ const ManageCourses = ({ match, webId, history }) => {
 
             if (courseList) {
 
-                const clubs = courseList.list;
-                setCourses(clubs);
+                const couseList = courseList.list;
+                setCourses(couseList);
                 setDirty(false);
             }
 

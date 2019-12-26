@@ -8,16 +8,13 @@ import usePlayer from '@hooks/usePlayer';
 import { errorToaster } from '@utils/';
 import { PageContainer } from '@styles/page.style';
 import savePlayer from '@services/savePlayer';
-import useMarkers from '@hooks/useMarkers';
 
 const ManagePlayers = ({ match, webId, history }) => {
 
     const [dirty, setDirty] = useState(true);
     const { notification } = useNotification(webId);
     const [player, setPlayer] = useState();
-    const [markers, setMarkers] = useState([]);
     const playerDetails = usePlayer();
-    const markerDetails = useMarkers();
 
     const { t } = useTranslation();
 
@@ -34,13 +31,6 @@ const ManagePlayers = ({ match, webId, history }) => {
 
                 const playerData = playerDetails.player;
                 setPlayer(playerData);
-                setDirty(false);
-            }
-
-            if (markerDetails.markers) {
-
-                const markerData = markerDetails.markers;
-                setMarkers(markerData);
                 setDirty(false);
             }
 
@@ -66,13 +56,14 @@ const ManagePlayers = ({ match, webId, history }) => {
             init();
         }
 
-    }, [webId, playerDetails, markerDetails, dirty, notification.notify]);
+    }, [webId, playerDetails, dirty, notification.notify]);
 
     return <>
         <ModuleHeader label={ t('golf.players') } screenheader={ true }/>
         <PageContainer>
+            <header className="c-header">Player</header>
             { player && <PlayerDetail onSave={ onSavePlayer } player={ player }/> }
-            <ManageMarkers markers={ markers }/>
+            <ManageMarkers webId={ webId }/>
         </PageContainer>
     </>;
 };

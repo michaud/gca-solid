@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { solid } from 'rdf-namespaces';
 import usePublicTypeIndex from './usePublicTypeIndex';
 import golf from '@utils/golf-namespace';
-import getBagClubList from '@services/getBagClubList';
+import getBagClubs from '@services/getBagClubs';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import { rdf } from 'rdf-namespaces';
+import { fetchDocument } from 'tripledoc';
 
 const setupBag = (document) => {
     const bag = document.addSubject();
@@ -12,7 +13,7 @@ const setupBag = (document) => {
     return document;
 }
 
-const useBagClubList = (clubTypeDefinitions, dirty) => {
+const useBagClubs = (clubTypeDefinitions, dirty) => {
 
     const publicTypeIndex = usePublicTypeIndex();
     const [clubList, setClubList] = useState({ list: [], doc: undefined });
@@ -47,13 +48,16 @@ const useBagClubList = (clubTypeDefinitions, dirty) => {
 
                     const { clubTypes, clubType } = clubTypeDefinitions;
                     // If the public type index does list a clubList document, fetch it:
-                    const clubListUrl = clubListIndex.getRef(solid.instance);
+                    const url = clubListIndex.getRef(solid.instance);
 
-                    if (typeof clubListUrl !== 'string') return;
+                    if (typeof url !== 'string') return;
+                    const doc = await fetchDocument(url);
+                    const list = await getBagClubs(doc, clubType, clubTypes)
 
-                    const list = await getBagClubList(clubListUrl, clubType, clubTypes)
-
-                    setClubList(list);
+                    setClubList({
+                        list,
+                        doc
+                    });
                 }
             })();
         }
@@ -62,12 +66,4 @@ const useBagClubList = (clubTypeDefinitions, dirty) => {
     return clubList;
 }
 
-export const getBagClubs = clubList => {
-
-    const list = clubList.getTriples();
-    const filteredList = list.filter(item => item.predicate.value === golf.properties.clubs);
-
-    return filteredList;
-};
-
-export default useBagClubList;
+export default useBagClubs;

@@ -90,8 +90,6 @@ const PlayerDetail = ({ player, onSave, onDelete, title = 'Player' }) => {
     if(displayState === displayStates.detail) {
 
         return (
-            <>
-            <header className="c-header">{ title }</header>
             <FieldContainer>
                 <FlexContainer>
                     <FlexItemData>
@@ -116,7 +114,6 @@ const PlayerDetail = ({ player, onSave, onDelete, title = 'Player' }) => {
                     </FlexItemTools>
                 </FlexContainer>
             </FieldContainer>
-            </>
         );
     }
 };

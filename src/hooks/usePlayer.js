@@ -1,58 +1,10 @@
 import { useState, useEffect } from 'react';
-import { solid, rdf } from 'rdf-namespaces';
+import { solid } from 'rdf-namespaces';
 import usePublicTypeIndex from './usePublicTypeIndex';
 import golf from '@utils/golf-namespace';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import fetchPlayer from '@services/fetchPlayer';
 import getPlayer from '@services/getPlayer';
-import playerShape from '@contexts/player-shape.json';
-
-const addField = (field, ref) => {
-
-    const iri = `${ playerShape['@context'][field.prefix] }${ field.predicate }`;
-
-    switch(field.type) {
-
-        case golf.types.string : {
-
-            ref.addLiteral(iri, field.value);
-
-            break;
-        }
-
-        case golf.types.text : {
-
-            ref.addLiteral(iri, field.value);
-
-            break;
-        }
-
-        case golf.types.integer: {
-
-            ref.addLiteral(iri, field.value);
-
-            break;
-        }
-
-        default : {
-
-            break;
-        }
-    }
-};
-
-const setupPlayer = (document) => {
-
-    const player = document.addSubject();
-    player.addRef(rdf.type, golf.classes.Player);
-
-    for(const shape in playerShape.shape) {
-
-        addField(playerShape.shape[shape], player);
-    }
-
-    return document;
-};
 
 const usePlayer = (dirty) => {
 

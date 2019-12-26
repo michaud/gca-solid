@@ -5,8 +5,9 @@ import { solid } from 'rdf-namespaces';
 import usePublicTypeIndex from './usePublicTypeIndex';
 import golf from '@utils/golf-namespace';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
-import fetchCourseList from '@services/fetchCourseList';
-import getCourseList from '@services/getCourseList';
+import { fetchDocument } from 'tripledoc';
+import getListFromDoc from '@services/getListFromDoc';
+import courseShape from '@contexts/course-shape.json';
 
 const useCourses = (dirty) => {
 
@@ -41,14 +42,18 @@ const useCourses = (dirty) => {
                 } else {
 
                     // If the public type index does list a clubList document, fetch it:
-                    const courseListUrl = courseListIndex.getRef(solid.instance);
+                    const url = courseListIndex.getRef(solid.instance);
 
-                    if (typeof courseListUrl !== 'string') return;
+                    if (typeof url !== 'string') return;
 
-                    const listDoc = await fetchCourseList(courseListUrl);
-                    const listData = getCourseList(listDoc);
+                    const doc = await fetchDocument(url);
+                    const list = getListFromDoc(
+                        doc,
+                        golf.classes.Course,
+                        courseShape
+                    );
 
-                    setCourseData({list: listData, doc: listDoc});
+                    setCourseData({ list, doc });
                 }
             })();
         }

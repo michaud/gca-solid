@@ -1,21 +1,45 @@
-import Provider from './provider';
-import addToTypeIndex from './addToTypeIndex';
-import fetchPublicTypeIndex from './fetchPublicTypeIndex';
-import initialiseTypeDocument from './initialiseTypeDocument';
-import fetchProfile from './fetchProfile';
-import getClubDefinitions from './getClubDefinitions';
 import addClub from './addClub';
-import removeFromBag from './removeFromBag';
 import addToBag from './addToBag';
+import addToTypeIndex from './addToTypeIndex';
+import deleteClub from './deleteClub';
+import fetchClubList from './fetchClubList';
+import fetchCourseList from './fetchCourseList';
+import fetchMarkers from './fetchMarkers';
+import fetchPlayer from './fetchPlayer';
+import fetchProfile from './fetchProfile';
+import fetchPublicTypeIndex from './fetchPublicTypeIndex';
+import getBagClubs from './getBagClubs';
+import getClubDefinitions from './getClubDefinitions';
+import getListFromDoc from './getListFromDoc';
+import getPlayer from './getPlayer';
+import initialiseTypeDocument from './initialiseTypeDocument';
+import Provider from './provider';
+import removeFromBag from './removeFromBag';
+import saveClub from './saveClub';
+import saveCourse from './saveCourse';
+import saveMarker from './saveMarker';
+import savePlayer from './savePlayer';
 
 export {
-    Provider,
-    addToTypeIndex,
-    fetchPublicTypeIndex,
-    fetchProfile,
-    initialiseTypeDocument,
-    getClubDefinitions,
     addClub,
+    addToBag,
+    addToTypeIndex,
+    deleteClub,
+    fetchClubList,
+    fetchCourseList,
+    fetchMarkers,
+    fetchPlayer,
+    fetchProfile,
+    fetchPublicTypeIndex,
+    getBagClubs,
+    getClubDefinitions,
+    getListFromDoc,
+    getPlayer,
+    initialiseTypeDocument,
+    Provider,
     removeFromBag,
-    addToBag
+    saveClub,
+    saveCourse,
+    saveMarker,
+    savePlayer
 };

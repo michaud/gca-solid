@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { solid } from 'rdf-namespaces';
 import usePublicTypeIndex from './usePublicTypeIndex';
 import golf from '@utils/golf-namespace';
-import fetchClubList from '@services/fetchClubList';
-import getClubList from '@services/getClubList';
+import { fetchDocument } from 'tripledoc';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
-
-const useClubList = (clubTypeDefinitions, dirty) => {
+import getListFromDoc from '@services/getListFromDoc';
+import clubShape from '@contexts/club-shape.json';
+const useClubs = (clubTypeDefinitions, dirty) => {
 
     const publicTypeIndex = usePublicTypeIndex();
     const [clubList, setClubList] = useState({ list: [], doc: undefined });
@@ -42,14 +42,19 @@ const useClubList = (clubTypeDefinitions, dirty) => {
 
                         const { clubTypes, clubType } = clubTypeDefinitions;
                         // If the public type index does list a clubList document, fetch it:
-                        const clubListUrl = clubListIndex.getRef(solid.instance);
+                        const url = clubListIndex.getRef(solid.instance);
 
-                        if (typeof clubListUrl !== 'string') return;
+                        if (typeof url !== 'string') return;
 
-                        const listDoc = await fetchClubList(clubListUrl);
-                        const listData = await getClubList(listDoc, clubTypes, clubType);
+                        const doc = await fetchDocument(url);
+                        const list = await getListFromDoc(
+                            doc,
+                            golf.classes.Club,
+                            clubShape,
+                            clubTypes,
+                            clubType);
 
-                        setClubList({list: listData, doc: listDoc});
+                        setClubList({ list, doc });
                     }
                 }
             })();
@@ -59,4 +64,4 @@ const useClubList = (clubTypeDefinitions, dirty) => {
     return clubList;
 };
 
-export default useClubList;
+export default useClubs;
