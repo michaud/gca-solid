@@ -31,7 +31,6 @@ const PlayerForm = ({ player, onSave, onCancel, title = 'Add player', actionLabe
     const saveHandler = () => {
 
         onSave(playerState);
-        //setCourseState(clubType);
     };
 
     const getFieldControl = (field, index) => {

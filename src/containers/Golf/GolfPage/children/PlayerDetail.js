@@ -92,12 +92,14 @@ const PlayerDetail = ({ player, onSave, onDelete, target = 'player' }) => {
 
     if(!player.iri) return <PlayerForm
         title={ `Create ${ target }` }
+        actionLabel={ `Save ${ target }` }
         onSave={ onSaveHandler }
         onCancel={ cancelEdit }
         player={ player }/>;
 
     if(displayState === displayStates.edit) return <PlayerForm
         title={ `Edit ${ target }` }
+        actionLabel={ `Save ${ target }` }
         onSave={ onSaveHandler }
         onCancel={ cancelEdit }
         player={ player }/>

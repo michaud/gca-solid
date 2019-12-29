@@ -6,14 +6,14 @@ import { fetchDocument } from 'tripledoc';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import getListFromDoc from '@services/getListFromDoc';
 import clubShape from '@contexts/club-shape.json';
-const useClubs = (clubTypeDefinitions, dirty) => {
+const useClubData = (clubTypeDefinitions, reload) => {
 
-    const publicTypeIndex = usePublicTypeIndex();
+    const publicTypeIndex = usePublicTypeIndex(reload);
     const [clubList, setClubList] = useState({ list: [], doc: undefined });
 
     useEffect(() => {
 
-        if (publicTypeIndex) {
+        if (publicTypeIndex || reload) {
 
             (async () => {
 
@@ -59,9 +59,9 @@ const useClubs = (clubTypeDefinitions, dirty) => {
                 }
             })();
         }
-    }, [publicTypeIndex, clubTypeDefinitions, dirty]);
+    }, [publicTypeIndex, clubTypeDefinitions, reload]);
 
     return clubList;
 };
 
-export default useClubs;
+export default useClubData;

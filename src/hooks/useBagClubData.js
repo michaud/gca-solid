@@ -11,16 +11,16 @@ const setupBag = (document) => {
     const bag = document.addSubject();
     bag.addRef(rdf.type, golf.classes.Bag);
     return document;
-}
+};
 
-const useBagClubs = (clubTypeDefinitions, dirty) => {
+const useBagClubData = (clubTypeDefinitions, reload) => {
 
     const publicTypeIndex = usePublicTypeIndex();
     const [clubList, setClubList] = useState({ list: [], doc: undefined });
 
     useEffect(() => {
 
-        if (publicTypeIndex) {
+        if (publicTypeIndex || reload) {
 
             (async () => {
 
@@ -61,9 +61,9 @@ const useBagClubs = (clubTypeDefinitions, dirty) => {
                 }
             })();
         }
-    }, [publicTypeIndex, dirty]);
+    }, [publicTypeIndex, reload]);
 
     return clubList;
-}
+};
 
-export default useBagClubs;
+export default useBagClubData;

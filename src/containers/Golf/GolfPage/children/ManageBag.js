@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { StylesProvider } from '@material-ui/core/styles';
 import { errorToaster } from '@utils';
 import { useNotification } from '@inrupt/solid-react-components';
-import useClubs from '@hooks/useClubs';
+import useClubData from '@hooks/useClubData';
 import useClubDefinitions from '@hooks/useClubDefinitions';
-import useBagClubList from '@hooks/useBagClubList';
+import useBagClubData from '@hooks/useBagClubData';
 import { useTranslation } from 'react-i18next';
 
 import addClub from '@services/addClub';
@@ -24,60 +24,62 @@ import { PageContainer } from '@styles/page.style';
 const ManageBag = ({ match, webId, history }) => {
 
     const { notification } = useNotification(webId);
-    const [dirty, setDirty] = useState(true);
+    const [reload, setReload] = useState(false);
     const clubTypeDefinitions = useClubDefinitions();
-    const bagList = useBagClubList(clubTypeDefinitions, dirty);
-    const clubList = useClubs(clubTypeDefinitions, dirty);
+    const bagData = useBagClubData(clubTypeDefinitions, reload);
+    const clubData = useClubData(clubTypeDefinitions, reload);
     const [clubs, setClubs] = useState();
     const [bagClubs, setBagClubs] = useState();
     const { t } = useTranslation();
 
     const addClubHandler = async (club) => {
 
-        if (!clubList) return;
+        if (!clubData) return;
 
-        await addClub(club, clubList.doc);
+        await addClub(club, clubData.doc);
 
-        setDirty(true);
+        setReload(true);
     };
 
     const saveClubHandler = club => {
         
-        saveClub(club, clubList.doc);
-        setDirty(true);
+        saveClub(club, clubData.doc);
+        setReload(true);
     };
 
     const deleteClubHandler = club => {
 
-        removeFromBag([club], bagList.doc);
-        deleteClub(club, clubList.doc);
-        setDirty(true);
+        removeFromBag([club], bagData.doc);
+        deleteClub(club, clubData.doc);
+        setReload(true);
     };
 
     const addToBagHandler = (clubs) => {
         
-        addToBag(clubs, bagList.doc);
+        addToBag(clubs, bagData.doc);
+        setReload(true)
     };
     
     const removeFromBagHandler = (clubs) => {
         
-        removeFromBag(clubs, bagList.doc);
+        removeFromBag(clubs, bagData.doc);
+        setReload(true)
     };
 
     const init = async () => {
 
         try {
 
-            if (clubList) {
+            if (clubData) {
 
-                const clubs = clubList.list;
+                const clubs = clubData.list;
                 setClubs(clubs);
-                setDirty(false);
+                setReload(false);
             }
 
-            if(bagList) {
+            if(bagData) {
 
-                setBagClubs(bagList);
+                setBagClubs(bagData);
             }
         } catch (e) {
             /**
@@ -101,7 +103,7 @@ const ManageBag = ({ match, webId, history }) => {
             init();
         }
 
-    }, [webId, clubList, bagList, notification.notify]);
+    }, [webId, clubData, bagData, reload, notification.notify]);
 
     return (
         <StylesProvider>

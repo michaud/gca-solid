@@ -143,14 +143,12 @@ const ClubForm = ({ club, clubTypes, clubType, onSave, onCancel, title ='Add clu
         }
 
     }, [club, clubType]);
-    console.log('clubType: ', clubType);
 
     const clubFields = [];
     
     let index = 0;
 
     if(clubState) {
-        console.log('clubState: ', clubState);
         
         for (const field in clubState.fields) {
 
