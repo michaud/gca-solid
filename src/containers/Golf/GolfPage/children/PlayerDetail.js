@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 
 //import { useTranslation } from 'react-i18next';
 
@@ -55,11 +55,16 @@ const PlayerDetail = ({ player, onSave, onDelete, target = 'player' }) => {
     const [displayState, setDisplayState] = useState(displayStates.detail);
     //const { t } = useTranslation();
 
+    const onSaveHandler = (player) => {
+        
+        onSave(player);
+        setDisplayState(displayStates.detail);
+    };
 
     const onEdit = () => {
 
         setDisplayState(displayStates.edit);
-    }
+    };
 
     const cancelEdit = () => {
 
@@ -71,23 +76,29 @@ const PlayerDetail = ({ player, onSave, onDelete, target = 'player' }) => {
         onDelete(player);
     };
 
-    const fields = [];
-    
-    playerShape.shape.forEach(field => {
-        
-        const data = getFieldData(field, player);
-        fields.push(data);
-    });
+    const displayFields = useMemo(() => {
 
+        const fields = [];
+
+        playerShape.shape.forEach(field => {
+            
+            const data = getFieldData(field, player);
+            fields.push(data);
+        });
+
+        return fields;
+
+    }, [player]);
+    
     if(!player.iri) return <PlayerForm
         title={ `Create ${ target }` }
-        onSave={ onSave }
+        onSave={ onSaveHandler }
         onCancel={ cancelEdit }
         player={ player }/>;
 
     if(displayState === displayStates.edit) return <PlayerForm
         title={ `Edit ${ target }` }
-        onSave={ onSave }
+        onSave={ onSaveHandler }
         onCancel={ cancelEdit }
         player={ player }/>
 
@@ -99,7 +110,7 @@ const PlayerDetail = ({ player, onSave, onDelete, target = 'player' }) => {
                 <FlexContainer>
                     <FlexItemData>
                     {
-                        fields.map((field, index) => <FlexContainer key={ index }>
+                        displayFields.map((field, index) => <FlexContainer key={ index }>
                             <FlexItemLabel>{ field.label }</FlexItemLabel>
                             <FlexItemValue>{ field.value }</FlexItemValue>
                         </FlexContainer>)
@@ -107,15 +118,17 @@ const PlayerDetail = ({ player, onSave, onDelete, target = 'player' }) => {
                     </FlexItemData>
                     <FlexItemTools>
                         <IconButton
-                            aria-label="delete"
+                            aria-label="edit"
                             onClick={ onEdit }>
                             <EditIcon />
                         </IconButton>
-                        <IconButton
-                            aria-label="delete"
-                            onClick={ onDeleteHandler }>
-                            <DeleteIcon />
-                        </IconButton>
+                        {
+                            onDelete && <IconButton
+                                aria-label="delete"
+                                onClick={ onDeleteHandler }>
+                                <DeleteIcon />
+                            </IconButton>
+                        }
                     </FlexItemTools>
                 </FlexContainer>
             </FieldContainer>

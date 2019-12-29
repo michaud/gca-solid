@@ -7,8 +7,8 @@ import parseFields from '@utils/parseFields';
 const getPlayer = (doc, type) => {
 
     const player = doc ? doc
-    .findSubject(ns.rdf.type, namedNode(type))
-    : undefined;
+        .findSubject(ns.rdf.type, namedNode(type))
+        : undefined;
 
     const newPlayer = parseFields(playerShape, doc)(player);
 

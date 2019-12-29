@@ -11,17 +11,17 @@ import savePlayer from '@services/savePlayer';
 
 const ManagePlayers = ({ match, webId, history }) => {
 
-    const [dirty, setDirty] = useState(true);
     const { notification } = useNotification(webId);
     const [player, setPlayer] = useState();
-    const playerDetails = usePlayer();
-
+    const [reload, setReload] = useState(false);
+    const playerDetails = usePlayer(reload);
     const { t } = useTranslation();
 
-    const onSavePlayer = (player) => {
+    const onSavePlayer = (playerData) => {
 
-        savePlayer(player, playerDetails.doc)
-    }
+        savePlayer(playerData, playerDetails.doc);
+        setReload(true);
+    };
 
     const init = async () => {
 
@@ -29,9 +29,8 @@ const ManagePlayers = ({ match, webId, history }) => {
 
             if (playerDetails) {
 
-                const playerData = playerDetails.player;
-                setPlayer(playerData);
-                setDirty(false);
+                setPlayer(playerDetails.player);
+                setReload(false)
             }
 
         } catch (e) {
@@ -56,13 +55,17 @@ const ManagePlayers = ({ match, webId, history }) => {
             init();
         }
 
-    }, [webId, playerDetails, dirty, notification.notify]);
+    }, [webId, playerDetails, reload, notification.notify]);
 
     return <>
         <ModuleHeader label={ t('golf.players') } screenheader={ true }/>
         <PageContainer>
-            { player && <PlayerDetail onSave={ onSavePlayer } player={ player }/> }
-            <ManageMarkers webId={ webId }/>
+            { 
+                player && <PlayerDetail
+                    onSave={ onSavePlayer }
+                    player={ player }/> 
+            }
+            {/* <ManageMarkers webId={ webId }/> */}
         </PageContainer>
     </>;
 };

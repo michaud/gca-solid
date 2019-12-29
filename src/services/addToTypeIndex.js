@@ -9,7 +9,7 @@ const addToTypeIndex = async(
     typeRegistration.addRef(rdf.type, solid.TypeRegistration)
     typeRegistration.addRef(solid.instance, document.asRef())
     typeRegistration.addRef(solid.forClass, forClass)
-    return typeIndex.save([typeRegistration]);
+    return await typeIndex.save([typeRegistration]);
 };
 
 export default addToTypeIndex;

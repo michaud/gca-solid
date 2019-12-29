@@ -55,7 +55,7 @@ const saveField = (field, ref) => {
     }
 };
 
-const savePlayer = (player, doc) => {
+const savePlayer = async (player, doc) => {
 
     if(!player.iri) {
 
@@ -77,7 +77,7 @@ const savePlayer = (player, doc) => {
         }
     }
 
-    doc.save();
+    await doc.save();
 };
 
 export default savePlayer;

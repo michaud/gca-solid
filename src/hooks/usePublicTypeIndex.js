@@ -1,21 +1,25 @@
 import { useState, useEffect } from 'react';
 import fetchPublicTypeIndex from '@services/fetchPublicTypeIndex';
 
-const usePublicTypeIndex = () => {
-
+const usePublicTypeIndex = (reload) => {
+    
     const [publicTypeIndex, setPublicTypeIndex] = useState();
 
     useEffect(() => {
 
-        fetchPublicTypeIndex().then(fetchedPublicTypeIndex => {
+        if(!publicTypeIndex || reload) {
 
-            if (fetchedPublicTypeIndex === null) {
-                return;
-            }
+            fetchPublicTypeIndex().then(fetchedPublicTypeIndex => {
 
-            setPublicTypeIndex(fetchedPublicTypeIndex);
-        });
-    }, []);
+                if (fetchedPublicTypeIndex === null) {
+                    return;
+                }
+
+                setPublicTypeIndex(fetchedPublicTypeIndex);
+            });
+        }
+
+    }, [reload]);
 
     return publicTypeIndex;
 }

@@ -6,14 +6,14 @@ import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import fetchPlayer from '@services/fetchPlayer';
 import getPlayer from '@services/getPlayer';
 
-const usePlayer = (dirty) => {
+const usePlayer = (reload) => {
 
-    const publicTypeIndex = usePublicTypeIndex();
-    const [player, setPlayer] = useState({ player: undefined, doc: undefined });
+    const publicTypeIndex = usePublicTypeIndex(reload);
+    const [playerData, setPlayerData] = useState({ player: undefined, doc: undefined });
 
     useEffect(() => {
 
-        if (publicTypeIndex) {
+        if (publicTypeIndex || reload) {
 
             (async () => {
 
@@ -29,8 +29,8 @@ const usePlayer = (dirty) => {
 
                     if (doc === null) return;
                     
-                    setPlayer(state => ({
-                        ...state,
+                    setPlayerData(state => ({
+                        player: getPlayer(undefined, golf.classes.Player),
                         doc
                     }));
 
@@ -38,20 +38,20 @@ const usePlayer = (dirty) => {
 
                 } else {
 
-                    const playerUrl = playerIndex.getRef(solid.instance);
+                    const url = playerIndex.getRef(solid.instance);
 
-                    if (typeof playerUrl !== 'string') return;
+                    if (typeof url !== 'string') return;
 
-                    const playerDoc = await fetchPlayer(playerUrl);
-                    const playerData = await getPlayer(playerDoc, golf.classes.Player);
+                    const doc = await fetchPlayer(url);
+                    const playerData = await getPlayer(doc, golf.classes.Player);
 
-                    setPlayer({player: playerData, doc: playerDoc});
+                    setPlayerData({ player: playerData, doc });
                 }
             })();
         }
-    }, [publicTypeIndex, dirty]);
+    }, [publicTypeIndex]);
 
-    return player;
+    return playerData;
 };
 
 export default usePlayer;
