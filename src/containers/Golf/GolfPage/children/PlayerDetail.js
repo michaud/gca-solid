@@ -89,7 +89,7 @@ const PlayerDetail = ({ player, onSave, onDelete, target = 'player' }) => {
         return fields;
 
     }, [player]);
-    
+
     if(!player.iri) return <PlayerForm
         title={ `Create ${ target }` }
         onSave={ onSaveHandler }
@@ -104,6 +104,8 @@ const PlayerDetail = ({ player, onSave, onDelete, target = 'player' }) => {
 
     if(displayState === displayStates.detail) {
 
+        const showDelete = typeof(onDelete) === 'function' ? true : false;
+    
         return (<>
             <header className="c-header">{ target }</header>
             <FieldContainer>
@@ -123,7 +125,7 @@ const PlayerDetail = ({ player, onSave, onDelete, target = 'player' }) => {
                             <EditIcon />
                         </IconButton>
                         {
-                            onDelete && <IconButton
+                            showDelete && <IconButton
                                 aria-label="delete"
                                 onClick={ onDeleteHandler }>
                                 <DeleteIcon />

@@ -10,30 +10,37 @@ import PlayerDetail from './PlayerDetail';
 import saveMarker from '@services/saveMarker';
 import { useNotification } from '@inrupt/solid-react-components';
 import { errorToaster } from '@utils/';
+import deleteMarker from '@services/deleteMarker';
 
 const ManageMarkers = ({ webId }) => {
 
-    const [dirty, setDirty] = useState(true);
+    const [reload, setReload] = useState(false);
     const { notification } = useNotification(webId);
-    const markerData = useMarkers();
+    const markerData = useMarkers(reload);
     const [markers, setMarkers] = useState([]);
     const { t } = useTranslation();
 
     const onSaveMarker = (marker) => {
 
         saveMarker(marker, markerData.doc);
+        setReload(true);
+    };
+
+    const onDeleteMarker = marker => {
+
+        deleteMarker(marker, markerData.doc);
+        setReload(true);
     };
 
     const init = async () => {
 
-        try {
+        try {   
 
             if (markerData.list) {
 
                 const markerList = markerData.list;
-
                 setMarkers(markerList);
-                setDirty(false);
+                setReload(false);
             }
 
         } catch (e) {
@@ -58,7 +65,7 @@ const ManageMarkers = ({ webId }) => {
             init();
         }
 
-    }, [webId, markerData, notification.notify, dirty]);
+    }, [webId, markerData, notification.notify, reload]);
 
     const marker = getPlayer(undefined, golf.classes.Marker);
 
@@ -67,8 +74,12 @@ const ManageMarkers = ({ webId }) => {
         <PlayerDetail
             target="marker"
             player={ marker }
+            onDelete={ onDeleteMarker }
             onSave={ onSaveMarker }/>
-        <MarkerList markers={ markers }/>
+        <MarkerList
+            markers={ markers }
+            onDelete={ onDeleteMarker }
+            onSaveMarker={ onSaveMarker }/>
         </>;
 };
 

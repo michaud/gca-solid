@@ -7,14 +7,14 @@ import { fetchDocument } from 'tripledoc';
 import markerShape from '@contexts/marker-shape.json';
 import getListFromDoc from '@services/getListFromDoc';
 
-const useMarkers = (dirty) => {
+const useMarkers = (reload) => {
 
     const publicTypeIndex = usePublicTypeIndex();
     const [markers, setMarkers] = useState({ markers: [], doc: undefined });
 
     useEffect(() => {
 
-        if (publicTypeIndex) {
+        if (publicTypeIndex || reload) {
 
             (async () => {
 
@@ -54,7 +54,7 @@ const useMarkers = (dirty) => {
                 }
             })();
         }
-    }, [publicTypeIndex, dirty]);
+    }, [publicTypeIndex, reload]);
 
     return markers;
 };

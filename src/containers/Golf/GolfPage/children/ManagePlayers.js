@@ -65,7 +65,7 @@ const ManagePlayers = ({ match, webId, history }) => {
                     onSave={ onSavePlayer }
                     player={ player }/> 
             }
-            {/* <ManageMarkers webId={ webId }/> */}
+            <ManageMarkers webId={ webId }/>
         </PageContainer>
     </>;
 };
