@@ -26,22 +26,22 @@ const ManageCourses = ({ match, webId, history }) => {
 
     const [dirty, setDirty] = useState(true);
     const { notification } = useNotification(webId);
-    const courseList = useCourses(dirty);
+    const courseData = useCourses(dirty);
     const [courses, setCourses] = useState([]);
     const { t } = useTranslation();
 
     const onSaveCourse = (course) => {
 
-        saveCourse(course, courseList.doc);
+        saveCourse(course, courseData.doc);
     };
 
     const init = async () => {
 
         try {
 
-            if (courseList) {
+            if (courseData) {
 
-                const couseList = courseList.list;
+                const couseList = courseData.list;
                 setCourses(couseList);
                 setDirty(false);
             }
@@ -68,7 +68,7 @@ const ManageCourses = ({ match, webId, history }) => {
             init();
         }
 
-    }, [webId, courseList, notification.notify]);
+    }, [webId, courseData, notification.notify]);
 
     return (
         <>
