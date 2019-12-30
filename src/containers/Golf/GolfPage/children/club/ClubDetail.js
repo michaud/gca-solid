@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-import styled from 'styled-components';
-
 import clubShape from '@contexts/club-shape.json';
 import ClubTypeContext from "@utils/clubTypeContext";
 import golf from "@utils/golf-namespace";
@@ -12,21 +10,14 @@ import EditIcon from '@material-ui/icons/Edit';
 import ClubForm  from './ClubForm';
 import displayStates from "@utils/displayStates";
 
-const FlexContainer = styled.div`
-    display: flex;
-    align-items: flex-start;
-    margin: .5rem 0;
-`;
-
-const FieldContainer = styled.div`
-    margin-bottom: 1rem;
-    padding: 1rem 0 0 0;
-`;
-
-const FlexItemLabel = styled.div`min-width: 10rem;`;
-const FlexItemValue = styled.div`flex: 1;`;
-const FlexItemData = styled.div`flex: 1;`;
-const FlexItemTools = styled.div`flex: 0;`;
+import {
+    FieldContainer,
+    FlexContainer,
+    FlexItemData,
+    FlexItemLabel,
+    FlexItemValue,
+    FlexItemTools
+} from '@styles/layout.style';
 
 const checkRenderField = field => {
 

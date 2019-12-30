@@ -15,10 +15,10 @@ import saveClub from '@services/saveClub';
 import deleteClub from '@services/deleteClub';
 
 import ClubTypeContext from '@utils/clubTypeContext';
-import ClubForm from './ClubForm';
-import ClubList from './ClubList';
-import ModuleHeader from './ModuleHeader';
-import BagTransferList from './BagTransferList';
+import ClubForm from '@containers/Golf/GolfPage/children/club/ClubForm';
+import ClubList from '@containers/Golf/GolfPage/children/club/ClubList';
+import ModuleHeader from '@containers/Golf/GolfPage/children/ModuleHeader';
+import BagTransferList from '@containers/Golf/GolfPage/children/bag/BagTransferList';
 import { PageContainer } from '@styles/page.style';
 
 const ManageBag = ({ match, webId, history }) => {

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ManageMarkers from './ManageMarkers';
-import ModuleHeader from './ModuleHeader';
+import ModuleHeader from '@containers/Golf/GolfPage/children/ModuleHeader';
 import { useTranslation } from 'react-i18next';
 import { useNotification } from '@inrupt/solid-react-components';
-import PlayerDetail from './PlayerDetail';
+import PlayerDetail from '@containers/Golf/GolfPage/children/player/PlayerDetail';
 import usePlayer from '@hooks/usePlayer';
 import { errorToaster } from '@utils/';
 import { PageContainer } from '@styles/page.style';

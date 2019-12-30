@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
-import formStyles from './form.style';
-import styled from 'styled-components';
-
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import golf from '@utils/golf-namespace';
 
-const FlexContainer = styled.div`display: flex;`;
-const FlexItem = styled.div`flex: 1;`;
-const FlexItemRight = styled.div`
-    flex: 1;
-    text-align: right;
-`;
+import formStyles from '@styles/form.style';
+import {
+    FlexContainer,
+    FlexItem,
+    FlexItemRight,
+} from '@styles/layout.style';
 
 const checkCanSave = state => {
     

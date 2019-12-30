@@ -10,10 +10,10 @@ const ManageHoles = ({ onSave, listTitle = 'Holes', holes = [] }) => {
         onSave(hole);
     }
 
-    return <div>
+    return <>
         <HoleForm onSave={ onSaveHoleHandler }/>
-        <HoleList holes listTitle/>
-    </div>
+        <HoleList holes={ holes } listTitle={ listTitle }/>
+    </>
 }
 
 export default ManageHoles;

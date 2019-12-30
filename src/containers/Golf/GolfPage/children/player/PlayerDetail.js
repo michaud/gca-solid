@@ -8,7 +8,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import playerShape from '@contexts/player-shape.json';
 import displayStates from '@utils/displayStates';
-import golf from '@utils/golf-namespace';
+
 import {
     FieldContainer,
     FlexContainer,
@@ -17,38 +17,9 @@ import {
     FlexItemValue,
     FlexItemTools
 } from '@styles/layout.style';
+
 import PlayerForm from './PlayerForm';
-
-const getFieldData = (field, player) => {
-
-    const label = field.label;
-
-    let value = '';
-
-    switch(field.type) {
-
-        case golf.types.text: {
-
-            value = player.fields[field.predicate].field.value;
-
-            break;
-        }
-        
-        case golf.types.integer: {
-
-            value = player.fields[field.predicate].field.value;
-
-            break;
-        }
-        
-        default: {
-            value = 'error';
-            console.error('no field type', field)
-        }
-    }
-    
-    return { value, label };
-};
+import getFieldDisplayData from '@utils/getFieldDisplayData';
 
 const PlayerDetail = ({ player, onSave, onDelete, target = 'player' }) => {
 
@@ -82,7 +53,7 @@ const PlayerDetail = ({ player, onSave, onDelete, target = 'player' }) => {
 
         playerShape.shape.forEach(field => {
             
-            const data = getFieldData(field, player);
+            const data = getFieldDisplayData(field, player);
             fields.push(data);
         });
 

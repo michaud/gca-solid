@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
 import Button from '@material-ui/core/Button';
-import styled from 'styled-components';
-import formStyles from './form.style';
+import formStyles from '@styles/form.style';
 
 import courseShape from '@contexts/course-shape.json';
 import golf from '@utils/golf-namespace';
 import TextField from '@material-ui/core/TextField';
-import ManageHoles from './ManageHoles';
+import ManageHoles from '@containers/Golf/GolfPage/children/hole/ManageHoles';
 import setupDataObject from '@utils/setupDataObject';
 
-const FlexContainer = styled.div`display: flex;`;
-const FlexItem = styled.div`flex: 1;`;
-const FlexItemRight = styled.div`
-    flex: 1;
-    text-align: right;
-`;
+import {
+    FlexContainer,
+    FlexItem,
+    FlexItemRight,
+} from '@styles/layout.style';
 
 const checkCanSave = state => {
     
@@ -26,6 +24,7 @@ const checkCanSave = state => {
 }
 
 const CourseForm = ({ onSave, course, title ='Add course', actionLabel = 'add course', onCancel }) => {
+    console.log('course: ', course);
 
     const [courseState, setCourseState] = useState(course);
 
@@ -34,10 +33,10 @@ const CourseForm = ({ onSave, course, title ='Add course', actionLabel = 'add co
     const saveHandler = () => {
 
         onSave(courseState);
-        //setCourseState(clubType);
     };
 
     const onAddHole = (hole) => {
+        console.log('hole: ', hole);
         
         const newCourse = {
             ...courseState,
@@ -56,7 +55,7 @@ const CourseForm = ({ onSave, course, title ='Add course', actionLabel = 'add co
             }
         };
 
-        setCourseState(newCourse)
+        setCourseState(newCourse);
     };
 
     useEffect(() => {

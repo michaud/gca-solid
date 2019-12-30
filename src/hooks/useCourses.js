@@ -9,14 +9,14 @@ import { fetchDocument } from 'tripledoc';
 import getListFromDoc from '@services/getListFromDoc';
 import courseShape from '@contexts/course-shape.json';
 
-const useCourses = (dirty) => {
+const useCourses = (reload) => {
 
-    const publicTypeIndex = usePublicTypeIndex();
+    const publicTypeIndex = usePublicTypeIndex(reload);
     const [courseData, setCourseData] = useState({ list: [], doc: undefined });
 
     useEffect(() => {
 
-        if (publicTypeIndex) {
+        if (publicTypeIndex || reload) {
 
             (async () => {
 
@@ -57,7 +57,7 @@ const useCourses = (dirty) => {
                 }
             })();
         }
-    }, [publicTypeIndex, dirty]);
+    }, [publicTypeIndex, reload]);
 
     return courseData;
 };

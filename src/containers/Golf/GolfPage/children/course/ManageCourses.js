@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 
-import ModuleHeader from './ModuleHeader';
+import ModuleHeader from '@containers/Golf/GolfPage/children/ModuleHeader';
 import useCourses from '@hooks/useCourses';
 import { errorToaster } from '@utils/';
 import { useNotification } from '@inrupt/solid-react-components';
 import { useTranslation } from 'react-i18next';
-import CourseList from './CourseList';
-import CourseForm from './CourseForm';
+import CourseList from '@containers/Golf/GolfPage/children/course/CourseList';
+import CourseForm from '@containers/Golf/GolfPage/children/course/CourseForm';
 import saveCourse from '@services/saveCourse';
 
 const PageContainer = styled.div`
@@ -24,15 +24,16 @@ const PageContainer = styled.div`
 
 const ManageCourses = ({ match, webId, history }) => {
 
-    const [dirty, setDirty] = useState(true);
+    const [reload, setReload] = useState(false);
     const { notification } = useNotification(webId);
-    const courseData = useCourses(dirty);
+    const courseData = useCourses(reload);
     const [courses, setCourses] = useState([]);
     const { t } = useTranslation();
 
     const onSaveCourse = (course) => {
 
         saveCourse(course, courseData.doc);
+        setReload(true);
     };
 
     const init = async () => {
@@ -43,7 +44,7 @@ const ManageCourses = ({ match, webId, history }) => {
 
                 const couseList = courseData.list;
                 setCourses(couseList);
-                setDirty(false);
+                setReload(false);
             }
 
         } catch (e) {
@@ -68,14 +69,14 @@ const ManageCourses = ({ match, webId, history }) => {
             init();
         }
 
-    }, [webId, courseData, notification.notify]);
+    }, [webId, courseData, reload, notification.notify]);
 
     return (
         <>
             <ModuleHeader label="Courses" screenheader={ true }/>
             <PageContainer>
-                <CourseList courses={ courses }/>
                 <CourseForm onSave={ onSaveCourse }/>
+                <CourseList courses={ courses }/>
             </PageContainer>
         </>
     )

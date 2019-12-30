@@ -2,10 +2,10 @@ import React from 'react';
 
 import { Route, Switch } from 'react-router-dom';
 import NavigationShell from './NavigationShell';
-import ManageBag from './ManageBag';
+import ManageBag from '@containers/Golf/GolfPage/children/bag/ManageBag';
 import SplashScreen from './SplashScreen';
-import ManageCourses from './ManageCourses';
-import ManagePlayers from './ManagePlayers';
+import ManageCourses from '@containers/Golf/GolfPage/children/course/ManageCourses';
+import ManagePlayers from '@containers/Golf/GolfPage/children/player/ManagePlayers';
 
 // import EditBagComponent from 'components/bag/EditBagComponent';
 // import AddCourseComponent from 'components/course/AddCourseComponent';

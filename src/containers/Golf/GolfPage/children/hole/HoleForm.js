@@ -4,22 +4,18 @@ import holeShape from '@contexts/hole-shape.json';
 import setupDataObject from '@utils/setupDataObject';
 import golf from '@utils/golf-namespace';
 
-import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
-import formStyles from './form.style';
+import formStyles from '@styles/form.style';
 
 import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
 import checkCanSave from '@utils/checkCanSave';
 
-const FlexContainer = styled.div`display: flex;`;
-
-const FlexItem = styled.div`flex: 1;`;
-
-const FlexItemRight = styled.div`
-    flex: 1;
-    text-align: right;
-`;
+import {
+    FlexContainer,
+    FlexItem,
+    FlexItemRight,
+} from '@styles/layout.style';
 
 const HoleForm = ({ hole: holeData, onSave, onCancel, title = 'Add hole', actionLabel = 'add hole' }) => {
 

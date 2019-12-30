@@ -1,94 +1,43 @@
-import React from 'react';
-// import React, { useState } from 'react';
+import React, { useState } from 'react';
 
-import styled from 'styled-components';
 import golf from '@utils/golf-namespace';
-// import courseShape from '@contexts/course-shape.json';
 
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import CourseHoleTable from './CourseHoleTable';
 
-const FlexContainer = styled.div`
-    display: flex;
-    align-items: flex-start;
-    margin: 0 0 .5rem 0;
-`;
+import {
+    FieldContainer,
+    FlexContainer,
+    FlexItemData,
+    FlexItemLabel,
+    FlexItemValue,
+    FlexItemTools
+} from '@styles/layout.style';
 
-const FieldContainer = styled.div`
-    margin-bottom: 1.5rem;
-`;
-
-const FlexItemLabel = styled.div`min-width: 10rem;`;
-const FlexItemValue = styled.div`flex: 1;`;
-const FlexItemData = styled.div`flex: 1;`;
-const FlexItemTools = styled.div`flex: 0;`;
-
-
-// const getFieldData = (field, course) => {
-
-//     const label = field.label;
-
-//     let value = '';
-
-//     switch (field.type) {
-
-//         case golf.types.string: {
-
-//             value = course.fields[field.predicate].field.value;
-
-//             break;
-//         }
-
-//         case golf.classes.Hole: {
-
-//             value = course.fields[field.predicate].field.value;
-
-//             break;
-//         }
-
-//         case golf.types.nonNegativeInteger : {
-
-//             value = course.fields[field.predicate].field.value;
-
-//             break;
-//         }
-
-//         default: {
-//             value = 'error';
-//             console.error('no field type', field)
-//         }
-//     }
-
-//     return { value, label };
-// };
-
-// const display = {
-//     detail: 'detail',
-//     edit: 'edit'
-// }
+import displayStates from '@utils/displayStates';
+import CourseForm from './CourseForm';
 
 const CourseDetail = ({ course, onSave, onDelete }) => {
 
-    // const [displayState, setDisplayState] = useState(display.detail);
+    const [displayState, setDisplayState] = useState(displayStates.detail);
 
     const onEdit = () => {
 
-        //setDisplayState(display.edit);
+        setDisplayState(displayStates.edit);
     }
 
-    // const cancelEdit = () => {
+    const cancelEdit = () => {
 
-    //     //setDisplayState(display.detail);
-    // };
+        setDisplayState(displayStates.detail);
+    };
 
-    // const onSaveHandler = club => {
+    const onSaveHandler = course => {
 
-    //     // onSave(club);
-
-    //     // setDisplayState(display.detail);
-    // };
+        onSave(course);
+        setDisplayState(displayStates.detail);
+    };
 
     const onDeleteHandler = () => {
 
@@ -130,6 +79,20 @@ const CourseDetail = ({ course, onSave, onDelete }) => {
         }
     };
 
+    if(!course.iri) return <CourseForm
+        title={ `Create Course` }
+        actionLabel={ `Save Course` }
+        onSave={ onSaveHandler }
+        onCancel={ cancelEdit }
+        course={ course }/>;
+
+    if(displayState === displayStates.edit) return <CourseForm
+        title={ `Edit Course` }
+        actionLabel={ `Save Course` }
+        onSave={ onSaveHandler }
+        onCancel={ cancelEdit }
+        course={ course }/>;
+
     const displayFields = [];
 
     let count = 0;
@@ -145,7 +108,7 @@ const CourseDetail = ({ course, onSave, onDelete }) => {
             </FlexItemData>
             <FlexItemTools>
                 <IconButton
-                    aria-label="delete"
+                    aria-label="edit"
                     onClick={ onEdit }>
                     <EditIcon />
                 </IconButton>

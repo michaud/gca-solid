@@ -5,8 +5,8 @@ import { StylesProvider } from '@material-ui/core/styles';
 import useClubDefinitions from '@hooks/useClubDefinitions';
 
 import ClubTypeContext from '@utils/clubTypeContext';
-import ManageBag from './children/ManageBag';
-import GolfApp from './children/GolfApp';
+import ManageBag from '@containers/Golf/GolfPage/children/bag/ManageBag';
+import GolfApp from '@containers/Golf/GolfPage/children/GolfApp';
 
 
 const GolfPage = ({ match, webId, history }) => {
