@@ -15,16 +15,11 @@ import {
     FlexItemRight,
 } from '@styles/layout.style';
 
-const checkCanSave = state => {
-    
-    return state && Object.entries(state.fields).every(entry => {
-        
-        return entry[1].field.value !== '';
-    });
-}
+const checkCanSave = state => state && Object
+    .entries(state.fields)
+    .every(entry => entry[1].field.value !== '');
 
 const CourseForm = ({ onSave, course, title ='Add course', actionLabel = 'add course', onCancel }) => {
-    console.log('course: ', course);
 
     const [courseState, setCourseState] = useState(course);
 
@@ -33,10 +28,11 @@ const CourseForm = ({ onSave, course, title ='Add course', actionLabel = 'add co
     const saveHandler = () => {
 
         onSave(courseState);
+        const newCourse = setupDataObject(courseShape);
+        setCourseState(newCourse);
     };
 
     const onAddHole = (hole) => {
-        console.log('hole: ', hole);
         
         const newCourse = {
             ...courseState,
@@ -47,8 +43,8 @@ const CourseForm = ({ onSave, course, title ='Add course', actionLabel = 'add co
                     field: {
                         ...courseState.fields.courseHoles.field,
                         value: [
-                            hole,
-                            ...courseState.fields.courseHoles.field.value
+                            ...courseState.fields.courseHoles.field.value,
+                            hole
                         ]
                     }
                 }
@@ -56,6 +52,45 @@ const CourseForm = ({ onSave, course, title ='Add course', actionLabel = 'add co
         };
 
         setCourseState(newCourse);
+    };
+
+    const onSaveHole = (hole) => {
+        
+        setCourseState(state => {
+
+            const holes = state.fields.courseHoles.field.value;
+
+            const editHoleIndex = holes.findIndex(testHole => {
+                console.log('testHole: ', testHole);
+                console.log('hole: ', hole);
+                
+                return testHole.fields.holeNumber.field.value === hole.fields.holeNumber.field.value;
+            });
+            const startHoles = holes.slice(0, editHoleIndex);
+            console.log('editHoleIndex: ', editHoleIndex);
+            console.log('startHoles: ', startHoles);
+            const endHoles = holes.slice(editHoleIndex + 1, holes.length);
+            console.log('endHoles: ', endHoles);
+
+            const newHoles = startHoles.concat([hole]).concat(endHoles);
+            console.log('newHoles: ', newHoles);
+            
+            const newCourse = {
+                ...state,
+                fields: {
+                    ...state.fields,
+                    courseHoles: {
+                        ...state.fields.courseHoles,
+                        field: {
+                            ...state.fields.courseHoles.field,
+                            value: newHoles
+                        }
+                    }
+                }
+            };
+
+            return newCourse;
+        });
     };
 
     useEffect(() => {
@@ -151,6 +186,7 @@ const CourseForm = ({ onSave, course, title ='Add course', actionLabel = 'add co
 
                 return <ManageHoles
                     onSave={ onAddHole }
+                    onSaveEdit={ onSaveHole }
                     key={ index }
                     holes={ field.field.value }/>
             }

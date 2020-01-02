@@ -1,12 +1,33 @@
 .hole-table {
 
-    border: 1px solid green;
+    border: none;
     border-collapse: collapse;
+    margin-bottom: 1rem;
 
     td, th {
-        padding: .5rem;
-        border: 1px solid green;
-        min-width: 3rem;
+        padding: .35rem;
+        width: 2.5rem;
+        height: 2.5rem;
         text-align: center;
+        font-size: .95rem;
+    }
+
+    td {
+        border: 1px solid green;
+    }
+
+}
+
+.hole-table__header--button {
+    border: none;
+    border-radius: 3px;
+    background: linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%);
+    color: rgba(255, 255, 255, 0.9);
+    &:hover {
+        background: linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%);
+    }
+
+    &:active {
+        background: linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%);
     }
 }

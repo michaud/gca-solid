@@ -2,9 +2,6 @@ import addClub from './addClub';
 import addToBag from './addToBag';
 import addToTypeIndex from './addToTypeIndex';
 import deleteClub from './deleteClub';
-import fetchClubList from './fetchClubList';
-import fetchCourseList from './fetchCourseList';
-import fetchMarkers from './fetchMarkers';
 import fetchPlayer from './fetchPlayer';
 import fetchProfile from './fetchProfile';
 import fetchPublicTypeIndex from './fetchPublicTypeIndex';
@@ -25,9 +22,6 @@ export {
     addToBag,
     addToTypeIndex,
     deleteClub,
-    fetchClubList,
-    fetchCourseList,
-    fetchMarkers,
     fetchPlayer,
     fetchProfile,
     fetchPublicTypeIndex,

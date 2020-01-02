@@ -24,6 +24,29 @@ const formStyles = makeStyles(theme => ({
             borderColor: 'transparent'
         }
     },
+    plainTextField: {
+        width: '100%',
+        marginBottom: '.5rem',
+        '& .MuiAutocomplete-input': {
+            borderColor: 'transparent'
+        },
+        '& .MuiAutocomplete-input:focus': {
+            borderColor: 'transparent'
+        },
+        '& .MuiInput-input:invalid': {
+            borderColor: 'transparent'
+        },
+        '& .MuiInput-input:active': {
+            borderColor: 'transparent'
+        },
+
+        '& .MuiInput-input:focus': {
+            borderColor: 'transparent'
+        },
+        '& .MuiInput-input': {
+            borderColor: 'transparent'
+        }
+    },
     textFieldNumber: {
         marginBottom: '1rem',
         width: '22.7%',

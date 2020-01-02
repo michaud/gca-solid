@@ -5,7 +5,6 @@ import golf from '@utils/golf-namespace';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import CourseHoleTable from './CourseHoleTable';
 
 import {
     FieldContainer,
@@ -18,6 +17,7 @@ import {
 
 import displayStates from '@utils/displayStates';
 import CourseForm from './CourseForm';
+import HoleTable from '../hole/HoleTable';
 
 const CourseDetail = ({ course, onSave, onDelete }) => {
 
@@ -44,6 +44,10 @@ const CourseDetail = ({ course, onSave, onDelete }) => {
         onDelete(/** */);
     };
 
+    const editHoleHandler = index => {
+
+    };
+    
     const getDisplayField = (field, index) => {
 
         switch (field.fieldType) {
@@ -66,7 +70,7 @@ const CourseDetail = ({ course, onSave, onDelete }) => {
 
             case golf.classes.Hole : {
 
-                return <CourseHoleTable  key={ index } holes={ field.field.value }/>;
+                return <HoleTable onEdit={ editHoleHandler }  key={ index } holes={ field.field.value }/>;
             }
 
             default: {

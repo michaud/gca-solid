@@ -6,6 +6,7 @@ import { fetchDocument } from 'tripledoc';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import getListFromDoc from '@services/getListFromDoc';
 import clubShape from '@contexts/club-shape.json';
+
 const useClubData = (clubTypeDefinitions, reload) => {
 
     const publicTypeIndex = usePublicTypeIndex(reload);
@@ -53,7 +54,7 @@ const useClubData = (clubTypeDefinitions, reload) => {
                             clubShape,
                             clubTypes,
                             clubType);
-
+                            
                         setClubList({ list, doc });
                     }
                 }

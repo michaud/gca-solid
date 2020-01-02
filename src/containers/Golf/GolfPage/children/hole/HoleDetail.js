@@ -19,7 +19,7 @@ import displayStates from '@utils/displayStates';
 import HoleForm from './HoleForm';
 
 const HoleDetail = ({ hole, onSave, onDelete, target = 'hole' }) => {
-    console.log('hole: ', hole);
+
     const [displayState, setDisplayState] = useState(displayStates.detail);    
 
     const onSaveHandler = (hole) => {
@@ -41,14 +41,6 @@ const HoleDetail = ({ hole, onSave, onDelete, target = 'hole' }) => {
 
         onDelete(hole);
     };
-
-
-    if(!hole.iri) return <HoleForm
-        title={ `Create ${ target }` }
-        actionLabel={ `Save ${ target }` }
-        onSave={ onSaveHandler }
-        onCancel={ cancelEdit }
-        hole={ hole }/>;
 
     if(displayState === displayStates.edit) return <HoleForm
         title={ `Edit ${ target }` }

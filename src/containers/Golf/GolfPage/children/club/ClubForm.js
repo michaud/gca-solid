@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import {
     FlexContainer,
     FlexItem,
-    FlexItemRight,
+    FlexItemRight
 } from '@styles/layout.style';
 
 const checkCanSave = state => {
@@ -24,7 +24,7 @@ const checkCanSave = state => {
     });
 }
 
-const ClubForm = ({ club, clubTypes, clubType, onSave, onCancel, title ='Add club', actionLabel = 'add club' }) => {
+const ClubForm = ({ club, onSave, onCancel, clubTypes, clubType, title ='Add club', actionLabel = 'add club' }) => {
 
     const [clubState, setClubState] = useState(club);
     const { t } = useTranslation();
@@ -96,7 +96,8 @@ const ClubForm = ({ club, clubTypes, clubType, onSave, onCancel, title ='Add clu
                     key={ index }
                     label={ field.field.label }
                     value={ field.field.value }
-                    onChange={ onChangeClubField(field) }/>
+                    onChange={ onChangeClubField(field) }
+                    variant="outlined"/>
             }
 
             case golf.types.string : {
@@ -108,7 +109,9 @@ const ClubForm = ({ club, clubTypes, clubType, onSave, onCancel, title ='Add clu
                     size="normal"
                     margin="normal"
                     value={ field.field.value }
-                    onChange={ onChangeClubField(field) }/>
+                    onChange={ onChangeClubField(field) }
+                    variant="outlined"/>
+
             }
 
             case golf.classes.Club: {

@@ -1,4 +1,4 @@
-const setupDataObject = (objectShape) => {
+const setupDataObject = (objectShape, fieldValue) => {
 
     const obj = {
         "label": "",
@@ -10,14 +10,18 @@ const setupDataObject = (objectShape) => {
 
         const prefix = objectShape['@context'][field.prefix];
         const predicate = `${prefix}${field.predicate}`;
-    
+
+        const value = fieldValue && fieldValue.hasOwnProperty(field.predicate) ? fieldValue[field.predicate] : field.value;
+        const required = field.hasOwnProperty('required') ? field.required : true;
+
         obj.fields[field.predicate] = {
             fieldType: field.type,
             fieldName: field.predicate,
             iri: predicate,
+            required: required,
             field: {
                 label: field.label,
-                value: field.value
+                value
             }
         }
     });

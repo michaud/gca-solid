@@ -1,18 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import HoleForm from './HoleForm';
-import HoleList from './HoleList';
+import HoleTable from './HoleTable';
 
-const ManageHoles = ({ onSave, listTitle = 'Holes', holes = [] }) => {
+const ManageHoles = ({ onSave, onSaveEdit, listTitle = 'Holes', holes = [] }) => {
 
-    const onSaveHoleHandler = (hole) => {
+    const [holeNumber, setHoleNumber] = useState(holes.length + 1);
+    const [editHole, setEditHole] = useState();
 
+    useEffect(() => {
+        setHoleNumber(holes.length + 1);
+    }, [holes])
+
+    const onSaveHoleHandler = hole => {
+
+        setHoleNumber(state => state + 1);
         onSave(hole);
-    }
+    };
+
+    const onSaveEditHoleHandler = hole => {
+
+        onSaveEdit(hole);
+        setEditHole();
+    };
+
+    const editHoleHandler = idx => {
+
+        setEditHole(holes[idx]);
+    };
 
     return <>
-        <HoleForm onSave={ onSaveHoleHandler }/>
-        <HoleList holes={ holes } listTitle={ listTitle }/>
+        <HoleForm
+            hole={ editHole }
+            onSave={ onSaveHoleHandler }
+            onEdit={ onSaveEditHoleHandler }
+            holeNumber={ holeNumber }
+            actionLabel={ editHole ? 'save hole' : 'add hole' }/>
+        <HoleTable
+            holes={ holes }
+            onEditHole={ editHoleHandler }
+            listTitle={ listTitle }/>
     </>
 }
 

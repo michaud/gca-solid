@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-import styled from 'styled-components';
-
 import ModuleHeader from '@containers/Golf/GolfPage/children/ModuleHeader';
 import useCourses from '@hooks/useCourses';
 import { errorToaster } from '@utils/';
@@ -10,17 +8,7 @@ import { useTranslation } from 'react-i18next';
 import CourseList from '@containers/Golf/GolfPage/children/course/CourseList';
 import CourseForm from '@containers/Golf/GolfPage/children/course/CourseForm';
 import saveCourse from '@services/saveCourse';
-
-const PageContainer = styled.div`
-    margin: 0 2rem 2rem 2rem;
-    > * {
-        margin-bottom: 2rem;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
-`;
+import { PageContainer } from '@styles/page.style';
 
 const ManageCourses = ({ match, webId, history }) => {
 

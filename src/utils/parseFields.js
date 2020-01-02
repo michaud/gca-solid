@@ -19,7 +19,8 @@ const getHolesField = doc => (data, label, defaultValue) => {
 
         const holeIds = data.getAllRefs(golf.properties.courseHoles);
         const holeRefs = holeIds.map(id => doc.getSubject(id));
-        const holes = holeRefs.map(parseFields(holeShape, doc));
+        const holes = holeRefs.map(parseFields(holeShape, doc))
+            .sort((a,b) => a.fields.holeNumber.field.value - b.fields.holeNumber.field.value);
         value = holes;
     }
 

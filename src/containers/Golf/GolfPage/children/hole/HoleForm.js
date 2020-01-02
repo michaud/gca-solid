@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import holeShape from '@contexts/hole-shape.json';
 import setupDataObject from '@utils/setupDataObject';
@@ -17,16 +17,29 @@ import {
     FlexItemRight,
 } from '@styles/layout.style';
 
-const HoleForm = ({ hole: holeData, onSave, onCancel, title = 'Add hole', actionLabel = 'add hole' }) => {
+const HoleForm = ({
+    hole: holeData,
+    holeNumber,
+    onSave,
+    onEdit,
+    onCancel,
+    title = 'Add hole',
+    actionLabel = 'add hole'
+}) => {
 
     const [holeState, setHoleState] = useState();
+    const focusRef = useRef();
     const classes = formStyles();
     const { t } = useTranslation();
+    const holeFields = [];
 
     const saveHandler = () => {
 
-        onSave(holeState);
-        setHoleState(setupDataObject(holeShape));
+        if(holeData) {
+            onEdit(holeState);
+        } else {
+            onSave(holeState);
+        }            
     };
 
     const getFieldValue = (fieldDef, args) => {
@@ -34,20 +47,9 @@ const HoleForm = ({ hole: holeData, onSave, onCancel, title = 'Add hole', action
         const [data] = args;
 
         switch(fieldDef.fieldType) {
-
-            case golf.types.string: {
-                
-                return data.target.value;
-            }
-
-            case golf.types.nonNegativeInteger: {
-                
-                return data.target.value;
-            }
-
-            default: {
-                return '';
-            }
+            case golf.types.string: return data.target.value;
+            case golf.types.nonNegativeInteger: return data.target.value;
+            default: return '';
         }
     };
 
@@ -80,8 +82,11 @@ const HoleForm = ({ hole: holeData, onSave, onCancel, title = 'Add hole', action
     
             case golf.types.string : {
 
-                return <TextField key={ index }
-                    required
+                const required = !field.field.required ? false : true;
+
+                return <TextField
+                    key={ index }
+                    required={ required }
                     label={ field.field.label }
                     className={ classes.textField }
                     size="normal"
@@ -92,6 +97,21 @@ const HoleForm = ({ hole: holeData, onSave, onCancel, title = 'Add hole', action
 
             case golf.types.nonNegativeInteger : {
 
+                if(field.fieldName === 'holeStrokeIndex') {
+
+                    return <TextField
+                        key={ index }
+                        type="number"
+                        required
+                        label={ field.field.label }
+                        className={ classes.textFieldNumber }
+                        size="normal"
+                        inputRef={ focusRef }
+                        value={ field.field.value }
+                        onChange={ onChangeHoleField(field) }
+                        variant="outlined"/>
+                }
+                
                 return <TextField key={ index }
                     type="number"
                     required
@@ -112,23 +132,31 @@ const HoleForm = ({ hole: holeData, onSave, onCancel, title = 'Add hole', action
 
     useEffect(() => {
 
-        holeData ? setHoleState(holeData) : setHoleState(setupDataObject(holeShape));
+        holeData ? setHoleState(holeData) : setHoleState(setupDataObject(holeShape, {
+            holeNumber
+        }));
 
-    }, [holeData]);
+        if(focusRef && focusRef.current) {
 
-    const holeFields = [];
-    
-    let index = 0;
+            const { current } = focusRef;
+            current.focus();
+            current.select();
+        }
+
+    }, [holeData, holeNumber, focusRef.current]);
+
 
     if(holeState) {
-        
+
+        let index = 0;
+
         for (const field in holeState.fields) {
 
             const fieldControl = getFieldControl(holeState.fields[field], index++);
             holeFields.push(fieldControl);
         }
     }
-
+    
     const canSave = checkCanSave(holeState);
 
     return <div>
