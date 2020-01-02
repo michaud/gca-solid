@@ -61,19 +61,13 @@ const CourseForm = ({ onSave, course, title ='Add course', actionLabel = 'add co
             const holes = state.fields.courseHoles.field.value;
 
             const editHoleIndex = holes.findIndex(testHole => {
-                console.log('testHole: ', testHole);
-                console.log('hole: ', hole);
                 
                 return testHole.fields.holeNumber.field.value === hole.fields.holeNumber.field.value;
             });
             const startHoles = holes.slice(0, editHoleIndex);
-            console.log('editHoleIndex: ', editHoleIndex);
-            console.log('startHoles: ', startHoles);
             const endHoles = holes.slice(editHoleIndex + 1, holes.length);
-            console.log('endHoles: ', endHoles);
 
             const newHoles = startHoles.concat([hole]).concat(endHoles);
-            console.log('newHoles: ', newHoles);
             
             const newCourse = {
                 ...state,
