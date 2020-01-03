@@ -39,9 +39,9 @@ const CourseDetail = ({ course, onSave, onDelete }) => {
         setDisplayState(displayStates.detail);
     };
 
-    const onDeleteHandler = () => {
+    const onDeleteHandler = course => () => {
 
-        onDelete(/** */);
+        onDelete(course);
     };
 
     const editHoleHandler = index => {
@@ -118,7 +118,7 @@ const CourseDetail = ({ course, onSave, onDelete }) => {
                 </IconButton>
                 <IconButton
                     aria-label="delete"
-                    onClick={ onDeleteHandler }>
+                    onClick={ onDeleteHandler(course) }>
                     <DeleteIcon />
                 </IconButton>
             </FlexItemTools>

@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import CourseList from '@containers/Golf/GolfPage/children/course/CourseList';
 import CourseForm from '@containers/Golf/GolfPage/children/course/CourseForm';
 import saveCourse from '@services/saveCourse';
+import deleteCourse from '@services/deleteCourse';
 import { PageContainer } from '@styles/page.style';
 
 const ManageCourses = ({ match, webId, history }) => {
@@ -21,6 +22,12 @@ const ManageCourses = ({ match, webId, history }) => {
     const onSaveCourse = (course) => {
 
         saveCourse(course, courseData.doc);
+        setReload(true);
+    };
+
+    const onDeleteCourseHandler = (course) => {
+
+        deleteCourse(course, courseData.doc);
         setReload(true);
     };
 
@@ -64,7 +71,9 @@ const ManageCourses = ({ match, webId, history }) => {
             <ModuleHeader label="Courses" screenheader={ true }/>
             <PageContainer>
                 <CourseForm onSave={ onSaveCourse }/>
-                <CourseList courses={ courses }/>
+                <CourseList
+                    courses={ courses }
+                    onDelete={ onDeleteCourseHandler }/>
             </PageContainer>
         </>
     )

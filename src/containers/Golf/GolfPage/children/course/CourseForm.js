@@ -67,7 +67,7 @@ const CourseForm = ({ onSave, course, title ='Add course', actionLabel = 'add co
             const startHoles = holes.slice(0, editHoleIndex);
             const endHoles = holes.slice(editHoleIndex + 1, holes.length);
 
-            const newHoles = startHoles.concat([hole]).concat(endHoles);
+            const newHoles = [...startHoles, hole, ...endHoles];
             
             const newCourse = {
                 ...state,
