@@ -4,18 +4,16 @@ import Button from '@material-ui/core/Button';
 import formStyles from '@styles/form.style';
 
 import courseShape from '@contexts/course-shape.json';
-import golf from '@utils/golf-namespace';
-import TextField from '@material-ui/core/TextField';
-import ManageHoles from '@containers/Golf/GolfPage/children/hole/ManageHoles';
 import setupDataObject from '@utils/setupDataObject';
+import getFieldValue from '@utils/getFieldValue';
+import checkCanSave from '@utils/checkCanSave';
+import getFieldControl from '@utils/getFieldControl';
 
 import {
     FlexContainer,
     FlexItem,
     FlexItemRight,
 } from '@styles/layout.style';
-import getFieldValue from '@utils/getFieldValue';
-import checkCanSave from '@utils/checkCanSave';
 
 const CourseForm = ({
     course,
@@ -129,51 +127,6 @@ const CourseForm = ({
         setCourseState(data);
     };
 
-    const getFieldControl = (field, index) => {
-        
-        switch(field.fieldType) {
-    
-            case golf.types.string : {
-
-                return <TextField key={ index }
-                    required
-                    label={ field.field.label }
-                    className={ classes.textField }
-                    size="normal"
-                    value={ field.field.value }
-                    onChange={ onChangeCourseField(field) }
-                    variant="outlined"/>
-            }
-
-            case golf.types.nonNegativeInteger : {
-                
-                return <TextField key={ index }
-                    required
-                    type="number"
-                    label={ field.field.label }
-                    className={ classes.textField }
-                    size="normal"
-                    value={ field.field.value }
-                    onChange={ onChangeCourseField(field) }
-                    variant="outlined"/>
-            }
-
-            case golf.classes.Hole : {
-
-                return <ManageHoles
-                    onSave={ onAddHole }
-                    onSaveEdit={ onSaveHole }
-                    key={ index }
-                    holes={ field.field.value }/>
-            }
-
-            default: {
-            
-                return <div key={ index }>no field component defined</div>;
-            }
-        }
-    };
-
     const courseFields = [];
     
     let index = 0;
@@ -182,7 +135,14 @@ const CourseForm = ({
         
         for (const field in courseState.fields) {
 
-            const fieldControl = getFieldControl(courseState.fields[field], index++);
+            const fieldControl = getFieldControl({
+                field: courseState.fields[field],
+                onChange: onChangeCourseField,
+                onSave: onAddHole,
+                onSaveEdit: onSaveHole,
+                idx: index++
+            });
+
             courseFields.push(fieldControl);
         }
     }

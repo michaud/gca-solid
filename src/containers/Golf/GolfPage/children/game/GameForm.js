@@ -2,19 +2,17 @@ import React, { useState, useEffect } from 'react';
 
 import Button from '@material-ui/core/Button';
 import formStyles from '@styles/form.style';
-
 import gameShape from '@contexts/game-shape.json';
-import golf from '@utils/golf-namespace';
-import TextField from '@material-ui/core/TextField';
 import setupDataObject from '@utils/setupDataObject';
+import getFieldValue from '@utils/getFieldValue';
+import checkCanSave from '@utils/checkCanSave';
+import getFieldControl from '@utils/getFieldControl';
 
 import {
     FlexContainer,
     FlexItem,
     FlexItemRight,
 } from '@styles/layout.style';
-import getFieldValue from '@utils/getFieldValue';
-import checkCanSave from '@utils/checkCanSave';
 
 const GameForm = ({
     game,
@@ -128,44 +126,6 @@ const GameForm = ({
         setGameState(data);
     };
 
-    const getFieldControl = (field, index) => {
-        
-        // console.log('field.fieldType: ', field.fieldType);
-        // console.log('golf.types.string: ', golf.types.string);
-        switch(field.fieldType) {
-    
-            case golf.types.string : {
-
-                return <TextField key={ index }
-                    required
-                    label={ field.field.label }
-                    className={ classes.textField }
-                    size="normal"
-                    value={ field.field.value }
-                    onChange={ onChangeField(field) }
-                    variant="outlined"/>
-            }
-
-            case golf.types.nonNegativeInteger : {
-                
-                return <TextField key={ index }
-                    required
-                    type="number"
-                    label={ field.field.label }
-                    className={ classes.textField }
-                    size="normal"
-                    value={ field.field.value }
-                    onChange={ onChangeField(field) }
-                    variant="outlined"/>
-            }
-
-            default: {
-            
-                return <div key={ index }>no field component defined</div>;
-            }
-        }
-    };
-
     const gameFields = [];
     
     let index = 0;
@@ -174,7 +134,12 @@ const GameForm = ({
         
         for (const field in gameState.fields) {
 
-            const fieldControl = getFieldControl(gameState.fields[field], index++);
+            const fieldControl = getFieldControl({
+                field: gameState.fields[field],
+                styles: classes,
+                onChange: onChangeField,
+                idx: index++
+            });
             gameFields.push(fieldControl);
         }
     }
