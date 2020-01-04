@@ -137,6 +137,7 @@ const CourseForm = ({
 
             const fieldControl = getFieldControl({
                 field: courseState.fields[field],
+                styles: classes,
                 onChange: onChangeCourseField,
                 onSave: onAddHole,
                 onSaveEdit: onSaveHole,

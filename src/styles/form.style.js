@@ -3,7 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 const formStyles = makeStyles(theme => ({
     textField: {
         width: '100%',
-        marginBottom: '1.5rem',
+        '&.MuiFormControl-root': {
+            margin: '0 0 1.5rem 0'
+        },
         '& .MuiAutocomplete-input': {
             borderColor: 'transparent'
         },
@@ -26,7 +28,9 @@ const formStyles = makeStyles(theme => ({
     },
     plainTextField: {
         width: '100%',
-        marginBottom: '.5rem',
+        '&.MuiFormControl-root': {
+            margin: '0 0 1.5rem 0'
+        },
         '& .MuiAutocomplete-input': {
             borderColor: 'transparent'
         },
@@ -39,7 +43,6 @@ const formStyles = makeStyles(theme => ({
         '& .MuiInput-input:active': {
             borderColor: 'transparent'
         },
-
         '& .MuiInput-input:focus': {
             borderColor: 'transparent'
         },
@@ -48,9 +51,11 @@ const formStyles = makeStyles(theme => ({
         }
     },
     textFieldNumber: {
-        marginBottom: '1rem',
-        width: '22.7%',
-        marginRight:'3%',
+        '&.MuiFormControl-root': {
+            margin: '0 0 1.5rem 0',
+            width: '22.7%',
+            marginRight:'3%'
+        },
         '&:nth-child(5)': {
             marginRight: '-9%'
         }
