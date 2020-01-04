@@ -12,7 +12,9 @@ import { useNotification } from '@inrupt/solid-react-components';
 import { errorToaster } from '@utils/';
 import deleteMarker from '@services/deleteMarker';
 
-const ManageMarkers = ({ webId }) => {
+const ManageMarkers = ({
+    webId
+}) => {
 
     const [reload, setReload] = useState(false);
     const { notification } = useNotification(webId);

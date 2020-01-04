@@ -15,6 +15,7 @@ import {
     FlexItem,
     FlexItemRight
 } from '@styles/layout.style';
+import getFieldValue from '@utils/getFieldValue';
 
 const checkCanSave = state => {
     
@@ -24,7 +25,15 @@ const checkCanSave = state => {
     });
 }
 
-const ClubForm = ({ club, onSave, onCancel, clubTypes, clubType, title ='Add club', actionLabel = 'add club' }) => {
+const ClubForm = ({
+    club,
+    onSave,
+    onCancel,
+    clubTypes,
+    clubType,
+    title ='Add club',
+    actionLabel = 'add club'
+}) => {
 
     const [clubState, setClubState] = useState(club);
     const { t } = useTranslation();
@@ -36,35 +45,10 @@ const ClubForm = ({ club, onSave, onCancel, clubTypes, clubType, title ='Add clu
         setClubState(clubType);
     };
 
-    const getFieldValue = (fieldDef, args) => {
-
-        const [data] = args;
-
-        switch(fieldDef.fieldType) {
-
-            case golf.types.string: {
-                
-                return data.target.value;
-            }
-
-            case golf.classes.Club: {
-
-                const clubType = clubTypes.find(type => {
-                    return type.iri === data.iri;
-                });
-
-                return clubType;
-            }
-
-            default: {
-                return '';
-            }
-        }
-    };
-
     const onChangeClubField = fieldDef => (...args)  => {
 
-        const value = getFieldValue(fieldDef, args);
+        const value = getFieldValue(fieldDef, [...args, clubTypes]);
+        console.log('value: ', value);
 
         const fields = {
             ...clubState.fields,

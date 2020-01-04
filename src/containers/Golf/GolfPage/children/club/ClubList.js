@@ -1,7 +1,11 @@
 import React from 'react';
 import ClubDetail from './ClubDetail';
 
-const ClubList = ({ clubs = [], onSave, onDelete }) => {
+const ClubList = ({
+    clubs = [],
+    onSave,
+    onDelete
+}) => {
 
     return <div>
         <header className="c-header">Club List</header>

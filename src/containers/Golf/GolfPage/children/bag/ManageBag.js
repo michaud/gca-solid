@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { StylesProvider } from '@material-ui/core/styles';
 import { errorToaster } from '@utils';
 import { useNotification } from '@inrupt/solid-react-components';
-import useClubData from '@hooks/useClubData';
+import useClubs from '@hooks/useClubs';
 import useClubDefinitions from '@hooks/useClubDefinitions';
-import useBagClubData from '@hooks/useBagClubData';
+import useBagClubs from '@hooks/useBagClubs';
 import { useTranslation } from 'react-i18next';
 
 import addClub from '@services/addClub';
@@ -26,8 +26,8 @@ const ManageBag = ({ match, webId, history }) => {
     const { notification } = useNotification(webId);
     const [reload, setReload] = useState(false);
     const clubTypeDefinitions = useClubDefinitions();
-    const bagData = useBagClubData(clubTypeDefinitions, reload);
-    const clubData = useClubData(clubTypeDefinitions, reload);
+    const bagData = useBagClubs(clubTypeDefinitions, reload);
+    const clubData = useClubs(clubTypeDefinitions, reload);
     const [clubs, setClubs] = useState();
     const [bagClubs, setBagClubs] = useState();
     const { t } = useTranslation();

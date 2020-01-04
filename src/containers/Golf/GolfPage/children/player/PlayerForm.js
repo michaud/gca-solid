@@ -11,6 +11,7 @@ import {
     FlexItem,
     FlexItemRight,
 } from '@styles/layout.style';
+import getFieldValue from '@utils/getFieldValue';
 
 const checkCanSave = state => {
     
@@ -20,7 +21,13 @@ const checkCanSave = state => {
     });
 }
 
-const PlayerForm = ({ player, onSave, onCancel, title = 'Add player', actionLabel = 'Save player' }) => {
+const PlayerForm = ({
+    player,
+    onSave,
+    onCancel,
+    title = 'Add player',
+    actionLabel = 'Save player'
+}) => {
 
     const [playerState, setPlayerState] = useState(player);
     const classes = formStyles();
@@ -62,28 +69,6 @@ const PlayerForm = ({ player, onSave, onCancel, title = 'Add player', actionLabe
             default: {
             
                 return <div key={ index }>no field component defined</div>;
-            }
-        }
-    };
-
-    const getFieldValue = (fieldDef, args) => {
-
-        const [data] = args;
-
-        switch(fieldDef.fieldType) {
-
-            case golf.types.text: {
-                
-                return data.target.value;
-            }
-
-            case golf.types.integer : {
-
-                return data.target.value;
-            }
-
-            default: {
-                return '';
             }
         }
     };

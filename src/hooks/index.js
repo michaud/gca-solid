@@ -1,6 +1,6 @@
-import useBagClubData from './useBagClubData';
+import useBagClubs from './useBagClubs';
 import useClubDefinitions from './useClubDefinitions';
-import useClubData from './useClubData';
+import useClubs from './useClubs';
 import useCourses from './useCourses';
 import useMarkers from './useMarkers';
 import useOnClickOutside from './useOnClickOutside';
@@ -8,9 +8,9 @@ import usePlayer from './usePlayer';
 import usePublicTypeIndex from './usePublicTypeIndex';
 
 export {
-    useBagClubData,
+    useBagClubs,
     useClubDefinitions,
-    useClubData,
+    useClubs,
     useCourses,
     useMarkers,
     useOnClickOutside,

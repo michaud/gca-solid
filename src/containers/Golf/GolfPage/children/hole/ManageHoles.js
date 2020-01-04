@@ -3,7 +3,12 @@ import React, { useState, useEffect } from 'react';
 import HoleForm from './HoleForm';
 import HoleTable from './HoleTable';
 
-const ManageHoles = ({ onSave, onSaveEdit, listTitle = 'Holes', holes = [] }) => {
+const ManageHoles = ({
+    holes = [],
+    onSave,
+    onSaveEdit,
+    listTitle = 'Holes'
+}) => {
 
     const [holeNumber, setHoleNumber] = useState(holes.length + 1);
     const [editHole, setEditHole] = useState();

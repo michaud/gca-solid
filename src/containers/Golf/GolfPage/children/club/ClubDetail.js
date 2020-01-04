@@ -65,7 +65,11 @@ const getFieldData = (field, club, clubType, clubTypes) => {
     return { value, label };
 };
 
-const ClubDetail = ({ club, onSave, onDelete }) => {
+const ClubDetail = ({
+    club,
+    onSave,
+    onDelete
+}) => {
 
     const [displayState, setDisplayState] = useState(displayStates.detail);
 

@@ -13,7 +13,7 @@ const setupBag = (document) => {
     return document;
 };
 
-const useBagClubData = (clubTypeDefinitions, reload) => {
+const useBagClubs = (clubTypeDefinitions, reload) => {
 
     const publicTypeIndex = usePublicTypeIndex();
     const [clubList, setClubList] = useState({ list: [], doc: undefined });
@@ -66,4 +66,4 @@ const useBagClubData = (clubTypeDefinitions, reload) => {
     return clubList;
 };
 
-export default useBagClubData;
+export default useBagClubs;

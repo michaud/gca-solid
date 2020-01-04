@@ -9,7 +9,8 @@ const golf = {
         Marker: `${ namespace }Marker`,
         Bag: `${ namespace }Bag`,
         Course: `${ namespace }Course`,
-        Hole: `${ namespace }Hole`
+        Hole: `${ namespace }Hole`,
+        Game: `${ namespace }Game`
     },
     properties: {
         clubType: `${ namespace }clubType`,
@@ -20,12 +21,14 @@ const golf = {
         clubs: `${ namespace }clubs`,
         clubsH: `${ namespaceHashed }clubs`,
         courseHoles: `${ namespace }courseHoles`,
+
     },
     types: {
         string: 'http://www.w3.org/2001/XMLSchema#string',
         nonNegativeInteger: 'http://www.w3.org/2001/XMLSchema#nonNegativeInteger',
         text: 'https://schema.org/Text',
-        integer: 'http://www.w3.org/2001/XMLSchema#integer'
+        integer: 'http://www.w3.org/2001/XMLSchema#integer',
+        dateTime: 'http://www.w3.org/2001/XMLSchema#DateTime',
     }
 };
 

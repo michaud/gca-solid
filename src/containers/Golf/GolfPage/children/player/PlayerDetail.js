@@ -21,7 +21,12 @@ import {
 import PlayerForm from './PlayerForm';
 import getFieldDisplayData from '@utils/getFieldDisplayData';
 
-const PlayerDetail = ({ player, onSave, onDelete, target = 'player' }) => {
+const PlayerDetail = ({
+    player,
+    onSave,
+    onDelete,
+    target = 'player'
+}) => {
 
     const [displayState, setDisplayState] = useState(displayStates.detail);
     //const { t } = useTranslation();

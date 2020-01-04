@@ -1,7 +1,12 @@
 import React from 'react';
 import HoleDetail from './HoleDetail';
 
-const HoleList = ({ holes, onSave, onDelete, listTitle}) => {
+const HoleList = ({
+    holes,
+    onSave,
+    onDelete,
+    listTitle
+}) => {
 
     return <>
     <header className="c-header--sec">{ listTitle }</header>

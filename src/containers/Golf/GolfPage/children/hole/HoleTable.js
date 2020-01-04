@@ -1,6 +1,9 @@
 import React from 'react';
 
-const HoleTable = ({ holes, onEditHole }) => {
+const HoleTable = ({
+    holes,
+    onEditHole
+}) => {
 
     const editHoleHandler = index => () => onEditHole && onEditHole(index);
 

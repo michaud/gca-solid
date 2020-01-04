@@ -6,7 +6,11 @@ import ClubTypeContext from '@utils/clubTypeContext';
 import AutoComplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 
-const ClubTypeSelector = ({ label, value, onChange }) => {
+const ClubTypeSelector = ({
+    label,
+    value,
+    onChange
+}) => {
 
     const classes = formStyles();
 

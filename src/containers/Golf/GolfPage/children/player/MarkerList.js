@@ -1,7 +1,11 @@
 import React from 'react';
 import PlayerDetail from './PlayerDetail';
 
-const MarkerList = ({ markers, onDelete, onSaveMarker }) => {
+const MarkerList = ({
+    markers,
+    onDelete,
+    onSaveMarker
+}) => {
 
     return markers.map((marker, idx) => {
 

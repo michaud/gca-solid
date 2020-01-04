@@ -11,7 +11,11 @@ import saveCourse from '@services/saveCourse';
 import deleteCourse from '@services/deleteCourse';
 import { PageContainer } from '@styles/page.style';
 
-const ManageCourses = ({ match, webId, history }) => {
+const ManageCourses = ({
+    match,
+    webId,
+    history
+}) => {
 
     const [reload, setReload] = useState(false);
     const { notification } = useNotification(webId);

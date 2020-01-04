@@ -18,7 +18,12 @@ import {
 import displayStates from '@utils/displayStates';
 import HoleForm from './HoleForm';
 
-const HoleDetail = ({ hole, onSave, onDelete, target = 'hole' }) => {
+const HoleDetail = ({
+    hole,
+    onSave,
+    onDelete,
+    target = 'hole'
+}) => {
 
     const [displayState, setDisplayState] = useState(displayStates.detail);    
 

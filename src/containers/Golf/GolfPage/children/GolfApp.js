@@ -6,6 +6,7 @@ import ManageBag from '@containers/Golf/GolfPage/children/bag/ManageBag';
 import SplashScreen from './SplashScreen';
 import ManageCourses from '@containers/Golf/GolfPage/children/course/ManageCourses';
 import ManagePlayers from '@containers/Golf/GolfPage/children/player/ManagePlayers';
+import ManageGames from './game/ManageGames';
 
 // import EditBagComponent from 'components/bag/EditBagComponent';
 // import AddCourseComponent from 'components/course/AddCourseComponent';
@@ -36,9 +37,11 @@ const GolfApp = ({ webId }) => {
                             render={ (routerProps) => <ManagePlayers
                                 { ...routerProps }
                                 webId={ webId }/> }/>
-                        {/* <Route path="/golf/settings/game/new" render={ () => <NewGameContainer/> }/>
-
-                            <Route path="/golf/settings/games" render={ () => <GameListContainer/> }/> */}
+                        <Route path="/golf/settings/games"
+                            render={ (routerProps) => <ManageGames
+                                { ...routerProps }
+                                webId={ webId }/> }/>
+                        {/* <Route path="/golf/settings/game/new" render={ () => <NewGameContainer/> }/> */}
                     </Switch>
                 )
             }} />

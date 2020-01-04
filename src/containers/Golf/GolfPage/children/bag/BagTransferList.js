@@ -60,7 +60,13 @@ function intersection(a, b) {
     return a.filter(value => b.indexOf(value) !== -1);
 }
 
-const BagTransferList = ({ clubs, bag, onRemoveFromBag, onAddToBag, clubTypes }) => {
+const BagTransferList = ({
+    clubs,
+    bag,
+    onRemoveFromBag,
+    onAddToBag,
+    clubTypes
+}) => {
 
     const [checked, setChecked] = useState([]);
     const [left, setLeft] = useState([]);

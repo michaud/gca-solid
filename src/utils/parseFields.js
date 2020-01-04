@@ -30,6 +30,22 @@ const getHolesField = doc => (data, label, defaultValue) => {
     }) ;
 }
 
+const getBagField = doc => (data, label, defaultValue) => {
+
+};
+
+const getPlayerField = doc => (data, label, defaultValue) => {
+
+};
+
+const getMarkerField = doc => (data, label, defaultValue) => {
+
+};
+
+const getCourseField = doc => (data, label, defaultValue) => {
+
+};
+
 const getClubField = predicate => (data, fieldPredicate, clubTypes, clubType) => {
 
     const label = clubType.fields[fieldPredicate].field.label;
@@ -49,8 +65,13 @@ const getFieldTypeData = {
     [golf.types.nonNegativeInteger]: getSimpleLiteral,
     [golf.types.text]: getSimpleLiteral,
     [golf.types.integer]: getSimpleLiteral,
+    [golf.types.dateTime]: getSimpleLiteral,
     [golf.classes.Hole]: getHolesField,
-    [golf.classes.Club]: getClubField
+    [golf.classes.Club]: getClubField,
+    [golf.classes.Bag]: getBagField,
+    [golf.classes.Player]: getPlayerField,
+    [golf.classes.Marker]: getMarkerField,
+    [golf.classes.Course]: getCourseField
 }
 
 const getFieldData = (shape, doc, data, ...rest) => field => {

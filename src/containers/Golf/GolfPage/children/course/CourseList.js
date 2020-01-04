@@ -1,7 +1,11 @@
 import React from 'react';
 import CourseDetail from './CourseDetail';
 
-const CourseList = ({ courses, onDelete, saveCourse }) => {
+const CourseList = ({
+    courses,
+    onDelete,
+    saveCourse
+}) => {
 
     const onSaveCourse = (course) => {
 

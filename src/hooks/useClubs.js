@@ -7,7 +7,7 @@ import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import getListFromDoc from '@services/getListFromDoc';
 import clubShape from '@contexts/club-shape.json';
 
-const useClubData = (clubTypeDefinitions, reload) => {
+const useClubs = (clubTypeDefinitions, reload) => {
 
     const publicTypeIndex = usePublicTypeIndex(reload);
     const [clubList, setClubList] = useState({ list: [], doc: undefined });
@@ -65,4 +65,4 @@ const useClubData = (clubTypeDefinitions, reload) => {
     return clubList;
 };
 
-export default useClubData;
+export default useClubs;

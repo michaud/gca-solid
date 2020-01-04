@@ -14,12 +14,19 @@ import {
     FlexItem,
     FlexItemRight,
 } from '@styles/layout.style';
+import getFieldValue from '@utils/getFieldValue';
 
 const checkCanSave = state => state && Object
     .entries(state.fields)
     .every(entry => entry[1].field.value !== '');
 
-const CourseForm = ({ onSave, course, title ='Add course', actionLabel = 'add course', onCancel }) => {
+const CourseForm = ({
+    course,
+    onSave,
+    onCancel,
+    title ='Add course',
+    actionLabel = 'add course'
+}) => {
 
     const [courseState, setCourseState] = useState(course);
 
@@ -101,28 +108,6 @@ const CourseForm = ({ onSave, course, title ='Add course', actionLabel = 'add co
         }
 
     }, [course]);
-
-    const getFieldValue = (fieldDef, args) => {
-
-        const [data] = args;
-
-        switch(fieldDef.fieldType) {
-
-            case golf.types.string: {
-                
-                return data.target.value;
-            }
-
-            case golf.types.nonNegativeInteger : {
-
-                return data.target.value;
-            }
-
-            default: {
-                return '';
-            }
-        }
-    };
 
     const onChangeCourseField = fieldDef => (...args)  => {
 

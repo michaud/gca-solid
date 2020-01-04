@@ -9,7 +9,11 @@ import { errorToaster } from '@utils/';
 import { PageContainer } from '@styles/page.style';
 import savePlayer from '@services/savePlayer';
 
-const ManagePlayers = ({ match, webId, history }) => {
+const ManagePlayers = ({
+    match,
+    webId,
+    history
+}) => {
 
     const { notification } = useNotification(webId);
     const [player, setPlayer] = useState();

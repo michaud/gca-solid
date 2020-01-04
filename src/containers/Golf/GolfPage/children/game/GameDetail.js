@@ -16,11 +16,11 @@ import {
 } from '@styles/layout.style';
 
 import displayStates from '@utils/displayStates';
-import CourseForm from './CourseForm';
+import GameForm from './GameForm';
 import HoleTable from '../hole/HoleTable';
 
-const CourseDetail = ({
-    course,
+const GameDetail = ({
+    game,
     onSave,
     onDelete
 }) => {
@@ -37,15 +37,15 @@ const CourseDetail = ({
         setDisplayState(displayStates.detail);
     };
 
-    const onSaveHandler = course => {
+    const onSaveHandler = game => {
 
-        onSave(course);
+        onSave(game);
         setDisplayState(displayStates.detail);
     };
 
-    const onDeleteHandler = course => () => {
+    const onDeleteHandler = game => () => {
 
-        onDelete(course);
+        onDelete(game);
     };
 
     const editHoleHandler = index => {
@@ -87,26 +87,26 @@ const CourseDetail = ({
         }
     };
 
-    if(!course.iri) return <CourseForm
-        title={ `Create Course` }
-        actionLabel={ `Save Course` }
+    if(!game.iri) return <GameForm
+        title={ `Create game` }
+        actionLabel={ `Save game` }
         onSave={ onSaveHandler }
         onCancel={ cancelEdit }
-        course={ course }/>;
+        game={ game }/>;
 
-    if(displayState === displayStates.edit) return <CourseForm
-        title={ `Edit Course` }
-        actionLabel={ `Save Course` }
+    if(displayState === displayStates.edit) return <GameForm
+        title={ `Edit game` }
+        actionLabel={ `Save game` }
         onSave={ onSaveHandler }
         onCancel={ cancelEdit }
-        course={ course }/>;
+        game={ game }/>;
 
     const displayFields = [];
 
     let count = 0;
-    for(const field in course.fields) {
+    for(const field in game.fields) {
         
-        displayFields.push(getDisplayField(course.fields[field], count++));
+        displayFields.push(getDisplayField(game.fields[field], count++));
     }
 
     return <FieldContainer>
@@ -122,7 +122,7 @@ const CourseDetail = ({
                 </IconButton>
                 <IconButton
                     aria-label="delete"
-                    onClick={ onDeleteHandler(course) }>
+                    onClick={ onDeleteHandler(game) }>
                     <DeleteIcon />
                 </IconButton>
             </FlexItemTools>
@@ -130,4 +130,4 @@ const CourseDetail = ({
     </FieldContainer>;
 }
 
-export default CourseDetail;
+export default GameDetail;

@@ -16,6 +16,7 @@ import {
     FlexItem,
     FlexItemRight,
 } from '@styles/layout.style';
+import getFieldValue from '@utils/getFieldValue';
 
 const HoleForm = ({
     hole: holeData,
@@ -40,17 +41,6 @@ const HoleForm = ({
         } else {
             onSave(holeState);
         }            
-    };
-
-    const getFieldValue = (fieldDef, args) => {
-
-        const [data] = args;
-
-        switch(fieldDef.fieldType) {
-            case golf.types.string: return data.target.value;
-            case golf.types.nonNegativeInteger: return data.target.value;
-            default: return '';
-        }
     };
 
     const onChangeHoleField = fieldDef => (...args)  => {
