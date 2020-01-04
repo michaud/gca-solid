@@ -16,14 +16,7 @@ import {
     FlexItemRight
 } from '@styles/layout.style';
 import getFieldValue from '@utils/getFieldValue';
-
-const checkCanSave = state => {
-    
-    return state && Object.entries(state.fields).every(entry => {
-        
-        return entry[1].field.value !== '';
-    });
-}
+import checkCanSave from '@utils/checkCanSave';
 
 const ClubForm = ({
     club,
@@ -48,7 +41,6 @@ const ClubForm = ({
     const onChangeClubField = fieldDef => (...args)  => {
 
         const value = getFieldValue(fieldDef, [...args, clubTypes]);
-        console.log('value: ', value);
 
         const fields = {
             ...clubState.fields,

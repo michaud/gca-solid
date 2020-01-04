@@ -14,10 +14,7 @@ import {
     FlexItemRight,
 } from '@styles/layout.style';
 import getFieldValue from '@utils/getFieldValue';
-
-const checkCanSave = state => state && Object
-    .entries(state.fields)
-    .every(entry => entry[1].field.value !== '');
+import checkCanSave from '@utils/checkCanSave';
 
 const GameForm = ({
     game,
