@@ -15,7 +15,7 @@ const getFieldControl = ({
     idx
 }) => {
 
-    const required = !field.field.required ? false : true;
+    const required = field.hasOwnProperty('required') ? field.required : true;
 
     switch(field.fieldType) {
 
@@ -26,7 +26,6 @@ const getFieldControl = ({
                 label={ field.field.label }
                 className={ styles.textField }
                 size="normal"
-                margin="normal"
                 value={ field.field.value }
                 onChange={ onChange(field) }
                 variant="outlined"/>
@@ -59,7 +58,6 @@ const getFieldControl = ({
 
         case golf.types.nonNegativeInteger : {
 
-            
             if(field.fieldName === 'holeStrokeIndex') {
 
                 return <TextField
@@ -79,7 +77,7 @@ const getFieldControl = ({
                 required={ required }
                 type="number"
                 label={ field.field.label }
-                className={ styles.textField }
+                className={ styles.textFieldNumber }
                 size="normal"
                 value={ field.field.value }
                 onChange={ onChange(field) }
