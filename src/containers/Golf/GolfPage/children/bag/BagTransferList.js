@@ -120,7 +120,8 @@ const BagTransferList = ({
     const customList = items => (
         <Paper className={ classes.paper }>
             <List dense component="div" className={ classes.list } role="list">
-                {items.map((item, index) => {
+            {
+                items.map((item, index) => {
 
                     const clubType = item.fields.clubType.field.value;
                     const brand = item.fields.clubBrand.field.value;
@@ -146,7 +147,8 @@ const BagTransferList = ({
                                 secondary={ `${ brand } ${ name }` } />
                         </ListItem>
                     );
-                })}
+                })
+                }
                 <ListItem className={ classes.listItem }/>
             </List>
         </Paper>

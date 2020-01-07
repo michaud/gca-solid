@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 import { useNotification } from '@inrupt/solid-react-components';
 import { useTranslation } from 'react-i18next';
-
-import ModuleHeader from '../ModuleHeader';
-import { PageContainer } from '@styles/page.style';
-import { errorToaster } from '@utils/';
 import useGames from '@hooks/useGames';
+import ModuleHeader from '../ModuleHeader';
+import { errorToaster } from '@utils/';
+import { PageContainer } from '@styles/page.style';
 import GameForm from '@containers/Golf/GolfPage/children/game/GameForm';
 import GameList from '@containers/Golf/GolfPage/children/game/GameList';
 
@@ -42,7 +41,6 @@ const ManageGames = ({
 
                 const gameList = gameData.list;
                 setGames(gameList);
-                setReload(false);
             }
 
         } catch (e) {
@@ -67,16 +65,18 @@ const ManageGames = ({
             init();
         }
 
-    }, [webId, reload, notification.notify]);
+    }, [webId, gameData, notification.notify]);
 
     return (
         <>
             <ModuleHeader label="Games" screenheader={ true }/>
             <PageContainer>
                 <GameForm onSave={ onSaveGame }/>
-                <GameList
-                    games={ games }
-                    onDelete={ onDeleteGameHandler }/>
+                {
+                    games.length > 0 && <GameList
+                        games={ games }
+                        onDelete={ onDeleteGameHandler }/>
+                }
             </PageContainer>
         </>
     );
