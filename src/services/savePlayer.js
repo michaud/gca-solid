@@ -14,7 +14,7 @@ const savePlayer = async (player, doc) => {
     
     playerShape.shape.forEach(field => {
 
-        fieldAction(field, playerShape, player, playerRef);
+        fieldAction(field, playerShape, player.fields[field.predicate], playerRef);
     });
 
     return await doc.save();
