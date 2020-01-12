@@ -55,7 +55,7 @@ export const createDocumentWithTurtle = async (documentUri, body = '') => {
 };
 
 export const createNonExistentDocument = async (documentUri, body = '') => {
-  console.log('documentUri: ', documentUri);
+
   try {
     const result = await documentExists(documentUri);
 

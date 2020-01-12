@@ -1,8 +1,8 @@
 const setupDataObject = (objectShape, fieldValue) => {
 
     const obj = {
-        "label": "",
-        "iri": "",
+        label: "",
+        iri: "",
         fields: {}
     };
 

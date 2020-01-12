@@ -3,7 +3,7 @@ import { FlexContainer, FlexItem, FlexItemRight } from '@styles/layout.style';
 import Button from '@material-ui/core/Button';
 import formStyles from '@styles/form.style';
 
-const BagDetail = bag => {
+const BagDetail = ({ bag }) => {
 
     const classes = formStyles();
 
@@ -23,7 +23,7 @@ const BagDetail = bag => {
             <header className="c-header--sec">Bag</header>
             <div className="c-box">
             {
-                bag.bag && bag.bag.reduce((acc, club, idx) => {
+                bag && bag.clubs.reduce((acc, club, idx) => {
 
                     const text = `${ acc }, ${ club.fields.clubName.field.value } ${ club.fields.clubType.field.value.label }`;
                     return text

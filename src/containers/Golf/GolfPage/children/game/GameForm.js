@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import formStyles from '@styles/form.style';
 import gameShape from '@contexts/game-shape.json';
+import playingHandicapShape from '@contexts/playing-handicap-shape.json';
 import setupDataObject from '@utils/setupDataObject';
 import getFieldValue from '@utils/getFieldValue';
 import checkCanSave from '@utils/checkCanSave';
@@ -34,7 +35,9 @@ const putClubsInBag = (clubs, bag) => {
 
     }, []);
 
-    return filledBag;
+    return {
+        clubs: filledBag
+    };
 };
 
 const GameForm = ({
@@ -47,11 +50,11 @@ const GameForm = ({
 
     const clubTypeDefinitions = useClubDefinitions();
     const [reload, setReload] = useState(false);
+    const playerData = usePlayer(reload);
     const bagData = useBagClubs(reload);
     const clubData = useClubs(clubTypeDefinitions, reload);
     const courseData = useCourses(reload);
     const markerData = useMarkers(reload);
-    const playerData = usePlayer(reload);
     const [gameState, setGameState] = useState(game);
 
     const saveGamePlayer = doc => player => {
@@ -81,7 +84,12 @@ const GameForm = ({
     };
 
     useEffect(() => {
-
+        // console.log('bagData: ', bagData);
+        // console.log('clubData: ', clubData);
+        // console.log('courseData: ', courseData);
+        // console.log('markerData: ', markerData);
+        // console.log('playerData: ', playerData);
+        // console.log('--------------: ');
         if(game) {
             
             setGameState(game);
@@ -94,12 +102,11 @@ const GameForm = ({
             playerData['doc'] !== undefined
         ) {
 
-            const filledBag = putClubsInBag(clubData.list, bagData.list);
+            const gameBag = putClubsInBag(clubData.list, bagData.list);
             const newGame = setupDataObject(gameShape, {
-                gameBag: filledBag,
+                gameBag,
                 gamePlayer: playerData.player,
-                gameCourse: courseData.list,
-                gameMarker: markerData.list
+                gamePlayingHandicap: setupDataObject(playingHandicapShape)
             });
 
             setGameState(newGame);
@@ -136,13 +143,13 @@ const GameForm = ({
     let index = 0;
 
     if(gameState) {
-        
-        for (const field in gameState.fields) {
 
-            const doc = {
-                gamePlayer: playerData.doc,
-                gameMarker: markerData.doc
-            };
+        const doc = {
+            gamePlayer: playerData.doc,
+            gameMarker: markerData.doc
+        };
+
+        for (const field in gameState.fields) {
 
             const callback = saveGamePlayerCallbacks[field];
 
@@ -151,7 +158,12 @@ const GameForm = ({
                 styles: classes,
                 onChange: onChangeField,
                 onSave: callback ? callback(doc[field]) : undefined,
-                idx: index++
+                idx: index++,
+                data: {
+                    markers: markerData.list,
+                    courses: courseData.list,
+                    player: playerData.player
+                }
             });
 
             gameFields.push(fieldControl);

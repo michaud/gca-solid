@@ -28,13 +28,6 @@
         },
         {
             "prefix": "golf",
-            "predicate": "playingHandicap",
-            "type": "http://www.w3.org/2001/XMLSchema#integer",
-            "label": "Playing handicap",
-            "value": 0
-        },
-        {
-            "prefix": "golf",
             "predicate": "handicap",
             "type": "http://www.w3.org/2001/XMLSchema#integer",
             "label": "handicap",

@@ -71,6 +71,29 @@ const formStyles = makeStyles(theme => ({
                 color: 'rgba(0,0,0,.5)'
             }
         }
+    },
+    selectorList: {
+        height: '5rem',
+        flexGrow: 1,
+
+        minHeight: '10rem',
+        '&.MuiList-padding': {
+            paddingTop: 0,
+            paddingBottom: 0
+        },
+        '&.MuiList-root': {
+            marginBottom: '1rem'
+        }
+    },
+    listItem: {
+        paddingLeft: '.5rem',
+        paddingRight: '.5rem'
+    },
+    listItemIcon: {
+        minWidth: '2.5rem'
+    },
+    listItemText: {
+        margin: '.125rem 0'
     }
 }));
 

@@ -1,15 +1,16 @@
 import React from 'react';
 
 import Button from '@material-ui/core/Button';
-import MarkerSelector from './MarkerSelector';
+import CourseSelector from './CourseSelector';
 
 import formStyles from '@styles/form.style';
 
-const SelectMarker = ({ markers = [], onSave, onChange }) => {
+
+const SelectCourse = ({ courses, onChange }) => {
 
     const classes = formStyles();
 
-    const hasMarkers = markers.length > 0;
+    const hasCourses = courses.length > 0;
 
     const saveHandler = () => {
 
@@ -17,21 +18,21 @@ const SelectMarker = ({ markers = [], onSave, onChange }) => {
 
     const fields = [];
 
-    if(hasMarkers) {
+    if(hasCourses) {
 
-        fields.push(<MarkerSelector
+        fields.push(<CourseSelector
             key={ 0 }
-            markers={ markers }
-            onSelect={ onChange }/>)
+            courses={ courses }
+            onChange={ onChange }/>);
     }
 
     fields.push(<Button key={ fields.length }
         variant="contained"
         onClick={ saveHandler }
         className={ classes.button }
-        color="primary">Add Marker</Button>)
+        color="primary">Add Course</Button>)
 
     return <div className="c-box">{ fields }</div>;
 };
 
-export default SelectMarker;
+export default SelectCourse;

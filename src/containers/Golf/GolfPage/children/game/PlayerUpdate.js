@@ -16,9 +16,8 @@ const checkFieldsChanged = (player, state) => {
 
     const hasData = player !== undefined && state !== undefined;
     const handicapChanged = player.fields.handicap.field.value !== state.fields.handicap.field.value;
-    const playingHandicapChanged = player.fields.playingHandicap.field.value !== state.fields.playingHandicap.field.value;
 
-    return hasData && (handicapChanged || playingHandicapChanged)
+    return hasData && handicapChanged;
 };
 
 const PlayerUpdate = ({
@@ -51,25 +50,6 @@ const PlayerUpdate = ({
         }));
     };
 
-    const onChangePlayingHandicap = player => (event) => {
-
-        const value = parseInt(event.target.value);
-
-        setPlayerState( state => ({
-            ...state,
-            fields: {
-                ...state.fields,
-                playingHandicap: {
-                    ...state.fields.playingHandicap,
-                    field: {
-                        ...state.fields.playingHandicap.field,
-                        value
-                    }
-                }
-            }
-        }));
-    };
-
     const onCancel = () => {
 
     };
@@ -88,13 +68,6 @@ const PlayerUpdate = ({
         idx: 0
     });
     
-    const playingHandicapField = getFieldControl({
-        field: playerState.fields.playingHandicap,
-        styles: classes,
-        onChange: onChangePlayingHandicap,
-        idx: 1
-    });
-
     return (
         <>
             <header className="c-header--sec">{ title }</header>
@@ -107,7 +80,6 @@ const PlayerUpdate = ({
                 </FlexItemData>
             </FlexContainer>
             { handicapField }
-            { playingHandicapField }
             <FlexContainer>
                 <FlexItem>
                     <Button

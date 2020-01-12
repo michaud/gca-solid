@@ -14,23 +14,16 @@
     "shape": [
         {
             "prefix": "golf",
-            "predicate": "givenName",
-            "type": "https://schema.org/Text",
-            "label": "Given name",
-            "value": ""
-        },
-        {
-            "prefix": "golf",
-            "predicate": "familyName",
-            "type": "https://schema.org/Text",
-            "label": "Last name",
-            "value": ""
-        },
-        {
-            "prefix": "golf",
-            "predicate": "handicap",
+            "predicate": "playerPlayingHandicap",
             "type": "http://www.w3.org/2001/XMLSchema#integer",
-            "label": "handicap",
+            "label": "Player",
+            "value": 0
+        },
+        {
+            "prefix": "golf",
+            "predicate": "markerPlayingHandicap",
+            "type": "http://www.w3.org/2001/XMLSchema#integer",
+            "label": "Marker",
             "value": 0
         }
     ]

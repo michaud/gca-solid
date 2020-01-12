@@ -1,9 +1,7 @@
 import clubShape from '@contexts/club-shape.json';
 import golf from '@utils/golf-namespace';
 
-const saveClub = async (club, doc) => {
-
-    const clubData = doc.getSubject(club.iri);
+export const setClubFields = (club, doc) => {
 
     clubShape.shape.forEach(field => {
 
@@ -14,23 +12,37 @@ const saveClub = async (club, doc) => {
 
             case golf.types.string: {
 
-                clubData.setLiteral(predicate, club.fields[field.predicate].field.value);
+                doc.setLiteral(predicate, club.fields[field.predicate].field.value);
 
                 break;
             }
 
             case golf.classes.Club: {
 
-                clubData.setRef(predicate, club.fields[field.predicate].field.value.iri);
+                doc.setRef(predicate, club.fields[field.predicate].field.value.iri);
                 
                 break;
             }
     
+            case golf.classes.Owner: {
+
+                doc.setRef(predicate, club.fields[field.predicate].field.value.iri);
+                
+                break;
+            }
+
             default: {
-                console.error('wrong field')
+                console.error('unhandled field', field.predicate)
             }
         }
     });
+};
+
+const saveClub = async (club, doc) => {
+
+    const clubDoc = doc.getSubject(club.iri);
+
+    setClubFields(club, clubDoc);
 
     await doc.save();
 };

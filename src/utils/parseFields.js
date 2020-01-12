@@ -1,5 +1,9 @@
 import golf from '@utils/golf-namespace';
 import holeShape from '@contexts/hole-shape.json';
+import courseShape from '@contexts/course-shape.json';
+import markerShape from '@contexts/marker-shape.json';
+import playerShape from '@contexts/player-shape.json';
+import clubShape from '@contexts/club-shape.json';
 
 const getSimpleLiteral = predicate =>  (data, label, defaultValue) => {
     
@@ -32,18 +36,58 @@ const getHolesField = doc => (data, label, defaultValue) => {
 
 const getBagField = doc => (data, label, defaultValue) => {
 
+    const bagIds = data.getAllRefs(golf.properties.gameBag);
+    const clubs = bagIds.map(club => parseFields(clubShape, doc,)(club));
+
+    return ({
+        label,
+        value: clubs
+    });
 };
 
 const getPlayerField = doc => (data, label, defaultValue) => {
 
+    let value = defaultValue;
+
+    const playerIds = data.getAllRefs(golf.properties.gamePlayer);
+    const playerRef = doc.getSubject(playerIds[0]);
+
+    value = parseFields(playerShape, doc)(playerRef);
+
+    return ({
+        label,
+        value
+    });
 };
 
 const getMarkerField = doc => (data, label, defaultValue) => {
 
+    let value = defaultValue;
+
+    const markerIds = data.getAllRefs(golf.properties.gameMarker);
+    const markerRef = doc.getSubject(markerIds[0]);
+
+    value = parseFields(markerShape, doc)(markerRef);
+
+    return ({
+        label,
+        value
+    });
 };
 
 const getCourseField = doc => (data, label, defaultValue) => {
 
+    let value = defaultValue;
+
+    const courseIds = data.getAllRefs(golf.properties.gameCourse);
+    const courseRef = doc.getSubject(courseIds[0]);
+
+    value = parseFields(courseShape, doc)(courseRef);
+
+    return ({
+        label,
+        value
+    });
 };
 
 const getClubField = predicate => (data, fieldPredicate, clubTypes, clubType) => {
@@ -60,6 +104,31 @@ const getClubField = predicate => (data, fieldPredicate, clubTypes, clubType) =>
     });
 };
 
+const getOwnerField = doc => (data, label, defaultValue) => {
+
+    let value = defaultValue;
+
+    const ownerIds = data.getAllRefs(golf.properties.gameOwner);
+    const ownerRef = doc.getSubject(ownerIds[0]);
+
+    value = parseFields(playerShape, doc)(ownerRef);
+
+    return ({
+        label,
+        value
+    });
+};
+
+const getGamePlayingHandicapField = doc => (data, label, defaultValue) => {
+
+    const value = '';
+
+    return ({
+        label,
+        value
+    });
+};
+
 const getFieldTypeData = {
     [golf.types.string]: getSimpleLiteral,
     [golf.types.nonNegativeInteger]: getSimpleLiteral,
@@ -70,9 +139,11 @@ const getFieldTypeData = {
     [golf.classes.Club]: getClubField,
     [golf.classes.Bag]: getBagField,
     [golf.classes.Player]: getPlayerField,
+    [golf.classes.Owner]: getOwnerField,
     [golf.classes.Marker]: getMarkerField,
-    [golf.classes.Course]: getCourseField
-}
+    [golf.classes.Course]: getCourseField,
+    [golf.classes.GamePlayingHandicap]: getGamePlayingHandicapField,
+};
 
 const getFieldData = (shape, doc, data, ...rest) => field => {
 
@@ -86,6 +157,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
     const prefix = shape['@context'][fieldPrefix];
     const predicate = `${prefix}${fieldPredicate}`;
+    //console.log('predicate: ', predicate);
 
     let fieldData;
 
@@ -94,6 +166,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
         case golf.types.string:
         case golf.types.nonNegativeInteger:
         case golf.types.integer:
+        case golf.types.dateTime:
         case golf.types.text: {
 
             fieldData = getFieldTypeData[fieldType](predicate)(data, label, fieldValue);
@@ -110,9 +183,34 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
             break;
         }
 
-        case golf.classes.Hole: {
+        case golf.classes.Bag: {
 
-            fieldData = getFieldTypeData[fieldType](doc)(data,fieldValue);
+            const [clubTypes, clubType] = rest;
+
+            fieldData = '';//getFieldTypeData[fieldType](predicate)(data, fieldPredicate, clubTypes, clubType);
+
+            break;
+        }
+
+        case golf.classes.Hole:
+        case golf.classes.Game:
+        case golf.classes.Marker:
+        case golf.classes.Course: {
+
+            fieldData = getFieldTypeData[fieldType](doc)(data, fieldValue);
+
+            break;
+        }
+
+        case golf.classes.Owner: {
+
+            fieldData = getFieldTypeData[fieldType](doc)(data, fieldValue);
+            break;
+        }
+
+        case golf.classes.GamePlayingHandicap: {
+
+            fieldData = getFieldTypeData[fieldType](doc)(data, fieldValue);
 
             break;
         }
@@ -146,6 +244,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 const parseFields = (dataShape, doc, ...rest) => item => {
             
     const fields = dataShape.shape.reduce((acc, field) => {
+        //console.log('field: ', field);
         
         const data = getFieldData(dataShape, doc, item, ...rest)(field);
         const newAcc = {

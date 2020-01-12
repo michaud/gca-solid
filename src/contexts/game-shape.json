@@ -52,6 +52,13 @@
       "type": "https://michaud.inrupt.net/public/golf/Course",
       "label": "Course",
       "value": ""
+    },
+    {
+      "prefix": "golf",
+      "predicate": "gamePlayingHandicap",
+      "type": "https://michaud.inrupt.net/public/golf/GamePlayingHandicap",
+      "label": "Playing handicap",
+      "value": ""
     }
   ]
 }

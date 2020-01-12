@@ -104,6 +104,7 @@ const CourseDetail = ({
     const displayFields = [];
 
     let count = 0;
+
     for(const field in course.fields) {
         
         displayFields.push(getDisplayField(course.fields[field], count++));

@@ -47,6 +47,7 @@ const useCourses = (reload) => {
                     if (typeof url !== 'string') return;
 
                     const doc = await fetchDocument(url);
+
                     const list = getListFromDoc(
                         doc,
                         golf.classes.Course,

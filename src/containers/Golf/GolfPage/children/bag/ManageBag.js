@@ -8,10 +8,8 @@ import useClubDefinitions from '@hooks/useClubDefinitions';
 import useBagClubs from '@hooks/useBagClubs';
 import { useTranslation } from 'react-i18next';
 
-import addClub from '@services/addClub';
 import removeFromBag from '@services/removeFromBag';
 import addToBag from '@services/addToBag';
-import saveClub from '@services/saveClub';
 import deleteClub from '@services/deleteClub';
 
 import ClubTypeContext from '@utils/clubTypeContext';
@@ -20,6 +18,7 @@ import ClubList from '@containers/Golf/GolfPage/children/club/ClubList';
 import ModuleHeader from '@containers/Golf/GolfPage/children/ModuleHeader';
 import BagTransferList from '@containers/Golf/GolfPage/children/bag/BagTransferList';
 import { PageContainer } from '@styles/page.style';
+import saveClubToList from '@services/saveClubToList';
 
 const ManageBag = ({ match, webId, history }) => {
 
@@ -27,30 +26,29 @@ const ManageBag = ({ match, webId, history }) => {
     const [reload, setReload] = useState(false);
     const clubTypeDefinitions = useClubDefinitions();
     const bagData = useBagClubs(clubTypeDefinitions, reload);
-    const clubData = useClubs(clubTypeDefinitions, reload);
+    const clubListData = useClubs(clubTypeDefinitions, reload);
     const [clubs, setClubs] = useState();
     const [bagClubs, setBagClubs] = useState();
     const { t } = useTranslation();
 
     const addClubHandler = async (club) => {
 
-        if (!clubData) return;
+        if (!clubListData) return;
 
-        await addClub(club, clubData.doc);
-
+        await saveClubToList(club, clubListData.doc);
         setReload(true);
     };
 
     const saveClubHandler = club => {
         
-        saveClub(club, clubData.doc);
+        saveClubToList(club, clubListData.doc);
         setReload(true);
     };
 
     const deleteClubHandler = club => {
 
         removeFromBag([club], bagData.doc);
-        deleteClub(club, clubData.doc);
+        deleteClub(club, clubListData.doc);
         setReload(true);
     };
 
@@ -70,9 +68,9 @@ const ManageBag = ({ match, webId, history }) => {
 
         try {
 
-            if (clubData) {
+            if (clubListData) {
 
-                const clubs = clubData.list;
+                const clubs = clubListData.list;
                 setClubs(clubs);
                 setReload(false);
             }
@@ -103,7 +101,7 @@ const ManageBag = ({ match, webId, history }) => {
             init();
         }
 
-    }, [webId, clubData, bagData, reload, notification.notify]);
+    }, [webId, clubListData, bagData, reload, notification.notify]);
 
     return (
         <StylesProvider>

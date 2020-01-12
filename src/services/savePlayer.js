@@ -1,83 +1,23 @@
 import { rdf } from "rdf-namespaces";
 import golf from "@utils/golf-namespace";
-
-const addField = (field, ref) => {
-
-    switch(field.fieldType) {
-
-        case golf.types.text : {
-
-            ref.addLiteral(field.iri, field.field.value);
-
-            break;
-        }
-
-        case golf.types.integer : {
-
-            ref.addLiteral(field.iri, parseInt(field.field.value));
-
-            break;
-        }
-
-        default : {
-
-            console.error('no field defined', field);
-
-            break;
-        }
-    }
-};
-
-const saveField = (field, ref) => {
-
-    switch(field.fieldType) {
-
-        case golf.types.text : {
-
-            ref.setLiteral(field.iri, field.field.value);
-
-            break;
-        }
-
-        case golf.types.integer : {
-
-            ref.setLiteral(field.iri, parseInt(field.field.value));
-
-            break;
-        }
-
-        default : {
-
-            console.error('no field defined', field);
-
-            break;
-        }
-    }
-};
+import playerShape from '@contexts/player-shape.json';
+import { addField } from "@utils/addField";
+import { setField } from "@utils/setField";
 
 const savePlayer = async (player, doc) => {
 
-    if(!player.iri) {
+    const isNewPLayer = player.iri === '';
+    const playerRef = isNewPLayer ? doc.addSubject() : doc.getSubjectsOfType(golf.classes.Player)[0];
+    const fieldAction = isNewPLayer ? addField : setField;
 
-        const newPlayer = doc.addSubject();
-        newPlayer.addRef(rdf.type, golf.classes.Player);
+    if(isNewPLayer) playerRef.addRef(rdf.type, golf.classes.Player);
+    
+    playerShape.shape.forEach(field => {
 
-        for(const field in player.fields) {
+        fieldAction(field, playerShape, player, playerRef);
+    });
 
-            addField(player.fields[field], newPlayer, doc);
-        }
-
-    } else {
-
-        const curPlayer = doc.getSubjectsOfType(golf.classes.Player)[0];
-
-        for(const field in player.fields) {
-
-            saveField(player.fields[field], curPlayer, doc);
-        }
-    }
-
-    await doc.save();
+    return await doc.save();
 };
 
 export default savePlayer;

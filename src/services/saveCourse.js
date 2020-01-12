@@ -3,8 +3,6 @@
 import golf from '@utils/golf-namespace';
 import { rdf } from 'rdf-namespaces';
 
-
-
 const addField = (field, ref, doc) => {
 
     switch(field.fieldType) {

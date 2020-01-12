@@ -8,6 +8,7 @@ import { errorToaster } from '@utils/';
 import { PageContainer } from '@styles/page.style';
 import GameForm from '@containers/Golf/GolfPage/children/game/GameForm';
 import GameList from '@containers/Golf/GolfPage/children/game/GameList';
+import saveGame from '@services/saveGame';
 
 const ManageGames = ({
     match,
@@ -18,12 +19,13 @@ const ManageGames = ({
     const { notification } = useNotification(webId);
     const [reload, setReload] = useState(false);
     const gameData = useGames(reload);
+    const [currentGame, setCurrentGame] = useState();
     const [games, setGames] = useState([]);
     const { t } = useTranslation();
 
     const onSaveGame = (game) => {
 
-//        saveGame(game, gameData.doc);
+        saveGame(game, gameData.doc);
         setReload(true);
     };
 
@@ -41,7 +43,14 @@ const ManageGames = ({
 
                 const gameList = gameData.list;
                 setGames(gameList);
+
+                if(reload) {
+                    setCurrentGame(gameList[gameList.length - 1]);
+                }
+
+                setReload(false);
             }
+
 
         } catch (e) {
             /**
@@ -71,7 +80,7 @@ const ManageGames = ({
         <>
             <ModuleHeader label="Games" screenheader={ true }/>
             <PageContainer>
-                <GameForm onSave={ onSaveGame }/>
+                <GameForm game={ currentGame } onSave={ onSaveGame }/>
                 {
                     games.length > 0 && <GameList
                         games={ games }

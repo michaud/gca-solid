@@ -39,9 +39,9 @@ const addField = (field, doc) => {
     }
 };
 
-const addClub = async (club, clubList) => {
+const addClubToList = async (club, doc) => {
     
-    const newClub = clubList.addSubject();
+    const newClub = doc.addSubject();
     newClub.addRef(rdf.type, golf.classes.Club);
 
     for(const field in club.fields) {
@@ -49,9 +49,9 @@ const addClub = async (club, clubList) => {
         addField(club.fields[field], newClub);
     }
 
-    const newClubList = await clubList.save([newClub]);
+    const newClubList = await doc.save([newClub]);
 
     return newClubList;
 }
 
-export default addClub;
+export default addClubToList;

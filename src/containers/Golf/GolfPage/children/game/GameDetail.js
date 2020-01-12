@@ -18,6 +18,8 @@ import {
 import displayStates from '@utils/displayStates';
 import GameForm from './GameForm';
 import HoleTable from '../hole/HoleTable';
+import CourseDetail from '../course/CourseDetail';
+import moment from 'moment';
 
 const GameDetail = ({
     game,
@@ -64,6 +66,15 @@ const GameDetail = ({
                 </FlexContainer>;
             }
 
+            case golf.types.dateTime : {
+
+                const value = field.field.value instanceof Date ? moment(field.field.value).format('DD-mm-YY hh:mm') : ''
+                return <FlexContainer key={ index }>
+                    <FlexItemLabel>{ field.field.label }</FlexItemLabel>
+                    <FlexItemValue>{ value }</FlexItemValue>
+                </FlexContainer>;
+            }
+
             case golf.types.nonNegativeInteger : {
 
                 return <FlexContainer key={ index }>
@@ -75,6 +86,25 @@ const GameDetail = ({
             case golf.classes.Hole : {
 
                 return <HoleTable onEdit={ editHoleHandler }  key={ index } holes={ field.field.value }/>;
+            }
+
+            case golf.classes.Course : {
+
+                return <CourseDetail key={ index }
+                    course={ field.field.value }/>
+            }
+
+            case golf.classes.Bag : {
+
+                return <div key={ index }>Bag</div>
+            }
+
+            case golf.classes.Player : {
+                return <div key={ index }>Player</div>
+            }
+
+            case golf.classes.Marker : {
+                return <div key={ index }>Marker</div>
             }
 
             default: {

@@ -30,7 +30,7 @@
     {
       "prefix": "golf",
       "predicate": "ownedBy",
-      "type": "https://michaud.inrupt.net/public/golf/Player"
+      "type": "https://michaud.inrupt.net/public/golf/Owner"
     }
   ]
 }  

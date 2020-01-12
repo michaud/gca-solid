@@ -5,11 +5,12 @@ import TextField from '@material-ui/core/TextField';
 
 import ManageHoles from "@containers/Golf/GolfPage/children/hole/ManageHoles";
 import ClubTypeSelector from '@containers/Golf/GolfPage/children/club/ClubTypeSelector';
-import CourseSelector from '@containers/Golf/GolfPage/children/game/CourseSelector';
 import DateTimeSelector from '@containers/Golf/GolfPage/children/game/DateTimeSelector';
 import BagDetail from '@containers/Golf/GolfPage/children/game/BagDetail';
 import PlayerUpdate from '@containers/Golf/GolfPage/children/game/PlayerUpdate';
 import SelectMarker from '@containers/Golf/GolfPage/children/game/SelectMarker';
+import EditPlayingHandicap from '@containers/Golf/GolfPage/children/game/EditPlayingHandicap';
+import SelectCourse from '@containers/Golf/GolfPage/children/game/SelectCourse';
 
 const getFieldControl = ({
     field,
@@ -19,7 +20,8 @@ const getFieldControl = ({
     onSave,
     onSaveEdit,
     inputRef,
-    idx
+    idx,
+    data
 }) => {
 
     const required = field.hasOwnProperty('required') ? field.required : true;
@@ -88,14 +90,15 @@ const getFieldControl = ({
 
         case golf.types.dateTime : {
 
-            return <DateTimeSelector key={ idx }/>
+            return <DateTimeSelector key={ idx }
+                onChange={ onChange(field) }/>
         }
 
         case golf.classes.Player : {
 
             return <PlayerUpdate key={ idx }
                 onSave={ onSave }
-                player={ field.field.value }/>
+                player={ data.player }/>
         }
 
         case golf.classes.Club: {
@@ -118,21 +121,30 @@ const getFieldControl = ({
 
         case golf.classes.Course : {
 
-            return <CourseSelector
-                key={ idx }
-                courses={ field.field.value }/>
+            return <SelectCourse key={ idx }
+                courses={ data.courses }
+                onChange={ onChange(field) }/>
         }
 
         case golf.classes.Marker : {
 
             return <SelectMarker key={ idx }
-                markers={ field.field.value }
-                onSave={ onSave }/>
+                markers={ data.markers }
+                onSave={ onSave }
+                onChange={ onChange(field) }/>
         }
             
         case golf.classes.Bag : {
                 
-            return <BagDetail bag={ field.field.value } key={ idx }/>
+            return <BagDetail key={ idx }
+                bag={ field.field.value }/>
+        }
+
+        case golf.classes.GamePlayingHandicap : {
+                
+            return <EditPlayingHandicap key={ idx }
+                handicap={ field.field.value }
+                onChange={ onChange(field) }/>
         }
 
         default: {
