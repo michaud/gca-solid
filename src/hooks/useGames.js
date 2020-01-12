@@ -27,7 +27,7 @@ const useGames = (reload) => {
                     // If no clubList document is listed in the public type index, create one:
                     const doc = await initialiseTypeDocument(
                         golf.classes.Game,
-                        process.env.REACT_APP_GOLF_PATH + 'games.ttl'
+                        process.env.REACT_APP_GOLF_DATA_PATH + 'games.ttl'
                     );
 
                     if (doc === null) return;

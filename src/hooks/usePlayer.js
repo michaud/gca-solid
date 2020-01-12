@@ -24,7 +24,7 @@ const usePlayer = (reload) => {
                     // If no player document is listed in the public type index, create one:
                     const doc = await initialiseTypeDocument(
                         golf.classes.Player,
-                        process.env.REACT_APP_GOLF_PATH + 'player.ttl'//,setupPlayer
+                        process.env.REACT_APP_GOLF_DATA_PATH + 'player.ttl'//,setupPlayer
                     );
 
                     if (doc === null) return;

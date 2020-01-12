@@ -31,7 +31,7 @@ const useBagClubs = (clubTypeDefinitions, reload) => {
                     // If no clubList document is listed in the public type index, create one:
                     const doc = await initialiseTypeDocument(
                         golf.classes.Bag,
-                        process.env.REACT_APP_GOLF_PATH + 'bag.ttl',
+                        process.env.REACT_APP_GOLF_DATA_PATH + 'bag.ttl',
                         setupBag
                     );
 

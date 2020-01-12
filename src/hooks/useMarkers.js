@@ -25,7 +25,7 @@ const useMarkers = (reload) => {
                     // If no player document is listed in the public type index, create one:
                     const doc = await initialiseTypeDocument(
                         golf.classes.Marker,
-                        process.env.REACT_APP_GOLF_PATH + 'markers.ttl'//,setupPlayer
+                        process.env.REACT_APP_GOLF_DATA_PATH + 'markers.ttl'//,setupPlayer
                     );
 
                     if (doc === null) return;
