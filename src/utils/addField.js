@@ -64,7 +64,7 @@ export const addField = (field, shape, data, ref, doc) => {
         case golf.classes.Owner: {
 
             if(predicate === golf.properties.ownedBy) {
-            debugger
+
 //            ref.addRef(golf.properties.ownedBy, data.field.value);
             ref.addRef(golf.properties.ownedBy, 'me');
             }

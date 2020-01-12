@@ -9,7 +9,7 @@ import { fetchDocument } from 'tripledoc';
 import getListFromDoc from '@services/getListFromDoc';
 import gameShape from '@contexts/game-shape.json';
 
-const useGames = (reload) => {
+const useGames = (clubTypeDefinitions, reload) => {
 
     const publicTypeIndex = usePublicTypeIndex(reload);
     const [data, setData] = useState({ list: [], doc: undefined });
@@ -41,6 +41,7 @@ const useGames = (reload) => {
 
                 } else {
 
+                    const { clubTypes, clubType } = clubTypeDefinitions;
                     // If the public type index does list a clubList document, fetch it:
                     const url = listIndex.getRef(solid.instance);
 
@@ -50,14 +51,16 @@ const useGames = (reload) => {
                     const list = getListFromDoc(
                         doc,
                         golf.classes.Game,
-                        gameShape
+                        gameShape,
+                        clubTypes,
+                        clubType
                     );
 
                     setData({ list, doc });
                 }
             })();
         }
-    }, [publicTypeIndex, reload]);
+    }, [publicTypeIndex, clubTypeDefinitions, reload]);
 
     return data;
 };

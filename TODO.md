@@ -3,3 +3,4 @@
 - handle card#me references
 - add game start time filled should be put in gamestate?  
 - game detail view
+- implement delete game

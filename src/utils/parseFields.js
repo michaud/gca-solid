@@ -34,10 +34,14 @@ const getHolesField = doc => (data, label, defaultValue) => {
     }) ;
 }
 
-const getBagField = doc => (data, label, defaultValue) => {
+const getBagField = doc => (data, label, clubTypes, clubType) => {
 
-    const bagIds = data.getAllRefs(golf.properties.gameBag);
-    const clubs = bagIds.map(club => parseFields(clubShape, doc,)(club));
+    const bagId = data.getAllRefs(golf.properties.gameBag)[0];
+    const bagRef = doc.getSubject(bagId);
+    const clubIds = bagRef.getAllRefs(golf.properties.clubs);
+    const clubRefs = clubIds.map(id => doc.getSubject(id));
+    const parse = parseFields(clubShape, doc, clubTypes, clubType);
+    const clubs = clubRefs.map(club => parse(club));
 
     return ({
         label,
@@ -157,7 +161,6 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
     const prefix = shape['@context'][fieldPrefix];
     const predicate = `${prefix}${fieldPredicate}`;
-    //console.log('predicate: ', predicate);
 
     let fieldData;
 
@@ -187,15 +190,28 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
             const [clubTypes, clubType] = rest;
 
-            fieldData = '';//getFieldTypeData[fieldType](predicate)(data, fieldPredicate, clubTypes, clubType);
+            if(predicate === golf.properties.gameBag) {
+
+                fieldData = getFieldTypeData[fieldType](doc)(data, fieldPredicate, clubTypes, clubType);
+
+            } else {
+                
+                fieldData = getFieldTypeData[fieldType](predicate)(data, fieldPredicate, clubTypes, clubType);
+            }
 
             break;
         }
 
         case golf.classes.Hole:
-        case golf.classes.Game:
         case golf.classes.Marker:
         case golf.classes.Course: {
+
+            fieldData = getFieldTypeData[fieldType](doc)(data, fieldValue);
+
+            break;
+        }
+
+        case golf.classes.Game: {
 
             fieldData = getFieldTypeData[fieldType](doc)(data, fieldValue);
 
@@ -244,7 +260,6 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 const parseFields = (dataShape, doc, ...rest) => item => {
             
     const fields = dataShape.shape.reduce((acc, field) => {
-        //console.log('field: ', field);
         
         const data = getFieldData(dataShape, doc, item, ...rest)(field);
         const newAcc = {

@@ -9,6 +9,7 @@ import { PageContainer } from '@styles/page.style';
 import GameForm from '@containers/Golf/GolfPage/children/game/GameForm';
 import GameList from '@containers/Golf/GolfPage/children/game/GameList';
 import saveGame from '@services/saveGame';
+import useClubDefinitions from '@hooks/useClubDefinitions';
 
 const ManageGames = ({
     match,
@@ -18,7 +19,8 @@ const ManageGames = ({
 
     const { notification } = useNotification(webId);
     const [reload, setReload] = useState(false);
-    const gameData = useGames(reload);
+    const clubTypeDefinitions = useClubDefinitions();
+    const gameData = useGames(clubTypeDefinitions, reload);
     const [currentGame, setCurrentGame] = useState();
     const [games, setGames] = useState([]);
     const { t } = useTranslation();
