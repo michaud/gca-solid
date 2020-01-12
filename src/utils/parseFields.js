@@ -108,21 +108,6 @@ const getClubField = predicate => (data, fieldPredicate, clubTypes, clubType) =>
     });
 };
 
-const getOwnerField = doc => (data, label, defaultValue) => {
-
-    let value = defaultValue;
-
-    const ownerIds = data.getAllRefs(golf.properties.gameOwner);
-    const ownerRef = doc.getSubject(ownerIds[0]);
-
-    value = parseFields(playerShape, doc)(ownerRef);
-
-    return ({
-        label,
-        value
-    });
-};
-
 const getGamePlayingHandicapField = doc => (data, label, defaultValue) => {
 
     const value = '';
@@ -143,7 +128,6 @@ const getFieldTypeData = {
     [golf.classes.Club]: getClubField,
     [golf.classes.Bag]: getBagField,
     [golf.classes.Player]: getPlayerField,
-    [golf.classes.Owner]: getOwnerField,
     [golf.classes.Marker]: getMarkerField,
     [golf.classes.Course]: getCourseField,
     [golf.classes.GamePlayingHandicap]: getGamePlayingHandicapField,
@@ -215,12 +199,6 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
             fieldData = getFieldTypeData[fieldType](doc)(data, fieldValue);
 
-            break;
-        }
-
-        case golf.classes.Owner: {
-
-            fieldData = getFieldTypeData[fieldType](doc)(data, fieldValue);
             break;
         }
 

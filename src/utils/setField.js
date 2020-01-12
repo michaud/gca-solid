@@ -35,13 +35,6 @@ export const setField = (field, shape, data, ref) => {
             break;
         }
 
-        case golf.classes.Owner: {
-
-            ref.setRef(predicate, data.fields[field.predicate].field.value.iri);
-            
-            break;
-        }
-
         default : {
 
             console.error('no field defined', field);

@@ -61,34 +61,6 @@ export const addField = (field, shape, data, ref, doc) => {
             break;
         }
 
-        case golf.classes.Owner: {
-
-            if(predicate === golf.properties.ownedBy) {
-
-//            ref.addRef(golf.properties.ownedBy, data.field.value);
-            ref.addRef(golf.properties.ownedBy, 'me');
-            }
-
-            break;
-        }
-
-        // case golf.classes.Owner : {
-
-        //     const newOwner = doc.addSubject();
-        //     newOwner.addRef(rdf.type, golf.classes.Owner);
-
-        //     const owner = field.field.value;
-
-        //     for(const field in owner.fields) {
-        
-        //         addField(owner.fields[field], newOwner, doc);
-        //     }
-
-        //     ref.addRef(golf.properties.ownedBy, newOwner.asRef());
-
-        //     break;
-        // }
-
         case golf.classes.Bag : {
 
             const bagRef = doc.addSubject();

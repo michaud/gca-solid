@@ -24,13 +24,6 @@ export const setClubFields = (club, doc) => {
                 break;
             }
     
-            case golf.classes.Owner: {
-
-                doc.setRef(predicate, club.fields[field.predicate].field.value.iri);
-                
-                break;
-            }
-
             default: {
                 console.error('unhandled field', field.predicate)
             }

@@ -26,11 +26,6 @@
       "prefix": "golf",
       "predicate": "clubBrand",
       "type": "http://www.w3.org/2001/XMLSchema#string"
-    },
-    {
-      "prefix": "golf",
-      "predicate": "ownedBy",
-      "type": "https://michaud.inrupt.net/public/golf/Owner"
     }
   ]
 }  

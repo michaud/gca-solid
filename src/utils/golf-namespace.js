@@ -11,12 +11,11 @@ const golf = {
         Course: `${ namespace }Course`,
         Hole: `${ namespace }Hole`,
         Game: `${ namespace }Game`,
-        GamePlayingHandicap:  `${ namespace }GamePlayingHandicap`,
-        Owner:  `${ namespace }Owner`,
+        GamePlayingHandicap:  `${ namespace }GamePlayingHandicap`
+
     },
     properties: {
         clubType: `${ namespace }clubType`,
-        ownedBy: `${ namespace }ownedBy`,
         fieldLabel: `${ namespace }fieldLabel`,
         clubBrand: `${ namespace }clubBrand`,
         clubName: `${ namespace }clubName`,
