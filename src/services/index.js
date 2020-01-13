@@ -1,4 +1,3 @@
-import addClubToList from './addClubToList';
 import addToBag from './addToBag';
 import addToTypeIndex from './addToTypeIndex';
 import deleteClub from './deleteClub';
@@ -15,9 +14,9 @@ import removeFromBag from './removeFromBag';
 import saveCourse from './saveCourse';
 import saveMarker from './saveMarker';
 import savePlayer from './savePlayer';
+import saveClubToList from './saveClubToList';
 
 export {
-    addClubToList,
     addToBag,
     addToTypeIndex,
     deleteClub,
@@ -33,5 +32,6 @@ export {
     removeFromBag,
     saveCourse,
     saveMarker,
-    savePlayer
+    savePlayer,
+    saveClubToList
 };
