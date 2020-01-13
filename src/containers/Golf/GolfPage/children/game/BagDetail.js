@@ -23,7 +23,7 @@ const BagDetail = ({ bag }) => {
             <header className="c-header--sec">Bag</header>
             <div className="c-box">
             {
-                bag && bag.clubs.reduce((acc, club, idx) => {
+                bag && bag.fields.clubs.field.value.reduce((acc, club, idx) => {
 
                     const text = `${ acc }, ${ club.fields.clubName.field.value } ${ club.fields.clubType.field.value.label }`;
                     return text

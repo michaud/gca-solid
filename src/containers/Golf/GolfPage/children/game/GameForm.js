@@ -15,31 +15,15 @@ import useCourses from '@hooks/useCourses';
 import useMarkers from '@hooks/useMarkers';
 import usePlayer from '@hooks/usePlayer';
 import { format } from 'date-fns'
+import savePlayer from '@services/savePlayer';
+import saveMarker from '@services/saveMarker';
+import { putClubsInBag } from '@utils/putClubsInBag';
 
 import {
     FlexContainer,
     FlexItem,
     FlexItemRight,
 } from '@styles/layout.style';
-import { savePlayer } from '@services/';
-import { saveMarker } from '@services/';
-
-const putClubsInBag = (clubs, bag) => {
-
-    const filledBag = bag.reduce((acc, clubRef) => {
-
-        const club = clubs.find(clubTest => clubTest.iri.includes(clubRef.ref));
-
-        if(club) acc.push(club);
-
-        return acc;
-
-    }, []);
-
-    return {
-        clubs: filledBag
-    };
-};
 
 const GameForm = ({
     game,
@@ -53,7 +37,7 @@ const GameForm = ({
     const [reload, setReload] = useState(false);
     const clubTypeDefinitions = useClubDefinitions();
     const playerData = usePlayer(reload);
-    const bagData = useBagClubs(reload);
+    const bagData = useBagClubs(clubTypeDefinitions, reload);
     const clubData = useClubs(clubTypeDefinitions, reload);
     const courseData = useCourses(reload);
     const markerData = useMarkers(reload);
@@ -137,7 +121,8 @@ const GameForm = ({
             courseData['doc'] !== undefined &&
             markerData['doc'] !== undefined &&
             playerData['doc'] !== undefined
-        ) {
+            ) {
+                console.log('bagData: ', bagData);
 
             const gameBag = putClubsInBag(clubData.list, bagData.list);
             const newGame = setupDataObject(gameShape, {

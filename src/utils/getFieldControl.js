@@ -135,7 +135,7 @@ const getFieldControl = ({
         }
             
         case golf.classes.Bag : {
-                
+
             return <BagDetail key={ idx }
                 bag={ field.field.value }/>
         }

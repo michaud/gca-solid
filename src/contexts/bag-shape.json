@@ -14,23 +14,9 @@
     "shape": [
         {
             "prefix": "golf",
-            "predicate": "courseName",
-            "type": "http://www.w3.org/2001/XMLSchema#string",
+            "predicate": "clubs",
+            "type": "https://michaud.inrupt.net/public/golf/Club",
             "label": "Name",
-            "value": ""
-        },
-        {
-            "prefix": "golf",
-            "predicate": "courseSlope",
-            "type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
-            "label": "Slope",
-            "value": 0
-        },
-        {
-            "prefix": "golf",
-            "predicate": "courseHoles",
-            "type": "https://michaud.inrupt.net/public/golf/Hole",
-            "label": "Holes",
             "value": []
         }
     ]

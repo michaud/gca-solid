@@ -8,3 +8,4 @@ X handle card#me references
 - saveMarker as savePlayer
 - saveCourse, saveClub as saveClubToList
 - check iri s in data
+- implement Bag detail edit

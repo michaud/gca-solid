@@ -20,6 +20,7 @@ import GameForm from './GameForm';
 import HoleTable from '../hole/HoleTable';
 import CourseDetail from '../course/CourseDetail';
 import moment from 'moment';
+import BagDetail from './BagDetail';
 
 const GameDetail = ({
     game,
@@ -96,7 +97,8 @@ const GameDetail = ({
 
             case golf.classes.Bag : {
 
-                return <div key={ index }>Bag</div>
+                return <BagDetail key={ index }
+                    bag={ field.field.value }/>
             }
 
             case golf.classes.Player : {

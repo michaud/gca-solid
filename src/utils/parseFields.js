@@ -4,6 +4,7 @@ import courseShape from '@contexts/course-shape.json';
 import markerShape from '@contexts/marker-shape.json';
 import playerShape from '@contexts/player-shape.json';
 import clubShape from '@contexts/club-shape.json';
+import bagShape from '@contexts/bag-shape.json';
 
 const getSimpleLiteral = predicate =>  (data, label, defaultValue) => {
     
@@ -38,14 +39,41 @@ const getBagField = doc => (data, label, clubTypes, clubType) => {
 
     const bagId = data.getAllRefs(golf.properties.gameBag)[0];
     const bagRef = doc.getSubject(bagId);
-    const clubIds = bagRef.getAllRefs(golf.properties.clubs);
-    const clubRefs = clubIds.map(id => doc.getSubject(id));
-    const parse = parseFields(clubShape, doc, clubTypes, clubType);
-    const clubs = clubRefs.map(club => parse(club));
+
+    const value = parseFields(bagShape, doc, clubTypes, clubType)(bagRef);
 
     return ({
         label,
-        value: clubs
+        value
+    });
+};
+
+const getClubsField = doc => (data, label, clubTypes, clubType) => {
+
+    const clubIds = data.getAllRefs(golf.properties.clubs);
+    const clubRefs = clubIds.map(id => doc.getSubject(id));
+    const parse = parseFields(clubShape, doc, clubTypes, clubType);
+
+    const value = clubRefs.map(club => parse(club));
+
+    return ({
+        label,
+        value
+    });
+
+};
+
+const getClubField = predicate => (data, fieldPredicate, clubTypes, clubType) => {
+
+    const label = clubType.fields[fieldPredicate].field.label;
+    const clubQuads = data.getTriples();
+    const displayField = clubQuads.find(quad => quad.predicate.value === predicate);
+
+    const value = clubTypes.find(item => item.iri === displayField.object.value);
+    
+    return ({
+        label,
+        value
     });
 };
 
@@ -94,20 +122,6 @@ const getCourseField = doc => (data, label, defaultValue) => {
     });
 };
 
-const getClubField = predicate => (data, fieldPredicate, clubTypes, clubType) => {
-
-    const label = clubType.fields[fieldPredicate].field.label;
-    const clubQuads = data.getTriples();
-    const displayField = clubQuads.find(quad => quad.predicate.value === predicate);
-
-    const value = clubTypes.find(item => item.iri === displayField.object.value);
-    
-    return ({
-        label,
-        value
-    });
-};
-
 const getGamePlayingHandicapField = doc => (data, label, defaultValue) => {
 
     const value = '';
@@ -131,6 +145,7 @@ const getFieldTypeData = {
     [golf.classes.Marker]: getMarkerField,
     [golf.classes.Course]: getCourseField,
     [golf.classes.GamePlayingHandicap]: getGamePlayingHandicapField,
+    [golf.properties.clubs]: getClubsField
 };
 
 const getFieldData = (shape, doc, data, ...rest) => field => {
@@ -165,7 +180,14 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
             const [clubTypes, clubType] = rest;
 
-            fieldData = getFieldTypeData[fieldType](predicate)(data, fieldPredicate, clubTypes, clubType);
+            if(predicate === golf.properties.clubs) {
+
+                fieldData = getFieldTypeData[predicate](doc)(data, fieldPredicate, clubTypes, clubType);
+
+            } else {
+
+                fieldData = getFieldTypeData[fieldType](predicate)(data, fieldPredicate, clubTypes, clubType);
+            }
 
             break;
         }
