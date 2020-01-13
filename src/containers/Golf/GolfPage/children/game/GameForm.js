@@ -121,8 +121,7 @@ const GameForm = ({
             courseData['doc'] !== undefined &&
             markerData['doc'] !== undefined &&
             playerData['doc'] !== undefined
-            ) {
-                console.log('bagData: ', bagData);
+        ) {
 
             const gameBag = putClubsInBag(clubData.list, bagData.list);
             const newGame = setupDataObject(gameShape, {
