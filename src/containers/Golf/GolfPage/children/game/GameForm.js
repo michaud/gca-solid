@@ -14,6 +14,7 @@ import useClubs from '@hooks/useClubs';
 import useCourses from '@hooks/useCourses';
 import useMarkers from '@hooks/useMarkers';
 import usePlayer from '@hooks/usePlayer';
+import { format } from 'date-fns'
 
 import {
     FlexContainer,
@@ -86,7 +87,7 @@ const GameForm = ({
 
         const value = getFieldValue(fieldDef, args);
 
-        const fields = {
+        let fields = {
             ...gameState.fields,
             [fieldDef.fieldName]: {
                 ...gameState.fields[fieldDef.fieldName],
@@ -96,6 +97,20 @@ const GameForm = ({
                 }
             }
         };
+
+        if(fieldDef.fieldName === 'gameCourse') {
+
+            fields = {
+                ...fields,
+                gameName: {
+                    ...fields.gameName,
+                    field: {
+                        ...fields.gameName.field,
+                        value: `${ value.fields.courseName.field.value } ${ format(new Date(fields.gameDate.field.value), 'dd-mm-yy hh:mm' ) }`
+                    }
+                }
+            }
+        }
         
         const data = {
             ...gameState,
@@ -128,7 +143,8 @@ const GameForm = ({
             const newGame = setupDataObject(gameShape, {
                 gameBag,
                 gamePlayer: playerData.player,
-                gamePlayingHandicap: setupDataObject(playingHandicapShape)
+                gamePlayingHandicap: setupDataObject(playingHandicapShape),
+                gameDate: new Date(Date.now())
             });
 
             setGameState(newGame);
