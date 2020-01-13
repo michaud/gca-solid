@@ -30,7 +30,7 @@
             "prefix": "golf",
             "predicate": "clubBrand",
             "type": "http://www.w3.org/2001/XMLSchema#string",
-            "label": "Club name",
+            "label": "Club brand",
             "value": ""
         }
     ]

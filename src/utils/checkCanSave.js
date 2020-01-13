@@ -8,7 +8,10 @@ const hasValue = item => {
         case golf.types.integer: return typeof(item.field.value) === 'number';
         case golf.types.text: return item.field.value !== '';
         case golf.types.dateTime: return item.field.value instanceof Date;
-        case golf.classes.Club: return item.field.value.length > 0;
+        case golf.classes.Club: {
+
+            return item.fieldName === 'clubType' ? typeof(item.field.value) === 'object' : item.field.value.length > 0;
+        }
         case golf.classes.Hole: return item.field.value.length > 0;
         case golf.classes.Player: return typeof(item.field.value) === 'object';
         case golf.classes.Course: return typeof(item.field.value) === 'object';
@@ -20,10 +23,11 @@ const hasValue = item => {
     }
 };
 
-const checkCanSave = state => !state ? false :
-    Object
-        .entries(state.fields)
-        .every(entry => entry[1].required === false ? true : hasValue(entry[1]));
+const test = entry => {
+    const entryNeedsValue = entry.hasOwnProperty('required') ? entry.required : true;
+    return entryNeedsValue ? hasValue(entry) : true;
+};
 
+const checkCanSave = state => !state ? false : Object.values(state.fields).every(test);
 
 export default checkCanSave;

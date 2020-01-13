@@ -17,7 +17,7 @@ const saveClubToList = async (club, doc) => {
 
     clubShape.shape.forEach(field => {
 
-        fieldAction(field, clubShape, club, clubRef, doc);
+        fieldAction(field, clubShape, club.fields[field.predicate], clubRef, doc);
     });
 
     const newClubList = await doc.save([clubRef]);

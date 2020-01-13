@@ -1,49 +1,23 @@
-import playerShape from '@contexts/player-shape.json';
+import markerShape from '@contexts/marker-shape.json';
 import golf from '@utils/golf-namespace';
 import { rdf } from 'rdf-namespaces';
+import { addField } from '@utils/addField';
+import { setField } from '@utils/setField';
 
 const saveMarker = async (marker, doc) => {
     
-    let markerRef;
+    const isNewMarker = marker.iri === '';
+    const markerRef = isNewMarker ? doc.addSubject() : doc.getSubjectsOfType(golf.classes.Player)[0];
+    const fieldAction = isNewMarker ? addField : setField;
 
-    if(marker.iri) {
-
-        markerRef = doc.getSubject(marker.iri);
-
-    } else {
-
-        markerRef = doc.addSubject();
-        markerRef.addRef(rdf.type, golf.classes.Marker);
-    }
-
-    playerShape.shape.forEach(field => {
-
-        const prefix = playerShape['@context'][field.prefix];
-        const predicate = `${prefix}${field.predicate}`;
-
-        switch(field.type) {
-
-            case golf.types.text: {
-
-                markerRef.setLiteral(predicate, marker.fields[field.predicate].field.value);
-
-                break;
-            }
-
-            case golf.types.integer: {
-
-                markerRef.setLiteral(predicate, parseInt(marker.fields[field.predicate].field.value));
-
-                break;
-            }
+    if(isNewMarker) markerRef.addRef(rdf.type, golf.classes.Marker);
     
-            default: {
-                console.error('wrong field')
-            }
-        }
+    markerShape.shape.forEach(field => {
+
+        fieldAction(field, markerShape, marker.fields[field.predicate], markerRef);
     });
 
-    await doc.save();
+    return await doc.save();
 };
 
 export default saveMarker;

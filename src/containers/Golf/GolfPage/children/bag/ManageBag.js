@@ -39,9 +39,9 @@ const ManageBag = ({ match, webId, history }) => {
         setReload(true);
     };
 
-    const saveClubHandler = club => {
+    const saveClubHandler = async (club) => {
         
-        saveClubToList(club, clubListData.doc);
+        await saveClubToList(club, clubListData.doc);
         setReload(true);
     };
 
