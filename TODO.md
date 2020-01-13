@@ -1,7 +1,7 @@
-- implement Owner on Club
+X implement Owner on Club
 - update fields on contexts/shape with  label value
 - add missing labels to data
-- handle card#me references
+X handle card#me references
 - add game start time filled should be put in gamestate?  
 - game detail view
 - implement delete game

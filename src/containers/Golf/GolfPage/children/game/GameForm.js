@@ -48,8 +48,9 @@ const GameForm = ({
     actionLabel = 'add game'
 }) => {
 
-    const clubTypeDefinitions = useClubDefinitions();
+    const classes = formStyles();
     const [reload, setReload] = useState(false);
+    const clubTypeDefinitions = useClubDefinitions();
     const playerData = usePlayer(reload);
     const bagData = useBagClubs(reload);
     const clubData = useClubs(clubTypeDefinitions, reload);
@@ -74,13 +75,34 @@ const GameForm = ({
         gameMarker: saveGameMarker
     }
     
-    const classes = formStyles();
-
     const saveGameHandler = () => {
 
         onSave(gameState);
         const newGame = setupDataObject(gameShape);
         setGameState(newGame);
+    };
+
+    const onChangeField = fieldDef => (...args)  => {
+
+        const value = getFieldValue(fieldDef, args);
+
+        const fields = {
+            ...gameState.fields,
+            [fieldDef.fieldName]: {
+                ...gameState.fields[fieldDef.fieldName],
+                field: {
+                    ...gameState.fields[fieldDef.fieldName].field,
+                    value
+                }
+            }
+        };
+        
+        const data = {
+            ...gameState,
+            fields
+        };
+
+        setGameState(data);
     };
 
     useEffect(() => {
@@ -115,39 +137,16 @@ const GameForm = ({
 
     }, [game, reload, bagData, clubData, courseData, markerData]);
 
-    const onChangeField = fieldDef => (...args)  => {
-
-        const value = getFieldValue(fieldDef, args);
-
-        const fields = {
-            ...gameState.fields,
-            [fieldDef.fieldName]: {
-                ...gameState.fields[fieldDef.fieldName],
-                field: {
-                    ...gameState.fields[fieldDef.fieldName].field,
-                    value
-                }
-            }
-        };
-        
-        const data = {
-            ...gameState,
-            fields
-        };
-
-        setGameState(data);
-    };
-
     const gameFields = [];
     
-    let index = 0;
-
     if(gameState) {
 
         const doc = {
             gamePlayer: playerData.doc,
             gameMarker: markerData.doc
         };
+
+        let index = 0;
 
         for (const field in gameState.fields) {
 
@@ -187,9 +186,8 @@ const GameForm = ({
                         color="primary">{ actionLabel }</Button>
                 </FlexItem>
                 <FlexItemRight>
-                { onCancel && <Button
+                { onCancel !== undefined && <Button
                     variant="contained"
-                    disabled={ !canSave }
                     onClick={ onCancel }
                     className={ classes.button }
                     color="primary">Cancel</Button>

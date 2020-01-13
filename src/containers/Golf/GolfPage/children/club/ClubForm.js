@@ -107,7 +107,6 @@ const ClubForm = ({
                 <FlexItemRight>
                 { onCancel && <Button
                     variant="contained"
-                    disabled={ !canSave }
                     onClick={ onCancel }
                     className={ classes.button }
                     color="primary">Cancel</Button>

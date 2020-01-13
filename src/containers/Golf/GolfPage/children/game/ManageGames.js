@@ -10,6 +10,12 @@ import GameForm from '@containers/Golf/GolfPage/children/game/GameForm';
 import GameList from '@containers/Golf/GolfPage/children/game/GameList';
 import saveGame from '@services/saveGame';
 import useClubDefinitions from '@hooks/useClubDefinitions';
+import Button from '@material-ui/core/Button';
+import formStyles from '@styles/form.style';
+import {
+    FlexContainer,
+    FlexItem,
+} from '@styles/layout.style';
 
 const ManageGames = ({
     match,
@@ -18,17 +24,26 @@ const ManageGames = ({
 }) => {
 
     const { notification } = useNotification(webId);
+    const classes = formStyles();
     const [reload, setReload] = useState(false);
     const clubTypeDefinitions = useClubDefinitions();
     const gameData = useGames(clubTypeDefinitions, reload);
     const [currentGame, setCurrentGame] = useState();
     const [games, setGames] = useState([]);
+    const [showNewGame, setShowNewGame] = useState(false);
     const { t } = useTranslation();
+
+    const toggleShowNewGame = () => setShowNewGame(state => !state);
 
     const onSaveGame = (game) => {
 
         saveGame(game, gameData.doc);
         setReload(true);
+    };
+
+    const onCancelHandler = () => {
+
+        setShowNewGame(false);
     };
 
     const onDeleteGameHandler = (game) => {
@@ -82,7 +97,21 @@ const ManageGames = ({
         <>
             <ModuleHeader label="Games" screenheader={ true }/>
             <PageContainer>
-                <GameForm game={ currentGame } onSave={ onSaveGame }/>
+                { showNewGame && <GameForm
+                    game={ currentGame }
+                    onSave={ onSaveGame }
+                    onCancel={ onCancelHandler }/>
+                }
+                { !showNewGame && <FlexContainer>
+                        <FlexItem>
+                            <Button
+                                variant="contained"
+                                onClick={ toggleShowNewGame }
+                                className={ classes.button }
+                                color="primary">New game</Button>
+                        </FlexItem>
+                    </FlexContainer>
+                }
                 {
                     games.length > 0 && <GameList
                         games={ games }
