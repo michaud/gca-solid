@@ -3,7 +3,7 @@ import React, { createContext } from 'react';
 export const ClubTypeContext = /*#__PURE__*/ createContext(null);
 
 if (process.env.NODE_ENV !== 'production') {
-    ClubTypeContext.displayName = 'ReactRedux'
+    ClubTypeContext.displayName = 'ClubTypeContext'
 }
 
 export const withClubTypeContext = Component => props => {
