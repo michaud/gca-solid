@@ -34,18 +34,20 @@ const ManageHoles = ({
         setEditHole(holes[idx]);
     };
 
-    return <>
-        <HoleForm
-            hole={ editHole }
-            onSave={ onSaveHoleHandler }
-            onEdit={ onSaveEditHoleHandler }
-            holeNumber={ holeNumber }
-            actionLabel={ editHole ? 'save hole' : 'add hole' }/>
-        <HoleTable
-            holes={ holes }
-            onEditHole={ editHoleHandler }
-            listTitle={ listTitle }/>
-    </>
-}
+    return (
+        <>
+            <HoleForm
+                hole={ editHole }
+                onSave={ onSaveHoleHandler }
+                onEdit={ onSaveEditHoleHandler }
+                holeNumber={ holeNumber }
+                actionLabel={ editHole ? 'save hole' : 'add hole' }/>
+            <HoleTable
+                holes={ holes }
+                onEditHole={ editHoleHandler }
+                listTitle={ listTitle }/>
+        </>
+    );
+};
 
 export default ManageHoles;

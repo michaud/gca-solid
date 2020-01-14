@@ -80,7 +80,7 @@ const ManageCourses = ({
                     onDelete={ onDeleteCourseHandler }/>
             </PageContainer>
         </>
-    )
-}
+    );
+};
 
 export default ManageCourses;

@@ -31,7 +31,9 @@ const SelectMarker = ({ markers = [], onSave, onChange }) => {
         className={ classes.button }
         color="primary">Add Marker</Button>)
 
-    return <div className="c-box">{ fields }</div>;
+    return (
+        <div className="c-box">{ fields }</div>
+    );
 };
 
 export default SelectMarker;

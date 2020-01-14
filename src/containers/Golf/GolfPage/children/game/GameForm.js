@@ -171,32 +171,34 @@ const GameForm = ({
 
     const canSave = checkCanSave(gameState);
 
-    return <form noValidate autoComplete="off">
-    {
-        gameState && <>
-            <header className="c-header">{ title }</header>
-            { gameFields }
-            <FlexContainer>
-                <FlexItem>
-                    <Button
+    return (
+        <form noValidate autoComplete="off">
+        {
+            gameState && <>
+                <header className="c-header">{ title }</header>
+                { gameFields }
+                <FlexContainer>
+                    <FlexItem>
+                        <Button
+                            variant="contained"
+                            disabled={ !canSave }
+                            onClick={ saveGameHandler }
+                            className={ classes.button }
+                            color="primary">{ actionLabel }</Button>
+                    </FlexItem>
+                    <FlexItemRight>
+                    { onCancel !== undefined && <Button
                         variant="contained"
-                        disabled={ !canSave }
-                        onClick={ saveGameHandler }
+                        onClick={ onCancel }
                         className={ classes.button }
-                        color="primary">{ actionLabel }</Button>
-                </FlexItem>
-                <FlexItemRight>
-                { onCancel !== undefined && <Button
-                    variant="contained"
-                    onClick={ onCancel }
-                    className={ classes.button }
-                    color="primary">Cancel</Button>
-                }
-                </FlexItemRight>
-            </FlexContainer>
-        </>
-    }
-    </form>;
+                        color="primary">Cancel</Button>
+                    }
+                    </FlexItemRight>
+                </FlexContainer>
+            </>
+        }
+        </form>
+    );
 };
 
 export default GameForm;

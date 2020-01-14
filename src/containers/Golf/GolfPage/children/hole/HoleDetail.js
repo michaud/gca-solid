@@ -77,7 +77,7 @@ const HoleDetail = ({
                     </FlexItemTools>
                 </FlexContainer>
             </FieldContainer>
-        )
+        );
     }
 };
 

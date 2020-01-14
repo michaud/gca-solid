@@ -143,16 +143,18 @@ const GameDetail = ({
         }, count++));
     }
 
-    return <FieldContainer>
-        <FlexContainer>
-            <FlexItemData>
-                { displayFields }
-            </FlexItemData>
-            <FlexItemTools>
-                <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
-            </FlexItemTools>
-        </FlexContainer>
-    </FieldContainer>;
-}
+    return (
+        <FieldContainer>
+            <FlexContainer>
+                <FlexItemData>
+                    { displayFields }
+                </FlexItemData>
+                <FlexItemTools>
+                    <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
+                </FlexItemTools>
+            </FlexContainer>
+        </FieldContainer>
+    );
+};
 
 export default GameDetail;

@@ -19,32 +19,35 @@ const ClubTypeSelector = ({
         onChange(value);
     };
 
-    return <ClubTypeContext.Consumer>
-    {
-        ({ clubTypes }) => {
+    return (
+        <ClubTypeContext.Consumer>
+        {
+            ({ clubTypes }) => {
 
-            if (clubTypes) {
+                if (clubTypes) {
 
-                return (
-                    <AutoComplete
-                        options={ clubTypes }
-                        getOptionLabel={ option => option === "" ? "" : option.label }
-                        renderInput={ params => (
-                            <TextField
-                                className={ classes.plainTextField }
-                                { ...params }
-                                label={ label }
-                                variant="outlined"
-                                fullWidth />
-                        )}
-                        value={ value }
-                        onChange={ handleOnChange }/>
-                );
-            } else {
-                return null;
+                    return (
+                        <AutoComplete
+                            options={ clubTypes }
+                            getOptionLabel={ option => option === "" ? "" : option.label }
+                            renderInput={ params => (
+                                <TextField
+                                    className={ classes.plainTextField }
+                                    { ...params }
+                                    label={ label }
+                                    variant="outlined"
+                                    fullWidth />
+                            )}
+                            value={ value }
+                            onChange={ handleOnChange }/>
+                    );
+                } else {
+                    return null;
+                }
             }
         }
-    }</ClubTypeContext.Consumer>
+        </ClubTypeContext.Consumer>
+    );
 };
 
 export default ClubTypeSelector;

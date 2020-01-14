@@ -32,7 +32,9 @@ const SelectCourse = ({ courses, onChange }) => {
         className={ classes.button }
         color="primary">Add Course</Button>)
 
-    return <div className="c-box">{ fields }</div>;
+    return (
+        <div className="c-box">{ fields }</div>
+    );
 };
 
 export default SelectCourse;

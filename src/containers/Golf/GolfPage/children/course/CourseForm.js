@@ -150,29 +150,31 @@ const CourseForm = ({
 
     const canSave = checkCanSave(courseState);
 
-    return <form noValidate autoComplete="off">
-        <header className="c-header">{ title }</header>
-        { courseFields }
-        <FlexContainer>
-            <FlexItem>
-                <Button
+    return (
+        <form noValidate autoComplete="off">
+            <header className="c-header">{ title }</header>
+            { courseFields }
+            <FlexContainer>
+                <FlexItem>
+                    <Button
+                        variant="contained"
+                        disabled={ !canSave }
+                        onClick={ saveHandler }
+                        className={ classes.button }
+                        color="primary">{ actionLabel }</Button>
+                </FlexItem>
+                <FlexItemRight>
+                { onCancel && <Button
                     variant="contained"
                     disabled={ !canSave }
-                    onClick={ saveHandler }
+                    onClick={ onCancel }
                     className={ classes.button }
-                    color="primary">{ actionLabel }</Button>
-            </FlexItem>
-            <FlexItemRight>
-            { onCancel && <Button
-                variant="contained"
-                disabled={ !canSave }
-                onClick={ onCancel }
-                className={ classes.button }
-                color="primary">Cancel</Button>
-            }
-            </FlexItemRight>
-        </FlexContainer>
-    </form>;
+                    color="primary">Cancel</Button>
+                }
+                </FlexItemRight>
+            </FlexContainer>
+        </form>
+    );
 };
 
 export default CourseForm;

@@ -61,17 +61,19 @@ const ManagePlayers = ({
 
     }, [webId, playerDetails, reload, notification.notify]);
 
-    return <>
-        <ModuleHeader label={ t('golf.players') } screenheader={ true }/>
-        <PageContainer>
-            { 
-                player && <PlayerDetail
-                    onSave={ onSavePlayer }
-                    player={ player }/> 
-            }
-            <ManageMarkers webId={ webId }/>
-        </PageContainer>
-    </>;
+    return (
+        <>
+            <ModuleHeader label={ t('golf.players') } screenheader={ true }/>
+            <PageContainer>
+                { 
+                    player && <PlayerDetail
+                        onSave={ onSavePlayer }
+                        player={ player }/> 
+                }
+                <ManageMarkers webId={ webId }/>
+            </PageContainer>
+        </>
+    );
 };
 
 export default ManagePlayers;

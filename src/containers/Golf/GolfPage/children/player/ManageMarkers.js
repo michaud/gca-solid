@@ -71,18 +71,20 @@ const ManageMarkers = ({
 
     const marker = getPlayer(undefined, golf.classes.Marker);
 
-    return <>
-        <header className="c-header">Markers</header>
-        <PlayerDetail
-            target="marker"
-            player={ marker }
-            onDelete={ onDeleteMarker }
-            onSave={ onSaveMarker }/>
-        <MarkerList
-            markers={ markers }
-            onDelete={ onDeleteMarker }
-            onSaveMarker={ onSaveMarker }/>
-        </>;
+    return (
+        <>
+            <header className="c-header">Markers</header>
+            <PlayerDetail
+                target="marker"
+                player={ marker }
+                onDelete={ onDeleteMarker }
+                onSave={ onSaveMarker }/>
+            <MarkerList
+                markers={ markers }
+                onDelete={ onDeleteMarker }
+                onSaveMarker={ onSaveMarker }/>
+        </>
+    );
 };
 
 export default ManageMarkers;

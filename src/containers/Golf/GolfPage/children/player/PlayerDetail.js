@@ -79,23 +79,24 @@ const PlayerDetail = ({
 
         const handleDelete = typeof(onDelete) === 'function' ? onDeleteHandler : undefined ;
     
-        return (<>
-            <header className="c-header">{ target }</header>
-            <FieldContainer>
-                <FlexContainer>
-                    <FlexItemData>
-                    {
-                        displayFields.map((field, index) => <FlexContainer key={ index }>
-                            <FlexItemLabel>{ field.label }</FlexItemLabel>
-                            <FlexItemValue>{ field.value }</FlexItemValue>
-                        </FlexContainer>)
-                    }
-                    </FlexItemData>
-                    <FlexItemTools>
-                        <EditActions onEdit={ onEdit } onDelete={ handleDelete }/>
-                    </FlexItemTools>
-                </FlexContainer>
-            </FieldContainer>
+        return (
+            <>
+                <header className="c-header">{ target }</header>
+                <FieldContainer>
+                    <FlexContainer>
+                        <FlexItemData>
+                        {
+                            displayFields.map((field, index) => <FlexContainer key={ index }>
+                                <FlexItemLabel>{ field.label }</FlexItemLabel>
+                                <FlexItemValue>{ field.value }</FlexItemValue>
+                            </FlexContainer>)
+                        }
+                        </FlexItemData>
+                        <FlexItemTools>
+                            <EditActions onEdit={ onEdit } onDelete={ handleDelete }/>
+                        </FlexItemTools>
+                    </FlexContainer>
+                </FieldContainer>
             </>
         );
     }

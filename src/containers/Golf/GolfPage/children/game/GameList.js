@@ -17,16 +17,18 @@ const GameList = ({
         onDelete(game);
     };
 
-    return <div>
-        <header className="c-header">Game list</header>
-        {
-            games.length > 0 && games.map((game, index) => <GameDetail
-                onSave={ onSaveGame }
-                onDelete={ onDeleteGame }
-                key={ index }
-                game={ game } />)
-        }
-    </div>;
-}
+    return (
+        <div>
+            <header className="c-header">Game list</header>
+            {
+                games.length > 0 && games.map((game, index) => <GameDetail
+                    onSave={ onSaveGame }
+                    onDelete={ onDeleteGame }
+                    key={ index }
+                    game={ game } />)
+            }
+        </div>
+    );
+};
 
 export default GameList;

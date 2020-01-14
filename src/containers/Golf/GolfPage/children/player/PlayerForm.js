@@ -81,29 +81,31 @@ const PlayerForm = ({
 
     const canSave = checkCanSave(playerState);
 
-    return <div>
-        <header className="c-header">{ title }</header>
-        { playerFields }
-        <FlexContainer>
-            <FlexItem>
-                <Button
+    return (
+        <div>
+            <header className="c-header">{ title }</header>
+            { playerFields }
+            <FlexContainer>
+                <FlexItem>
+                    <Button
+                        variant="contained"
+                        disabled={ !canSave }
+                        onClick={ saveHandler }
+                        className={ classes.button }
+                        color="primary">{ actionLabel }</Button>
+                </FlexItem>
+                <FlexItemRight>
+                { onCancel && <Button
                     variant="contained"
                     disabled={ !canSave }
-                    onClick={ saveHandler }
+                    onClick={ onCancel }
                     className={ classes.button }
-                    color="primary">{ actionLabel }</Button>
-            </FlexItem>
-            <FlexItemRight>
-            { onCancel && <Button
-                variant="contained"
-                disabled={ !canSave }
-                onClick={ onCancel }
-                className={ classes.button }
-                color="primary">Cancel</Button>
-            }
-            </FlexItemRight>
-        </FlexContainer>
-    </div>
+                    color="primary">Cancel</Button>
+                }
+                </FlexItemRight>
+            </FlexContainer>
+        </div>
+    );
 }
 
 export default PlayerForm;

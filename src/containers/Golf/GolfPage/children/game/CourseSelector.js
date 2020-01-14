@@ -19,39 +19,41 @@ const CourseSelector = ({courses = [], onChange }) => {
         if(onChange) onChange(course);
     };
 
-    return <>
-        <header className="c-header--sec">Select course</header>
-        <Paper className={ classes.paper }>
-            <List className={ classes.selectorList } role="list">
-            {
-                courses && courses.map((course, idx) => {
+    return (
+        <>
+            <header className="c-header--sec">Select course</header>
+            <Paper className={ classes.paper }>
+                <List className={ classes.selectorList } role="list">
+                {
+                    courses && courses.map((course, idx) => {
 
-                    const secondaryText = `${ course.fields.courseSlope.field.label }: ${ course.fields.courseSlope.field.value }, holes: ${ course.fields.courseHoles.field.value.length }`;
+                        const secondaryText = `${ course.fields.courseSlope.field.label }: ${ course.fields.courseSlope.field.value }, holes: ${ course.fields.courseHoles.field.value.length }`;
 
-                    return <ListItem key={ idx }
-                        className={ classes.listItem }
-                        role="listitem"
-                        selected={ selectedCourse === course }
-                        onClick={ handleListItemClick(course) }
-                        button>
-                        <ListItemText
-                            primary={ course.fields.courseName.field.value }
-                            secondary={
-                                <>
-                                    <Typography component="span"
-                                        variant="body2"
-                                        className={ classes.inline }
-                                        color="textPrimary">
-                                        { secondaryText }
-                                    </Typography>
-                                </>
-                            }/>
-                    </ListItem>
-                })
-            }
-            </List>
-        </Paper>
-    </>;
+                        return <ListItem key={ idx }
+                            className={ classes.listItem }
+                            role="listitem"
+                            selected={ selectedCourse === course }
+                            onClick={ handleListItemClick(course) }
+                            button>
+                            <ListItemText
+                                primary={ course.fields.courseName.field.value }
+                                secondary={
+                                    <>
+                                        <Typography component="span"
+                                            variant="body2"
+                                            className={ classes.inline }
+                                            color="textPrimary">
+                                            { secondaryText }
+                                        </Typography>
+                                    </>
+                                }/>
+                        </ListItem>
+                    })
+                }
+                </List>
+            </Paper>
+        </>
+    );
 };
 
 export default CourseSelector;

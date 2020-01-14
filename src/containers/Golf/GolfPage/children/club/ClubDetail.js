@@ -93,55 +93,57 @@ const ClubDetail = ({
         onDelete(club);
     };
 
-    return <ClubTypeContext.Consumer>
-    {
-        clubTypeData => {
-    
-            const { clubTypes = [], clubType } = clubTypeData;
-            const fields = [];
+    return (
+        <ClubTypeContext.Consumer>
+        {
+            clubTypeData => {
+        
+                const { clubTypes = [], clubType } = clubTypeData;
+                const fields = [];
 
-            if(clubTypes.length > 0 && clubType) {
+                if(clubTypes.length > 0 && clubType) {
 
-                clubShape.shape.forEach(field => {
-                    
-                    const renderField = checkRenderField(field);
+                    clubShape.shape.forEach(field => {
+                        
+                        const renderField = checkRenderField(field);
 
-                    if(renderField) {
+                        if(renderField) {
 
-                        const data = getFieldData(field, club, clubType, clubTypes);
-                        fields.push(data);
-                    }
-                });
+                            const data = getFieldData(field, club, clubType, clubTypes);
+                            fields.push(data);
+                        }
+                    });
+                }
+                
+                if(displayState === displayStates.edit) {
+
+                    return <ClubForm
+                        club={ club }
+                        onSave={ onSaveHandler }
+                        title=""
+                        actionLabel="Save club"
+                        onCancel={ cancelEdit }/>;
+                }
+
+                return <FieldContainer>
+                    <FlexContainer>
+                        <FlexItemData>
+                        {
+                            fields.map((field, index) => <FlexContainer key={ index }>
+                                <FlexItemLabel>{ field.label }</FlexItemLabel>
+                                <FlexItemValue>{ field.value }</FlexItemValue>
+                            </FlexContainer>)
+                        }
+                        </FlexItemData>
+                        <FlexItemTools>
+                            <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
+                        </FlexItemTools>
+                    </FlexContainer>
+                </FieldContainer>;
             }
-            
-            if(displayState === displayStates.edit) {
-
-                return <ClubForm
-                    club={ club }
-                    onSave={ onSaveHandler }
-                    title=""
-                    actionLabel="Save club"
-                    onCancel={ cancelEdit }/>;
-            }
-
-            return <FieldContainer>
-                <FlexContainer>
-                    <FlexItemData>
-                    {
-                        fields.map((field, index) => <FlexContainer key={ index }>
-                            <FlexItemLabel>{ field.label }</FlexItemLabel>
-                            <FlexItemValue>{ field.value }</FlexItemValue>
-                        </FlexContainer>)
-                    }
-                    </FlexItemData>
-                    <FlexItemTools>
-                        <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
-                    </FlexItemTools>
-                </FlexContainer>
-            </FieldContainer>;
         }
-    }
-    </ClubTypeContext.Consumer>;
-}
+        </ClubTypeContext.Consumer>
+    );
+};
 
 export default ClubDetail;
