@@ -7,9 +7,10 @@ import { useNotification } from '@inrupt/solid-react-components';
 import { useTranslation } from 'react-i18next';
 import CourseList from '@containers/Golf/GolfPage/children/course/CourseList';
 import CourseForm from '@containers/Golf/GolfPage/children/course/CourseForm';
-import saveCourse from '@services/saveCourse';
 import deleteCourse from '@services/deleteCourse';
 import { PageContainer } from '@styles/page.style';
+import saveResource from '@services/saveResource';
+import golf from '@utils/golf-namespace';
 
 const ManageCourses = ({
     match,
@@ -25,7 +26,7 @@ const ManageCourses = ({
 
     const onSaveCourse = (course) => {
 
-        saveCourse(course, courseData.doc);
+        saveResource(course, courseData.doc, golf.classes.Course);
         setReload(true);
     };
 

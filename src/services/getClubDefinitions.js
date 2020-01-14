@@ -16,9 +16,7 @@ const getClubDefinitions = async () => {
             const iri = quad.asRef();
             const label = quad.getLiteral(golf.properties.fieldLabel);
 
-            let value = '';
-
-            if(fieldName === 'ownedBy') value = 'https://michaud.inrupt.net/profile/card#me';
+            const value = '';
 
             acc[fieldName] = {
                 fieldType,

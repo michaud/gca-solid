@@ -7,10 +7,10 @@ import getPlayer from '@services/getPlayer';
 import golf from '@utils/golf-namespace';
 import MarkerList from './MarkerList';
 import PlayerDetail from './PlayerDetail';
-import saveMarker from '@services/saveMarker';
 import { useNotification } from '@inrupt/solid-react-components';
 import { errorToaster } from '@utils/';
 import deleteMarker from '@services/deleteMarker';
+import saveResource from '@services/saveResource';
 
 const ManageMarkers = ({
     webId
@@ -24,7 +24,7 @@ const ManageMarkers = ({
 
     const onSaveMarker = (marker) => {
 
-        saveMarker(marker, markerData.doc);
+        saveResource(marker, markerData.doc, golf.classes.Marker);
         setReload(true);
     };
 

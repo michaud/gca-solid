@@ -8,7 +8,6 @@ import { errorToaster } from '@utils/';
 import { PageContainer } from '@styles/page.style';
 import GameForm from '@containers/Golf/GolfPage/children/game/GameForm';
 import GameList from '@containers/Golf/GolfPage/children/game/GameList';
-import saveGame from '@services/saveGame';
 import useClubDefinitions from '@hooks/useClubDefinitions';
 import Button from '@material-ui/core/Button';
 import formStyles from '@styles/form.style';
@@ -17,6 +16,8 @@ import {
     FlexItem,
 } from '@styles/layout.style';
 import Redirect from 'react-router-dom/Redirect';
+import golf from '@utils/golf-namespace';
+import saveResource from '@services/saveResource';
 
 const ManageGames = ({
     match,
@@ -40,7 +41,7 @@ const ManageGames = ({
 
     const onSaveGameHandler = (game) => {
 
-        saveGame(game, gameData.doc);
+        saveResource(game, gameData.doc, golf.classes.Game);
         setReload(true);
     };
 
@@ -56,7 +57,7 @@ const ManageGames = ({
     };
 
     const onPlayGameHandler = (game) => {
-        console.log('game: ', game);
+
         setPlayGame(game.split('#')[1]);
     };
         

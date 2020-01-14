@@ -5,7 +5,7 @@ import golf from '@utils/golf-namespace';
 import getBagClubs from '@services/getBagClubs';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import { rdf } from 'rdf-namespaces';
-import { fetchDocument } from 'tripledoc';
+import fetchResource from '@services/fetchResource';
 
 const setupBag = (document) => {
     const bag = document.addSubject();
@@ -51,8 +51,12 @@ const useBagClubs = (clubTypeDefinitions, reload) => {
                     const url = clubListIndex.getRef(solid.instance);
 
                     if (typeof url !== 'string') return;
-                    const doc = await fetchDocument(url);
-                    const list = await getBagClubs(doc, clubType, clubTypes)
+                    const doc = await fetchResource(url);
+                    const list = await getBagClubs(
+                        doc,
+                        clubType,
+                        clubTypes
+                    );
 
                     setClubList({
                         list,

@@ -15,9 +15,9 @@ import useCourses from '@hooks/useCourses';
 import useMarkers from '@hooks/useMarkers';
 import usePlayer from '@hooks/usePlayer';
 import { format } from 'date-fns'
-import savePlayer from '@services/savePlayer';
-import saveMarker from '@services/saveMarker';
 import { putClubsInBag } from '@utils/putClubsInBag';
+import saveResource from '@services/saveResource';
+import golf from '@utils/golf-namespace';
 
 import {
     FlexContainer,
@@ -45,13 +45,14 @@ const GameForm = ({
 
     const saveGamePlayer = doc => player => {
 
-        savePlayer(player, doc);
+        saveResource(player, doc, golf.classes.Player);
         setReload(true);
     };
     
     const saveGameMarker = doc => player => {
     
-        saveMarker(player, doc);
+        saveResource(player, doc, golf.classes.Marker);
+
         setReload(true);
     };
     

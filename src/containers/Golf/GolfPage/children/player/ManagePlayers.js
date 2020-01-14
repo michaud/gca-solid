@@ -7,7 +7,8 @@ import PlayerDetail from '@containers/Golf/GolfPage/children/player/PlayerDetail
 import usePlayer from '@hooks/usePlayer';
 import { errorToaster } from '@utils/';
 import { PageContainer } from '@styles/page.style';
-import savePlayer from '@services/savePlayer';
+import golf from '@utils/golf-namespace';
+import saveResource from '@services/saveResource';
 
 const ManagePlayers = ({
     match,
@@ -23,7 +24,7 @@ const ManagePlayers = ({
 
     const onSavePlayer = (playerData) => {
 
-        savePlayer(playerData, playerDetails.doc);
+        saveResource(playerData, playerDetails.doc, golf.classes.Player);
         setReload(true);
     };
 

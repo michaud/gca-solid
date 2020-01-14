@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { solid } from 'rdf-namespaces';
 import usePublicTypeIndex from './usePublicTypeIndex';
 import golf from '@utils/golf-namespace';
-import { fetchDocument } from 'tripledoc';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import getListFromDoc from '@services/getListFromDoc';
 import clubShape from '@contexts/club-shape.json';
+import fetchResource from '@services/fetchResource';
 
 const useClubs = (clubTypeDefinitions, reload) => {
 
@@ -47,7 +47,7 @@ const useClubs = (clubTypeDefinitions, reload) => {
 
                         if (typeof url !== 'string') return;
 
-                        const doc = await fetchDocument(url);
+                        const doc = await fetchResource(url);
                         const list = await getListFromDoc(
                             doc,
                             golf.classes.Club,

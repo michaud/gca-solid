@@ -18,7 +18,8 @@ import ClubList from '@containers/Golf/GolfPage/children/club/ClubList';
 import ModuleHeader from '@containers/Golf/GolfPage/children/ModuleHeader';
 import BagTransferList from '@containers/Golf/GolfPage/children/bag/BagTransferList';
 import { PageContainer } from '@styles/page.style';
-import saveClubToList from '@services/saveClubToList';
+import saveResource from '@services/saveResource';
+import golf from '@utils/golf-namespace';
 
 const ManageBag = ({ match, webId, history }) => {
 
@@ -35,13 +36,13 @@ const ManageBag = ({ match, webId, history }) => {
 
         if (!clubListData) return;
 
-        await saveClubToList(club, clubListData.doc);
+        await saveResource(club, clubListData.doc, golf.classes.Club);
         setReload(true);
     };
 
     const saveClubHandler = async (club) => {
         
-        await saveClubToList(club, clubListData.doc);
+        await saveResource(club, clubListData.doc, golf.classes.Club);
         setReload(true);
     };
 

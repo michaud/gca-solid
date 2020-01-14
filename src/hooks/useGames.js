@@ -5,9 +5,9 @@ import { solid } from 'rdf-namespaces';
 import usePublicTypeIndex from './usePublicTypeIndex';
 import golf from '@utils/golf-namespace';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
-import { fetchDocument } from 'tripledoc';
 import getListFromDoc from '@services/getListFromDoc';
 import gameShape from '@contexts/game-shape.json';
+import fetchResource from '@services/fetchResource';
 
 const useGames = (clubTypeDefinitions, reload) => {
 
@@ -47,7 +47,8 @@ const useGames = (clubTypeDefinitions, reload) => {
 
                     if (typeof url !== 'string') return;
 
-                    const doc = await fetchDocument(url);
+                    const doc = await fetchResource(url);
+
                     const list = getListFromDoc(
                         doc,
                         golf.classes.Game,

@@ -3,8 +3,8 @@ import { solid } from 'rdf-namespaces';
 import usePublicTypeIndex from './usePublicTypeIndex';
 import golf from '@utils/golf-namespace';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
-import fetchPlayer from '@services/fetchPlayer';
 import getPlayer from '@services/getPlayer';
+import fetchResource from '@services/fetchResource';
 
 const usePlayer = (reload) => {
 
@@ -42,8 +42,11 @@ const usePlayer = (reload) => {
 
                     if (typeof url !== 'string') return;
 
-                    const doc = await fetchPlayer(url);
-                    const playerData = await getPlayer(doc, golf.classes.Player);
+                    const doc = await fetchResource(url);
+                    const playerData = await getPlayer(
+                        doc,
+                        golf.classes.Player
+                    );
 
                     setPlayerData({ player: playerData, doc });
                 }
