@@ -210,33 +210,12 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
         case golf.classes.Hole:
         case golf.classes.Marker:
-        case golf.classes.Course: {
-
-            fieldData = getFieldTypeData[fieldType](doc)(data, fieldValue);
-
-            break;
-        }
-
-        case golf.classes.Game: {
-
-            fieldData = getFieldTypeData[fieldType](doc)(data, fieldValue);
-
-            break;
-        }
-
+        case golf.classes.Player:
+        case golf.classes.Course:
+        case golf.classes.Game:
         case golf.classes.GamePlayingHandicap: {
 
             fieldData = getFieldTypeData[fieldType](doc)(data, fieldValue);
-
-            break;
-        }
-
-        case golf.classes.Player: {
-            
-            fieldData = {
-                label:'me',
-                value: 'me'
-            }
 
             break;
         }
