@@ -41,7 +41,7 @@ const EditPlayingHandicap = ({ handicap, onChange = () => {} }) => {
         for (const field in handicapState.fields) {
 
             const fieldControl = getFieldControl({
-                field: handicapState.fields[field],
+                data: handicapState.fields[field],
                 styles: classes,
                 onChange: onChangeField,
                 idx: index++

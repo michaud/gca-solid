@@ -153,12 +153,12 @@ const GameForm = ({
             const callback = saveGamePlayerCallbacks[field];
 
             const fieldControl = getFieldControl({
-                field: gameState.fields[field],
+                data: gameState.fields[field],
                 styles: classes,
                 onChange: onChangeField,
                 onSave: callback ? callback(doc[field]) : undefined,
                 idx: index++,
-                data: {
+                dataSource: {
                     markers: markerData.list,
                     courses: courseData.list,
                     player: playerData.player

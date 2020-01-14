@@ -136,7 +136,7 @@ const CourseForm = ({
         for (const field in courseState.fields) {
 
             const fieldControl = getFieldControl({
-                field: courseState.fields[field],
+                data: courseState.fields[field],
                 styles: classes,
                 onChange: onChangeCourseField,
                 onSave: onAddHole,

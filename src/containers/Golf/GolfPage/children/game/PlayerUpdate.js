@@ -62,7 +62,7 @@ const PlayerUpdate = ({
     const canSave = checkFieldsChanged(player, playerState);
 
     const handicapField = getFieldControl({
-        field: playerState.fields.handicap,
+        data: playerState.fields.handicap,
         styles: classes,
         onChange: onChangeHandicap,
         idx: 0

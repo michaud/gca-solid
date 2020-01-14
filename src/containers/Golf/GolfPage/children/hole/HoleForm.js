@@ -85,7 +85,7 @@ const HoleForm = ({
         for (const field in holeState.fields) {
 
             const fieldControl = getFieldControl({
-                field: holeState.fields[field],
+                data: holeState.fields[field],
                 styles: classes,
                 onChange: onChangeHoleField,
                 inputRef: focusRef,

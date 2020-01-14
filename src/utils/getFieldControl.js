@@ -13,7 +13,7 @@ import EditPlayingHandicap from '@containers/Golf/GolfPage/children/game/EditPla
 import SelectCourse from '@containers/Golf/GolfPage/children/game/SelectCourse';
 
 const getFieldControl = ({
-    field,
+    data,
     label,
     styles,
     onChange,
@@ -21,21 +21,21 @@ const getFieldControl = ({
     onSaveEdit,
     inputRef,
     idx,
-    data
+    dataSource
 }) => {
 
-    const required = field.hasOwnProperty('required') ? field.required : true;
+    const required = data.hasOwnProperty('required') ? data.required : true;
 
-    switch(field.fieldType) {
+    switch(data.fieldType) {
 
         case golf.types.string : {
 
             return <TextField key={ idx }
                 required={ required }
-                label={ field.field.label }
+                label={ data.field.label }
                 className={ styles.textField }
-                value={ field.field.value }
-                onChange={ onChange(field) }
+                value={ data.field.value }
+                onChange={ onChange(data) }
                 variant="outlined"/>
         }
 
@@ -43,10 +43,10 @@ const getFieldControl = ({
 
             return <TextField key={ idx }
                 required={ required }
-                label={ field.field.label }
+                label={ data.field.label }
                 className={ styles.textField }
-                value={ field.field.value }
-                onChange={ onChange(field) }
+                value={ data.field.value }
+                onChange={ onChange(data) }
                 variant="outlined"/>
         }
 
@@ -55,59 +55,59 @@ const getFieldControl = ({
             return <TextField key={ idx }
                 required
                 type="number"
-                label={ field.field.label }
+                label={ data.field.label }
                 className={ styles.textField }
-                value={ field.field.value }
-                onChange={ onChange(field) }
+                value={ data.field.value }
+                onChange={ onChange(data) }
                 variant="outlined"/>
         }
 
         case golf.types.nonNegativeInteger : {
 
-            if(field.fieldName === 'holeStrokeIndex') {
+            if(data.fieldName === 'holeStrokeIndex') {
 
                 return <TextField
                     key={ idx }
                     type="number"
                     required
-                    label={ field.field.label }
+                    label={ data.field.label }
                     className={ styles.textFieldNumber }
                     inputRef={ inputRef }
-                    value={ field.field.value }
-                    onChange={ onChange(field) }
+                    value={ data.field.value }
+                    onChange={ onChange(data) }
                     variant="outlined"/>
             }
 
             return <TextField key={ idx }
                 required={ required }
                 type="number"
-                label={ field.field.label }
+                label={ data.field.label }
                 className={ styles.textFieldNumber }
-                value={ field.field.value }
-                onChange={ onChange(field) }
+                value={ data.field.value }
+                onChange={ onChange(data) }
                 variant="outlined"/>
         }
 
         case golf.types.dateTime : {
 
             return <DateTimeSelector key={ idx }
-                onChange={ onChange(field) }/>
+                onChange={ onChange(data) }/>
         }
 
         case golf.classes.Player : {
 
             return <PlayerUpdate key={ idx }
                 onSave={ onSave }
-                player={ data.player }/>
+                player={ dataSource.player }/>
         }
 
         case golf.classes.Club: {
 
             return <ClubTypeSelector
                 key={ idx }
-                value={ field.field.value }
+                value={ data.field.value }
                 label={ label }
-                onChange={ onChange(field) }/>
+                onChange={ onChange(data) }/>
         }
 
         case golf.classes.Hole : {
@@ -116,40 +116,40 @@ const getFieldControl = ({
                 onSave={ onSave }
                 onSaveEdit={ onSaveEdit }
                 key={ idx }
-                holes={ field.field.value }/>
+                holes={ data.field.value }/>
         }
 
         case golf.classes.Course : {
 
             return <SelectCourse key={ idx }
-                courses={ data.courses }
-                onChange={ onChange(field) }/>
+                courses={ dataSource.courses }
+                onChange={ onChange(data) }/>
         }
 
         case golf.classes.Marker : {
 
             return <SelectMarker key={ idx }
-                markers={ data.markers }
+                markers={ dataSource.markers }
                 onSave={ onSave }
-                onChange={ onChange(field) }/>
+                onChange={ onChange(data) }/>
         }
             
         case golf.classes.Bag : {
 
             return <BagDetail key={ idx }
-                bag={ field.field.value }/>
+                bag={ data.field.value }/>
         }
 
         case golf.classes.GamePlayingHandicap : {
                 
             return <EditPlayingHandicap key={ idx }
-                handicap={ field.field.value }
-                onChange={ onChange(field) }/>
+                handicap={ data.field.value }
+                onChange={ onChange(data) }/>
         }
 
         default: {
         
-            return <div key={ idx }>{ field.fieldType }</div>;
+            return <div key={ idx }>{ data.fieldType }</div>;
         }
     }
 };

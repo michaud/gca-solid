@@ -69,7 +69,7 @@ const PlayerForm = ({
         for (const field in playerState.fields) {
 
             const fieldControl = getFieldControl({
-                field: playerState.fields[field],
+                data: playerState.fields[field],
                 styles: classes,
                 onChange: onChangeField,
                 idx: index++

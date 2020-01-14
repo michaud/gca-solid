@@ -18,69 +18,73 @@ import CourseDetail from '../course/CourseDetail';
 import moment from 'moment';
 import BagDetail from './BagDetail';
 import EditActions from '@containers/Golf/components/EditActions';
+import PlayerDetail from '../player/PlayerDetail';
 
-const getDisplayField = (field, handlers, index) => {
+const getDisplayField = (data, handlers, index) => {
 
-    switch (field.fieldType) {
-
-        case golf.types.string : {
-
-            return <FlexContainer key={ index }>
-                <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                <FlexItemValue>{ field.field.value }</FlexItemValue>
-            </FlexContainer>;
-        }
+    switch (data.fieldType) {
 
         case golf.types.dateTime : {
 
-            const value = field.field.value instanceof Date ? moment(field.field.value).format('DD-mm-YY hh:mm') : ''
-            return <FlexContainer key={ index }>
-                <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                <FlexItemValue>{ value }</FlexItemValue>
-            </FlexContainer>;
-        }
+            const value = data.field.value instanceof Date ? moment(data.field.value).format('DD-mm-YY hh:mm') : ''
 
-        case golf.types.nonNegativeInteger : {
-
-            return <FlexContainer key={ index }>
-                <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                <FlexItemValue>{ field.field.value }</FlexItemValue>
-            </FlexContainer>;
+            return (
+                <FlexContainer key={ index }>
+                    <FlexItemLabel>{ data.field.label }</FlexItemLabel>
+                    <FlexItemValue>{ value }</FlexItemValue>
+                </FlexContainer>
+            );
         }
 
         case golf.classes.Hole : {
 
             const { editHoleHandler } = handlers;
 
-            return <HoleTable onEdit={ editHoleHandler }  key={ index } holes={ field.field.value }/>;
+            return (
+                <HoleTable onEdit={ editHoleHandler }  key={ index } holes={ data.field.value }/>
+            );
         }
 
         case golf.classes.Course : {
 
-            return <CourseDetail key={ index }
-                course={ field.field.value }/>
+            return (
+                <CourseDetail key={ index }
+                    course={ data.field.value }/>
+            );
         }
 
         case golf.classes.Bag : {
 
-            return <BagDetail key={ index }
-                bag={ field.field.value }/>
+            return (
+                <BagDetail key={ index }
+                    bag={ data.field.value }/>
+            );
         }
 
         case golf.classes.Player : {
-            return <div key={ index }>Player</div>
+
+            return (
+                <PlayerDetail key={ index }
+                    player={ data.field.value }/>
+            );
         }
 
         case golf.classes.Marker : {
-            return <div key={ index }>Marker</div>
+
+            return (
+                <PlayerDetail key={ index }
+                    player={ data.field.value }/>
+            );
         }
 
         default: {
 
-            return <FlexContainer key={ index }>
-                <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                <FlexItemValue>{ field.field.value }</FlexItemValue>
-            </FlexContainer>;
+            return (
+                <FlexContainer key={ index }>
+                    <FlexItemLabel>{ data.field.label }</FlexItemLabel>
+                    <FlexItemValue>{ data.field.value }</FlexItemValue>
+                </FlexContainer>
+            );
         }
     }
 };
