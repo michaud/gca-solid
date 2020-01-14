@@ -53,22 +53,6 @@ const CourseDetail = ({
 
         switch (field.fieldType) {
 
-            case golf.types.string : {
-
-                return <FlexContainer key={ index }>
-                    <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                    <FlexItemValue>{ field.field.value }</FlexItemValue>
-                </FlexContainer>;
-            }
-
-            case golf.types.nonNegativeInteger : {
-
-                return <FlexContainer key={ index }>
-                    <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                    <FlexItemValue>{ field.field.value }</FlexItemValue>
-                </FlexContainer>;
-            }
-
             case golf.classes.Hole : {
 
                 return <HoleTable onEdit={ editHoleHandler }  key={ index } holes={ field.field.value }/>;

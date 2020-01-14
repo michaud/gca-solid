@@ -47,7 +47,7 @@ const PlayerDetail = ({
         onDelete(player);
     };
 
-    const displayFields = useMemo(() => {
+    const fields = useMemo(() => {
 
         const fields = [];
 
@@ -86,7 +86,7 @@ const PlayerDetail = ({
                     <FlexContainer>
                         <FlexItemData>
                         {
-                            displayFields.map((field, index) => <FlexContainer key={ index }>
+                            fields.map((field, index) => <FlexContainer key={ index }>
                                 <FlexItemLabel>{ field.label }</FlexItemLabel>
                                 <FlexItemValue>{ field.value }</FlexItemValue>
                             </FlexContainer>)
