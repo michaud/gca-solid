@@ -101,24 +101,24 @@ const HoleForm = ({
         <header className="c-header">{ title }</header>
         { holeFields }
         <FlexContainer>
-                <FlexItem>
-                    <Button
-                        variant="contained"
-                        disabled={ !canSave }
-                        onClick={ saveHandler }
-                        className={ classes.button }
-                        color="primary">{ actionLabel }</Button>
-                </FlexItem>
-                <FlexItemRight>
-                { onCancel && <Button
+            <FlexItem>
+                <Button
                     variant="contained"
                     disabled={ !canSave }
-                    onClick={ onCancel }
+                    onClick={ saveHandler }
                     className={ classes.button }
-                    color="primary">{ t('golf.cancel') }</Button>
-                }
-                </FlexItemRight>
-            </FlexContainer>
+                    color="primary">{ actionLabel }</Button>
+            </FlexItem>
+            <FlexItemRight>
+            { onCancel && <Button
+                variant="contained"
+                disabled={ !canSave }
+                onClick={ onCancel }
+                className={ classes.button }
+                color="primary">{ t('golf.cancel') }</Button>
+            }
+            </FlexItemRight>
+        </FlexContainer>
     </div>;
 };
 

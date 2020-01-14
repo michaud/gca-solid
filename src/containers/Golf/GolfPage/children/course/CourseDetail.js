@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 
 import golf from '@utils/golf-namespace';
 
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-
 import {
     FieldContainer,
     FlexContainer,
@@ -18,6 +14,7 @@ import {
 import displayStates from '@utils/displayStates';
 import CourseForm from './CourseForm';
 import HoleTable from '../hole/HoleTable';
+import EditActions from '@containers/Golf/components/EditActions';
 
 const CourseDetail = ({
     course,
@@ -37,7 +34,7 @@ const CourseDetail = ({
         setDisplayState(displayStates.detail);
     };
 
-    const onSaveHandler = course => {
+    const onSaveHandler = () => {
 
         onSave(course);
         setDisplayState(displayStates.detail);
@@ -116,16 +113,7 @@ const CourseDetail = ({
                 { displayFields }
             </FlexItemData>
             <FlexItemTools>
-                <IconButton
-                    aria-label="edit"
-                    onClick={ onEdit }>
-                    <EditIcon />
-                </IconButton>
-                <IconButton
-                    aria-label="delete"
-                    onClick={ onDeleteHandler(course) }>
-                    <DeleteIcon />
-                </IconButton>
+                <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
             </FlexItemTools>
         </FlexContainer>
     </FieldContainer>;

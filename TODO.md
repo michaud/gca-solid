@@ -9,3 +9,4 @@ X handle card#me references
 - saveCourse, saveClub as saveClubToList
 - check iri s in data
 - implement Bag detail edit
+- Bag detail

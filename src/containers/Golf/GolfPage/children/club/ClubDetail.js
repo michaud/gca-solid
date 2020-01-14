@@ -4,11 +4,9 @@ import clubShape from '@contexts/club-shape.json';
 import ClubTypeContext from "@utils/clubTypeContext";
 import golf from "@utils/golf-namespace";
 
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import ClubForm  from './ClubForm';
 import displayStates from "@utils/displayStates";
+import EditActions from "@containers/Golf/components/EditActions";
 
 import {
     FieldContainer,
@@ -137,16 +135,7 @@ const ClubDetail = ({
                     }
                     </FlexItemData>
                     <FlexItemTools>
-                        <IconButton
-                            aria-label="delete"
-                            onClick={ onEdit }>
-                            <EditIcon />
-                        </IconButton>
-                        <IconButton
-                            aria-label="delete"
-                            onClick={ onDeleteHandler }>
-                            <DeleteIcon />
-                        </IconButton>
+                        <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
                     </FlexItemTools>
                 </FlexContainer>
             </FieldContainer>;

@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 
 import golf from '@utils/golf-namespace';
 
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-
 import {
     FieldContainer,
     FlexContainer,
@@ -21,6 +17,74 @@ import HoleTable from '../hole/HoleTable';
 import CourseDetail from '../course/CourseDetail';
 import moment from 'moment';
 import BagDetail from './BagDetail';
+import EditActions from '@containers/Golf/components/EditActions';
+
+const getDisplayField = (field, handlers, index) => {
+
+    switch (field.fieldType) {
+
+        case golf.types.string : {
+
+            return <FlexContainer key={ index }>
+                <FlexItemLabel>{ field.field.label }</FlexItemLabel>
+                <FlexItemValue>{ field.field.value }</FlexItemValue>
+            </FlexContainer>;
+        }
+
+        case golf.types.dateTime : {
+
+            const value = field.field.value instanceof Date ? moment(field.field.value).format('DD-mm-YY hh:mm') : ''
+            return <FlexContainer key={ index }>
+                <FlexItemLabel>{ field.field.label }</FlexItemLabel>
+                <FlexItemValue>{ value }</FlexItemValue>
+            </FlexContainer>;
+        }
+
+        case golf.types.nonNegativeInteger : {
+
+            return <FlexContainer key={ index }>
+                <FlexItemLabel>{ field.field.label }</FlexItemLabel>
+                <FlexItemValue>{ field.field.value }</FlexItemValue>
+            </FlexContainer>;
+        }
+
+        case golf.classes.Hole : {
+
+            const { editHoleHandler } = handlers;
+
+            return <HoleTable onEdit={ editHoleHandler }  key={ index } holes={ field.field.value }/>;
+        }
+
+        case golf.classes.Course : {
+
+            return <CourseDetail key={ index }
+                course={ field.field.value }/>
+        }
+
+        case golf.classes.Bag : {
+
+            return <BagDetail key={ index }
+                bag={ field.field.value }/>
+        }
+
+        case golf.classes.Player : {
+            return <div key={ index }>Player</div>
+        }
+
+        case golf.classes.Marker : {
+            return <div key={ index }>Marker</div>
+        }
+
+        default: {
+
+            return <FlexContainer key={ index }>
+                <FlexItemLabel>{ field.field.label }</FlexItemLabel>
+                <FlexItemValue>{ field.field.value }</FlexItemValue>
+            </FlexContainer>;
+        }
+    }
+};
+
 
 const GameDetail = ({
     game,
@@ -40,13 +104,13 @@ const GameDetail = ({
         setDisplayState(displayStates.detail);
     };
 
-    const onSaveHandler = game => {
+    const onSaveHandler = () => {
 
         onSave(game);
         setDisplayState(displayStates.detail);
     };
 
-    const onDeleteHandler = game => () => {
+    const onDeleteHandler = () => {
 
         onDelete(game);
     };
@@ -55,70 +119,6 @@ const GameDetail = ({
 
     };
     
-    const getDisplayField = (field, index) => {
-
-        switch (field.fieldType) {
-
-            case golf.types.string : {
-
-                return <FlexContainer key={ index }>
-                    <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                    <FlexItemValue>{ field.field.value }</FlexItemValue>
-                </FlexContainer>;
-            }
-
-            case golf.types.dateTime : {
-
-                const value = field.field.value instanceof Date ? moment(field.field.value).format('DD-mm-YY hh:mm') : ''
-                return <FlexContainer key={ index }>
-                    <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                    <FlexItemValue>{ value }</FlexItemValue>
-                </FlexContainer>;
-            }
-
-            case golf.types.nonNegativeInteger : {
-
-                return <FlexContainer key={ index }>
-                    <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                    <FlexItemValue>{ field.field.value }</FlexItemValue>
-                </FlexContainer>;
-            }
-
-            case golf.classes.Hole : {
-
-                return <HoleTable onEdit={ editHoleHandler }  key={ index } holes={ field.field.value }/>;
-            }
-
-            case golf.classes.Course : {
-
-                return <CourseDetail key={ index }
-                    course={ field.field.value }/>
-            }
-
-            case golf.classes.Bag : {
-
-                return <BagDetail key={ index }
-                    bag={ field.field.value }/>
-            }
-
-            case golf.classes.Player : {
-                return <div key={ index }>Player</div>
-            }
-
-            case golf.classes.Marker : {
-                return <div key={ index }>Marker</div>
-            }
-
-            default: {
-
-                return <FlexContainer key={ index }>
-                    <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                    <FlexItemValue>{ field.field.value }</FlexItemValue>
-                </FlexContainer>;
-            }
-        }
-    };
-
     if(!game.iri) return <GameForm
         title={ `Create game` }
         actionLabel={ `Save game` }
@@ -138,7 +138,9 @@ const GameDetail = ({
     let count = 0;
     for(const field in game.fields) {
         
-        displayFields.push(getDisplayField(game.fields[field], count++));
+        displayFields.push(getDisplayField(game.fields[field], {
+            editHoleHandler
+        }, count++));
     }
 
     return <FieldContainer>
@@ -147,16 +149,7 @@ const GameDetail = ({
                 { displayFields }
             </FlexItemData>
             <FlexItemTools>
-                <IconButton
-                    aria-label="edit"
-                    onClick={ onEdit }>
-                    <EditIcon />
-                </IconButton>
-                <IconButton
-                    aria-label="delete"
-                    onClick={ onDeleteHandler(game) }>
-                    <DeleteIcon />
-                </IconButton>
+                <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
             </FlexItemTools>
         </FlexContainer>
     </FieldContainer>;
