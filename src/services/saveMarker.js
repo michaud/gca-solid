@@ -7,7 +7,7 @@ import { setField } from '@utils/setField';
 const saveMarker = async (marker, doc) => {
     
     const isNewMarker = marker.iri === '';
-    const markerRef = isNewMarker ? doc.addSubject() : doc.getSubjectsOfType(golf.classes.Player)[0];
+    const markerRef = isNewMarker ? doc.addSubject() : doc.getSubject(marker.iri);
     const fieldAction = isNewMarker ? addField : setField;
 
     if(isNewMarker) markerRef.addRef(rdf.type, golf.classes.Marker);

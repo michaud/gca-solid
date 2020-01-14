@@ -7,7 +7,7 @@ import { setField } from "@utils/setField";
 const savePlayer = async (player, doc) => {
 
     const isNewPLayer = player.iri === '';
-    const playerRef = isNewPLayer ? doc.addSubject() : doc.getSubjectsOfType(golf.classes.Player)[0];
+    const playerRef = isNewPLayer ? doc.addSubject() : doc.getSubject(player.iri);
     const fieldAction = isNewPLayer ? addField : setField;
 
     if(isNewPLayer) playerRef.addRef(rdf.type, golf.classes.Player);

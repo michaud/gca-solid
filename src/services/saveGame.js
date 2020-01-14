@@ -1,20 +1,23 @@
+import gameShape from '@contexts/game-shape.json';
 import golf from '@utils/golf-namespace';
 import { rdf } from 'rdf-namespaces';
-
-import gameShape from '@contexts/game-shape.json';
 import { addField } from '@utils/addField';
+import { setField } from '@utils/setField';
 
 const saveGame = async (game, doc) => {
+    
+    const isNewGame = game.iri === '';
+    const gameRef = isNewGame ? doc.addSubject() : doc.getSubject(game.iri);
+    const fieldAction = isNewGame ? addField : setField;
 
-    const ref = doc.addSubject();
-    ref.addRef(rdf.type, golf.classes.Game);
-
+    if(isNewGame) gameRef.addRef(rdf.type, golf.classes.Game);
+    
     gameShape.shape.forEach(field => {
 
-        addField(field, gameShape, game.fields[field.predicate], ref, doc);
+        fieldAction(field, gameShape, game.fields[field.predicate], gameRef, doc);
     });
 
-    await doc.save();
+    return await doc.save();
 };
 
 export default saveGame;

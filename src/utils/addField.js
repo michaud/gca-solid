@@ -66,7 +66,9 @@ export const addField = (field, shape, data, ref, doc) => {
             const bagRef = doc.addSubject();
             bagRef.addRef(rdf.type, golf.classes.Bag);
 
-            data.field.value.fields.clubs.field.value.forEach(club => {
+            const bag = data.field.value;
+
+            bag.fields.clubs.field.value.forEach(club => {
                 
                 const clubRef = doc.addSubject({
                     identifier: club.iri.split('#')[1]
@@ -91,14 +93,16 @@ export const addField = (field, shape, data, ref, doc) => {
 
             const courseRef = doc.addSubject();
             courseRef.addRef(rdf.type, golf.classes.Course);
-        
+
             const course = data.field.value;
 
             courseShape.shape.forEach(field => {
 
                 if(field.predicate === 'courseHoles') {
 
-                    course.fields.courseHoles.field.value.forEach(hole => {
+                    const holes = course.fields.courseHoles.field.value;
+
+                    holes.forEach(hole => {
 
                         const holeRef = doc.addSubject();
                         holeRef.addRef(rdf.type, golf.classes.Hole);
@@ -159,17 +163,23 @@ export const addField = (field, shape, data, ref, doc) => {
 
         case golf.classes.Hole : {
 
-            const holeRef = doc.addSubject();
-            holeRef.addRef(rdf.type, golf.classes.Hole);
+            if(field.predicate === 'courseHoles') {
 
-            const hole = data.field.value;
+                const holes = data.field.value;
+                    
+                holes.forEach(hole => {
 
-            holeShape.shape.forEach(field => {
+                    const holeRef = doc.addSubject();
+                    holeRef.addRef(rdf.type, golf.classes.Hole);
 
-                addField(field, holeShape, hole.fields[field.predicate], holeRef, doc);
-            });
+                    holeShape.shape.forEach(field => {
 
-            ref.addRef(golf.properties.courseHoles, holeRef.asRef());
+                        addField(field, holeShape, hole.fields[field.predicate], holeRef, doc);
+                    })
+        
+                    ref.addRef(golf.properties.courseHoles, holeRef.asRef());
+                });
+            }
 
             break;
         }

@@ -7,6 +7,7 @@ import useClubDefinitions from '@hooks/useClubDefinitions';
 import ClubTypeContext from '@utils/clubTypeContext';
 import ManageBag from '@containers/Golf/GolfPage/children/bag/ManageBag';
 import GolfApp from '@containers/Golf/GolfPage/children/GolfApp';
+import PlayGame from '@containers/Golf/GolfPage/children/playGame/PlayGame';
 
 
 const GolfPage = ({ match, webId, history }) => {
@@ -27,8 +28,8 @@ const GolfPage = ({ match, webId, history }) => {
                             webId={ webId }
                             render={routerProps => <AddClubs {...routerProps} webId={webId} />}/> */}
 
-                        <Route exact path="/golf/settings" render={routerProps => <ManageBag {...routerProps} webId={webId} />} />
-                        <Route path="/golf/game/:gameid" render={routerProps => <ManageBag {...routerProps} webId={webId} />} />
+                        <Route exact path="/golf/settings" render={routerProps => <ManageBag { ...routerProps } webId={ webId } />} />
+                        <Route path="/game/:gameid" render={ routerProps => <PlayGame { ...routerProps } webId={ webId } /> }/>
                         {/* <Route path="/settings" component={ AppContainer } /> */}
                         {/* <Route path="/game/:gameid" component={ GameNavigatorContainer } /> */}
                     </Switch>

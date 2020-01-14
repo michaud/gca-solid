@@ -1,31 +1,42 @@
 import React from 'react';
 import GameDetail from './GameDetail';
+import GameSummary from './GameSummary';
 
 const GameList = ({
     games,
     onDelete,
-    saveGame
+    onSave,
+    onPlay
 }) => {
 
-    const onSaveGame = (game) => {
+    const onSaveGameHandler = (game) => {
 
-        saveGame(game)
+        onSave(game)
     };
 
-    const onDeleteGame = (game) => {
+    const onDeleteGameHandler = (game) => {
 
         onDelete(game);
+    };
+
+    const onPlayGameHandler = (game) => {
+
+        onPlay(game);
     };
 
     return (
         <div>
             <header className="c-header">Game list</header>
             {
-                games.length > 0 && games.map((game, index) => <GameDetail
-                    onSave={ onSaveGame }
-                    onDelete={ onDeleteGame }
-                    key={ index }
-                    game={ game } />)
+            games.length > 0 && games.map((game, index) => <GameSummary key={ index }
+                game={ game }
+                onPlay={ onPlayGameHandler }/>
+            // <GameDetail
+            //         onSave={ onSaveGameHandler }
+            //         onDelete={ onDeleteGameHandler }
+            //         key={ index }
+            //         game={ game } />
+                    )
             }
         </div>
     );

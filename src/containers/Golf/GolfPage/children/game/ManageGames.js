@@ -16,6 +16,7 @@ import {
     FlexContainer,
     FlexItem,
 } from '@styles/layout.style';
+import Redirect from 'react-router-dom/Redirect';
 
 const ManageGames = ({
     match,
@@ -31,11 +32,13 @@ const ManageGames = ({
     const [currentGame, setCurrentGame] = useState();
     const [games, setGames] = useState([]);
     const [showNewGame, setShowNewGame] = useState(false);
+    const [playGame, setPlayGame] = useState();
+
     const { t } = useTranslation();
 
     const toggleShowNewGame = () => setShowNewGame(state => !state);
 
-    const onSaveGame = (game) => {
+    const onSaveGameHandler = (game) => {
 
         saveGame(game, gameData.doc);
         setReload(true);
@@ -52,6 +55,11 @@ const ManageGames = ({
         setReload(true);
     };
 
+    const onPlayGameHandler = (game) => {
+        console.log('game: ', game);
+        setPlayGame(game.split('#')[1]);
+    };
+        
     const init = async () => {
 
         try {
@@ -93,13 +101,18 @@ const ManageGames = ({
 
     }, [webId, gameData, notification.notify]);
 
+    if (playGame) {
+        console.log('/golf/game/playGame : ', `/golf/game/${ playGame }`);
+        return <Redirect to={ `/game/${ playGame }` } />
+    }
+
     return (
         <>
             <ModuleHeader label="Games" screenheader={ true }/>
             <PageContainer>
                 { showNewGame && <GameForm
                     game={ currentGame }
-                    onSave={ onSaveGame }
+                    onSave={ onSaveGameHandler }
                     onCancel={ onCancelHandler }/>
                 }
                 { !showNewGame && <FlexContainer>
@@ -108,6 +121,7 @@ const ManageGames = ({
                                 variant="contained"
                                 onClick={ toggleShowNewGame }
                                 className={ classes.button }
+                                fullWidth={ true }
                                 color="primary">New game</Button>
                         </FlexItem>
                     </FlexContainer>
@@ -115,7 +129,9 @@ const ManageGames = ({
                 {
                     games.length > 0 && <GameList
                         games={ games }
-                        onDelete={ onDeleteGameHandler }/>
+                        onDelete={ onDeleteGameHandler }
+                        onSave={ onSaveGameHandler }
+                        onPlay={ onPlayGameHandler }/>
                 }
             </PageContainer>
         </>

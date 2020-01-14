@@ -10,3 +10,4 @@ X handle card#me references
 - check iri s in data
 - implement Bag detail edit
 - Bag detail
+- use fieldLabel for labels
