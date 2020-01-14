@@ -65,8 +65,8 @@ export const addField = (field, shape, data, ref, doc) => {
 
             const bagRef = doc.addSubject();
             bagRef.addRef(rdf.type, golf.classes.Bag);
-        
-            data.field.value.clubs.forEach(club => {
+
+            data.field.value.fields.clubs.field.value.forEach(club => {
                 
                 const clubRef = doc.addSubject({
                     identifier: club.iri.split('#')[1]
