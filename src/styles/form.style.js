@@ -72,6 +72,33 @@ const formStyles = makeStyles(theme => ({
             }
         }
     },
+    toolButton: {
+        minWidth: '3rem',
+        height: '5rem',
+        background: 'linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%)',
+        color: 'rgba(255, 255, 255, 0.9)',
+        '& .MuiButton-root': {
+            minWidth: '3rem',
+            minHeight: '5rem'
+        },
+        '& .MuiTouchRipple-root': {
+            minWidth: '3rem',
+            minHeight: '5rem'
+        },
+        '& .MuiButton-label': {
+            color: 'white'
+        },
+        '&:disabled': {
+            opacity: 1,
+            '& .MuiButton-label': {
+                color: 'rgba(0,0,0,.5)'
+            }
+        },
+        '& .MuiSvgIcon-root': {
+            width: '1.25em',
+            height: '1.7rem'
+        }
+    },
     selectorList: {
         height: '5rem',
         flexGrow: 1,

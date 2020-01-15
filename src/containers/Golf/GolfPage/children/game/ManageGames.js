@@ -11,13 +11,14 @@ import GameList from '@containers/Golf/GolfPage/children/game/GameList';
 import useClubDefinitions from '@hooks/useClubDefinitions';
 import Button from '@material-ui/core/Button';
 import formStyles from '@styles/form.style';
+import Redirect from 'react-router-dom/Redirect';
+import golf from '@utils/golf-namespace';
+import saveResource from '@services/saveResource';
+
 import {
     FlexContainer,
     FlexItem,
 } from '@styles/layout.style';
-import Redirect from 'react-router-dom/Redirect';
-import golf from '@utils/golf-namespace';
-import saveResource from '@services/saveResource';
 
 const ManageGames = ({
     match,
@@ -103,7 +104,7 @@ const ManageGames = ({
     }, [webId, gameData, notification.notify]);
 
     if (playGame) {
-        console.log('/golf/game/playGame : ', `/golf/game/${ playGame }`);
+
         return <Redirect to={ `/game/${ playGame }` } />
     }
 
