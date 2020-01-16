@@ -11,8 +11,10 @@ const golf = {
         Course: `${ namespace }Course`,
         Hole: `${ namespace }Hole`,
         Game: `${ namespace }Game`,
-        GamePlayingHandicap:  `${ namespace }GamePlayingHandicap`
-
+        GamePlayingHandicap:  `${ namespace }GamePlayingHandicap`,
+        Driver: `${ namespace }Driver`,
+        Putter: `${ namespace }Putter`,
+        Stroke: `${ namespace }Stroke`
     },
     properties: {
         clubType: `${ namespace }clubType`,

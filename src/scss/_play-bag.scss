@@ -1,6 +1,6 @@
 :root {
     --bag-club-list-height: calc(7*4rem);
-    --bag-club-list-display: flex;
+    --bag-club-list-display: grid;
     --bag-club-list-direction: column;
     --bag-club-list-wrap: wrap;
     --bag-club-list-grow: 0;
@@ -50,4 +50,8 @@
     height: var(--bag-club-list-height);
     grid-template-columns: var(--bag-club-list-template-columns);
     grid-auto-rows: var(--bag-club-list-grid-auto-rows);
+}
+
+.l-club-span-3 {
+    grid-column: 1 / span 3;
 }
