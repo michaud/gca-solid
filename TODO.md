@@ -11,3 +11,4 @@ X handle card#me references
 - implement Bag detail edit
 - Bag detail
 - use fieldLabel for labels
+- sorting of clubs for display in game hole

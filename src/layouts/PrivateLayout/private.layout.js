@@ -22,6 +22,7 @@ const Content = styled.div`
   padding-top: 60px;
   flex: 1 0 auto;
   display: flex;
+  flex-direction: column;
 `;
 
 const PrivateLayout = ({ routes, webId, location, history, ...rest }) => {

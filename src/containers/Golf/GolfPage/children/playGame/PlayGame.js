@@ -86,52 +86,60 @@ const PlayGame = ({
     const currHole = game ? game.fields.gameCourse.field.value.fields.courseHoles.field.value[currHoleIndex] : undefined;
     const canPrevious = currHoleIndex > 0;
     const canNext = game ? currHoleIndex < game.fields.gameCourse.field.value.fields.courseHoles.field.value.length - 1 : false;
+    const clubs = game && game.fields.gameBag.field.value.fields.clubs.field.value;
     return (
-        <HoleNavigatorContainer>
-            <FlexToolLeft>
-                <Button
-                    variant="contained"
-                    className={ classes.toolButton }
-                    onClick={ onPreviousHole }
-                    disabled={ !canPrevious }
-                    color="primary"><ArrowBackIosRoundedIcon/></Button>
-            </FlexToolLeft>
-            <FlexItem>
-                <FlexContainer center>
-                    <FlexItem center>
-                        <div className="u-pad--airy">{ currHole && `hole ${ currHole.fields.holeNumber.field.value }, ${ currHole.fields.holeLength.field.value }m` }</div>
-                    </FlexItem>
-                    <FlexItem narrow>
-                        { currHole && <table className="select-hole__info">
-                                <tbody>
-                                    <tr>
-                                        <td className="hole-info__par">{ currHole.fields.holePar.field.label }</td>
-                                        <td className="hole-info__par-value">{ currHole.fields.holePar.field.value }</td>
-                                        <td className="score__strokes">strokes</td>
-                                        <td className="score__strokes-value">6</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="hole-info__si">SI</td>
-                                        <td className="hole-info__si-value">{ currHole.fields.holeStrokeIndex.field.value }</td>
-                                        <td className="score__points">points</td>
-                                        <td className="score__points-value">3</td>
-                                    </tr>
+        <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
+            <HoleNavigatorContainer alignitems="stretch">
+                <FlexToolLeft>
+                    <Button
+                        variant="contained"
+                        className={ classes.toolButton }
+                        onClick={ onPreviousHole }
+                        disabled={ !canPrevious }
+                        color="primary"><ArrowBackIosRoundedIcon/></Button>
+                </FlexToolLeft>
+                <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
+                    <FlexContainer center flex="1 0 auto" alignitems="stretch">
+                        <FlexContainer flex="1 0 auto" center>
+                            <div className="u-pad--airy">{ currHole && `hole ${ currHole.fields.holeNumber.field.value }, ${ currHole.fields.holeLength.field.value }m` }</div>
+                        </FlexContainer>
+                        <FlexItem narrow>
+                            { currHole && <table className="select-hole__info">
+                                    <tbody>
+                                        <tr>
+                                            <td className="hole-info__par">{ currHole.fields.holePar.field.label }</td>
+                                            <td className="hole-info__par-value">{ currHole.fields.holePar.field.value }</td>
+                                            <td className="score__strokes">strokes</td>
+                                            <td className="score__strokes-value">6</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="hole-info__si">SI</td>
+                                            <td className="hole-info__si-value">{ currHole.fields.holeStrokeIndex.field.value }</td>
+                                            <td className="score__points">points</td>
+                                            <td className="score__points-value">3</td>
+                                        </tr>
 
-                                </tbody>
-                            </table>
-                        }
-                    </FlexItem>
+                                    </tbody>
+                                </table>
+                            }
+                        </FlexItem>
+                    </FlexContainer>
                 </FlexContainer>
-            </FlexItem>
-            <FlexToolRight>
-                <Button
-                    variant="contained"
-                    className={ classes.toolButton }
-                    onClick={ onNextHole }
-                    disabled={ !canNext }
-                    color="primary"><ArrowForwardIosRoundedIcon/></Button>
-            </FlexToolRight>
-        </HoleNavigatorContainer>
+                <FlexToolRight>
+                    <Button
+                        variant="contained"
+                        className={ classes.toolButton }
+                        onClick={ onNextHole }
+                        disabled={ !canNext }
+                        color="primary"><ArrowForwardIosRoundedIcon/></Button>
+                </FlexToolRight>
+            </HoleNavigatorContainer>
+            <div>
+                {
+                    clubs && clubs.map((club, idx) => <div key={ idx }>{ club.fields.clubName.field.value }</div>)
+                }
+            </div>
+        </FlexContainer>
     );
 };
 

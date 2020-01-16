@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 export const FlexContainer = styled.div`
     display: flex;
-    align-items: ${props => props.center ? "center" : "flex-start"};
-    margin-bottom: 1rem;
-    flex: 1;
+    align-items: ${props => props.center ? "center" : props.alignitems ? props.alignitems : "flex-start"};
+    flex-direction: ${props => props.vertical ? "column" : "row"};
+    flex: ${props => props.flex ? props.flex : "0"};
 `;
 
 export const HoleNavigatorContainer =  styled(FlexContainer)`
@@ -25,7 +25,7 @@ export const FieldContainer = styled.div`
 
 export const FlexItem = styled.div`
     flex:${props => props.narrow ? "0" : "1"};
-    align-items: ${props => props.center ? "center" : "normal"};
+    align-items: ${props => props.alignitems ? props.alignitems : "normal"};
 `;
 export const FlexItemLabel = styled.div`min-width: 10rem;`;
 export const FlexItemValue = styled.div`flex: 1;`;
