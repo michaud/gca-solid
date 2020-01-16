@@ -1,23 +1,23 @@
 import React from 'react';
-import GameDetail from './GameDetail';
+//import GameDetail from './GameDetail';
 import GameSummary from './GameSummary';
 
 const GameList = ({
     games,
-    onDelete,
-    onSave,
+    // onDelete,
+    // onSave,
     onPlay
 }) => {
 
-    const onSaveGameHandler = (game) => {
+    // const onSaveGameHandler = (game) => {
 
-        onSave(game)
-    };
+    //     onSave(game)
+    // };
 
-    const onDeleteGameHandler = (game) => {
+    // const onDeleteGameHandler = (game) => {
 
-        onDelete(game);
-    };
+    //     onDelete(game);
+    // };
 
     const onPlayGameHandler = (game) => {
 

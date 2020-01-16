@@ -8,7 +8,6 @@ import { FlexContainer } from '@styles/layout.style';
 import HoleNavigator from './HoleNavigator';
 import HoleHistory from './HoleHistory';
 import ClubActions from './ClubActions';
-import createStroke from '@utils/createStroke';
 import addStrokeToHole from '@utils/addStrokeToHole';
 
 
@@ -35,6 +34,7 @@ const PlayGame = ({
     };
 
     const onChangeHoleHandler = (holeIndex) => {
+
         game && setCurrHole(game.fields.gameCourse.field.value.fields.courseHoles.field.value[holeIndex]);
     };
 
