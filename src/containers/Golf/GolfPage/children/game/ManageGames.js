@@ -11,7 +11,7 @@ import GameList from '@containers/Golf/GolfPage/children/game/GameList';
 import useClubDefinitions from '@hooks/useClubDefinitions';
 import Button from '@material-ui/core/Button';
 import formStyles from '@styles/form.style';
-import Redirect from 'react-router-dom/Redirect';
+import { Redirect } from 'react-router-dom';
 import golf from '@utils/golf-namespace';
 import saveResource from '@services/saveResource';
 
