@@ -138,12 +138,12 @@ const GameForm = ({
 
         let index = 0;
 
-        for (const field in gameState.fields) {
+        for (const field in gameState) {
 
             const callback = saveGamePlayerCallbacks[field];
 
             const fieldControl = getFieldControl({
-                data: gameState.fields[field],
+                data: gameState[field],
                 styles: classes,
                 onChange: onChangeField,
                 onSave: callback ? callback(doc[field]) : undefined,

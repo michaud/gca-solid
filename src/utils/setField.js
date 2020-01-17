@@ -23,14 +23,14 @@ export const setField = (field, shape, data, ref) => {
 
         case golf.types.string: {
 
-            ref.setLiteral(predicate, data.fields[field.predicate].value);
+            ref.setLiteral(predicate, data[field.predicate].value);
 
             break;
         }
 
         case golf.classes.Club: {
 
-            ref.setRef(predicate, data.fields[field.predicate].value.iri);
+            ref.setRef(predicate, data[field.predicate].value.iri);
             
             break;
         }

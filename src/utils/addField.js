@@ -78,7 +78,7 @@ export const addField = (field, shape, data, ref, doc) => {
 
                 clubShape.shape.forEach(field => {
 
-                    addField(field, clubShape, club.fields[field.predicate], clubRef, doc);
+                    addField(field, clubShape, club[field.predicate], clubRef, doc);
                 });
             
                 bagRef.addRef(golf.properties.clubs, clubRef.asRef());
@@ -109,7 +109,7 @@ export const addField = (field, shape, data, ref, doc) => {
 
                         holeShape.shape.forEach(field => {
 
-                            addField(field, holeShape, hole.fields[field.predicate], holeRef, doc);
+                            addField(field, holeShape, hole[field.predicate], holeRef, doc);
                         })
             
                         courseRef.addRef(golf.properties.courseHoles, holeRef.asRef());
@@ -118,7 +118,7 @@ export const addField = (field, shape, data, ref, doc) => {
 
                 } else {
 
-                    addField(field, courseShape, course.fields[field.predicate], courseRef, doc);
+                    addField(field, courseShape, course[field.predicate], courseRef, doc);
                 }
             });
 
@@ -136,7 +136,7 @@ export const addField = (field, shape, data, ref, doc) => {
 
             markerShape.shape.forEach(field => {
         
-                addField(field, markerShape, marker.fields[field.predicate], markerRef, doc);
+                addField(field, markerShape, marker[field.predicate], markerRef, doc);
             });
 
             ref.addRef(golf.properties.gameMarker, markerRef.asRef());
@@ -153,7 +153,7 @@ export const addField = (field, shape, data, ref, doc) => {
 
             playerShape.shape.forEach(field => {
 
-                addField(field, playerShape, player.fields[field.predicate], playerRef, doc);
+                addField(field, playerShape, player[field.predicate], playerRef, doc);
             });
 
             ref.addRef(golf.properties.gamePlayer, playerRef.asRef());
@@ -174,7 +174,7 @@ export const addField = (field, shape, data, ref, doc) => {
 
                     holeShape.shape.forEach(field => {
 
-                        addField(field, holeShape, hole.fields[field.predicate], holeRef, doc);
+                        addField(field, holeShape, hole[field.predicate], holeRef, doc);
                     })
         
                     ref.addRef(golf.properties.courseHoles, holeRef.asRef());
@@ -193,7 +193,7 @@ export const addField = (field, shape, data, ref, doc) => {
 
             playingHandicapShape.shape.forEach(field => {
 
-                addField(field, playingHandicapShape, playingHandicap.fields[field.predicate], playingHandicapRef, doc);
+                addField(field, playingHandicapShape, playingHandicap[field.predicate], playingHandicapRef, doc);
             })
 
             ref.addRef(golf.properties.gamePlayingHandicap, playingHandicapRef.asRef());

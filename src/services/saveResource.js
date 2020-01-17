@@ -14,7 +14,7 @@ const saveResource = async (resource, doc, type) => {
     const resourceShape = shapeFromType[type];
     resourceShape.shape.forEach(field => {
 
-        fieldAction(field, resourceShape, resource.fields[field.predicate], ref, doc);
+        fieldAction(field, resourceShape, resource[field.predicate], ref, doc);
     });
 
     return await doc.save();

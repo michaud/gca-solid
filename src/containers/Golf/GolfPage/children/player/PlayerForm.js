@@ -58,10 +58,10 @@ const PlayerForm = ({
 
     if(playerState) {
         
-        for (const field in playerState.fields) {
+        for (const field in playerState) {
 
             const fieldControl = getFieldControl({
-                data: playerState.fields[field],
+                data: playerState[field],
                 styles: classes,
                 onChange: onChangeField,
                 idx: index++

@@ -37,12 +37,9 @@ const PlayerUpdate = ({
 
         setPlayerState( state => ({
             ...state,
-            fields: {
-                ...state.fields,
-                handicap: {
-                    ...state.handicap,
-                    value
-                }
+            handicap: {
+                ...state.handicap,
+                value
             }
         }));
     };

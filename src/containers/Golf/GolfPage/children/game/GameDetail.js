@@ -140,9 +140,9 @@ const GameDetail = ({
     const displayFields = [];
 
     let count = 0;
-    for(const field in game.fields) {
+    for(const field in game) {
         
-        displayFields.push(getDisplayField(game.fields[field], {
+        displayFields.push(getDisplayField(game[field], {
             editHoleHandler
         }, count++));
     }

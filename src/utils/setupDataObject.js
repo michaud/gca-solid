@@ -3,7 +3,6 @@ const setupDataObject = (objectShape, fieldValue) => {
     const obj = {
         label: "",
         iri: "",
-        fields: {}
     };
 
     objectShape.shape.forEach(field => {
@@ -14,7 +13,7 @@ const setupDataObject = (objectShape, fieldValue) => {
         const value = fieldValue && fieldValue.hasOwnProperty(field.predicate) ? fieldValue[field.predicate] : field.value;
         const required = field.hasOwnProperty('required') ? field.required : true;
 
-        obj.fields[field.predicate] = {
+        obj[field.predicate] = {
             fieldType: field.type,
             fieldName: field.predicate,
             iri: predicate,

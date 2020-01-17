@@ -33,13 +33,13 @@ const getClubDefinitions = async () => {
     const clubTypes = await golfVocabulary
         .findSubjects(ns.rdfs.subClassOf, namedNode(golf.classes.Club))
         .map(value => ({
-            fields: clubFields,
+            ...clubFields,
             label: value.getLiteral(golf.properties.fieldLabel),
             iri: value.asNodeRef()
         }));
 
     const clubType = {
-        fields: clubFields,
+        ...clubFields,
         label: '',
         iri: ''
     }

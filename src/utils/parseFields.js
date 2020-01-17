@@ -67,7 +67,7 @@ const getClubsField = doc => (data, label, clubTypes, clubType) => {
 
 const getClubField = predicate => (data, fieldPredicate, clubTypes, clubType) => {
 
-    const label = clubType.fields[fieldPredicate].label;
+    const label = clubType[fieldPredicate].label;
     const clubQuads = data.getTriples();
     const displayField = clubQuads.find(quad => quad.predicate.value === predicate);
 

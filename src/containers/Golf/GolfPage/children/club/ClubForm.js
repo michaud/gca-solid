@@ -67,10 +67,10 @@ const ClubForm = ({
 
     if(clubState) {
         
-        for (const field in clubState.fields) {
+        for (const field in clubState) {
 
             const fieldControl = getFieldControl({
-                data: clubState.fields[field],
+                data: clubState[field],
                 label: t('golf.selectClubType'),
                 styles: classes,
                 onChange: onChangeClubField,

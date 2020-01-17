@@ -30,10 +30,10 @@ const EditPlayingHandicap = ({ handicap, onChange = () => {} }) => {
 
     if(handicapState) {
         
-        for (const field in handicapState.fields) {
+        for (const field in handicapState) {
 
             const fieldControl = getFieldControl({
-                data: handicapState.fields[field],
+                data: handicapState[field],
                 styles: classes,
                 onChange: onChangeField,
                 idx: index++

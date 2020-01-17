@@ -27,7 +27,7 @@ const checkRenderField = field => {
 
 const getFieldData = (field, club, clubType, clubTypes) => {
 
-    const label = clubType.fields[field.predicate].label;
+    const label = clubType[field.predicate].label;
 
     let value = '';
 
@@ -35,7 +35,7 @@ const getFieldData = (field, club, clubType, clubTypes) => {
 
         case golf.types.string: {
 
-            value = club.fields[field.predicate].value;
+            value = club[field.predicate].value;
 
             break;
         }
@@ -99,7 +99,7 @@ const ClubDetail = ({
             clubTypeData => {
         
                 const { clubTypes = [], clubType } = clubTypeData;
-                const displayDields = [];
+                const displayFields = [];
 
                 if(clubTypes.length > 0 && clubType) {
 
@@ -110,7 +110,7 @@ const ClubDetail = ({
                         if(renderField) {
 
                             const data = getFieldData(field, club, clubType, clubTypes);
-                            displayDields.push(data);
+                            displayFields.push(data);
                         }
                     });
                 }
@@ -129,7 +129,7 @@ const ClubDetail = ({
                     <FlexContainer>
                         <FlexItemData>
                         {
-                            displayDields.map((field, index) => <FlexContainer key={ index }>
+                            displayFields.map((field, index) => <FlexContainer key={ index }>
                                 <FlexItemLabel>{ field.label }</FlexItemLabel>
                                 <FlexItemValue>{ field.value }</FlexItemValue>
                             </FlexContainer>)

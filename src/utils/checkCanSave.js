@@ -28,6 +28,6 @@ const test = entry => {
     return entryNeedsValue ? hasValue(entry) : true;
 };
 
-const checkCanSave = state => !state ? false : Object.values(state.fields).every(test);
+const checkCanSave = state => !state ? false : Object.values(state).every(test);
 
 export default checkCanSave;

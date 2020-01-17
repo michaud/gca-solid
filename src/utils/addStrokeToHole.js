@@ -31,11 +31,9 @@ const persistData = (club, game, holeIri, setState) => ({ coords: { latitude, lo
                  
     const hole = game.gameCourse.value.courseHoles.value[holeIndex];
     const newHole = update(hole, {
-        fields: {
-            gameStrokes: {
-                value: {
-                    $push: [stroke]
-                }
+        gameStrokes: {
+            value: {
+                $push: [stroke]
             }
         }
     });
@@ -43,14 +41,10 @@ const persistData = (club, game, holeIri, setState) => ({ coords: { latitude, lo
     setState(state => {
 
         const newState = update(state, {
-            fields: {
-                gameCourse: {
-                    value: {
-                        fields: {
-                            courseHoles: {
-                                value: {[holeIndex]: {$set: newHole}}
-                            }
-                        }
+            gameCourse: {
+                value: {
+                    courseHoles: {
+                        value: {[holeIndex]: {$set: newHole}}
                     }
                 }
             }

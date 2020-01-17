@@ -38,15 +38,12 @@ const CourseForm = ({
         
         const newCourse = {
             ...courseState,
-            fields: {
-                ...courseState.fields,
-                courseHoles: {
-                    ...courseState.courseHoles,
-                    value: [
-                        ...courseState.courseHoles.value,
-                        hole
-                    ]
-                }
+            courseHoles: {
+                ...courseState.courseHoles,
+                value: [
+                    ...courseState.courseHoles.value,
+                    hole
+                ]
             }
         };
 
@@ -70,12 +67,9 @@ const CourseForm = ({
             
             const newCourse = {
                 ...state,
-                fields: {
-                    ...state.fields,
-                    courseHoles: {
-                        ...state.courseHoles,
-                        value: newHoles
-                    }
+                courseHoles: {
+                    ...state.courseHoles,
+                    value: newHoles
                 }
             };
 
@@ -119,10 +113,10 @@ const CourseForm = ({
 
     if(courseState) {
         
-        for (const field in courseState.fields) {
+        for (const field in courseState) {
 
             const fieldControl = getFieldControl({
-                data: courseState.fields[field],
+                data: courseState[field],
                 styles: classes,
                 onChange: onChangeCourseField,
                 onSave: onAddHole,

@@ -13,14 +13,12 @@ export const putClubsInBag = (clubs, bag) => {
     }, []);
 
     return {
-        fields: {
-            clubs: {
-                fieldType: golf.classes.Club,
-                fieldName:"clubs",
-                iri:golf.properties.clubs,
-                label:"clubs",
-                value
-            }
+        clubs: {
+            fieldType: golf.classes.Club,
+            fieldName:"clubs",
+            iri:golf.properties.clubs,
+            label:"clubs",
+            value
         }
     };
 };
