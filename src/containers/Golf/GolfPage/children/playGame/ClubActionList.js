@@ -1,7 +1,8 @@
 import React from 'react';
 import golf from '@utils/golf-namespace';
+import ClubAction from './ClubAction';
 
-const ClubActions = ({ clubs, onAction }) => {
+const ClubActionList = ({ clubs, onAction }) => {
 
     const onStrokeWithClub = club => () => {
         onAction && onAction(club);
@@ -30,17 +31,15 @@ const ClubActions = ({ clubs, onAction }) => {
             clubs && clubs.map((club, idx) => {
 
                 const classString = getClassNameFromClubType(club);
-
-                return <li className={ classString } key={ idx }>
-                        <button className="btn--club" onClick={ onStrokeWithClub(club) }>
-                            <div className="btn--club__name">{ club.fields.clubBrand.field.value } { club.fields.clubName.field.value }</div>
-                            <div className="btn--club__type">{ club.fields.clubType.field.value.label }</div>
-                        </button>
-                    </li>;
+                
+                return <ClubAction key={ idx }
+                    club={ club }
+                    classString={ classString }
+                    onStrokeWithClub={ onStrokeWithClub }/>
             })
         }
         </ol>
     );
 };
 
-export default ClubActions;
+export default ClubActionList;

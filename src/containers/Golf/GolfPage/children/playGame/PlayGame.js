@@ -7,9 +7,8 @@ import { useTranslation } from 'react-i18next';
 import { FlexContainer } from '@styles/layout.style';
 import HoleNavigator from './HoleNavigator';
 import HoleHistory from './HoleHistory';
-import ClubActions from './ClubActions';
 import addStrokeToHole from '@utils/addStrokeToHole';
-
+import ClubActionList from './ClubActionList';
 
 const PlayGame = ({
     match,
@@ -76,14 +75,13 @@ const PlayGame = ({
 
     }, [webId, gameData, notification.notify]);
 
-    //console.log('game: ', game);
     const clubs = game && game.fields.gameBag.field.value.fields.clubs.field.value;
 
     return (
         <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
             <HoleNavigator holes={ game && game.fields.gameCourse.field.value.fields.courseHoles.field.value } onChangeHole={ onChangeHoleHandler } />
             <HoleHistory hole={ currHole } />
-            <ClubActions clubs={ clubs } onAction={ onClubActionHandler }/>
+            <ClubActionList clubs={ clubs } onAction={ onClubActionHandler }/>
         </FlexContainer>
     );
 };

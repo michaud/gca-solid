@@ -100,9 +100,7 @@ const formStyles = makeStyles(theme => ({
         }
     },
     selectorList: {
-        height: '5rem',
         flexGrow: 1,
-
         minHeight: '10rem',
         '&.MuiList-padding': {
             paddingTop: 0,
@@ -121,6 +119,15 @@ const formStyles = makeStyles(theme => ({
     },
     listItemText: {
         margin: '.125rem 0'
+    },
+    listContainer: {
+        overflowY: 'scroll',
+        height: 230,
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0
     }
 }));
 

@@ -293,6 +293,8 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
         }
     }
     
+    
+
     return {
         fieldType,
         fieldName: field.predicate,
