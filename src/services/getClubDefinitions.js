@@ -22,10 +22,8 @@ const getClubDefinitions = async () => {
                 fieldType,
                 fieldName,
                 iri,
-                field: {
-                    label,
-                    value
-                }
+                label,
+                value
             };
 
             return acc;

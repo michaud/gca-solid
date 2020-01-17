@@ -32,9 +32,9 @@ const getFieldControl = ({
 
             return <TextField key={ idx }
                 required={ required }
-                label={ data.field.label }
+                label={ data.label }
                 className={ styles.textField }
-                value={ data.field.value }
+                value={ data.value }
                 onChange={ onChange(data) }
                 variant="outlined"/>
         }
@@ -43,9 +43,9 @@ const getFieldControl = ({
 
             return <TextField key={ idx }
                 required={ required }
-                label={ data.field.label }
+                label={ data.label }
                 className={ styles.textField }
-                value={ data.field.value }
+                value={ data.value }
                 onChange={ onChange(data) }
                 variant="outlined"/>
         }
@@ -55,9 +55,9 @@ const getFieldControl = ({
             return <TextField key={ idx }
                 required
                 type="number"
-                label={ data.field.label }
+                label={ data.label }
                 className={ styles.textField }
-                value={ data.field.value }
+                value={ data.value }
                 onChange={ onChange(data) }
                 variant="outlined"/>
         }
@@ -70,10 +70,10 @@ const getFieldControl = ({
                     key={ idx }
                     type="number"
                     required
-                    label={ data.field.label }
+                    label={ data.label }
                     className={ styles.textFieldNumber }
                     inputRef={ inputRef }
-                    value={ data.field.value }
+                    value={ data.value }
                     onChange={ onChange(data) }
                     variant="outlined"/>
             }
@@ -81,9 +81,9 @@ const getFieldControl = ({
             return <TextField key={ idx }
                 required={ required }
                 type="number"
-                label={ data.field.label }
+                label={ data.label }
                 className={ styles.textFieldNumber }
-                value={ data.field.value }
+                value={ data.value }
                 onChange={ onChange(data) }
                 variant="outlined"/>
         }
@@ -105,7 +105,7 @@ const getFieldControl = ({
 
             return <ClubTypeSelector
                 key={ idx }
-                value={ data.field.value }
+                value={ data.value }
                 label={ label }
                 onChange={ onChange(data) }/>
         }
@@ -116,7 +116,7 @@ const getFieldControl = ({
                 onSave={ onSave }
                 onSaveEdit={ onSaveEdit }
                 key={ idx }
-                holes={ data.field.value }/>
+                holes={ data.value }/>
         }
 
         case golf.classes.Course : {
@@ -137,13 +137,13 @@ const getFieldControl = ({
         case golf.classes.Bag : {
 
             return <BagDetail key={ idx }
-                bag={ data.field.value }/>
+                bag={ data.value }/>
         }
 
         case golf.classes.GamePlayingHandicap : {
                 
             return <EditPlayingHandicap key={ idx }
-                handicap={ data.field.value }
+                handicap={ data.value }
                 onChange={ onChange(data) }/>
         }
 

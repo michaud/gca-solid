@@ -53,14 +53,14 @@ const MarkerSelector = ({ markers = [], onSelect }) => {
                                     selected={ selectedMarker === marker }
                                     onClick={ handleListItemClick(marker) }>
                                     <ListItemText
-                                        primary={ `${ marker.fields.givenName.field.value } ${ marker.fields.familyName.field.value }` }
+                                        primary={ `${ marker.fields.givenName.value } ${ marker.fields.familyName.value }` }
                                         secondary={
                                             <>
                                                 <Typography component="span"
                                                     variant="body2"
                                                     className={ classes.inline }
                                                     color="textPrimary">
-                                                    { `${ marker.fields.handicap.field.label }: ${ marker.fields.handicap.field.value }` }
+                                                    { `${ marker.fields.handicap.label }: ${ marker.fields.handicap.value }` }
                                                 </Typography>
                                             </>
                                         }/>

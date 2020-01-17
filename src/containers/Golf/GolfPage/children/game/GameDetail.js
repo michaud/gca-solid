@@ -26,11 +26,11 @@ const getDisplayField = (data, handlers, index) => {
 
         case golf.types.dateTime : {
 
-            const value = data.field.value instanceof Date ? moment(data.field.value).format('DD-mm-YY hh:mm') : ''
+            const value = data.value instanceof Date ? moment(data.value).format('DD-mm-YY hh:mm') : ''
 
             return (
                 <FlexContainer key={ index }>
-                    <FlexItemLabel>{ data.field.label }</FlexItemLabel>
+                    <FlexItemLabel>{ data.label }</FlexItemLabel>
                     <FlexItemValue>{ value }</FlexItemValue>
                 </FlexContainer>
             );
@@ -41,7 +41,7 @@ const getDisplayField = (data, handlers, index) => {
             const { editHoleHandler } = handlers;
 
             return (
-                <HoleTable onEdit={ editHoleHandler }  key={ index } holes={ data.field.value }/>
+                <HoleTable onEdit={ editHoleHandler }  key={ index } holes={ data.value }/>
             );
         }
 
@@ -49,7 +49,7 @@ const getDisplayField = (data, handlers, index) => {
 
             return (
                 <CourseDetail key={ index }
-                    course={ data.field.value }/>
+                    course={ data.value }/>
             );
         }
 
@@ -57,7 +57,7 @@ const getDisplayField = (data, handlers, index) => {
 
             return (
                 <BagDetail key={ index }
-                    bag={ data.field.value }/>
+                    bag={ data.value }/>
             );
         }
 
@@ -65,7 +65,7 @@ const getDisplayField = (data, handlers, index) => {
 
             return (
                 <PlayerDetail key={ index }
-                    player={ data.field.value }/>
+                    player={ data.value }/>
             );
         }
 
@@ -73,7 +73,7 @@ const getDisplayField = (data, handlers, index) => {
 
             return (
                 <PlayerDetail key={ index }
-                    player={ data.field.value }/>
+                    player={ data.value }/>
             );
         }
 
@@ -81,8 +81,8 @@ const getDisplayField = (data, handlers, index) => {
 
             return (
                 <FlexContainer key={ index }>
-                    <FlexItemLabel>{ data.field.label }</FlexItemLabel>
-                    <FlexItemValue>{ data.field.value }</FlexItemValue>
+                    <FlexItemLabel>{ data.label }</FlexItemLabel>
+                    <FlexItemValue>{ data.value }</FlexItemValue>
                 </FlexContainer>
             );
         }

@@ -28,11 +28,11 @@ const getHolesField = doc => (data, label, defaultValue, parentField) => {
         const holeIds = data.getAllRefs(golf.properties.courseHoles);
         const holeRefs = holeIds.map(id => doc.getSubject(id));
         const holes = holeRefs.map(parseFields(shape, doc))
-            .sort((a,b) => a.fields.holeNumber.field.value - b.fields.holeNumber.field.value);
+            .sort((a,b) => a.fields.holeNumber.value - b.fields.holeNumber.value);
         value = holes;
     }
 
-    return({
+    return ({
         label,
         value
     }) ;
@@ -67,7 +67,7 @@ const getClubsField = doc => (data, label, clubTypes, clubType) => {
 
 const getClubField = predicate => (data, fieldPredicate, clubTypes, clubType) => {
 
-    const label = clubType.fields[fieldPredicate].field.label;
+    const label = clubType.fields[fieldPredicate].label;
     const clubQuads = data.getTriples();
     const displayField = clubQuads.find(quad => quad.predicate.value === predicate);
 
@@ -299,9 +299,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
         fieldType,
         fieldName: field.predicate,
         iri: predicate,
-        field: {
-            ...fieldData
-        }
+        ...fieldData
     };
 };
 

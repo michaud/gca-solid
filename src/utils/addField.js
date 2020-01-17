@@ -18,35 +18,35 @@ export const addField = (field, shape, data, ref, doc) => {
 
         case golf.types.text : {
 
-            ref.addLiteral(predicate, data.field.value);
+            ref.addLiteral(predicate, data.value);
 
             break;
         }
 
         case golf.types.integer : {
 
-            ref.addLiteral(predicate, parseInt(data.field.value));
+            ref.addLiteral(predicate, parseInt(data.value));
 
             break;
         }
 
         case golf.types.string : {
 
-            ref.addLiteral(predicate, data.field.value);
+            ref.addLiteral(predicate, data.value);
 
             break;
         }
 
         case golf.types.dateTime : {
 
-            ref.addLiteral(predicate, data.field.value);
+            ref.addLiteral(predicate, data.value);
 
             break;
         }
 
         case golf.types.nonNegativeInteger : {
 
-            ref.addLiteral(predicate, parseInt(data.field.value));
+            ref.addLiteral(predicate, parseInt(data.value));
 
             break;
         }
@@ -55,7 +55,7 @@ export const addField = (field, shape, data, ref, doc) => {
 
             if(predicate === golf.properties.clubType) {
 
-                ref.addRef(golf.properties.clubType, data.field.value.iri);
+                ref.addRef(golf.properties.clubType, data.value.iri);
             }
             
             break;
@@ -66,9 +66,9 @@ export const addField = (field, shape, data, ref, doc) => {
             const bagRef = doc.addSubject();
             bagRef.addRef(rdf.type, golf.classes.Bag);
 
-            const bag = data.field.value;
+            const bag = data.value;
 
-            bag.fields.clubs.field.value.forEach(club => {
+            bag.fields.clubs.value.forEach(club => {
                 
                 const clubRef = doc.addSubject({
                     identifier: club.iri.split('#')[1]
@@ -94,13 +94,13 @@ export const addField = (field, shape, data, ref, doc) => {
             const courseRef = doc.addSubject();
             courseRef.addRef(rdf.type, golf.classes.Course);
 
-            const course = data.field.value;
+            const course = data.value;
 
             courseShape.shape.forEach(field => {
 
                 if(field.predicate === 'courseHoles') {
 
-                    const holes = course.fields.courseHoles.field.value;
+                    const holes = course.fields.courseHoles.value;
 
                     holes.forEach(hole => {
 
@@ -132,7 +132,7 @@ export const addField = (field, shape, data, ref, doc) => {
             const markerRef = doc.addSubject();
             markerRef.addRef(rdf.type, golf.classes.Marker);
 
-            const marker = data.field.value;
+            const marker = data.value;
 
             markerShape.shape.forEach(field => {
         
@@ -149,7 +149,7 @@ export const addField = (field, shape, data, ref, doc) => {
             const playerRef = doc.addSubject();
             playerRef.addRef(rdf.type, golf.classes.Player);
 
-            const player = data.field.value;
+            const player = data.value;
 
             playerShape.shape.forEach(field => {
 
@@ -165,7 +165,7 @@ export const addField = (field, shape, data, ref, doc) => {
 
             if(field.predicate === 'courseHoles') {
 
-                const holes = data.field.value;
+                const holes = data.value;
                     
                 holes.forEach(hole => {
 
@@ -189,7 +189,7 @@ export const addField = (field, shape, data, ref, doc) => {
             const playingHandicapRef = doc.addSubject();
             playingHandicapRef.addRef(rdf.type, golf.classes.GamePlayingHandicap);
 
-            const playingHandicap = data.field.value;
+            const playingHandicap = data.value;
 
             playingHandicapShape.shape.forEach(field => {
 

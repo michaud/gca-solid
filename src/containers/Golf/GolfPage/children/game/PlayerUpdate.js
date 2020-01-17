@@ -15,7 +15,7 @@ import {
 const checkFieldsChanged = (player, state) => {
 
     const hasData = player !== undefined && state !== undefined;
-    const handicapChanged = player.fields.handicap.field.value !== state.fields.handicap.field.value;
+    const handicapChanged = player.fields.handicap.value !== state.fields.handicap.value;
 
     return hasData && handicapChanged;
 };
@@ -41,10 +41,7 @@ const PlayerUpdate = ({
                 ...state.fields,
                 handicap: {
                     ...state.fields.handicap,
-                    field: {
-                        ...state.fields.handicap.field,
-                        value
-                    }
+                    value
                 }
             }
         }));
@@ -75,7 +72,7 @@ const PlayerUpdate = ({
                 <FlexItemData>
                     <FlexContainer>
                         <FlexItemLabel>Name</FlexItemLabel>
-                        <FlexItemValue>{ `${ player.fields.givenName.field.value } ${ player.fields.familyName.field.value }`}</FlexItemValue>
+                        <FlexItemValue>{ `${ player.fields.givenName.value } ${ player.fields.familyName.value }`}</FlexItemValue>
                     </FlexContainer>
                 </FlexItemData>
             </FlexContainer>

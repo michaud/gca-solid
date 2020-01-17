@@ -7,7 +7,7 @@ const getValue = (type, fields, predicate) => {
         case golf.types.text:
         case golf.types.string:
         case golf.types.integer:
-        case golf.types.nonNegativeInteger: return fields[predicate].field.value;
+        case golf.types.nonNegativeInteger: return fields[predicate].value;
         default: console.error('no field type', fields[predicate])
     }
 };

@@ -47,10 +47,7 @@ const HoleForm = ({
             ...holeState.fields,
             [fieldDef.fieldName]: {
                 ...holeState.fields[fieldDef.fieldName],
-                field: {
-                    ...holeState.fields[fieldDef.fieldName].field,
-                    value
-                }
+                value
             }
         };
         

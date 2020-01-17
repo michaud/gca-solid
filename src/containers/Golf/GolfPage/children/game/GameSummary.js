@@ -10,9 +10,9 @@ const GameSummary = ({ game, onPlay }) => {
     const { fields } = game;
 
     const gameId = game.iri;
-    const title = fields.gameName.field.value;
-    const holeCount = `${ fields.gameCourse.field.value.fields.courseHoles.field.value.length } holes`;
-    const marker = `marker: ${ fields.gameMarker.field.value.fields.givenName.field.value } ${ fields.gameMarker.field.value.fields.familyName.field.value}`
+    const title = fields.gameName.value;
+    const holeCount = `${ fields.gameCourse.value.fields.courseHoles.value.length } holes`;
+    const marker = `marker: ${ fields.gameMarker.value.fields.givenName.value } ${ fields.gameMarker.value.fields.familyName.value}`
 
     const playGameHandler = () => {
         onPlay && onPlay(gameId);

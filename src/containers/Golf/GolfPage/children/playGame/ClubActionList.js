@@ -10,7 +10,7 @@ const ClubActionList = ({ clubs, onAction }) => {
 
     const getClassNameFromClubType = (club) => {
 
-        switch(club.fields.clubType.field.value.iri) {
+        switch(club.fields.clubType.value.iri) {
     
             case golf.classes.Driver : 
             case golf.classes.Putter : {

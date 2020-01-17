@@ -41,10 +41,7 @@ const ClubForm = ({
             ...clubState.fields,
             [fieldDef.fieldName]: {
                 ...clubState.fields[fieldDef.fieldName],
-                field: {
-                    ...clubState.fields[fieldDef.fieldName].field,
-                    value
-                }
+                value
             }
         };
         

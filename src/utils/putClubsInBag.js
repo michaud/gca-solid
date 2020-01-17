@@ -18,10 +18,8 @@ export const putClubsInBag = (clubs, bag) => {
                 fieldType: golf.classes.Club,
                 fieldName:"clubs",
                 iri:golf.properties.clubs,
-                field:{
-                    label:"clubs",
-                    value
-                }
+                label:"clubs",
+                value
             }
         }
     };

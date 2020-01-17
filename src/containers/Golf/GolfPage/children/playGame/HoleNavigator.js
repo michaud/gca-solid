@@ -61,20 +61,20 @@ const HoleNavigator = ({ holes, onChangeHole }) => {
             <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
                 <FlexContainer center flex="1 0 auto" alignitems="stretch">
                     <FlexContainer flex="1 0 auto" center>
-                        <div className="u-pad--airy">{currHole && `hole ${currHole.fields.holeNumber.field.value}, ${currHole.fields.holeLength.field.value}m`}</div>
+                        <div className="u-pad--airy">{currHole && `hole ${currHole.fields.holeNumber.value}, ${currHole.fields.holeLength.value}m`}</div>
                     </FlexContainer>
                     <FlexItem narrow>
                         {currHole && <table className="select-hole__info">
                             <tbody>
                                 <tr>
-                                    <td className="hole-info__par">{ currHole.fields.holePar.field.label }</td>
-                                    <td className="hole-info__par-value">{ currHole.fields.holePar.field.value }</td>
+                                    <td className="hole-info__par">{ currHole.fields.holePar.label }</td>
+                                    <td className="hole-info__par-value">{ currHole.fields.holePar.value }</td>
                                     <td className="score__strokes">strokes</td>
                                     <td className="score__strokes-value">6</td>
                                 </tr>
                                 <tr>
                                     <td className="hole-info__si">SI</td>
-                                    <td className="hole-info__si-value">{ currHole.fields.holeStrokeIndex.field.value }</td>
+                                    <td className="hole-info__si-value">{ currHole.fields.holeStrokeIndex.value }</td>
                                     <td className="score__points">points</td>
                                     <td className="score__points-value">3</td>
                                 </tr>

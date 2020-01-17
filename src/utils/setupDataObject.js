@@ -18,11 +18,9 @@ const setupDataObject = (objectShape, fieldValue) => {
             fieldType: field.type,
             fieldName: field.predicate,
             iri: predicate,
-            required: required,
-            field: {
-                label: field.label,
-                value
-            }
+            required,
+            label: field.label,
+            value
         }
     });
 

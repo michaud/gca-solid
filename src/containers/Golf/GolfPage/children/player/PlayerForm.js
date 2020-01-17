@@ -36,10 +36,7 @@ const PlayerForm = ({
             ...playerState.fields,
             [fieldDef.fieldName]: {
                 ...playerState.fields[fieldDef.fieldName],
-                field: {
-                    ...playerState.fields[fieldDef.fieldName].field,
-                    value
-                }
+                value
             }
         };
         

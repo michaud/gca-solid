@@ -42,13 +42,10 @@ const CourseForm = ({
                 ...courseState.fields,
                 courseHoles: {
                     ...courseState.fields.courseHoles,
-                    field: {
-                        ...courseState.fields.courseHoles.field,
-                        value: [
-                            ...courseState.fields.courseHoles.field.value,
-                            hole
-                        ]
-                    }
+                    value: [
+                        ...courseState.fields.courseHoles.value,
+                        hole
+                    ]
                 }
             }
         };
@@ -60,11 +57,11 @@ const CourseForm = ({
         
         setCourseState(state => {
 
-            const holes = state.fields.courseHoles.field.value;
+            const holes = state.fields.courseHoles.value;
 
             const editHoleIndex = holes.findIndex(testHole => {
                 
-                return testHole.fields.holeNumber.field.value === hole.fields.holeNumber.field.value;
+                return testHole.fields.holeNumber.value === hole.fields.holeNumber.value;
             });
             const startHoles = holes.slice(0, editHoleIndex);
             const endHoles = holes.slice(editHoleIndex + 1, holes.length);
@@ -77,10 +74,7 @@ const CourseForm = ({
                     ...state.fields,
                     courseHoles: {
                         ...state.fields.courseHoles,
-                        field: {
-                            ...state.fields.courseHoles.field,
-                            value: newHoles
-                        }
+                        value: newHoles
                     }
                 }
             };
@@ -112,10 +106,7 @@ const CourseForm = ({
             ...courseState.fields,
             [fieldDef.fieldName]: {
                 ...courseState.fields[fieldDef.fieldName],
-                field: {
-                    ...courseState.fields[fieldDef.fieldName].field,
-                    value
-                }
+                value
             }
         };
         

@@ -55,14 +55,14 @@ const CourseDetail = ({
 
             case golf.classes.Hole : {
 
-                return <HoleTable onEdit={ editHoleHandler }  key={ index } holes={ field.field.value }/>;
+                return <HoleTable onEdit={ editHoleHandler }  key={ index } holes={ field.value }/>;
             }
 
             default: {
 
                 return <FlexContainer key={ index }>
-                    <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                    <FlexItemValue>{ field.field.value }</FlexItemValue>
+                    <FlexItemLabel>{ field.label }</FlexItemLabel>
+                    <FlexItemValue>{ field.value }</FlexItemValue>
                 </FlexContainer>;
             }
         }

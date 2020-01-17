@@ -27,7 +27,7 @@ const checkRenderField = field => {
 
 const getFieldData = (field, club, clubType, clubTypes) => {
 
-    const label = clubType.fields[field.predicate].field.label;
+    const label = clubType.fields[field.predicate].label;
 
     let value = '';
 
@@ -35,7 +35,7 @@ const getFieldData = (field, club, clubType, clubTypes) => {
 
         case golf.types.string: {
 
-            value = club.fields[field.predicate].field.value;
+            value = club.fields[field.predicate].value;
 
             break;
         }
@@ -49,7 +49,7 @@ const getFieldData = (field, club, clubType, clubTypes) => {
 
         case golf.classes.Club: {
 
-            value = clubTypes.find(item => item.iri === club.fields.clubType.field.value.iri).label;
+            value = clubTypes.find(item => item.iri === club.fields.clubType.value.iri).label;
 
             break;
         }

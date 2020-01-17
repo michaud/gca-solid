@@ -76,10 +76,7 @@ const GameForm = ({
             ...gameState.fields,
             [fieldDef.fieldName]: {
                 ...gameState.fields[fieldDef.fieldName],
-                field: {
-                    ...gameState.fields[fieldDef.fieldName].field,
-                    value
-                }
+                value
             }
         };
 
@@ -89,10 +86,7 @@ const GameForm = ({
                 ...fields,
                 gameName: {
                     ...fields.gameName,
-                    field: {
-                        ...fields.gameName.field,
-                        value: `${ value.fields.courseName.field.value } ${ format(new Date(fields.gameDate.field.value), 'dd-mm-yy hh:mm' ) }`
-                    }
+                    value: `${ value.fields.courseName.value } ${ format(new Date(fields.gameDate.value), 'dd-mm-yy hh:mm' ) }`
                 }
             }
         }

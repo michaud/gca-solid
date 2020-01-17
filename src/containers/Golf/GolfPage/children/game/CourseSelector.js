@@ -44,7 +44,7 @@ const CourseSelector = ({courses = [], onChange }) => {
                         {
                             courses && courses.map((course, idx) => {
 
-                                const secondaryText = `${ course.fields.courseSlope.field.label }: ${ course.fields.courseSlope.field.value }, holes: ${ course.fields.courseHoles.field.value.length }`;
+                                const secondaryText = `${ course.fields.courseSlope.label }: ${ course.fields.courseSlope.value }, holes: ${ course.fields.courseHoles.value.length }`;
 
                                 return <ListItem key={ idx }
                                     className={ classes.listItem }
@@ -53,7 +53,7 @@ const CourseSelector = ({courses = [], onChange }) => {
                                     onClick={ handleListItemClick(course) }
                                     button>
                                     <ListItemText
-                                        primary={ course.fields.courseName.field.value }
+                                        primary={ course.fields.courseName.value }
                                         secondary={
                                             <>
                                                 <Typography component="span"

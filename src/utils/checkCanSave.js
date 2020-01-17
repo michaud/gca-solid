@@ -3,20 +3,20 @@ import golf from "./golf-namespace";
 const hasValue = item => {
 
     switch(item.fieldType) {
-        case golf.types.string: return item.field.value !== '';
-        case golf.types.nonNegativeInteger: return item.field.value > 0;
-        case golf.types.integer: return typeof(item.field.value) === 'number';
-        case golf.types.text: return item.field.value !== '';
-        case golf.types.dateTime: return item.field.value instanceof Date;
+        case golf.types.string: return item.value !== '';
+        case golf.types.nonNegativeInteger: return item.value > 0;
+        case golf.types.integer: return typeof(item.value) === 'number';
+        case golf.types.text: return item.value !== '';
+        case golf.types.dateTime: return item.value instanceof Date;
         case golf.classes.Club: {
 
-            return item.fieldName === 'clubType' ? typeof(item.field.value) === 'object' : item.field.value.length > 0;
+            return item.fieldName === 'clubType' ? typeof(item.value) === 'object' : item.value.length > 0;
         }
-        case golf.classes.Hole: return item.field.value.length > 0;
-        case golf.classes.Player: return typeof(item.field.value) === 'object';
-        case golf.classes.Course: return typeof(item.field.value) === 'object';
-        case golf.classes.Marker: return typeof(item.field.value) === 'object';
-        case golf.classes.Bag: return typeof(item.field.value) === 'object';
+        case golf.classes.Hole: return item.value.length > 0;
+        case golf.classes.Player: return typeof(item.value) === 'object';
+        case golf.classes.Course: return typeof(item.value) === 'object';
+        case golf.classes.Marker: return typeof(item.value) === 'object';
+        case golf.classes.Bag: return typeof(item.value) === 'object';
         case golf.classes.GamePlayingHandicap: return true;
 
         default: return false;
