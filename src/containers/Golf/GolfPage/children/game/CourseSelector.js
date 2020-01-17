@@ -12,7 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
-        marginBottom: '2rem',
+        marginBottom: '1rem',
         minHeight: '14.5rem'
     },
     gridItem: {
@@ -40,7 +40,10 @@ const CourseSelector = ({courses = [], onChange }) => {
             <Grid container spacing={2} className={ classesmui.root }>
                 <Grid item className={ classesmui.gridItem }>
                     <Paper className={ classes.listContainer }>
-                        <List className={ classes.selectorList } role="list">
+                        <List dense 
+                            className={ classes.selectorList }
+                            component="div"
+                            role="list">
                         {
                             courses && courses.map((course, idx) => {
 

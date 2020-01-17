@@ -41,7 +41,10 @@ const MarkerSelector = ({ markers = [], onSelect }) => {
             <Grid container spacing={2} className={ classesmui.root }>
                 <Grid item className={ classesmui.gridItem }>
                     <Paper className={ classes.listContainer }>
-                        <List dense component="div" className={ classes.selectorList } role="list">
+                        <List dense
+                            className={ classes.selectorList }
+                            component="div"
+                            role="list">
                         {
                             markers && markers.map((marker, idx) => {
 
