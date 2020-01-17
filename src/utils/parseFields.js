@@ -28,7 +28,7 @@ const getHolesField = doc => (data, label, defaultValue, parentField) => {
         const holeIds = data.getAllRefs(golf.properties.courseHoles);
         const holeRefs = holeIds.map(id => doc.getSubject(id));
         const holes = holeRefs.map(parseFields(shape, doc))
-            .sort((a,b) => a.fields.holeNumber.value - b.fields.holeNumber.value);
+            .sort((a,b) => a.holeNumber.value - b.holeNumber.value);
         value = holes;
     }
 
@@ -305,7 +305,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
 const parseFields = (dataShape, doc, ...rest) => item => {
             
-    const fields = dataShape.shape.reduce((acc, field) => {
+    const fieldData = dataShape.shape.reduce((acc, field) => {
         
         const data = getFieldData(dataShape, doc, item, ...rest)(field);
         const newAcc = {
@@ -318,7 +318,7 @@ const parseFields = (dataShape, doc, ...rest) => item => {
     }, {});
 
     const newItem = {
-        fields,
+        ...fieldData,
         iri: item ? item.asNodeRef() : ''
     };
 

@@ -53,12 +53,12 @@ const HoleDetail = ({
 
     if(displayState === displayStates.detail) {
 
-        const fields = [];
+        const displayFields = [];
 
         holeShape.shape.forEach(field => {
                         
             const data = getFieldDisplayData(field, hole);
-            fields.push(data);
+            displayFields.push(data);
         });
 
         return (
@@ -66,7 +66,7 @@ const HoleDetail = ({
                 <FlexContainer>
                     <FlexItemData>
                         {
-                            fields.map((field, index) => <FlexContainer key={ index }>
+                            displayFields.map((field, index) => <FlexContainer key={ index }>
                                 <FlexItemLabel>{ field.label }</FlexItemLabel>
                                 <FlexItemValue>{ field.value }</FlexItemValue>
                             </FlexContainer>)

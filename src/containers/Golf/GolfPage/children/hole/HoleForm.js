@@ -43,17 +43,12 @@ const HoleForm = ({
 
         const value = getFieldValue(fieldDef, args);
 
-        const fields = {
-            ...holeState.fields,
-            [fieldDef.fieldName]: {
-                ...holeState.fields[fieldDef.fieldName],
-                value
-            }
-        };
-        
         const data = {
             ...holeState,
-            fields
+            [fieldDef.fieldName]: {
+                ...holeState[fieldDef.fieldName],
+                value
+            }
         };
 
         setHoleState(data);

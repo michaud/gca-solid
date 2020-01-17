@@ -10,19 +10,19 @@ const createStroke = (club, coords) => {
         fields: {
             ...stroke.fields,
             strokeClub: {
-                ...stroke.fields.strokeClub,
+                ...stroke.strokeClub,
                 value: {
                     ...club
                 }
             },
             strokeLocation: {
-                ...stroke.fields.strokeLocation,
+                ...stroke.strokeLocation,
                 value: {
                     ...coords
                 }
             },
             strokeDate: {
-                ...stroke.fields.strokeDate,
+                ...stroke.strokeDate,
                 value: moment(Date.now()).format('DD-mm-YY hh:mm')
             }
         }

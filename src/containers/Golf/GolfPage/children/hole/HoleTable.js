@@ -9,14 +9,14 @@ const HoleTable = ({
 
     const outHoles = holes.slice(0, 9);
     const inHoles = holes.slice(9, holes.length);
-    const outHoleNumbers = outHoles.map(nr => nr.fields.holeNumber.value);
-    const outPars = outHoles.map(par => par.fields.holePar.value);
-    const outLengths = outHoles.map(length => length.fields.holeLength.value);
-    const outStrokeIndices = outHoles.map(length => length.fields.holeStrokeIndex.value);
-    const inHoleNumbers = inHoles.map(nr => nr.fields.holeNumber.value);
-    const inPars = inHoles.map(par => par.fields.holePar.value);
-    const inLengths = inHoles.map(length => length.fields.holeLength.value);
-    const inStrokeIndices = inHoles.map(length => length.fields.holeStrokeIndex.value);
+    const outHoleNumbers = outHoles.map(nr => nr.holeNumber.value);
+    const outPars = outHoles.map(par => par.holePar.value);
+    const outLengths = outHoles.map(length => length.holeLength.value);
+    const outStrokeIndices = outHoles.map(length => length.holeStrokeIndex.value);
+    const inHoleNumbers = inHoles.map(nr => nr.holeNumber.value);
+    const inPars = inHoles.map(par => par.holePar.value);
+    const inLengths = inHoles.map(length => length.holeLength.value);
+    const inStrokeIndices = inHoles.map(length => length.holeStrokeIndex.value);
 
     return (
         <>

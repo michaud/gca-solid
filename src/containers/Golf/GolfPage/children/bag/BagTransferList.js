@@ -123,9 +123,9 @@ const BagTransferList = ({
             {
                 items.map((item, index) => {
 
-                    const clubType = item.fields.clubType.value;
-                    const brand = item.fields.clubBrand.value;
-                    const name = item.fields.clubName.value;
+                    const clubType = item.clubType.value;
+                    const brand = item.clubBrand.value;
+                    const name = item.clubName.value;
                     const label = clubTypes.find(type => type.iri === clubType.iri).label;
                     const labelId = `transfer-list-item-${index}-label`;
 

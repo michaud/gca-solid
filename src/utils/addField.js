@@ -68,7 +68,7 @@ export const addField = (field, shape, data, ref, doc) => {
 
             const bag = data.value;
 
-            bag.fields.clubs.value.forEach(club => {
+            bag.clubs.value.forEach(club => {
                 
                 const clubRef = doc.addSubject({
                     identifier: club.iri.split('#')[1]
@@ -100,7 +100,7 @@ export const addField = (field, shape, data, ref, doc) => {
 
                 if(field.predicate === 'courseHoles') {
 
-                    const holes = course.fields.courseHoles.value;
+                    const holes = course.courseHoles.value;
 
                     holes.forEach(hole => {
 

@@ -34,7 +34,7 @@ const PlayGame = ({
 
     const onChangeHoleHandler = (holeIndex) => {
 
-        game && setCurrHole(game.fields.gameCourse.value.fields.courseHoles.value[holeIndex]);
+        game && setCurrHole(game.gameCourse.value.courseHoles.value[holeIndex]);
     };
 
     const init = async () => {
@@ -75,11 +75,11 @@ const PlayGame = ({
 
     }, [webId, gameData, notification.notify]);
 
-    const clubs = game && game.fields.gameBag.value.fields.clubs.value;
+    const clubs = game && game.gameBag.value.clubs.value;
 
     return (
         <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
-            <HoleNavigator holes={ game && game.fields.gameCourse.value.fields.courseHoles.value } onChangeHole={ onChangeHoleHandler } />
+            <HoleNavigator holes={ game && game.gameCourse.value.courseHoles.value } onChangeHole={ onChangeHoleHandler } />
             <HoleHistory hole={ currHole } />
             <ClubActionList clubs={ clubs } onAction={ onClubActionHandler }/>
         </FlexContainer>

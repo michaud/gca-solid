@@ -49,7 +49,7 @@ const getFieldData = (field, club, clubType, clubTypes) => {
 
         case golf.classes.Club: {
 
-            value = clubTypes.find(item => item.iri === club.fields.clubType.value.iri).label;
+            value = clubTypes.find(item => item.iri === club.clubType.value.iri).label;
 
             break;
         }
@@ -99,7 +99,7 @@ const ClubDetail = ({
             clubTypeData => {
         
                 const { clubTypes = [], clubType } = clubTypeData;
-                const fields = [];
+                const displayDields = [];
 
                 if(clubTypes.length > 0 && clubType) {
 
@@ -110,7 +110,7 @@ const ClubDetail = ({
                         if(renderField) {
 
                             const data = getFieldData(field, club, clubType, clubTypes);
-                            fields.push(data);
+                            displayDields.push(data);
                         }
                     });
                 }
@@ -129,7 +129,7 @@ const ClubDetail = ({
                     <FlexContainer>
                         <FlexItemData>
                         {
-                            fields.map((field, index) => <FlexContainer key={ index }>
+                            displayDields.map((field, index) => <FlexContainer key={ index }>
                                 <FlexItemLabel>{ field.label }</FlexItemLabel>
                                 <FlexItemValue>{ field.value }</FlexItemValue>
                             </FlexContainer>)

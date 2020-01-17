@@ -72,29 +72,24 @@ const GameForm = ({
 
         const value = getFieldValue(fieldDef, args);
 
-        let fields = {
-            ...gameState.fields,
+        let data = {
+            ...gameState,
             [fieldDef.fieldName]: {
-                ...gameState.fields[fieldDef.fieldName],
+                ...gameState[fieldDef.fieldName],
                 value
             }
         };
 
         if(fieldDef.fieldName === 'gameCourse' || fieldDef.fieldName === 'gameDate') {
-
-            fields = {
-                ...fields,
+            //TODO check if this still works
+            data = {
+                ...data,
                 gameName: {
-                    ...fields.gameName,
-                    value: `${ value.fields.courseName.value } ${ format(new Date(fields.gameDate.value), 'dd-mm-yy hh:mm' ) }`
+                    ...data.gameName,
+                    value: `${ value.courseName.value } ${ format(new Date(data.gameDate.value), 'dd-mm-yy hh:mm' ) }`
                 }
             }
         }
-        
-        const data = {
-            ...gameState,
-            fields
-        };
 
         setGameState(data);
     };

@@ -32,17 +32,12 @@ const PlayerForm = ({
 
         const value = getFieldValue(fieldDef, args);
 
-        const fields = {
-            ...playerState.fields,
-            [fieldDef.fieldName]: {
-                ...playerState.fields[fieldDef.fieldName],
-                value
-            }
-        };
-        
         const data = {
             ...playerState,
-            fields
+            [fieldDef.fieldName]: {
+                ...playerState[fieldDef.fieldName],
+                value
+            }
         };
 
         setPlayerState(data);

@@ -12,17 +12,12 @@ const EditPlayingHandicap = ({ handicap, onChange = () => {} }) => {
 
         const value = getFieldValue(fieldDef, args);
 
-        const fields = {
-            ...handicapState.fields,
-            [fieldDef.fieldName]: {
-                ...handicapState.fields[fieldDef.fieldName],
-                value
-            }
-        };
-        
         const data = {
             ...handicapState,
-            fields
+            [fieldDef.fieldName]: {
+                ...handicapState[fieldDef.fieldName],
+                value
+            }
         };
         
         setHandicapState(data);

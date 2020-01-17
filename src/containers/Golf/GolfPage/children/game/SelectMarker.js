@@ -15,24 +15,24 @@ const SelectMarker = ({ markers = [], onSave, onChange }) => {
 
     };
 
-    const fields = [];
+    const displayFields = [];
 
     if(hasMarkers) {
 
-        fields.push(<MarkerSelector
+        displayFields.push(<MarkerSelector
             key={ 0 }
             markers={ markers }
             onSelect={ onChange }/>)
     }
 
-    fields.push(<Button key={ fields.length }
+    displayFields.push(<Button key={ displayFields.length }
         variant="contained"
         onClick={ saveHandler }
         className={ classes.button }
         color="primary">Add Marker</Button>)
 
     return (
-        <div className="c-box">{ fields }</div>
+        <div className="c-box">{ displayFields }</div>
     );
 };
 

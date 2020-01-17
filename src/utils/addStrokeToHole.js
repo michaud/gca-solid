@@ -27,9 +27,9 @@ const persistData = (club, game, holeIri, setState) => ({ coords: { latitude, lo
 
     const stroke = createStroke(club, { latitude, longitude, altitude });
 
-    const holeIndex = game.fields.gameCourse.value.fields.courseHoles.value.findIndex(hole => hole.iri === holeIri);
+    const holeIndex = game.gameCourse.value.courseHoles.value.findIndex(hole => hole.iri === holeIri);
                  
-    const hole = game.fields.gameCourse.value.fields.courseHoles.value[holeIndex];
+    const hole = game.gameCourse.value.courseHoles.value[holeIndex];
     const newHole = update(hole, {
         fields: {
             gameStrokes: {

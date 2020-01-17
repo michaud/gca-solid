@@ -37,17 +37,12 @@ const ClubForm = ({
 
         const value = getFieldValue(fieldDef, [...args, clubTypes]);
 
-        const fields = {
-            ...clubState.fields,
-            [fieldDef.fieldName]: {
-                ...clubState.fields[fieldDef.fieldName],
-                value
-            }
-        };
-        
         const data = {
             ...clubState,
-            fields
+            [fieldDef.fieldName]: {
+                ...clubState[fieldDef.fieldName],
+                value
+            }
         };
 
         setClubState(data);

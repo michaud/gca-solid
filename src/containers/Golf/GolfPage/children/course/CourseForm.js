@@ -41,9 +41,9 @@ const CourseForm = ({
             fields: {
                 ...courseState.fields,
                 courseHoles: {
-                    ...courseState.fields.courseHoles,
+                    ...courseState.courseHoles,
                     value: [
-                        ...courseState.fields.courseHoles.value,
+                        ...courseState.courseHoles.value,
                         hole
                     ]
                 }
@@ -57,11 +57,11 @@ const CourseForm = ({
         
         setCourseState(state => {
 
-            const holes = state.fields.courseHoles.value;
+            const holes = state.courseHoles.value;
 
             const editHoleIndex = holes.findIndex(testHole => {
                 
-                return testHole.fields.holeNumber.value === hole.fields.holeNumber.value;
+                return testHole.holeNumber.value === hole.holeNumber.value;
             });
             const startHoles = holes.slice(0, editHoleIndex);
             const endHoles = holes.slice(editHoleIndex + 1, holes.length);
@@ -73,7 +73,7 @@ const CourseForm = ({
                 fields: {
                     ...state.fields,
                     courseHoles: {
-                        ...state.fields.courseHoles,
+                        ...state.courseHoles,
                         value: newHoles
                     }
                 }
@@ -102,17 +102,12 @@ const CourseForm = ({
 
         const value = getFieldValue(fieldDef, args);
 
-        const fields = {
-            ...courseState.fields,
-            [fieldDef.fieldName]: {
-                ...courseState.fields[fieldDef.fieldName],
-                value
-            }
-        };
-        
         const data = {
             ...courseState,
-            fields
+            [fieldDef.fieldName]: {
+                ...courseState[fieldDef.fieldName],
+                value
+            }
         };
 
         setCourseState(data);

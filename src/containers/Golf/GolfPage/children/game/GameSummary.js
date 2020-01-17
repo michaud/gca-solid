@@ -7,12 +7,16 @@ const GameSummary = ({ game, onPlay }) => {
 
     const classes = formStyles();
 
-    const { fields } = game;
+    const {
+        gameName,
+        gameCourse,
+        gameMarker
+    } = game;
 
     const gameId = game.iri;
-    const title = fields.gameName.value;
-    const holeCount = `${ fields.gameCourse.value.fields.courseHoles.value.length } holes`;
-    const marker = `marker: ${ fields.gameMarker.value.fields.givenName.value } ${ fields.gameMarker.value.fields.familyName.value}`
+    const title = gameName.value;
+    const holeCount = `${ gameCourse.value.courseHoles.value.length } holes`;
+    const marker = `marker: ${ gameMarker.value.givenName.value } ${ gameMarker.value.familyName.value}`
 
     const playGameHandler = () => {
         onPlay && onPlay(gameId);

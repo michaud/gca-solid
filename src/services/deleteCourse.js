@@ -1,6 +1,6 @@
 const deleteCourse = (course, doc) => {
 
-    course.fields.courseHoles.value.forEach(val => {
+    course.courseHoles.value.forEach(val => {
         doc.removeSubject(val.iri);
     });
 

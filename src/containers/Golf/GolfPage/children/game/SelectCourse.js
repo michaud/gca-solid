@@ -16,24 +16,24 @@ const SelectCourse = ({ courses, onChange }) => {
 
     };
 
-    const fields = [];
+    const displayFields = [];
 
     if(hasCourses) {
 
-        fields.push(<CourseSelector
+        displayFields.push(<CourseSelector
             key={ 0 }
             courses={ courses }
             onChange={ onChange }/>);
     }
 
-    fields.push(<Button key={ fields.length }
+    displayFields.push(<Button key={ displayFields.length }
         variant="contained"
         onClick={ saveHandler }
         className={ classes.button }
         color="primary">Add Course</Button>)
 
     return (
-        <div className="c-box">{ fields }</div>
+        <div className="c-box">{ displayFields }</div>
     );
 };
 
