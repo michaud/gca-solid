@@ -3,15 +3,16 @@ import { addField } from '@utils/addField';
 import { setField } from '@utils/setField';
 import shapeFromType from '@utils/shapeFromType';
 
-const saveResource = async ({
+const saveResource = ({
     resource,
     element,
     doc,
     type
 }) => {
-    
-    const isNew = resource.iri === '';
-    const ref = isNew ? doc.addSubject() : doc.getSubject(resource.iri);
+
+    const data = resource ? resource : element;
+    const isNew = data.iri === '';
+    const ref = isNew ? doc.addSubject() : doc.getSubject(data.iri);
     const fieldAction = isNew ? addField : setField;
 
     if(isNew) ref.addRef(rdf.type, type);
@@ -23,14 +24,16 @@ const saveResource = async ({
         fieldAction({
             field,
             shape: resourceShape,
-            data: resource[field.predicate],
+            data: data[field.predicate],
             element,
             ref,
             doc
         });
     });
 
-    return await doc.save();
+    if(resource) doc.save();
+
+    return ref;
 };
 
 export default saveResource;

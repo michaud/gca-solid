@@ -23,21 +23,40 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
 
         case golf.types.string: {
 
-            ref.setLiteral(predicate, data[field.predicate].value);
+            ref.setLiteral(predicate, data.value);
+            //ref.setLiteral(predicate, data[field.predicate].value);
+
+            break;
+        }
+
+        case golf.types.nonNegativeInteger : {
+
+            const value = data === undefined ? field.value : data.value;
+
+            ref.setLiteral(predicate, parseInt(value));
 
             break;
         }
 
         case golf.classes.Club: {
 
-            ref.setRef(predicate, data[field.predicate].value.iri);
+            ref.setRef(predicate, data.value.iri);
+            
+            break;
+        }
+
+        case golf.classes.Stroke: {
+
+            const value = data === undefined ? field.value : data.value;
+
+            ref.setRef(predicate, value);
             
             break;
         }
 
         default : {
 
-            console.error('no field defined', field);
+            console.error('setField: no field defined', field);
 
             break;
         }

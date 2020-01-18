@@ -8,6 +8,7 @@ import markerShape from '@contexts/marker-shape.json';
 import playerShape from '@contexts/player-shape.json';
 import holeShape from '@contexts/hole-shape.json';
 import playingHandicapShape from '@contexts/playing-handicap-shape.json';
+import saveResource from '@services/saveResource';
 
 export const addField = ({ field, shape, data, element, ref, doc }) => {
 
@@ -70,18 +71,13 @@ export const addField = ({ field, shape, data, element, ref, doc }) => {
 
             bag.clubs.value.forEach(club => {
                 
-                const clubRef = doc.addSubject({
-                    identifier: club.iri.split('#')[1]
-                });
-
-                clubRef.addRef(rdf.type, golf.classes.Club);
-
-                clubShape.shape.forEach(field => {
-
-                    addField(field, clubShape, club[field.predicate], clubRef, doc);
-                });
+                const elRef = saveResource({
+                    element: club,
+                    doc,
+                    type: golf.classes.Club
+                })
             
-                bagRef.addRef(golf.properties.clubs, clubRef.asRef());
+                bagRef.addRef(golf.properties.clubs, elRef.asRef());
             });
 
             ref.addRef(golf.properties.gameBag, bagRef.asRef());
@@ -96,29 +92,34 @@ export const addField = ({ field, shape, data, element, ref, doc }) => {
 
             const course = data.value;
 
+            const holeType = field.predicate === "gameCourse" ? golf.classes.GameHole : golf.classes.Hole;
+
             courseShape.shape.forEach(field => {
 
                 if(field.predicate === 'courseHoles') {
-
+debugger
                     const holes = course.courseHoles.value;
 
                     holes.forEach(hole => {
 
-                        const holeRef = doc.addSubject();
-                        holeRef.addRef(rdf.type, golf.classes.Hole);
-
-                        holeShape.shape.forEach(field => {
-
-                            addField(field, holeShape, hole[field.predicate], holeRef, doc);
+                        const elRef = saveResource({
+                            element: hole,
+                            doc,
+                            type: holeType
                         })
-            
-                        courseRef.addRef(golf.properties.courseHoles, holeRef.asRef());
-
+        
+                        courseRef.addRef(golf.properties.courseHoles, elRef.asRef());
                     });
 
                 } else {
-
-                    addField(field, courseShape, course[field.predicate], courseRef, doc);
+                    
+                    addField({
+                        field,
+                        shape: courseShape,
+                        data: course[field.predicate],
+                        ref: courseRef,
+                        doc
+                    });
                 }
             });
 
@@ -129,34 +130,26 @@ export const addField = ({ field, shape, data, element, ref, doc }) => {
 
         case golf.classes.Marker : {
 
-            const markerRef = doc.addSubject();
-            markerRef.addRef(rdf.type, golf.classes.Marker);
+            const elRef = saveResource({
+                element: data.value,
+                doc,
+                type: field.type
+            })
 
-            const marker = data.value;
-
-            markerShape.shape.forEach(field => {
-        
-                addField(field, markerShape, marker[field.predicate], markerRef, doc);
-            });
-
-            ref.addRef(golf.properties.gameMarker, markerRef.asRef());
+            ref.addRef(golf.properties.gameMarker, elRef.asRef());
 
             break;
         }
 
         case golf.classes.Player : {
 
-            const playerRef = doc.addSubject();
-            playerRef.addRef(rdf.type, golf.classes.Player);
+            const elRef = saveResource({
+                element: data.value,
+                doc,
+                type: golf.classes.Player
+            })
 
-            const player = data.value;
-
-            playerShape.shape.forEach(field => {
-
-                addField(field, playerShape, player[field.predicate], playerRef, doc);
-            });
-
-            ref.addRef(golf.properties.gamePlayer, playerRef.asRef());
+            ref.addRef(golf.properties.gamePlayer, elRef.asRef());
 
             break;
         }
@@ -169,15 +162,13 @@ export const addField = ({ field, shape, data, element, ref, doc }) => {
                     
                 holes.forEach(hole => {
 
-                    const holeRef = doc.addSubject();
-                    holeRef.addRef(rdf.type, golf.classes.Hole);
-
-                    holeShape.shape.forEach(field => {
-
-                        addField(field, holeShape, hole[field.predicate], holeRef, doc);
+                    const elRef = saveResource({
+                        element: hole,
+                        doc,
+                        type: field.type
                     })
         
-                    ref.addRef(golf.properties.courseHoles, holeRef.asRef());
+                    ref.addRef(golf.properties.courseHoles, elRef.asRef());
                 });
             }
 
@@ -186,24 +177,20 @@ export const addField = ({ field, shape, data, element, ref, doc }) => {
 
         case golf.classes.GamePlayingHandicap : {
 
-            const playingHandicapRef = doc.addSubject();
-            playingHandicapRef.addRef(rdf.type, golf.classes.GamePlayingHandicap);
-
-            const playingHandicap = data.value;
-
-            playingHandicapShape.shape.forEach(field => {
-
-                addField(field, playingHandicapShape, playingHandicap[field.predicate], playingHandicapRef, doc);
+            const elRef = saveResource({
+                element: data.value,
+                doc,
+                type: field.type
             })
 
-            ref.addRef(golf.properties.gamePlayingHandicap, playingHandicapRef.asRef());
+            ref.addRef(golf.properties.gamePlayingHandicap, elRef.asRef());
 
             break;
         }
 
         default : {
 
-            console.error('no field defined', field);
+            console.error('addField: no field defined', field);
 
             break;
         }

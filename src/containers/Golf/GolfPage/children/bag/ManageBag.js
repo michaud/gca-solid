@@ -35,7 +35,7 @@ const ManageBag = ({ match, webId, history, clubTypes, clubType }) => {
 
         if (!clubListData) return;
 
-        await saveResource({
+        saveResource({
             resource: club,
             doc: clubListData.doc,
             type: golf.classes.Club
@@ -45,7 +45,7 @@ const ManageBag = ({ match, webId, history, clubTypes, clubType }) => {
 
     const saveClubHandler = async (club) => {
         
-        await saveResource({
+        saveResource({
             resource: club,
             doc: clubListData.doc,
             type: golf.classes.Club
