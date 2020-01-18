@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import golf from '@utils/golf-namespace';
-
+import courseShape from '@contexts/course-shape.json';
 import {
     FieldContainer,
     FlexContainer,
@@ -86,10 +86,10 @@ const CourseDetail = ({
 
     let count = 0;
 
-    for(const field in course) {
-        
-        displayFields.push(getDisplayField(course[field], count++));
-    }
+    courseShape.shape.forEach(field => {
+
+        displayFields.push(getDisplayField(course[field.predicate], count++));
+    });
 
     return (
         <FieldContainer>

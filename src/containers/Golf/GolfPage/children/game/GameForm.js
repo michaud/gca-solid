@@ -138,12 +138,12 @@ const GameForm = ({
 
         let index = 0;
 
-        for (const field in gameState) {
+        gameShape.shape.forEach(field => {
 
             const callback = saveGamePlayerCallbacks[field];
 
             const fieldControl = getFieldControl({
-                data: gameState[field],
+                data: gameState[field.predicate],
                 styles: classes,
                 onChange: onChangeField,
                 onSave: callback ? callback(doc[field]) : undefined,
@@ -156,10 +156,10 @@ const GameForm = ({
             });
 
             gameFields.push(fieldControl);
-        }
+        });
     }
 
-    const canSave = checkCanSave(gameState);
+    const canSave = checkCanSave(gameState, gameShape);
 
     return (
         <form noValidate autoComplete="off">

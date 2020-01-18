@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 
 import golf from '@utils/golf-namespace';
-
+import gameShape from '@contexts/game-shape.json';
+import displayStates from '@utils/displayStates';
+import GameForm from './GameForm';
+import HoleTable from '../hole/HoleTable';
+import CourseDetail from '../course/CourseDetail';
+import moment from 'moment';
+import BagDetail from './BagDetail';
+import EditActions from '@containers/Golf/components/EditActions';
+import PlayerDetail from '../player/PlayerDetail';
 import {
     FieldContainer,
     FlexContainer,
@@ -11,21 +19,12 @@ import {
     FlexItemTools
 } from '@styles/layout.style';
 
-import displayStates from '@utils/displayStates';
-import GameForm from './GameForm';
-import HoleTable from '../hole/HoleTable';
-import CourseDetail from '../course/CourseDetail';
-import moment from 'moment';
-import BagDetail from './BagDetail';
-import EditActions from '@containers/Golf/components/EditActions';
-import PlayerDetail from '../player/PlayerDetail';
-
 const getDisplayField = (data, handlers, index) => {
-
+    
     switch (data.fieldType) {
-
+        
         case golf.types.dateTime : {
-
+            
             const value = data.value instanceof Date ? moment(data.value).format('DD-mm-YY hh:mm') : ''
 
             return (
@@ -89,7 +88,6 @@ const getDisplayField = (data, handlers, index) => {
     }
 };
 
-
 const GameDetail = ({
     game,
     onSave,
@@ -140,12 +138,13 @@ const GameDetail = ({
     const displayFields = [];
 
     let count = 0;
-    for(const field in game) {
+
+    gameShape.shape.forEach(field => {
         
-        displayFields.push(getDisplayField(game[field], {
+        displayFields.push(getDisplayField(game[field.predicate], {
             editHoleHandler
         }, count++));
-    }
+    });
 
     return (
         <FieldContainer>

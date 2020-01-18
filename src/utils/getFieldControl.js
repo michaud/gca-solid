@@ -148,8 +148,10 @@ const getFieldControl = ({
         }
 
         default: {
-        
-            return <div key={ idx }>{ data.fieldType }</div>;
+            console.log('data:' + data + ':', typeof(data));
+
+            return null;
+            //return <div key={ idx }>{ data.fieldType }</div>;
         }
     }
 };

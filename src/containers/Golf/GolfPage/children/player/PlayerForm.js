@@ -5,6 +5,7 @@ import formStyles from '@styles/form.style';
 import getFieldValue from '@utils/getFieldValue';
 import checkCanSave from '@utils/checkCanSave';
 import getFieldControl from '@utils/getFieldControl';
+import playerShape from '@contexts/player-shape';
 
 import {
     FlexContainer,
@@ -58,20 +59,20 @@ const PlayerForm = ({
 
     if(playerState) {
         
-        for (const field in playerState) {
+        playerShape.shape.forEach(field => {
 
             const fieldControl = getFieldControl({
-                data: playerState[field],
+                data: playerState[field.predicate],
                 styles: classes,
                 onChange: onChangeField,
                 idx: index++
             });
 
             playerFields.push(fieldControl);
-        }
+        });
     }
 
-    const canSave = checkCanSave(playerState);
+    const canSave = checkCanSave(playerState, playerShape);
 
     return (
         <div>

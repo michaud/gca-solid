@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import getFieldControl from '@utils/getFieldControl';
 import formStyles from '@styles/form.style';
 import getFieldValue from '@utils/getFieldValue';
+import handicapShape from '@contexts/playing-handicap-shape.json';
 
 const EditPlayingHandicap = ({ handicap, onChange = () => {} }) => {
 
@@ -30,17 +31,17 @@ const EditPlayingHandicap = ({ handicap, onChange = () => {} }) => {
 
     if(handicapState) {
         
-        for (const field in handicapState) {
+        handicapShape.shape.forEach(field => {
 
             const fieldControl = getFieldControl({
-                data: handicapState[field],
+                data: handicapState[field.predicate],
                 styles: classes,
                 onChange: onChangeField,
                 idx: index++
             });
 
             handicapFields.push(fieldControl);
-        }
+        });
     };
 
     return (

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { withClubTypeContext } from '@utils/clubTypeContext';
+import clubShape from '@contexts/club-shape.json';
 import Button from '@material-ui/core/Button';
 import formStyles from '@styles/form.style';
 import { useTranslation } from 'react-i18next';
@@ -67,10 +68,10 @@ const ClubForm = ({
 
     if(clubState) {
         
-        for (const field in clubState) {
+        clubShape.shape.forEach(field => {
 
             const fieldControl = getFieldControl({
-                data: clubState[field],
+                data: clubState[field.predicate],
                 label: t('golf.selectClubType'),
                 styles: classes,
                 onChange: onChangeClubField,
@@ -78,10 +79,10 @@ const ClubForm = ({
             });
 
             if(field !== 'ownedBy') clubFields.push(fieldControl);
-        }
+        })
     }
 
-    const canSave = checkCanSave(clubState);
+    const canSave = checkCanSave(clubState, clubShape);
 
     return (
         <form noValidate autoComplete="off">

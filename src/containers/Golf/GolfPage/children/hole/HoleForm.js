@@ -74,20 +74,20 @@ const HoleForm = ({
 
         let index = 0;
 
-        for (const field in holeState) {
+        holeShape.shape.forEach(field => {
 
             const fieldControl = getFieldControl({
-                data: holeState[field],
+                data: holeState[field.predicate],
                 styles: classes,
                 onChange: onChangeHoleField,
                 inputRef: focusRef,
                 idx: index++
             });
             holeFields.push(fieldControl);
-        }
+        });
     }
     
-    const canSave = checkCanSave(holeState);
+    const canSave = checkCanSave(holeState, holeShape);
 
     return (
         <div>

@@ -23,11 +23,21 @@ const hasValue = item => {
     }
 };
 
-const test = entry => {
-    const entryNeedsValue = entry.hasOwnProperty('required') ? entry.required : true;
-    return entryNeedsValue ? hasValue(entry) : true;
+const test = state => entry => {
+
+    const field = state[entry.predicate];
+    const entryNeedsValue = field.hasOwnProperty('required') ? field.required : true;
+
+    return entryNeedsValue ? hasValue(field) : true;
 };
 
-const checkCanSave = state => !state ? false : Object.values(state).every(test);
+const checkCanSave = (state, stateShape) => {
+    
+    if(!state) return false;
+    
+    const tester = test(state);
+
+    return stateShape.shape.every(tester);
+};
 
 export default checkCanSave;

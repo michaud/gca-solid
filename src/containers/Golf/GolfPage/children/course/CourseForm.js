@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import Button from '@material-ui/core/Button';
 import formStyles from '@styles/form.style';
-
 import courseShape from '@contexts/course-shape.json';
 import setupDataObject from '@utils/setupDataObject';
 import getFieldValue from '@utils/getFieldValue';
@@ -113,10 +112,10 @@ const CourseForm = ({
 
     if(courseState) {
         
-        for (const field in courseState) {
+        courseShape.shape.forEach(field => {
 
             const fieldControl = getFieldControl({
-                data: courseState[field],
+                data: courseState[field.predicate],
                 styles: classes,
                 onChange: onChangeCourseField,
                 onSave: onAddHole,
@@ -125,10 +124,10 @@ const CourseForm = ({
             });
 
             courseFields.push(fieldControl);
-        }
+        })
     }
 
-    const canSave = checkCanSave(courseState);
+    const canSave = checkCanSave(courseState, courseShape);
 
     return (
         <form noValidate autoComplete="off">
