@@ -288,6 +288,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
         }
 
         default: {
+
             fieldData = 'error';
             console.error('no field type', field)
         }

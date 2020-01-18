@@ -55,6 +55,7 @@ const getFieldData = (field, club, clubType, clubTypes) => {
         }
 
         default: {
+
             value = 'error';
             console.error('no field type', field)
         }
