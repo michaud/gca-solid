@@ -46,13 +46,21 @@ const GameForm = ({
 
     const saveGamePlayer = doc => player => {
 
-        saveResource(player, doc, golf.classes.Player);
+        saveResource({
+            resource: player,
+            doc,
+            type: golf.classes.Player
+        });
         setReload(true);
     };
     
     const saveGameMarker = doc => player => {
     
-        saveResource(player, doc, golf.classes.Marker);
+        saveResource({
+            resource: player,
+            doc,
+            type: golf.classes.Player
+        });
 
         setReload(true);
     };

@@ -24,7 +24,11 @@ const ManageMarkers = ({
 
     const onSaveMarker = (marker) => {
 
-        saveResource(marker, markerData.doc, golf.classes.Marker);
+        saveResource({
+            resource: marker,
+            doc: markerData.doc,
+            type: golf.classes.Marker
+        });
         setReload(true);
     };
 

@@ -26,7 +26,11 @@ const ManageCourses = ({
 
     const onSaveCourse = (course) => {
 
-        saveResource(course, courseData.doc, golf.classes.Course);
+        saveResource({
+            resource: course,
+            doc: courseData.doc,
+            type: golf.classes.Course
+        });
         setReload(true);
     };
 

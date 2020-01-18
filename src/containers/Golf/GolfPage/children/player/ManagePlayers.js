@@ -24,7 +24,12 @@ const ManagePlayers = ({
 
     const onSavePlayer = (playerData) => {
 
-        saveResource(playerData, playerDetails.doc, golf.classes.Player);
+        saveResource({
+            resource: playerData,
+            doc: playerDetails.doc,
+            type: golf.classes.Player
+        });
+        
         setReload(true);
     };
 

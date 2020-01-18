@@ -35,13 +35,21 @@ const ManageBag = ({ match, webId, history, clubTypes, clubType }) => {
 
         if (!clubListData) return;
 
-        await saveResource(club, clubListData.doc, golf.classes.Club);
+        await saveResource({
+            resource: club,
+            doc: clubListData.doc,
+            type: golf.classes.Club
+        });
         setReload(true);
     };
 
     const saveClubHandler = async (club) => {
         
-        await saveResource(club, clubListData.doc, golf.classes.Club);
+        await saveResource({
+            resource: club,
+            doc: clubListData.doc,
+            type: golf.classes.Club
+        });
         setReload(true);
     };
 

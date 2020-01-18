@@ -42,7 +42,11 @@ const ManageGames = ({
 
     const onSaveGameHandler = (game) => {
 
-        saveResource(game, gameData.doc, golf.classes.Game);
+        saveResource({
+            resource: game,
+            doc: gameData.doc,
+            type: golf.classes.Game
+        });
         setReload(true);
     };
 
