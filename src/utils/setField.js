@@ -1,6 +1,6 @@
 import golf from "@utils/golf-namespace";
 
-export const setField = (field, shape, data, ref) => {
+export const setField = ({ field, shape, data, element, ref, doc }) => {
 
     const prefix = shape['@context'][field.prefix];
     const predicate = `${prefix}${field.predicate}`;

@@ -9,7 +9,7 @@ import playerShape from '@contexts/player-shape.json';
 import holeShape from '@contexts/hole-shape.json';
 import playingHandicapShape from '@contexts/playing-handicap-shape.json';
 
-export const addField = (field, shape, data, ref, doc) => {
+export const addField = ({ field, shape, data, element, ref, doc }) => {
 
     const prefix = shape['@context'][field.prefix];
     const predicate = `${prefix}${field.predicate}`;

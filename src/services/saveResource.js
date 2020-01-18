@@ -3,7 +3,12 @@ import { addField } from '@utils/addField';
 import { setField } from '@utils/setField';
 import shapeFromType from '@utils/shapeFromType';
 
-const saveResource = async ({ resource, element, doc, type }) => {
+const saveResource = async ({
+    resource,
+    element,
+    doc,
+    type
+}) => {
     
     const isNew = resource.iri === '';
     const ref = isNew ? doc.addSubject() : doc.getSubject(resource.iri);
@@ -15,7 +20,14 @@ const saveResource = async ({ resource, element, doc, type }) => {
 
     resourceShape.shape.forEach(field => {
 
-        fieldAction(field, resourceShape, resource[field.predicate], ref, doc);
+        fieldAction({
+            field,
+            shape: resourceShape,
+            data: resource[field.predicate],
+            element,
+            ref,
+            doc
+        });
     });
 
     return await doc.save();
