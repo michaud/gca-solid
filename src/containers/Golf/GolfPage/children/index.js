@@ -25,6 +25,7 @@ import ModuleHeader from './ModuleHeader';
 import NavigationShell from './NavigationShell';
 import PlayerDetail from './player/PlayerDetail';
 import PlayerForm from './player/PlayerForm';
+import PlayGame from './playGame/PlayGame';
 import SplashScreen from './SplashScreen';
 
 export {
@@ -55,5 +56,6 @@ export {
     NavigationShell,
     PlayerDetail,
     PlayerForm,
-    SplashScreen
+    SplashScreen,
+    PlayGame
 }

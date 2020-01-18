@@ -9,7 +9,7 @@ import getListFromDoc from '@services/getListFromDoc';
 import gameShape from '@contexts/game-shape.json';
 import fetchResource from '@services/fetchResource';
 
-const useGames = (clubTypeDefinitions, reload) => {
+const useGames = (clubTypes, clubType, reload) => {
 
     const publicTypeIndex = usePublicTypeIndex(reload);
     const [data, setData] = useState({ list: [], doc: undefined });
@@ -41,7 +41,6 @@ const useGames = (clubTypeDefinitions, reload) => {
 
                 } else {
 
-                    const { clubTypes, clubType } = clubTypeDefinitions;
                     // If the public type index does list a clubList document, fetch it:
                     const url = listIndex.getRef(solid.instance);
 
@@ -61,7 +60,7 @@ const useGames = (clubTypeDefinitions, reload) => {
                 }
             })();
         }
-    }, [publicTypeIndex, clubTypeDefinitions, reload]);
+    }, [publicTypeIndex, clubTypes, clubType, reload]);
 
     return data;
 };

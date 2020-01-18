@@ -8,7 +8,7 @@ const useClubDefinitions = () => {
     useEffect(() => {
         
         if(!clubDefinitions) {
-            
+
             (async () => {
 
                 const clubTypeData = await getClubDefinitions();

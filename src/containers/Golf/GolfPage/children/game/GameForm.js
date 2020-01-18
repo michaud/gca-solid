@@ -8,7 +8,6 @@ import setupDataObject from '@utils/setupDataObject';
 import getFieldValue from '@utils/getFieldValue';
 import checkCanSave from '@utils/checkCanSave';
 import getFieldControl from '@utils/getFieldControl';
-import useClubDefinitions from '@hooks/useClubDefinitions';
 import useBagClubs from '@hooks/useBagClubs';
 import useClubs from '@hooks/useClubs';
 import useCourses from '@hooks/useCourses';
@@ -24,8 +23,11 @@ import {
     FlexItem,
     FlexItemRight,
 } from '@styles/layout.style';
+import { withClubTypeContext } from '@utils/clubTypeContext';
 
 const GameForm = ({
+    clubTypes,
+    clubType,
     game,
     onSave,
     onCancel,
@@ -35,10 +37,9 @@ const GameForm = ({
 
     const classes = formStyles();
     const [reload, setReload] = useState(false);
-    const clubTypeDefinitions = useClubDefinitions();
     const playerData = usePlayer(reload);
-    const bagData = useBagClubs(clubTypeDefinitions, reload);
-    const clubData = useClubs(clubTypeDefinitions, reload);
+    const bagData = useBagClubs(clubTypes, clubType, reload);
+    const clubData = useClubs(clubTypes, clubType, reload);
     const courseData = useCourses(reload);
     const markerData = useMarkers(reload);
     const [gameState, setGameState] = useState(game);
@@ -95,12 +96,7 @@ const GameForm = ({
     };
 
     useEffect(() => {
-        // console.log('bagData: ', bagData);
-        // console.log('clubData: ', clubData);
-        // console.log('courseData: ', courseData);
-        // console.log('markerData: ', markerData);
-        // console.log('playerData: ', playerData);
-        // console.log('--------------: ');
+
         if(game) {
             
             setGameState(game);
@@ -191,4 +187,4 @@ const GameForm = ({
     );
 };
 
-export default GameForm;
+export default withClubTypeContext(GameForm);

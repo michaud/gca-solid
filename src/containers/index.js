@@ -6,6 +6,7 @@ import Profile from './Profile';
 import { GamePage, GameList } from './TicTacToe';
 import GolfPage from './Golf/GolfPage/golf-page.component';
 import SplashScreen from './Golf/GolfPage/children/SplashScreen';
+import PlayGame from './Golf/GolfPage/children/playGame/PlayGame';
 
 export {
     Login,
@@ -17,5 +18,6 @@ export {
     GamePage,
     GameList,
     GolfPage,
-    SplashScreen
+    SplashScreen,
+    PlayGame
 };

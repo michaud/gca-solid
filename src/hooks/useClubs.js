@@ -7,7 +7,7 @@ import getListFromDoc from '@services/getListFromDoc';
 import clubShape from '@contexts/club-shape.json';
 import fetchResource from '@services/fetchResource';
 
-const useClubs = (clubTypeDefinitions, reload) => {
+const useClubs = (clubTypes, clubType, reload) => {
 
     const publicTypeIndex = usePublicTypeIndex(reload);
     const [clubList, setClubList] = useState({ list: [], doc: undefined });
@@ -39,28 +39,24 @@ const useClubs = (clubTypeDefinitions, reload) => {
 
                 } else {
 
-                    if(clubTypeDefinitions) {
+                    // If the public type index does list a clubList document, fetch it:
+                    const url = clubListIndex.getRef(solid.instance);
 
-                        const { clubTypes, clubType } = clubTypeDefinitions;
-                        // If the public type index does list a clubList document, fetch it:
-                        const url = clubListIndex.getRef(solid.instance);
+                    if (typeof url !== 'string') return;
 
-                        if (typeof url !== 'string') return;
-
-                        const doc = await fetchResource(url);
-                        const list = await getListFromDoc(
-                            doc,
-                            golf.classes.Club,
-                            clubShape,
-                            clubTypes,
-                            clubType);
-                            
-                        setClubList({ list, doc });
-                    }
+                    const doc = await fetchResource(url);
+                    const list = await getListFromDoc(
+                        doc,
+                        golf.classes.Club,
+                        clubShape,
+                        clubTypes,
+                        clubType);
+                        
+                    setClubList({ list, doc });
                 }
             })();
         }
-    }, [publicTypeIndex, clubTypeDefinitions, reload]);
+    }, [publicTypeIndex, clubTypes, clubType, reload]);
 
     return clubList;
 };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import clubShape from '@contexts/club-shape.json';
-import ClubTypeContext from "@utils/clubTypeContext";
+import { withClubTypeContext } from "@utils/clubTypeContext";
 import golf from "@utils/golf-namespace";
 
 import ClubForm  from './ClubForm';
@@ -65,6 +65,8 @@ const getFieldData = (field, club, clubType, clubTypes) => {
 };
 
 const ClubDetail = ({
+    clubTypes,
+    clubType,
     club,
     onSave,
     onDelete
@@ -94,57 +96,47 @@ const ClubDetail = ({
         onDelete(club);
     };
 
-    return (
-        <ClubTypeContext.Consumer>
-        {
-            clubTypeData => {
-        
-                const { clubTypes = [], clubType } = clubTypeData;
-                const displayFields = [];
+    const displayFields = [];
 
-                if(clubTypes.length > 0 && clubType) {
+    if(clubTypes.length > 0 && clubType) {
 
-                    clubShape.shape.forEach(field => {
-                        
-                        const renderField = checkRenderField(field);
+        clubShape.shape.forEach(field => {
+            
+            const renderField = checkRenderField(field);
 
-                        if(renderField) {
+            if(renderField) {
 
-                            const data = getFieldData(field, club, clubType, clubTypes);
-                            displayFields.push(data);
-                        }
-                    });
-                }
-                
-                if(displayState === displayStates.edit) {
-
-                    return <ClubForm
-                        club={ club }
-                        onSave={ onSaveHandler }
-                        title=""
-                        actionLabel="Save club"
-                        onCancel={ cancelEdit }/>;
-                }
-
-                return <FieldContainer>
-                    <FlexContainer>
-                        <FlexItemData>
-                        {
-                            displayFields.map((field, index) => <FlexContainer key={ index }>
-                                <FlexItemLabel>{ field.label }</FlexItemLabel>
-                                <FlexItemValue>{ field.value }</FlexItemValue>
-                            </FlexContainer>)
-                        }
-                        </FlexItemData>
-                        <FlexItemTools>
-                            <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
-                        </FlexItemTools>
-                    </FlexContainer>
-                </FieldContainer>;
+                const data = getFieldData(field, club, clubType, clubTypes);
+                displayFields.push(data);
             }
-        }
-        </ClubTypeContext.Consumer>
-    );
+        });
+    }
+    
+    if(displayState === displayStates.edit) {
+
+        return <ClubForm
+            club={ club }
+            onSave={ onSaveHandler }
+            title=""
+            actionLabel="Save club"
+            onCancel={ cancelEdit }/>;
+    }
+
+    return <FieldContainer>
+        <FlexContainer>
+            <FlexItemData>
+            {
+                displayFields.map((field, index) => <FlexContainer key={ index }>
+                    <FlexItemLabel>{ field.label }</FlexItemLabel>
+                    <FlexItemValue>{ field.value }</FlexItemValue>
+                </FlexContainer>)
+            }
+            </FlexItemData>
+            <FlexItemTools>
+                <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
+            </FlexItemTools>
+        </FlexContainer>
+    </FieldContainer>;
 };
 
-export default ClubDetail;
+export default withClubTypeContext(ClubDetail);

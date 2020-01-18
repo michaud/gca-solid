@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '@inrupt/solid-react-components';
-import useClubDefinitions from '@hooks/useClubDefinitions';
 import useGames from '@hooks/useGames';
 import { errorToaster } from '@utils/';
 import { useTranslation } from 'react-i18next';
@@ -9,8 +8,11 @@ import HoleNavigator from './HoleNavigator';
 import HoleHistory from './HoleHistory';
 import addStrokeToHole from '@utils/addStrokeToHole';
 import ClubActionList from './ClubActionList';
+import { withClubTypeContext } from '@utils/clubTypeContext';
 
 const PlayGame = ({
+    clubTypes,
+    clubType,
     match,
     webId,
     history
@@ -20,12 +22,11 @@ const PlayGame = ({
     
     const { notification } = useNotification(webId);
     const [reload, setReload] = useState(false);
-    const clubTypeDefinitions = useClubDefinitions();
     const [game, setGame] = useState();
     const [currHole, setCurrHole] = useState();
     const { t } = useTranslation();
     
-    const gameData = useGames(clubTypeDefinitions, reload, gameid);
+    const gameData = useGames(clubTypes, clubType, reload, gameid);
 
     const onClubActionHandler = club => {
 
@@ -86,4 +87,4 @@ const PlayGame = ({
     );
 };
 
-export default PlayGame;
+export default withClubTypeContext(PlayGame);

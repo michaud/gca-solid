@@ -8,7 +8,6 @@ import { errorToaster } from '@utils/';
 import { PageContainer } from '@styles/page.style';
 import GameForm from '@containers/Golf/GolfPage/children/game/GameForm';
 import GameList from '@containers/Golf/GolfPage/children/game/GameList';
-import useClubDefinitions from '@hooks/useClubDefinitions';
 import Button from '@material-ui/core/Button';
 import formStyles from '@styles/form.style';
 import { Redirect } from 'react-router-dom';
@@ -19,18 +18,19 @@ import {
     FlexContainer,
     FlexItem,
 } from '@styles/layout.style';
+import { withClubTypeContext } from '@utils/clubTypeContext';
 
 const ManageGames = ({
     match,
     webId,
-    history
+    history,
+    clubTypes, clubType
 }) => {
 
     const { notification } = useNotification(webId);
     const classes = formStyles();
     const [reload, setReload] = useState(false);
-    const clubTypeDefinitions = useClubDefinitions();
-    const gameData = useGames(clubTypeDefinitions, reload);
+    const gameData = useGames(clubTypes, clubType, reload);
     const [currentGame, setCurrentGame] = useState();
     const [games, setGames] = useState([]);
     const [showNewGame, setShowNewGame] = useState(false);
@@ -105,7 +105,7 @@ const ManageGames = ({
 
     if (playGame) {
 
-        return <Redirect to={ `/game/${ playGame }` } />
+        return <Redirect to={ `/golf/game/${ playGame }` } />
     }
 
     return (
@@ -140,4 +140,4 @@ const ManageGames = ({
     );
 };
 
-export default ManageGames;
+export default withClubTypeContext(ManageGames);

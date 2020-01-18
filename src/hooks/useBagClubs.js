@@ -13,7 +13,7 @@ const setupBag = (document) => {
     return document;
 };
 
-const useBagClubs = (clubTypeDefinitions, reload) => {
+const useBagClubs = (clubTypes, clubType, reload) => {
 
     const publicTypeIndex = usePublicTypeIndex();
     const [clubList, setClubList] = useState({ list: [], doc: undefined });
@@ -46,7 +46,6 @@ const useBagClubs = (clubTypeDefinitions, reload) => {
 
                 } else {
 
-                    const { clubTypes, clubType } = clubTypeDefinitions;
                     // If the public type index does list a clubList document, fetch it:
                     const url = clubListIndex.getRef(solid.instance);
 
