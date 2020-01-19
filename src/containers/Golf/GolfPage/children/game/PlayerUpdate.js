@@ -64,7 +64,7 @@ const PlayerUpdate = ({
     return (
         <div className="c-box">
             <header className="c-header--sec">{ title }</header>
-            <div class="c-box">
+            <div className="c-box">
                 <FlexContainer>
                     <FlexItemLabel>Name</FlexItemLabel>
                     <FlexItemValue>{ `${ player.givenName.value } ${ player.familyName.value }`}</FlexItemValue>
