@@ -36,7 +36,7 @@ const CourseSelector = ({courses = [], onChange }) => {
 
     return (
         <>
-            <header className="c-header--sec">Select course</header>
+            <header className="c-header--push">Select course</header>
             <Grid container spacing={2} className={ classesmui.root }>
                 <Grid item className={ classesmui.gridItem }>
                     <Paper className={ classes.listContainer }>

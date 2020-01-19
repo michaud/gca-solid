@@ -24,9 +24,8 @@ const GameSummary = ({ game, onPlay }) => {
 
     return (
         <div className="c-box">
-            <header className="c-header--sec">{ title}</header>
-            <div>{ holeCount }, { marker }</div>
-
+            <h2 className="h-plain">{ title }</h2>
+            <div className="c-box">{ holeCount }, { marker }</div>
             <Button
                 variant="contained"
                 onClick={ playGameHandler }

@@ -37,7 +37,7 @@ const MarkerSelector = ({ markers = [], onSelect }) => {
 
     return (
         <>
-            <header className="c-header--sec">Select marker</header>
+            <header className="c-header--push">Select marker</header>
             <Grid container spacing={2} className={ classesmui.root }>
                 <Grid item className={ classesmui.gridItem }>
                     <Paper className={ classes.listContainer }>

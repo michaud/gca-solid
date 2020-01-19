@@ -11,12 +11,37 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import { streetAddress } from 'rdf-namespaces/dist/schema';
 
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
         marginBottom: '2rem',
         minHeight: '18rem'
+    },
+    grid: {
+            display: 'grid',
+            gridTemplateColumns: '1fr 4rem 1fr',
+            gridTemplateRows: '2rem 1fr',
+            gridColumnGap: '1rem',
+            gridRowGap: '0px'
+    },
+    gridLeftHeader: {
+        gridArea: '1 / 1 / 2 / 2'
+    },
+    gridRightHeader: {
+        gridArea: '1 / 3 / 2 / 4'
+    },
+    gridLeft: {
+        gridArea: '2 / 1 / 3 / 2',
+        position: 'relative'
+    },
+    gridMid: {
+        gridArea: '2 / 2 / 3 / 3'
+    },
+    gridRight: {
+        gridArea: '2 / 3 / 3 / 4',
+        position: 'relative'
     },
     list: {
     },
@@ -31,11 +56,6 @@ const useStyles = makeStyles(theme => ({
     paper: {
         overflowY: 'scroll',
         height: 230,
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: '3rem',
-        bottom: 0
     },
     button: {
         margin: theme.spacing(0.5, 0),
@@ -71,6 +91,7 @@ const BagTransferList = ({
     const [checked, setChecked] = useState([]);
     const [left, setLeft] = useState([]);
     const [right, setRight] = useState([]);
+    const [canTransferToBag, setCanTransferToBag] = useState(true);
     const classes = useStyles();
 
     const leftChecked = intersection(checked, left);
@@ -88,6 +109,8 @@ const BagTransferList = ({
         }
 
         setChecked(newChecked);
+
+        setCanTransferToBag(leftChecked.length !== 0 && leftChecked.length < 15 && leftChecked.length + right.length < 15);
     };
 
     const handleAllRight = () => {
@@ -179,52 +202,67 @@ const BagTransferList = ({
 
             setLeft(filteredClubs.clubs);
             setRight(filteredClubs.bag);
+
+            if(filteredClubs.bag.length > 13) {
+                setCanTransferToBag(false);
+            } else {
+                setCanTransferToBag(true);
+            }
         }
     }, [clubs, bag]);
 
+    const getClubCountString = (testClubs) => {
+
+        if(testClubs && testClubs.length === 1) return '1 club';
+
+        if(testClubs && testClubs.length > 1) return `${ testClubs.length } clubs`;
+
+        return '';
+    };
+
+    const clubCountString = getClubCountString(right);
+    
     return (
-        <Grid container spacing={2} className={ classes.root }>
-            <Grid item className={ classes.gridItem }>
+        <div className={ classes.grid }>
+            <div className={ classes.gridLeftHeader }>
                 <header className="c-header">Clubs</header>
-                {customList(left)}
-            </Grid>
-            <Grid item>
-                <Grid container className={ classes.gridItemTool } direction="column" justify="center" alignItems="center">
-                    <Button
-                        variant="outlined"
-                        size="small"
-                        className={classes.button}
-                        onClick={handleAllRight}
-                        disabled={left.length === 0}
-                        aria-label="move all right">&gt;&gt;</Button>
-                    <Button
-                        variant="outlined"
-                        size="small"
-                        className={classes.button}
-                        onClick={handleCheckedRight}
-                        disabled={leftChecked.length === 0}
-                        aria-label="move selected right">&gt;</Button>
-                    <Button
-                        variant="outlined"
-                        size="small"
-                        className={classes.button}
-                        onClick={handleCheckedLeft}
-                        disabled={rightChecked.length === 0}
-                        aria-label="move selected left">&lt;</Button>
-                    <Button
-                        variant="outlined"
-                        size="small"
-                        className={classes.button}
-                        onClick={handleAllLeft}
-                        disabled={right.length === 0}
-                        aria-label="move all left">&lt;&lt;</Button>
-                </Grid>
-            </Grid>
-            <Grid item className={ classes.gridItem }>
-                <header className="c-header">Bag</header>
-                {customList(right)}
-            </Grid>
-        </Grid>
+            </div>
+            <div className={ classes.gridRightHeader }>
+                <header className="c-header">Bag: { clubCountString }</header>
+            </div>
+            <div className={ classes.gridLeft }>{ customList(left) }</div>
+            <div className={ classes.gridRight }>{ customList(right) }</div>
+            <div className={ classes.gridMid }>
+                <Button
+                    variant="outlined"
+                    size="small"
+                    className={classes.button}
+                    onClick={handleAllRight}
+                    disabled={ left.length === 0 || left.length > 14 || left.length + right.length > 14 || !canTransferToBag }
+                    aria-label="move all right">&gt;&gt;</Button>
+                <Button
+                    variant="outlined"
+                    size="small"
+                    className={classes.button}
+                    onClick={handleCheckedRight}
+                    disabled={ !canTransferToBag }
+                    aria-label="move selected right">&gt;</Button>
+                <Button
+                    variant="outlined"
+                    size="small"
+                    className={classes.button}
+                    onClick={handleCheckedLeft}
+                    disabled={rightChecked.length === 0}
+                    aria-label="move selected left">&lt;</Button>
+                <Button
+                    variant="outlined"
+                    size="small"
+                    className={classes.button}
+                    onClick={handleAllLeft}
+                    disabled={right.length === 0}
+                    aria-label="move all left">&lt;&lt;</Button>
+            </div>
+        </div>
     );
 };
 

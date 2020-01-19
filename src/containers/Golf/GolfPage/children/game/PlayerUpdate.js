@@ -63,16 +63,14 @@ const PlayerUpdate = ({
     });
     
     return (
-        <>
+        <div className="c-box">
             <header className="c-header--sec">{ title }</header>
-            <FlexContainer>
-                <FlexItemData>
-                    <FlexContainer>
-                        <FlexItemLabel>Name</FlexItemLabel>
-                        <FlexItemValue>{ `${ player.givenName.value } ${ player.familyName.value }`}</FlexItemValue>
-                    </FlexContainer>
-                </FlexItemData>
-            </FlexContainer>
+            <div class="c-box">
+                <FlexContainer>
+                    <FlexItemLabel>Name</FlexItemLabel>
+                    <FlexItemValue>{ `${ player.givenName.value } ${ player.familyName.value }`}</FlexItemValue>
+                </FlexContainer>
+            </div>
             { handicapField }
             <FlexContainer>
                 <FlexItem>
@@ -93,7 +91,7 @@ const PlayerUpdate = ({
                 }
                 </FlexItemRight>
             </FlexContainer>
-        </>
+        </div>
     );
 };
 
