@@ -5,7 +5,6 @@ import formStyles from '@styles/form.style';
 import Button from '@material-ui/core/Button';
 import {
     FlexContainer,
-    FlexItemData,
     FlexItemLabel,
     FlexItemValue,
     FlexItem,
