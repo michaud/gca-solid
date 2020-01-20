@@ -1,7 +1,6 @@
 import BagTransferList from './bag/BagTransferList';
 import ButtonBar from './ButtonBar';
 import ClubDetail from './club/ClubDetail';
-import clubDetailStyles from './club/clubDetail.style';
 import ClubForm from './club/ClubForm';
 import ClubList from './club/ClubList';
 import ClubTypeSelector from './club/ClubTypeSelector';
@@ -32,7 +31,6 @@ export {
     BagTransferList,
     ButtonBar,
     ClubDetail,
-    clubDetailStyles,
     ClubForm,
     ClubList,
     ClubTypeSelector,

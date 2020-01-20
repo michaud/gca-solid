@@ -9,6 +9,7 @@ import holeShape from '@contexts/hole-shape.json';
 import playingHandicapShape from '@contexts/playing-handicap-shape.json';
 import gameHoleShape from '@contexts/game-hole-shape.json';
 import strokeShape from '@contexts/stroke-shape.json';
+import geoCoordinatesShape from '@contexts/geocoordinates-shape.json';
 
 const shapeFromType = {
     [golf.classes.Course]:courseShape,
@@ -19,7 +20,8 @@ const shapeFromType = {
     [golf.classes.Hole]:holeShape,
     [golf.classes.GamePlayingHandicap]:playingHandicapShape,
     [golf.classes.GameHole]:gameHoleShape,
-    [golf.classes.Stroke]:strokeShape
+    [golf.classes.Stroke]:strokeShape,
+    [golf.types.GeoCoordinates]:geoCoordinatesShape
 };
 
 export default shapeFromType;

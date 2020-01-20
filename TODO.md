@@ -1,3 +1,4 @@
+- flesh out the complete shape of the geocoordinate fields in setupobject i think
 - parse club data club type is not done
 - add missing labels to data
 - update fields on contexts/shape with  label value

@@ -29,7 +29,9 @@ const golf = {
         gameMarker: `${ namespace }gameMarker`,
         gameCourse: `${ namespace }gameCourse`,
         gameBag:  `${ namespace }gameBag`,
-        gamePlayingHandicap:  `${ namespace }gamePlayingHandicap`
+        gamePlayingHandicap:  `${ namespace }gamePlayingHandicap`,
+        strokeLocation:  `${ namespace }strokeLocation`,
+        gameStrokes: `${ namespace }gameStrokes`
     },
     types: {
         string: 'http://www.w3.org/2001/XMLSchema#string',
@@ -37,6 +39,8 @@ const golf = {
         text: 'https://schema.org/Text',
         integer: 'http://www.w3.org/2001/XMLSchema#integer',
         dateTime: 'http://www.w3.org/2001/XMLSchema#DateTime',
+        GeoCoordinates: 'https://schema.org/GeoCoordinates',
+        double: 'http://www.w3.org/2001/XMLSchema#double'
     }
 };
 

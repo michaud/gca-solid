@@ -1,36 +1,17 @@
 import createStroke from '@utils/createStroke';
 import update from 'immutability-helper';
 import saveHoleToGame from './saveHoleToGame';
+import catchGeoConnectErrors from './catchGeoConnectErrors';
 
-const handleConnectErrors = (error) => {
-    console.error(error.message);
-    var msg = null;
-    switch(error.code) {
-      case error.PERMISSION_DENIED:
-          msg = "User denied the request for Geolocation.";
-          break;
-      case error.POSITION_UNAVAILABLE:
-          msg = "Location information is unavailable.";
-          break;
-      case error.TIMEOUT:
-          msg = "The request to get user location timed out.";
-          break;
-      case error.UNKNOWN_ERROR:
-          msg = "An unknown error occurred.";
-          break;
-    default: 
-    }
-    alert(msg);
-};
-
-const persistData = (club, game, holeIri, setState) => ({ coords: { latitude, longitude, altitude }}) => {
+const persistData = (club, game, gameDoc, holeIri, setState) => ({ coords: { latitude, longitude, altitude }}) => {
 
     const stroke = createStroke(club, { latitude, longitude, altitude });
 
     const holeIndex = game.gameCourse.value.courseHoles.value.findIndex(hole => hole.iri === holeIri);
                  
-    const hole = game.gameCourse.value.courseHoles.value[holeIndex];
-    const newHole = update(hole, {
+    const holeData = game.gameCourse.value.courseHoles.value[holeIndex];
+
+    const hole = update(holeData, {
         gameStrokes: {
             value: {
                 $push: [stroke]
@@ -44,7 +25,7 @@ const persistData = (club, game, holeIri, setState) => ({ coords: { latitude, lo
             gameCourse: {
                 value: {
                     courseHoles: {
-                        value: {[holeIndex]: {$set: newHole}}
+                        value: { [holeIndex]: { $set: hole } }
                     }
                 }
             }
@@ -53,17 +34,19 @@ const persistData = (club, game, holeIri, setState) => ({ coords: { latitude, lo
         return newState;
     });
 
-    return newHole;
+    return {
+        stroke,
+        hole,
+        game,
+        gameDoc
+    };
 };
 
-const addStrokeToHole = (club, holeIri, game, setState) => {
+const getPosition = async (options) => new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject, options);
+});
 
-    var getPosition = (options) => {
-
-        return new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(resolve, reject, options);
-        });
-    };
+const addStrokeToHole = async (club, holeIri, game, gameDoc, setState) => {
 
     const options = {
         enableHighAccuracy: true,
@@ -71,10 +54,10 @@ const addStrokeToHole = (club, holeIri, game, setState) => {
         maximumAge: 0
     };
 
-    getPosition(options)
-        .then(persistData(club,  game, holeIri, setState))
+    await getPosition(options)
+        .then(persistData(club,  game, gameDoc, holeIri, setState))
         .then(saveHoleToGame)
-        .catch(handleConnectErrors);
+        .catch(catchGeoConnectErrors);
 };
 
 export default addStrokeToHole;

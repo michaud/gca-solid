@@ -14,28 +14,24 @@
     "shape": [
         {
             "prefix": "golf",
-            "predicate": "strokeLocation",
-            "type": "https://schema.org/GeoCoordinates",
-            "label": "Location",
-            "value": {
-                "longitude": 0,
-                "latitude": 0,
-                "elevation": 0
-            }
-        },
-        {
-            "prefix": "golf",
-            "predicate": "strokeClub",
-            "type": "https://michaud.inrupt.net/public/golf/Club",
-            "label": "Stroke club",
+            "predicate": "longitude",
+            "type": "http://www.w3.org/2001/XMLSchema#double",
+            "label": "longitude",
             "value": 0
         },
         {
             "prefix": "golf",
-            "predicate": "strokeDate",
-            "type": "http://www.w3.org/2001/XMLSchema#DateTime",
-            "label": "Stroke time",
-            "value": ""
+            "predicate": "latitude",
+            "type": "http://www.w3.org/2001/XMLSchema#double",
+            "label": "latitude",
+            "value": 0
+        },
+        {
+            "prefix": "golf",
+            "predicate": "elevation",
+            "type": "http://www.w3.org/2001/XMLSchema#double",
+            "label": "elevation",
+            "value": 0
         }
     ]
 }

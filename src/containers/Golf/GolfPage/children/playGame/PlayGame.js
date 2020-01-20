@@ -30,7 +30,7 @@ const PlayGame = ({
 
     const onClubActionHandler = club => {
 
-        addStrokeToHole(club, currHole.iri, game, setGame);
+        addStrokeToHole(club, currHole.iri, game, gameData.doc, setGame);
     };
 
     const onChangeHoleHandler = (holeIndex) => {

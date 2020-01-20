@@ -2,15 +2,17 @@ import { rdf } from 'rdf-namespaces';
 
 import golf from "@utils/golf-namespace";
 
-import clubShape from '@contexts/club-shape.json';
 import courseShape from '@contexts/course-shape.json';
-import markerShape from '@contexts/marker-shape.json';
-import playerShape from '@contexts/player-shape.json';
-import holeShape from '@contexts/hole-shape.json';
-import playingHandicapShape from '@contexts/playing-handicap-shape.json';
 import saveResource from '@services/saveResource';
 
-export const addField = ({ field, shape, data, element, ref, doc }) => {
+export const addField = ({
+    field,
+    shape,
+    data,
+    element,
+    ref,
+    doc
+}) => {
 
     const prefix = shape['@context'][field.prefix];
     const predicate = `${prefix}${field.predicate}`;
@@ -34,6 +36,14 @@ export const addField = ({ field, shape, data, element, ref, doc }) => {
         case golf.types.string : {
 
             ref.addLiteral(predicate, data.value);
+
+            break;
+        }
+
+        case golf.types.double : {
+
+            //TODO check for undefined?
+            ref.addLiteral(predicate, data.value || 0);
 
             break;
         }
@@ -97,7 +107,7 @@ export const addField = ({ field, shape, data, element, ref, doc }) => {
             courseShape.shape.forEach(field => {
 
                 if(field.predicate === 'courseHoles') {
-debugger
+
                     const holes = course.courseHoles.value;
 
                     holes.forEach(hole => {
@@ -184,6 +194,25 @@ debugger
             })
 
             ref.addRef(golf.properties.gamePlayingHandicap, elRef.asRef());
+
+            break;
+        }
+
+        case golf.types.GeoCoordinates: {
+
+            const elRef = saveResource({
+                element: data.value,
+                doc,
+                type: field.type
+            })
+
+            ref.addRef(golf.properties.strokeLocation, elRef.asRef());
+
+            break;
+        }
+
+        case golf.classes.Stroke : {
+            console.log('golf.classes.Stroke');
 
             break;
         }

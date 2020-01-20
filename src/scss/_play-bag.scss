@@ -50,6 +50,7 @@
     height: var(--bag-club-list-height);
     grid-template-columns: var(--bag-club-list-template-columns);
     grid-auto-rows: var(--bag-club-list-grid-auto-rows);
+    border-top: 1px solid rgb(210,199,157);
 }
 
 .l-club-span-3 {
