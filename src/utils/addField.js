@@ -212,7 +212,6 @@ export const addField = ({
         }
 
         case golf.classes.Stroke : {
-            console.log('golf.classes.Stroke');
 
             break;
         }
