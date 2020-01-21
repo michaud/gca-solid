@@ -50,7 +50,8 @@ const useClubs = (clubTypes, clubType, reload) => {
                         golf.classes.Club,
                         clubShape,
                         clubTypes,
-                        clubType);
+                        clubType
+                    )();
                         
                     setClubList({ list, doc });
                 }

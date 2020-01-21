@@ -9,7 +9,7 @@ import getListFromDoc from '@services/getListFromDoc';
 import gameShape from '@contexts/game-shape.json';
 import fetchResource from '@services/fetchResource';
 
-const useGames = (clubTypes, clubType, reload) => {
+const useGames = (clubTypes, clubType, reload, gameId) => {
 
     const publicTypeIndex = usePublicTypeIndex(reload);
     const [data, setData] = useState({ list: [], doc: undefined });
@@ -54,7 +54,7 @@ const useGames = (clubTypes, clubType, reload) => {
                         gameShape,
                         clubTypes,
                         clubType
-                    );
+                    )(gameId);
 
                     setData({ list, doc });
                 }

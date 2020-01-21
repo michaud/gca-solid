@@ -13,6 +13,7 @@ const createStroke = (club, coords) => {
         elevation: { value: { $set: coords.elevation }}
     });
 
+    console.log('stroke: ', stroke);
     const newStroke = {
         ...stroke,
         strokeClub: {

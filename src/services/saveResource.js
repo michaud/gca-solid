@@ -1,7 +1,7 @@
 import { rdf } from 'rdf-namespaces';
-import { addField } from '@utils/addField';
-import { setField } from '@utils/setField';
 import shapeFromType from '@utils/shapeFromType';
+import { addField } from '@utils/parseData/addField';
+import { setField } from '@utils/parseData/setField';
 
 const saveResource = ({
     resource,

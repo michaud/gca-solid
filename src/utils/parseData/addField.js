@@ -68,6 +68,10 @@ export const addField = ({
 
                 ref.addRef(golf.properties.clubType, data.value.iri);
             }
+            if(predicate === golf.properties.strokeClub) {
+
+                ref.addRef(golf.properties.strokeClub, data.value.iri);
+            }
             
             break;
         }

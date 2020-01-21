@@ -8,7 +8,6 @@ const persistData = (club, game, gameDoc, holeIri, setState) => ({ coords: { lat
     const stroke = createStroke(club, { latitude, longitude, altitude });
 
     const holeIndex = game.gameCourse.value.courseHoles.value.findIndex(hole => hole.iri === holeIri);
-                 
     const holeData = game.gameCourse.value.courseHoles.value[holeIndex];
 
     const hole = update(holeData, {

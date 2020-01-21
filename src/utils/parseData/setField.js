@@ -54,11 +54,13 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
 
         case golf.classes.Stroke: {
 
-            if(predicate === golf.properties.gameStrokes) {
+            if(predicate === golf.properties.gameStrokes && data) {
+debugger
+                const strokesValue = data === undefined ? field.value : data.value;
 
-                const value = data === undefined ? field.value : data.value;
+                data.value.forEach(stroke => {
 
-                value.forEach(stroke => {
+                    let iri = stroke.iri;
 
                     if(stroke.iri === '') {
 
@@ -67,11 +69,18 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
                             doc,
                             type: field.type
                         })
-                        ref.addRef(golf.properties.gameStrokes, elRef.asRef());
+
+                        iri = elRef.asRef();
+                        //setting the iri prevents the code from seeing the current stroke as a new stroke when 
+                        //it has been saved to the server with the iri 
+                        stroke.iri = iri;
+
+                        ref.addRef(golf.properties.gameStrokes, iri);
                     }
+
                 });
             }
-            
+
             break;
         }
 

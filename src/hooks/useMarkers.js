@@ -48,7 +48,7 @@ const useMarkers = (reload) => {
                         doc,
                         golf.classes.Marker,
                         markerShape
-                    );
+                    )();
 
                     setMarkers({ list, doc });
                 }

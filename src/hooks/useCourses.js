@@ -52,7 +52,7 @@ const useCourses = (reload) => {
                         doc,
                         golf.classes.Course,
                         courseShape
-                    );
+                    )();
 
                     setCourseData({ list, doc });
                 }
