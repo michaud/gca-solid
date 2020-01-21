@@ -10,7 +10,7 @@ const GameList = ({
     onPlay
 }) => {
 
-    const [showDetail, setShowDetail] = useState();
+    const [showDetail, setShowDetail] = useState(true);
 
     const onSaveGameHandler = (game) => {
 

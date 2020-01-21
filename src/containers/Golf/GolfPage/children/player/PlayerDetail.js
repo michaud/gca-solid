@@ -20,7 +20,8 @@ const PlayerDetail = ({
     player,
     onSave,
     onDelete,
-    target = 'player'
+    target = 'Player',
+    showEdit = false
 }) => {
 
     const [displayState, setDisplayState] = useState(displayStates.detail);
@@ -81,7 +82,7 @@ const PlayerDetail = ({
     
         return (
             <>
-                <header className="c-header">{ target }</header>
+                <header className="c-header--sec">{ target }</header>
                 <FieldContainer>
                     <FlexContainer>
                         <FlexItemData>
@@ -92,10 +93,12 @@ const PlayerDetail = ({
                             </FlexContainer>)
                         }
                         </FlexItemData>
-                        <FlexItemTools>
-                            <EditActions onEdit={ onEdit } onDelete={ handleDelete }/>
-                        </FlexItemTools>
-                    </FlexContainer>
+                        {
+                            showEdit && <FlexItemTools>
+                                <EditActions onEdit={ onEdit } onDelete={ handleDelete }/>
+                            </FlexItemTools>
+                        }
+                        </FlexContainer>
                 </FieldContainer>
             </>
         );

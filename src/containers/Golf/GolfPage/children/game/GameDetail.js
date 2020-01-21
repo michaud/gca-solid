@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 
+import moment from 'moment';
+
 import golf from '@utils/golf-namespace';
 import gameShape from '@contexts/game-shape.json';
 import displayStates from '@utils/displayStates';
 import GameForm from './GameForm';
 import HoleTable from '../hole/HoleTable';
 import CourseDetail from '../course/CourseDetail';
-import moment from 'moment';
 import BagDetail from './BagDetail';
 import EditActions from '@containers/Golf/components/EditActions';
 import PlayerDetail from '../player/PlayerDetail';
@@ -18,8 +19,9 @@ import {
     FlexItemValue,
     FlexItemTools
 } from '@styles/layout.style';
+import EditPlayingHandicap from './EditPlayingHandicap';
 
-const getDisplayField = (data, handlers, index) => {
+const getDisplayField = (data, handlers, idx) => {
     
     switch (data.fieldType) {
         
@@ -28,7 +30,7 @@ const getDisplayField = (data, handlers, index) => {
             const value = data.value instanceof Date ? moment(data.value).format('DD-mm-YY hh:mm') : ''
 
             return (
-                <FlexContainer key={ index }>
+                <FlexContainer key={ idx }>
                     <FlexItemLabel>{ data.label }</FlexItemLabel>
                     <FlexItemValue>{ value }</FlexItemValue>
                 </FlexContainer>
@@ -40,14 +42,14 @@ const getDisplayField = (data, handlers, index) => {
             const { editHoleHandler } = handlers;
 
             return (
-                <HoleTable onEdit={ editHoleHandler }  key={ index } holes={ data.value }/>
+                <HoleTable onEdit={ editHoleHandler }  key={ idx } holes={ data.value }/>
             );
         }
 
         case golf.classes.Course : {
 
             return (
-                <CourseDetail key={ index }
+                <CourseDetail key={ idx }
                     course={ data.value }/>
             );
         }
@@ -55,7 +57,7 @@ const getDisplayField = (data, handlers, index) => {
         case golf.classes.Bag : {
 
             return (
-                <BagDetail key={ index }
+                <BagDetail key={ idx }
                     bag={ data.value }/>
             );
         }
@@ -63,7 +65,7 @@ const getDisplayField = (data, handlers, index) => {
         case golf.classes.Player : {
 
             return (
-                <PlayerDetail key={ index }
+                <PlayerDetail key={ idx }
                     player={ data.value }/>
             );
         }
@@ -71,15 +73,22 @@ const getDisplayField = (data, handlers, index) => {
         case golf.classes.Marker : {
 
             return (
-                <PlayerDetail key={ index }
+                <PlayerDetail key={ idx }
                     player={ data.value }/>
             );
+        }
+
+        case golf.classes.GamePlayingHandicap: {
+            debugger
+            return (
+                <EditPlayingHandicap handicap={ data.value } key={ idx }/>
+            )
         }
 
         default: {
 
             return (
-                <FlexContainer key={ index }>
+                <FlexContainer key={ idx }>
                     <FlexItemLabel>{ data.label }</FlexItemLabel>
                     <FlexItemValue>{ data.value }</FlexItemValue>
                 </FlexContainer>

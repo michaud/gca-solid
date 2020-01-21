@@ -19,7 +19,8 @@ import EditActions from '@containers/Golf/components/EditActions';
 const CourseDetail = ({
     course,
     onSave,
-    onDelete
+    onDelete,
+    showEdit = false
 }) => {
 
     const [displayState, setDisplayState] = useState(displayStates.detail);
@@ -92,16 +93,21 @@ const CourseDetail = ({
     });
 
     return (
+        <>
+        <header className="c-header--sec">Course</header>
         <FieldContainer>
             <FlexContainer>
                 <FlexItemData>
                     { displayFields }
                 </FlexItemData>
-                <FlexItemTools>
-                    <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
-                </FlexItemTools>
+                { 
+                    showEdit && <FlexItemTools>
+                        <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
+                    </FlexItemTools>
+                }
             </FlexContainer>
         </FieldContainer>
+    </>
     );
 };
 

@@ -7,7 +7,6 @@ const HoleTable = ({
 
     const editHoleHandler = index => () => onEditHole && onEditHole(index);
 
-    console.log('holes: ', holes);
     const outHoles = holes.slice(0, 9);
     const inHoles = holes.slice(9, holes.length);
 
@@ -23,8 +22,8 @@ const HoleTable = ({
     const inGameStrokes = inHoles.map(hole => hole.gameStrokes ? hole.gameStrokes.value.length > 0 ? hole.gameStrokes.value.length : '' : '');
 
     return (
-        <>
-            <div className="f-label--row">holes</div>
+        <div>
+            <header className="c-header">holes</header>
             <table className="hole-table">
                 <tbody>
                     <tr>
@@ -63,7 +62,7 @@ const HoleTable = ({
                     </tr>
                 </tbody>
             </table>
-        </>
+        </div>
     );
 };
 

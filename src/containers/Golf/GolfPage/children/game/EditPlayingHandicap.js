@@ -5,6 +5,7 @@ import getFieldValue from '@utils/getFieldValue';
 import handicapShape from '@contexts/playing-handicap-shape.json';
 
 const EditPlayingHandicap = ({ handicap, onChange = () => {} }) => {
+    console.log('handicap: ', handicap);
 
     const [handicapState, setHandicapState] = useState(handicap);
     const classes = formStyles();
@@ -45,10 +46,10 @@ const EditPlayingHandicap = ({ handicap, onChange = () => {} }) => {
     };
 
     return (
-        <>
-        <header className="c-header--sec">Playing handicap</header>
-        { handicapFields }
-        </>
+        <div className="c-box">
+            <header className="c-header--sec">Playing handicap</header>
+            { handicapFields }
+        </div>
     );
 };
 
