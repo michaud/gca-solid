@@ -5,6 +5,10 @@
     margin-bottom: 1rem;
     width: 100%;
 
+    &:last-child {
+        margin-bottom: 0;
+    }
+
     td, th {
         padding: .35rem;
         width: 2.5rem;

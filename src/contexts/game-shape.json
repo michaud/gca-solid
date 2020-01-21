@@ -14,6 +14,13 @@
     "shape": [
         {
             "prefix": "golf",
+            "predicate": "gameName",
+            "type": "http://www.w3.org/2001/XMLSchema#string",
+            "label": "Name",
+            "value": ""
+        },
+        {
+            "prefix": "golf",
             "predicate": "gameDate",
             "type": "http://www.w3.org/2001/XMLSchema#DateTime",
             "label": "Start date",
@@ -52,13 +59,6 @@
             "predicate": "gamePlayingHandicap",
             "type": "https://michaud.inrupt.net/public/golf/GamePlayingHandicap",
             "label": "Playing handicap",
-            "value": ""
-        },
-        {
-            "prefix": "golf",
-            "predicate": "gameName",
-            "type": "http://www.w3.org/2001/XMLSchema#string",
-            "label": "Name",
             "value": ""
         }
     ]

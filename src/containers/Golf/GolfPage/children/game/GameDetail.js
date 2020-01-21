@@ -156,6 +156,8 @@ const GameDetail = ({
     });
 
     return (
+        <>
+        <header className="c-header">Game</header>
         <FieldContainer>
             <FlexContainer>
                 <FlexItemData>
@@ -166,6 +168,7 @@ const GameDetail = ({
                 </FlexItemTools>
             </FlexContainer>
         </FieldContainer>
+        </>
     );
 };
 
