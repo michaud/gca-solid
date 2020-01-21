@@ -55,8 +55,6 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
         case golf.classes.Stroke: {
 
             if(predicate === golf.properties.gameStrokes && data) {
-debugger
-                const strokesValue = data === undefined ? field.value : data.value;
 
                 data.value.forEach(stroke => {
 
