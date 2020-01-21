@@ -79,7 +79,7 @@ const getDisplayField = (data, handlers, idx) => {
         }
 
         case golf.classes.GamePlayingHandicap: {
-            debugger
+
             return (
                 <EditPlayingHandicap handicap={ data.value } key={ idx }/>
             )
