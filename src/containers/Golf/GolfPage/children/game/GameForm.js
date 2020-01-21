@@ -90,7 +90,7 @@ const GameForm = ({
         };
 
         if(fieldDef.fieldName === 'gameCourse' || fieldDef.fieldName === 'gameDate') {
-            //TODO check if this still works
+
             data = {
                 ...data,
                 gameName: {

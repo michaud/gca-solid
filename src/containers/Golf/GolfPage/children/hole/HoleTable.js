@@ -7,16 +7,20 @@ const HoleTable = ({
 
     const editHoleHandler = index => () => onEditHole && onEditHole(index);
 
+    console.log('holes: ', holes);
     const outHoles = holes.slice(0, 9);
     const inHoles = holes.slice(9, holes.length);
-    const outHoleNumbers = outHoles.map(nr => nr.holeNumber.value);
-    const outPars = outHoles.map(par => par.holePar.value);
-    const outLengths = outHoles.map(length => length.holeLength.value);
-    const outStrokeIndices = outHoles.map(length => length.holeStrokeIndex.value);
-    const inHoleNumbers = inHoles.map(nr => nr.holeNumber.value);
-    const inPars = inHoles.map(par => par.holePar.value);
-    const inLengths = inHoles.map(length => length.holeLength.value);
-    const inStrokeIndices = inHoles.map(length => length.holeStrokeIndex.value);
+
+    const outHoleNumbers = outHoles.map(hole => hole.holeNumber.value);
+    const outPars = outHoles.map(hole => hole.holePar.value);
+    const outLengths = outHoles.map(hole => hole.holeLength.value);
+    const outStrokeIndices = outHoles.map(hole => hole.holeStrokeIndex.value);
+    const outGameStrokes = outHoles.map(hole => hole.gameStrokes ? hole.gameStrokes.value.length > 0 ? hole.gameStrokes.value.length : '' : '');
+    const inHoleNumbers = inHoles.map(hole => hole.holeNumber.value);
+    const inPars = inHoles.map(hole => hole.holePar.value);
+    const inLengths = inHoles.map(hole => hole.holeLength.value);
+    const inStrokeIndices = inHoles.map(hole => hole.holeStrokeIndex.value);
+    const inGameStrokes = inHoles.map(hole => hole.gameStrokes ? hole.gameStrokes.value.length > 0 ? hole.gameStrokes.value.length : '' : '');
 
     return (
         <>
@@ -28,6 +32,9 @@ const HoleTable = ({
                     </tr>
                     <tr>
                         { outPars.map((p, index) => <td key={ index}>{ p }</td>) }
+                    </tr>
+                    <tr>
+                        { outGameStrokes.map((s, index) => <td key={ index}>{ s }</td>) }
                     </tr>
                     <tr>
                         { outStrokeIndices.map((s, index) => <td key={ index}>{ s }</td>) }
@@ -44,6 +51,9 @@ const HoleTable = ({
                     </tr>
                     <tr>
                         { inPars.map((p, index) => <td key={ index}>{ p }</td>) }
+                    </tr>
+                    <tr>
+                        { inGameStrokes.map((s, index) => <td key={ index}>{ s }</td>) }
                     </tr>
                     <tr>
                         { inStrokeIndices.map((s, index) => <td key={ index}>{ s }</td>) }
