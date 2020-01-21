@@ -132,13 +132,11 @@ const ManageGames = ({
                         </FlexItem>
                     </FlexContainer>
                 }
-                {
-                    games.length > 0 && <GameList
-                        games={ games }
-                        onDelete={ onDeleteGameHandler }
-                        onSave={ onSaveGameHandler }
-                        onPlay={ onPlayGameHandler }/>
-                }
+                <GameList
+                    games={ games }
+                    onDelete={ onDeleteGameHandler }
+                    onSave={ onSaveGameHandler }
+                    onPlay={ onPlayGameHandler }/>
             </PageContainer>
         </>
     );

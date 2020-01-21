@@ -1,7 +1,12 @@
 import React from 'react';
-import { FlexContainer, FlexItem, FlexItemRight } from '@styles/layout.style';
+
 import Button from '@material-ui/core/Button';
 import formStyles from '@styles/form.style';
+import {
+    FlexContainer,
+    FlexItem,
+    FlexItemRight
+} from '@styles/layout.style';
 
 const BagDetail = ({ bag }) => {
 
