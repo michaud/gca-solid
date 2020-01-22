@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import Button from '@material-ui/core/Button';
+import update from 'immutability-helper';
 import formStyles from '@styles/form.style';
 import gameShape from '@contexts/game-shape.json';
 import playingHandicapShape from '@contexts/playing-handicap-shape.json';
@@ -79,28 +80,16 @@ const GameForm = ({
 
     const onChangeField = fieldDef => (...args)  => {
 
-        const value = getFieldValue(fieldDef, args);
+        let value = getFieldValue(fieldDef, args);
 
-        let data = {
-            ...gameState,
-            [fieldDef.fieldName]: {
-                ...gameState[fieldDef.fieldName],
-                value
-            }
-        };
+        if(fieldDef.predicate === 'gameCourse' || fieldDef.predicate === 'gameDate') {
 
-        if(fieldDef.fieldName === 'gameCourse' || fieldDef.fieldName === 'gameDate') {
-
-            data = {
-                ...data,
-                gameName: {
-                    ...data.gameName,
-                    value: `${ value.courseName.value } ${ format(new Date(data.gameDate.value), 'dd-mm-yy hh:mm' ) }`
-                }
-            }
+            value = `${ value.courseName.value } ${ format(new Date(gameState.gameDate.value), 'dd-mm-yy hh:mm' ) }`
         }
 
-        setGameState(data);
+        setGameState(state => update(state, {
+            [fieldDef.predicate]: { value: { $set: value } }
+        }));
     };
 
     useEffect(() => {

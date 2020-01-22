@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import holeShape from '@contexts/hole-shape.json';
+import update from 'immutability-helper';
 import setupDataObject from '@utils/setupDataObject';
 import Button from '@material-ui/core/Button';
 import formStyles from '@styles/form.style';
@@ -43,15 +44,9 @@ const HoleForm = ({
 
         const value = getFieldValue(fieldDef, args);
 
-        const data = {
-            ...holeState,
-            [fieldDef.fieldName]: {
-                ...holeState[fieldDef.fieldName],
-                value
-            }
-        };
-
-        setHoleState(data);
+        setHoleState(state => update(state, {
+            [fieldDef.predicate]: { value: { $set: value } }
+        }));
     };
 
     useEffect(() => {

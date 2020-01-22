@@ -11,16 +11,16 @@ const getClubDefinitions = async () => {
         .findSubjects(ns.rdfs.domain, namedNode(golf.classes.Club))
         .reduce((acc, quad) => {
 
-            const fieldName = quad.getLiteral(ns.rdfs.label);
+            const predicate = quad.getLiteral(ns.rdfs.label);
             const type = quad.getRef(ns.rdfs.range);
             const iri = quad.asRef();
             const label = quad.getLiteral(golf.properties.fieldLabel);
 
             const value = '';
 
-            acc[fieldName] = {
+            acc[predicate] = {
                 type,
-                fieldName,
+                predicate,
                 iri,
                 label,
                 value

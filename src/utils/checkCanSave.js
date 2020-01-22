@@ -8,10 +8,9 @@ const hasValue = item => {
         case golf.types.integer: return typeof(item.value) === 'number';
         case golf.types.text: return item.value !== '';
         case golf.types.dateTime: return item.value instanceof Date;
-        case golf.classes.Club: {
-
-            return item.fieldName === 'clubType' ? typeof(item.value) === 'object' : item.value.length > 0;
-        }
+        case golf.classes.Club: return item.predicate === 'clubType' ?
+            typeof(item.value) === 'object'
+            : item.value.length > 0;
         case golf.classes.Hole: return item.value.length > 0;
         case golf.classes.Player: return typeof(item.value) === 'object';
         case golf.classes.Course: return typeof(item.value) === 'object';

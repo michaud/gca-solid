@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+
+import update from 'immutability-helper';
 import getFieldControl from '@utils/getFieldControl';
 import formStyles from '@styles/form.style';
 import getFieldValue from '@utils/getFieldValue';
@@ -14,16 +16,16 @@ const EditPlayingHandicap = ({ handicap, onChange = () => {} }) => {
 
         const value = getFieldValue(fieldDef, args);
 
-        const data = {
-            ...handicapState,
-            [fieldDef.fieldName]: {
-                ...handicapState[fieldDef.fieldName],
-                value
-            }
-        };
-        
-        setHandicapState(data);
-        onChange(data);
+        setHandicapState(oldState => {
+
+            const state = update(oldState, {
+                [fieldDef.predicate]: { value: { $set: value } }
+            });
+
+            onChange(state);
+
+            return state
+        });
     };
 
     const handicapFields = [];

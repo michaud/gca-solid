@@ -131,7 +131,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 debugger
     return {
         type,
-        fieldName: field.predicate,
+        predicate: field.predicate,
         iri: predicate,
         ...fieldData
     };

@@ -15,7 +15,7 @@ export const putClubsInBag = (clubs, bag) => {
     return {
         clubs: {
             type: golf.classes.Club,
-            fieldName:"clubs",
+            predicate:"clubs",
             iri:golf.properties.clubs,
             label:"clubs",
             value

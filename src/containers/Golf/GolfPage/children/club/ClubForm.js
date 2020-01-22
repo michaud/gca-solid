@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
+import update from 'immutability-helper';
+import { useTranslation } from 'react-i18next';
+import Button from '@material-ui/core/Button';
 import { withClubTypeContext } from '@utils/clubTypeContext';
 import clubShape from '@contexts/club-shape.json';
-import Button from '@material-ui/core/Button';
 import formStyles from '@styles/form.style';
-import { useTranslation } from 'react-i18next';
 import getFieldValue from '@utils/getFieldValue';
 import checkCanSave from '@utils/checkCanSave';
 import getFieldControl from '@utils/getFieldControl';
@@ -38,15 +39,9 @@ const ClubForm = ({
 
         const value = getFieldValue(fieldDef, [...args, clubTypes]);
 
-        const data = {
-            ...clubState,
-            [fieldDef.fieldName]: {
-                ...clubState[fieldDef.fieldName],
-                value
-            }
-        };
-
-        setClubState(data);
+        setClubState(state => update(state, {
+            [fieldDef.predicate]: { value: { $set: value } }
+        }));
     };
     
     useEffect(() => {

@@ -64,7 +64,7 @@ const getFieldControl = ({
 
         case golf.types.nonNegativeInteger : {
 
-            if(data.fieldName === 'holeStrokeIndex') {
+            if(data.predicate === 'holeStrokeIndex') {
 
                 return <TextField
                     key={ idx }

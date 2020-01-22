@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import Button from '@material-ui/core/Button';
+import update from 'immutability-helper';
 import formStyles from '@styles/form.style';
 import getFieldValue from '@utils/getFieldValue';
 import checkCanSave from '@utils/checkCanSave';
@@ -33,15 +34,9 @@ const PlayerForm = ({
 
         const value = getFieldValue(fieldDef, args);
 
-        const data = {
-            ...playerState,
-            [fieldDef.fieldName]: {
-                ...playerState[fieldDef.fieldName],
-                value
-            }
-        };
-
-        setPlayerState(data);
+        setPlayerState(state => update(state, {
+            [fieldDef.predicate]: { value: { $set: value } }
+        }));
     };
 
     useEffect(() => {

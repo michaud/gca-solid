@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import Button from '@material-ui/core/Button';
+import update from 'immutability-helper';
 import formStyles from '@styles/form.style';
 import courseShape from '@contexts/course-shape.json';
 import setupDataObject from '@utils/setupDataObject';
@@ -35,18 +36,9 @@ const CourseForm = ({
 
     const onAddHole = (hole) => {
         
-        const newCourse = {
-            ...courseState,
-            courseHoles: {
-                ...courseState.courseHoles,
-                value: [
-                    ...courseState.courseHoles.value,
-                    hole
-                ]
-            }
-        };
-
-        setCourseState(newCourse);
+        setCourseState(state => update(state, {
+            courseHoles: { value: { $push: hole } }
+        }));
     };
 
     const onSaveHole = (hole) => {
@@ -59,18 +51,15 @@ const CourseForm = ({
                 
                 return testHole.holeNumber.value === hole.holeNumber.value;
             });
+            
             const startHoles = holes.slice(0, editHoleIndex);
             const endHoles = holes.slice(editHoleIndex + 1, holes.length);
 
             const newHoles = [...startHoles, hole, ...endHoles];
             
-            const newCourse = {
-                ...state,
-                courseHoles: {
-                    ...state.courseHoles,
-                    value: newHoles
-                }
-            };
+            const newCourse = update(state, {
+                courseHoles: { value: { $set: newHoles } }
+            });
 
             return newCourse;
         });
@@ -95,15 +84,9 @@ const CourseForm = ({
 
         const value = getFieldValue(fieldDef, args);
 
-        const data = {
-            ...courseState,
-            [fieldDef.fieldName]: {
-                ...courseState[fieldDef.fieldName],
-                value
-            }
-        };
-
-        setCourseState(data);
+        setCourseState(state => update(state, {
+            [fieldDef.predicate]: { value: { $set: value } }
+        }));
     };
 
     const courseFields = [];
