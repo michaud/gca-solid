@@ -44,7 +44,7 @@ const GameSummary = ({
                 <FlexItem>
                 <Button
                 variant="contained"
-                onClick={ playGameHandler }
+                onClick={ playGameHandler(game.iri) }
                 className={ classes.button }
                 color="primary">Play game</Button>
                 </FlexItem>
