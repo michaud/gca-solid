@@ -19,18 +19,14 @@
             "predicate": "strokeLocation",
             "type": "https://schema.org/GeoCoordinates",
             "label": "Location",
-            "value": {
-                "longitude": 0,
-                "latitude": 0,
-                "elevation": 0
-            }
+            "value": ""
         },
         {
             "prefix": "golf",
             "predicate": "strokeClub",
             "type": "https://michaud.inrupt.net/public/golf/Club",
             "label": "Stroke club",
-            "value": 0
+            "value": ""
         },
         {
             "prefix": "golf",
