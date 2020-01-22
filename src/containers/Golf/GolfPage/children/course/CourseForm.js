@@ -37,7 +37,7 @@ const CourseForm = ({
     const onAddHole = (hole) => {
         
         setCourseState(state => update(state, {
-            courseHoles: { value: { $push: hole } }
+            courseHoles: { value: { $push: [hole] } }
         }));
     };
 
