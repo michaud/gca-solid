@@ -11,6 +11,8 @@
         "golf": "https://michaud.inrupt.net/public/golf/",
         "me": "https://michaud.inrupt.net/profile/card#me"
     },
+    "label": "Club",
+    "iri": "",
     "shape": [
         {
             "prefix": "golf",
