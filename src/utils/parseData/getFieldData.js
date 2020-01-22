@@ -128,7 +128,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
             console.error('no field type', field)
         }
     }
-debugger
+
     return {
         type,
         predicate: field.predicate,
