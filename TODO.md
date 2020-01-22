@@ -1,7 +1,4 @@
-- flesh out the complete shape of the geocoordinate fields in setupobject i think
 - parse club data club type is not done
-- add missing labels to data
-- update fields on contexts/shape with  label value
 - parsing bag data misses fields like iri & label
 - clubtype should be filled with data from club? or remove fields? 
 - check iri s in data
@@ -17,3 +14,6 @@ X implement Owner on Club
 X handle card#me references
 X saveMarker as savePlayer
 X saveCourse, saveClub as saveClubToList
+X flesh out the complete shape of the geocoordinate fields in setupobject i think
+X add missing labels to data
+X update fields on contexts/shape with  label value
