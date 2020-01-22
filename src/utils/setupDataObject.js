@@ -1,8 +1,8 @@
 const setupDataObject = (objectShape, fieldValue) => {
 
     const obj = {
-        label: "",
-        iri: "",
+        label: objectShape.label,
+        iri: objectShape.iri,
     };
 
     objectShape.shape.forEach(field => {

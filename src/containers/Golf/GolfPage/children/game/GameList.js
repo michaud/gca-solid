@@ -23,6 +23,7 @@ const GameList = ({
     };
 
     const onPlayGameHandler = iri => onPlay(iri);
+    
     const onShowDetailHandler = iri => setShowDetail(state => iri === state ? undefined : !state);
 
     return (
