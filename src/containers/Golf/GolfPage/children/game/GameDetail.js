@@ -23,7 +23,7 @@ import EditPlayingHandicap from './EditPlayingHandicap';
 
 const getDisplayField = (data, handlers, idx) => {
     
-    switch (data.fieldType) {
+    switch (data.type) {
         
         case golf.types.dateTime : {
             

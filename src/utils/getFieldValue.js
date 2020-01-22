@@ -1,10 +1,10 @@
 import golf from "./golf-namespace";
 
-const getFieldValue = (fieldDef, args) => {
+const getFieldValue = (field, args) => {
 
     const [data, clubTypes] = args;
 
-    switch(fieldDef.fieldType) {
+    switch(field.type) {
         case golf.types.nonNegativeInteger:
         case golf.types.text:
         case golf.types.string: return data.target.value;
@@ -17,7 +17,7 @@ const getFieldValue = (fieldDef, args) => {
 
         default: {
             
-            console.error('no fieldType', fieldDef, data)
+            console.error('no field type', field, data)
             return '';
         }
     }

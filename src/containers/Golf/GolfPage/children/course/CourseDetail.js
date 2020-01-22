@@ -52,7 +52,7 @@ const CourseDetail = ({
     
     const getDisplayField = (field, index) => {
 
-        switch (field.fieldType) {
+        switch (field.type) {
 
             case golf.classes.Hole : {
 

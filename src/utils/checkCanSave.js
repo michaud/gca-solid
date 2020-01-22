@@ -2,7 +2,7 @@ import golf from "./golf-namespace";
 
 const hasValue = item => {
 
-    switch(item.fieldType) {
+    switch(item.type) {
         case golf.types.string: return item.value !== '';
         case golf.types.nonNegativeInteger: return item.value > 0;
         case golf.types.integer: return typeof(item.value) === 'number';

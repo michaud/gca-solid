@@ -26,7 +26,7 @@ const getFieldControl = ({
 
     const required = data.hasOwnProperty('required') ? data.required : true;
 
-    switch(data.fieldType) {
+    switch(data.type) {
 
         case golf.types.string : {
 

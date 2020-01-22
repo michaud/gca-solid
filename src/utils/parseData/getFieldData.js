@@ -7,7 +7,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
         label,
         prefix: fieldPrefix,
         predicate: fieldPredicate,
-        type: fieldType,
+        type,
         value: fieldValue
     } = field;
 
@@ -16,7 +16,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
     let fieldData;
 
-    switch(fieldType) {
+    switch(type) {
 
         case golf.types.string:
         case golf.types.nonNegativeInteger:
@@ -25,7 +25,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
         case golf.types.double:
         case golf.types.text: {
 
-            fieldData = getFieldTypeData[fieldType](predicate)(data, label, fieldValue);
+            fieldData = getFieldTypeData[type](predicate)(data, label, fieldValue);
 
             break;
         }
@@ -34,7 +34,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
             
             const [clubTypes, clubType] = rest;
 
-            fieldData = getFieldTypeData[fieldType](doc)(data, label, fieldValue, clubTypes, clubType);
+            fieldData = getFieldTypeData[type](doc)(data, label, fieldValue, clubTypes, clubType);
 
             break;
         }
@@ -53,7 +53,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
             } else {
 
-                fieldData = getFieldTypeData[fieldType](predicate)(data, fieldPredicate, clubTypes, clubType);
+                fieldData = getFieldTypeData[type](predicate)(data, fieldPredicate, clubTypes, clubType);
             }
 
             break;
@@ -65,11 +65,11 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
             if(predicate === golf.properties.gameBag) {
 
-                fieldData = getFieldTypeData[fieldType](doc)(data, label, clubTypes, clubType);
+                fieldData = getFieldTypeData[type](doc)(data, label, clubTypes, clubType);
 
             } else {
                 
-                fieldData = getFieldTypeData[fieldType](predicate)(data, label, clubTypes, clubType);
+                fieldData = getFieldTypeData[type](predicate)(data, label, clubTypes, clubType);
             }
 
             break;
@@ -85,7 +85,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
             } else {
 
-                fieldData = getFieldTypeData[fieldType](doc)(data, label, fieldValue);
+                fieldData = getFieldTypeData[type](doc)(data, label, fieldValue);
             }
 
             break;
@@ -97,11 +97,11 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
             if(predicate === golf.properties.courseHoles && parentFieldType === golf.properties.gameCourse) {
 
-                fieldData = getFieldTypeData[fieldType](doc)(data, label, fieldValue, parentFieldType, clubTypes, clubType);
+                fieldData = getFieldTypeData[type](doc)(data, label, fieldValue, parentFieldType, clubTypes, clubType);
 
             } else {
 
-                fieldData = getFieldTypeData[fieldType](doc)(data, label, fieldValue);
+                fieldData = getFieldTypeData[type](doc)(data, label, fieldValue);
             }
 
             break;
@@ -111,14 +111,14 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
         case golf.classes.Player:
         case golf.classes.GamePlayingHandicap: {
 
-            fieldData = getFieldTypeData[fieldType](doc)(data, label, fieldValue);
+            fieldData = getFieldTypeData[type](doc)(data, label, fieldValue);
 
             break;
         }
 
         case golf.types.GeoCoordinates : {
 
-            fieldData = getFieldTypeData[fieldType](doc)(data, label, fieldValue);
+            fieldData = getFieldTypeData[type](doc)(data, label, fieldValue);
             break;
         }
 
@@ -128,11 +128,9 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
             console.error('no field type', field)
         }
     }
-    
-    
-
+debugger
     return {
-        fieldType,
+        type,
         fieldName: field.predicate,
         iri: predicate,
         ...fieldData

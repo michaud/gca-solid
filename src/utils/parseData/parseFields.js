@@ -16,7 +16,8 @@ const parseFields = (dataShape, doc, ...rest) => item => {
 
     const newItem = {
         ...fieldData,
-        iri: item ? item.asNodeRef() : ''
+        iri: item ? item.asNodeRef() : '',
+        label: dataShape.label
     };
 
     return newItem;

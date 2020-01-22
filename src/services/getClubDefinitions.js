@@ -12,14 +12,14 @@ const getClubDefinitions = async () => {
         .reduce((acc, quad) => {
 
             const fieldName = quad.getLiteral(ns.rdfs.label);
-            const fieldType = quad.getRef(ns.rdfs.range);
+            const type = quad.getRef(ns.rdfs.range);
             const iri = quad.asRef();
             const label = quad.getLiteral(golf.properties.fieldLabel);
 
             const value = '';
 
             acc[fieldName] = {
-                fieldType,
+                type,
                 fieldName,
                 iri,
                 label,
