@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import { withClubTypeContext } from '@utils/clubTypeContext';
 
-import formStyles from '@styles/form.style';
 import bagTransferListStyles from './bagTransferList.style';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -11,14 +10,17 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import { FormControlLabel, Switch } from '@material-ui/core';
 
-function not(a, b) {
-    return a.filter(value => b.indexOf(value) === -1);
-}
+const not = (a, b) => a.filter(value => b.indexOf(value) === -1);
+const intersection = (a, b) => a.filter(value => b.indexOf(value) !== -1);
 
-function intersection(a, b) {
-    return a.filter(value => b.indexOf(value) !== -1);
-}
+const checkDisabled = (left, leftChecked, right, rightChecked) => ({
+    canAllRight: left.length < 15 && right.length + left.length < 15,
+    canAllLeft: right.length > 0,
+    canSomeRight: leftChecked.length > 0 && leftChecked.length + right.length < 15,
+    canSomeLeft: rightChecked.length > 0
+});
 
 const BagTransferList = ({
     clubs,
@@ -31,9 +33,8 @@ const BagTransferList = ({
     const [checked, setChecked] = useState([]);
     const [left, setLeft] = useState([]);
     const [right, setRight] = useState([]);
-    const [canTransferToBag, setCanTransferToBag] = useState(true);
+    const [autoSort, setAutoSort] = useState(true);
     const classes = bagTransferListStyles();
-    const formClasses = formStyles();
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
 
@@ -49,39 +50,63 @@ const BagTransferList = ({
         }
 
         setChecked(newChecked);
-
-        setCanTransferToBag(leftChecked.length !== 0 && leftChecked.length < 15 && leftChecked.length + right.length < 15);
     };
 
-    const sortHandler = () => {
+    const autoSortChangeHandler = () => setAutoSort(state => !state);
 
+    const sortClubOnType = (a ,b) => {
+        
+        const indexOfa = clubTypes.findIndex(el => el.iri === a.clubType.value.iri);
+        const indexOfb = clubTypes.findIndex(el => el.iri === b.clubType.value.iri);
+
+        return indexOfa - indexOfb;
     };
 
     const handleAllRight = () => {
-        setRight(right.concat(left));
+        
+        const newRight = right.concat(left);
+        const sortedRight = newRight.sort(sortClubOnType);
+
+        setRight(sortedRight);
         setLeft([]);
         onAddToBag(left);
     };
 
     const handleCheckedRight = () => {
-        setRight(right.concat(leftChecked));
-        setLeft(not(left, leftChecked));
-        setChecked(not(checked, leftChecked));
-        
+
         onAddToBag(leftChecked);
+        const newLeft = not(left, leftChecked);
+        const sortedLeft = newLeft.sort(sortClubOnType);
+        setLeft(sortedLeft);
+
+        const newRight = right.concat(leftChecked);
+        const sortedRight = newRight.sort(sortClubOnType);
+        setRight(sortedRight);
+
+        onAddToBag(leftChecked);
+
+        setChecked(not(checked, leftChecked));
     };
 
     const handleCheckedLeft = () => {
-        setLeft(left.concat(rightChecked));
-        setRight(not(right, rightChecked));
-        setChecked(not(checked, rightChecked));
+
+        const newLeft = left.concat(rightChecked);
+        const sortedLeft = newLeft.sort(sortClubOnType);
+        setLeft(sortedLeft);
+
+        const newRight = not(right, rightChecked);
+        const sortedRight = newRight.sort(sortClubOnType);
+        setRight(sortedRight);
+
         onRemoveFromBag(rightChecked)
+
+        setChecked(not(checked, rightChecked));
     };
 
     const handleAllLeft = () => {
         setLeft(left.concat(right));
         setRight([]);
-        onRemoveFromBag(right)
+        onRemoveFromBag(right);
     };
 
     const customList = items => (
@@ -97,7 +122,10 @@ const BagTransferList = ({
                     const labelId = `transfer-list-item-${index}-label`;
 
                     return (
-                        <ListItem key={ index } className={ classes.listItem } role="listitem" button onClick={handleToggle(item)}>
+                        <ListItem key={ index }
+                            className={ classes.listItem }
+                            role="listitem"
+                            button onClick={ handleToggle(item) }>
                             <ListItemIcon className={ classes.listItemIcon }>
                                 <Checkbox
                                     checked={checked.indexOf(item) !== -1}
@@ -108,7 +136,7 @@ const BagTransferList = ({
                                 />
                             </ListItemIcon>
                             <ListItemText
-                                id={labelId}
+                                id={ labelId }
                                 className={ classes.listItemText }
                                 primary={ label }
                                 secondary={ `${ brand } ${ name }` } />
@@ -144,28 +172,33 @@ const BagTransferList = ({
 
             }, { bag:[], clubs: []})
 
-            setLeft(filteredClubs.clubs);
-            setRight(filteredClubs.bag);
-
-            if(filteredClubs.bag.length > 13) {
-                setCanTransferToBag(false);
-            } else {
-                setCanTransferToBag(true);
-            }
+            const sortedClubs = filteredClubs.clubs.sort(sortClubOnType);
+            const sortedBag = filteredClubs.bag.sort(sortClubOnType);
+         
+            setLeft(sortedClubs);
+            setRight(sortedBag);
         }
     }, [clubs, bag]);
 
     const getClubCountString = (testClubs) => {
 
-        if(testClubs && testClubs.length === 1) return '1 club';
+        if(
+            testClubs &&
+            testClubs.length === 1
+        ) return '1 club';
 
-        if(testClubs && testClubs.length > 1) return `${ testClubs.length } clubs`;
+        if(
+            testClubs &&
+            testClubs.length > 1
+        ) return `${ testClubs.length } clubs`;
 
         return '';
     };
 
     const clubCountString = getClubCountString(right);
-    
+
+    const disabled = checkDisabled(left, leftChecked, right, rightChecked);
+
     return (
         <div className={ classes.grid }>
             <div className={ classes.gridLeftHeader }>
@@ -177,42 +210,49 @@ const BagTransferList = ({
             <div className={ classes.gridLeft }>{ customList(left) }</div>
             <div className={ classes.gridRight }>
                 { customList(right) }
-                <Button
-                        variant="contained"
-                        onClick={ sortHandler }
-                        className={ formClasses.button }
-                        color="primary">sort</Button>
-
             </div>
             <div className={ classes.gridMid }>
-                <Button
-                    variant="outlined"
-                    size="small"
-                    className={ classes.button }
-                    onClick={ handleAllRight }
-                    disabled={ left.length === 0 || left.length > 14 || left.length + right.length > 14 || !canTransferToBag }
-                    aria-label="move all right">&gt;&gt;</Button>
-                <Button
-                    variant="outlined"
-                    size="small"
-                    className={ classes.button }
-                    onClick={ handleCheckedRight }
-                    disabled={ !canTransferToBag }
-                    aria-label="move selected right">&gt;</Button>
-                <Button
-                    variant="outlined"
-                    size="small"
-                    className={ classes.button }
-                    onClick={ handleCheckedLeft }
-                    disabled={ rightChecked.length === 0 }
-                    aria-label="move selected left">&lt;</Button>
-                <Button
-                    variant="outlined"
-                    size="small"
-                    className={ classes.button }
-                    onClick={ handleAllLeft }
-                    disabled={ right.length === 0 }
-                    aria-label="move all left">&lt;&lt;</Button>
+                <div>
+                    <Button
+                        variant="outlined"
+                        size="small"
+                        className={ classes.button }
+                        onClick={ handleAllRight }
+                        disabled={ !disabled.canAllRight }
+                        aria-label="move all right">&gt;&gt;</Button>
+                    <Button
+                        variant="outlined"
+                        size="small"
+                        className={ classes.button }
+                        onClick={ handleCheckedRight }
+                        disabled={ !disabled.canSomeRight }
+                        aria-label="move selected right">&gt;</Button>
+                    <Button
+                        variant="outlined"
+                        size="small"
+                        className={ classes.button }
+                        onClick={ handleCheckedLeft }
+                        disabled={ !disabled.canSomeLeft }
+                        aria-label="move selected left">&lt;</Button>
+                    <Button
+                        variant="outlined"
+                        size="small"
+                        className={ classes.button }
+                        onClick={ handleAllLeft }
+                        disabled={ !disabled.canAllLeft }
+                        aria-label="move all left">&lt;&lt;</Button>
+                </div>
+            </div>
+            <div className={ classes.gridRightBottom }>
+                <FormControlLabel
+                    control={
+                        <Switch
+                            color="primary"
+                            checked={ autoSort }
+                            onChange={ autoSortChangeHandler }
+                            value="autoSort"/>
+                    }
+                    label="auto sort"/>
             </div>
         </div>
     );

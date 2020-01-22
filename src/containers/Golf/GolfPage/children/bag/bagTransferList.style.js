@@ -5,7 +5,7 @@ const bagTransferListStyles = makeStyles(theme => ({
             display: 'grid',
             gridTemplateColumns: '1fr 4rem 1fr',
             gridTemplateRows: '2rem 1fr',
-            gridColumnGap: '1rem',
+            gridColumnGap: '.75rem',
             gridRowGap: '0px'
     },
     gridLeftHeader: {
@@ -19,11 +19,28 @@ const bagTransferListStyles = makeStyles(theme => ({
         position: 'relative'
     },
     gridMid: {
-        gridArea: '2 / 2 / 3 / 3'
+        gridArea: '2 / 2 / 3 / 3',
+        display: 'flex',
+        alignItems: 'center'
     },
     gridRight: {
         gridArea: '2 / 3 / 3 / 4',
         position: 'relative'
+    },
+    gridLeftBottom: {
+        gridArea: '3 / 1 / 3 / 2',
+        position: 'relative'
+    },
+    gridMidBottom: {
+        gridArea: '3 / 2 / 3 / 3',
+        display: 'flex',
+        alignItems: 'center'
+    },
+    gridRightBottom: {
+        gridArea: '3 / 3 / 3 / 4',
+        position: 'relative',
+        paddingTop: '.5rem',
+        textAlign: 'center'
     },
     paper: {
         overflowY: 'scroll',
