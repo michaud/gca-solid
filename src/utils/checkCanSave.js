@@ -16,7 +16,7 @@ const hasValue = item => {
         case golf.classes.Course: return typeof(item.value) === 'object';
         case golf.classes.Marker: return typeof(item.value) === 'object';
         case golf.classes.Bag: return typeof(item.value) === 'object';
-        case golf.classes.GamePlayingHandicap: return true;
+        case golf.classes.GamePlayingHandicap: return typeof(item.value) === 'object';
 
         default: return false;
     }

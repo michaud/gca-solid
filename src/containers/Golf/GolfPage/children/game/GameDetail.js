@@ -10,6 +10,7 @@ import CourseDetail from '../course/CourseDetail';
 import BagDetail from './BagDetail';
 import EditActions from '@containers/Golf/components/EditActions';
 import PlayerDetail from '../player/PlayerDetail';
+import PlayingHandicapDetail from './PlayingHandicapDetail';
 import {
     FieldContainer,
     FlexContainer,
@@ -18,7 +19,6 @@ import {
     FlexItemValue,
     FlexItemTools
 } from '@styles/layout.style';
-import EditPlayingHandicap from './EditPlayingHandicap';
 
 const getDisplayField = (data, handlers, idx) => {
     
@@ -80,7 +80,7 @@ const getDisplayField = (data, handlers, idx) => {
         case golf.classes.GamePlayingHandicap: {
 
             return (
-                <EditPlayingHandicap handicap={ data.value } key={ idx }/>
+                <PlayingHandicapDetail handicap={ data.value } key={ idx }/>
             )
         }
 

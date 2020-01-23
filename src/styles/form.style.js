@@ -3,6 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 const formStyles = makeStyles(theme => ({
     textField: {
         width: '100%',
+        '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'rgb(80, 166, 0)'
+        },
+        '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'rgba(210, 199, 157)'
+        },
         '&.MuiFormControl-root': {
             margin: '0 0 1.5rem 0'
         },

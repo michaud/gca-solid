@@ -74,8 +74,7 @@ const GameForm = ({
     const saveGameHandler = () => {
 
         onSave(gameState);
-        const newGame = setupDataObject(gameShape);
-        setGameState(newGame);
+        setReload(true);
     };
 
     const onChangeField = fieldDef => (...args)  => {
@@ -94,7 +93,7 @@ const GameForm = ({
             ) {
 
                 value = `${
-                    value.courseName.value
+                    value.courseName ? value.courseName.value : 'game'
                 } ${
                     format(new Date(gameState.gameDate.value), 'dd-MM-yy HH:mm') 
                 }`;
@@ -105,34 +104,6 @@ const GameForm = ({
             return newState;
         });
     };
-
-    useEffect(() => {
-
-        if(game) {
-            
-            setGameState(game);
-            
-        } else if(
-            bagData['doc'] !== undefined &&
-            clubData['doc'] !== undefined &&
-            courseData['doc'] !== undefined &&
-            markerData['doc'] !== undefined &&
-            playerData['doc'] !== undefined
-        ) {
-
-            const gameBag = putClubsInBag(clubData.list, bagData.list);
-            const newGame = setupDataObject(gameShape, {
-                gameBag,
-                gamePlayer: playerData.player,
-                gamePlayingHandicap: setupDataObject(playingHandicapShape),
-                gameDate: new Date(Date.now())
-            });
-
-            setGameState(newGame);
-            setReload(false);
-        }
-
-    }, [game, reload, bagData, clubData, courseData, markerData]);
 
     const gameFields = [];
     
@@ -168,10 +139,38 @@ const GameForm = ({
 
     const canSave = checkCanSave(gameState, gameShape);
 
+    useEffect(() => {
+
+        if(game) {
+            
+            setGameState(game);
+            
+        } else if(
+            bagData['doc'] !== undefined &&
+            clubData['doc'] !== undefined &&
+            courseData['doc'] !== undefined &&
+            markerData['doc'] !== undefined &&
+            playerData['doc'] !== undefined
+        ) {
+
+            const gameBag = putClubsInBag(clubData.list, bagData.list);
+            const newGame = setupDataObject(gameShape, {
+                gameBag,
+                gamePlayer: playerData.player,
+                gamePlayingHandicap: setupDataObject(playingHandicapShape),
+                gameDate: new Date(Date.now())
+            });
+
+            setGameState(newGame);
+            setReload(false);
+        }
+
+    }, [game, reload, bagData, clubData, courseData, markerData]);
+
     return (
         <form noValidate autoComplete="off">
         {
-            gameState && <>
+            gameState && <div className="f-form-field">
                 <header className="c-header">{ title }</header>
                 { gameFields }
                 <FlexContainer>
@@ -192,7 +191,7 @@ const GameForm = ({
                     }
                     </FlexItemRight>
                 </FlexContainer>
-            </>
+            </div>
         }
         </form>
     );

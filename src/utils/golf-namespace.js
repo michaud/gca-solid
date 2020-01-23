@@ -30,6 +30,8 @@ const golf = {
         gameCourse: `${ namespace }gameCourse`,
         gameBag:  `${ namespace }gameBag`,
         gamePlayingHandicap:  `${ namespace }gamePlayingHandicap`,
+        playerPlayingHandicap: `${ namespace }playerPlayingHandicap`,
+        markerPlayingHandicap: `${ namespace }markerPlayingHandicap`,
         strokeLocation:  `${ namespace }strokeLocation`,
         gameStrokes: `${ namespace }gameStrokes`,
         strokeClub: `${ namespace }strokeClub`

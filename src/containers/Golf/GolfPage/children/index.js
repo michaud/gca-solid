@@ -26,6 +26,7 @@ import PlayerDetail from './player/PlayerDetail';
 import PlayerForm from './player/PlayerForm';
 import PlayGame from './playGame/PlayGame';
 import SplashScreen from './SplashScreen';
+import PlayingHandicapDetail from './game/PlayingHandicapDetail'
 
 export {
     BagTransferList,
@@ -55,5 +56,6 @@ export {
     PlayerDetail,
     PlayerForm,
     SplashScreen,
-    PlayGame
+    PlayGame,
+    PlayingHandicapDetail
 }

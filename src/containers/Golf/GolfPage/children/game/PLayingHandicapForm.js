@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import update from 'immutability-helper';
-import getFieldControl from '@utils/getFieldControl';
 import formStyles from '@styles/form.style';
+import getFieldControl from '@utils/getFieldControl';
+import playingHandicapShape from '@contexts/playing-handicap-shape.json';
 import getFieldValue from '@utils/getFieldValue';
-import handicapShape from '@contexts/playing-handicap-shape.json';
+import update from 'immutability-helper';
 
-const EditPlayingHandicap = ({ handicap, onChange = () => {} }) => {
-    console.log('handicap: ', handicap);
+const PLayingHandicapForm = ({ handicap, onChange }) => {
 
-    const [handicapState, setHandicapState] = useState(handicap);
+    const [handicapState, setHandicapState] = useState();
     const classes = formStyles();
+
+    const handicapFields = [];
+    
+    let index = 0;
 
     const onChangeField = fieldDef => (...args)  => {
 
@@ -28,13 +31,17 @@ const EditPlayingHandicap = ({ handicap, onChange = () => {} }) => {
         });
     };
 
-    const handicapFields = [];
-    
-    let index = 0;
+    useEffect(() => {
+
+        if (handicap) {
+            setHandicapState(handicap);
+        }
+
+    }, [handicap]);
 
     if(handicapState) {
         
-        handicapShape.shape.forEach(field => {
+        playingHandicapShape.shape.forEach(field => {
 
             const fieldControl = getFieldControl({
                 data: handicapState[field.predicate],
@@ -55,4 +62,4 @@ const EditPlayingHandicap = ({ handicap, onChange = () => {} }) => {
     );
 };
 
-export default EditPlayingHandicap;
+export default PLayingHandicapForm;

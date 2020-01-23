@@ -15,11 +15,6 @@ import formStyles from '@styles/form.style';
 import golf from '@utils/golf-namespace';
 import saveResource from '@services/saveResource';
 
-import {
-    FlexContainer,
-    FlexItem,
-} from '@styles/layout.style';
-
 const ManageGames = ({
     match,
     webId,
@@ -47,6 +42,7 @@ const ManageGames = ({
             doc: gameData.doc,
             type: golf.classes.Game
         });
+
         setReload(true);
     };
 
@@ -76,7 +72,7 @@ const ManageGames = ({
                 setGames(gameList);
 
                 if(reload) {
-                    setCurrentGame(gameList[gameList.length - 1]);
+                    setCurrentGame();
                 }
 
                 setReload(false);

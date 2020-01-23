@@ -6,6 +6,8 @@
 - add game start time filled should be put in gamestate?  
 - game detail view
 - implement playing handicap (game detail)
+- implement Add marker in Select Marker or GameForm
+- implement Change Player Handicap in player update
 - implement delete game
 - implement Bag detail edit
 - Bag detail

@@ -9,7 +9,7 @@ import DateTimeSelector from '@containers/Golf/GolfPage/children/game/DateTimeSe
 import BagDetail from '@containers/Golf/GolfPage/children/game/BagDetail';
 import PlayerUpdate from '@containers/Golf/GolfPage/children/game/PlayerUpdate';
 import SelectMarker from '@containers/Golf/GolfPage/children/game/SelectMarker';
-import EditPlayingHandicap from '@containers/Golf/GolfPage/children/game/EditPlayingHandicap';
+import PlayingHandicapDetail from '@containers/Golf/GolfPage/children/game/PlayingHandicapDetail';
 import SelectCourse from '@containers/Golf/GolfPage/children/game/SelectCourse';
 
 const getFieldControl = ({
@@ -142,7 +142,7 @@ const getFieldControl = ({
 
         case golf.classes.GamePlayingHandicap : {
                 
-            return <EditPlayingHandicap key={ idx }
+            return <PlayingHandicapDetail key={ idx }
                 handicap={ data.value }
                 onChange={ onChange(data) }/>
         }
