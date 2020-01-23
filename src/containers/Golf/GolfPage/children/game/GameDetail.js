@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-import moment from 'moment';
-
+import { format } from 'date-fns'
 import golf from '@utils/golf-namespace';
 import gameShape from '@contexts/game-shape.json';
 import displayStates from '@utils/displayStates';
@@ -26,8 +25,8 @@ const getDisplayField = (data, handlers, idx) => {
     switch (data.type) {
         
         case golf.types.dateTime : {
-            
-            const value = data.value instanceof Date ? moment(data.value).format('DD-mm-YY hh:mm') : ''
+
+            const value = data.value instanceof Date ? format(new Date(data.value), 'dd-MM-yy HH:mm') : ''
 
             return (
                 <FlexContainer key={ idx }>

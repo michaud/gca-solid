@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
-import { useNotification } from '@inrupt/solid-react-components';
+import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
+import { Redirect } from 'react-router-dom';
+import { useNotification } from '@inrupt/solid-react-components';
 import useGames from '@hooks/useGames';
 import ModuleHeader from '../ModuleHeader';
 import { errorToaster } from '@utils/';
 import { PageContainer } from '@styles/page.style';
 import GameForm from '@containers/Golf/GolfPage/children/game/GameForm';
 import GameList from '@containers/Golf/GolfPage/children/game/GameList';
-import Button from '@material-ui/core/Button';
+import { withClubTypeContext } from '@utils/clubTypeContext';
 import formStyles from '@styles/form.style';
-import { Redirect } from 'react-router-dom';
 import golf from '@utils/golf-namespace';
 import saveResource from '@services/saveResource';
 
@@ -18,7 +19,6 @@ import {
     FlexContainer,
     FlexItem,
 } from '@styles/layout.style';
-import { withClubTypeContext } from '@utils/clubTypeContext';
 
 const ManageGames = ({
     match,
@@ -33,12 +33,12 @@ const ManageGames = ({
     const gameData = useGames(clubTypes, clubType, reload);
     const [currentGame, setCurrentGame] = useState();
     const [games, setGames] = useState([]);
-    const [showNewGame, setShowNewGame] = useState(false);
+    const [showGameForm, setShowGameForm] = useState(false);
     const [playGame, setPlayGame] = useState();
 
     const { t } = useTranslation();
 
-    const toggleShowNewGame = () => setShowNewGame(state => !state);
+    const toggleShowGameForm = () => setShowGameForm(state => !state);
 
     const onSaveGameHandler = (game) => {
 
@@ -52,7 +52,7 @@ const ManageGames = ({
 
     const onCancelHandler = () => {
 
-        setShowNewGame(false);
+        setShowGameForm(false);
     };
 
     const onDeleteGameHandler = (game) => {
@@ -116,21 +116,23 @@ const ManageGames = ({
         <>
             <ModuleHeader label="Games" screenheader={ true }/>
             <PageContainer>
-                { showNewGame && <GameForm
-                    game={ currentGame }
-                    onSave={ onSaveGameHandler }
-                    onCancel={ onCancelHandler }/>
+                {
+                    showGameForm && <div className="c-box c-box--hold-height">
+                        <GameForm
+                            game={ currentGame }
+                            onSave={ onSaveGameHandler }
+                            onCancel={ onCancelHandler }/>
+                    </div>
                 }
-                { !showNewGame && <FlexContainer>
-                        <FlexItem>
-                            <Button
-                                variant="contained"
-                                onClick={ toggleShowNewGame }
-                                className={ classes.button }
-                                fullWidth={ true }
-                                color="primary">New game</Button>
-                        </FlexItem>
-                    </FlexContainer>
+                {
+                    !showGameForm && <div className="c-box">
+                        <Button
+                            variant="contained"
+                            onClick={ toggleShowGameForm }
+                            className={ classes.button }
+                            fullWidth={ true }
+                            color="primary">New game</Button>
+                    </div>
                 }
                 <GameList
                     games={ games }

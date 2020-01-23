@@ -23,7 +23,7 @@ const hasValue = item => {
 };
 
 const test = state => entry => {
-
+    
     const field = state[entry.predicate];
     const entryNeedsValue = field.hasOwnProperty('required') ? field.required : true;
 

@@ -2,7 +2,7 @@ import strokeShape from '@contexts/stroke-shape';
 import geocoordinatesShape from '@contexts/geocoordinates-shape';
 import setupDataObject from './setupDataObject';
 import update from 'immutability-helper';
-import moment from 'moment';
+import { format } from 'date-fns'
 
 const createStroke = (club, coords) => {
 
@@ -16,7 +16,7 @@ const createStroke = (club, coords) => {
     const stroke = update(newStroke, {
         strokeClub: { value: { $set : club } },
         strokeLocation: { value: { $set : location } },
-        strokeDate: { value: { $set : moment(Date.now()).format('DD-mm-YY hh:mm:ss') } }
+        strokeDate: { value: { $set : format(new Date(Date.now()), 'dd-MM-yy HH:mm:ss') } }
     });
 
     return stroke;

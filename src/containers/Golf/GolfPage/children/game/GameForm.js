@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import Button from '@material-ui/core/Button';
 import update from 'immutability-helper';
+import { format } from 'date-fns'
 import formStyles from '@styles/form.style';
 import gameShape from '@contexts/game-shape.json';
 import playingHandicapShape from '@contexts/playing-handicap-shape.json';
@@ -14,17 +15,16 @@ import useClubs from '@hooks/useClubs';
 import useCourses from '@hooks/useCourses';
 import useMarkers from '@hooks/useMarkers';
 import usePlayer from '@hooks/usePlayer';
-import { format } from 'date-fns'
 import { putClubsInBag } from '@utils/putClubsInBag';
 import saveResource from '@services/saveResource';
 import golf from '@utils/golf-namespace';
+import { withClubTypeContext } from '@utils/clubTypeContext';
 
 import {
     FlexContainer,
     FlexItem,
     FlexItemRight,
 } from '@styles/layout.style';
-import { withClubTypeContext } from '@utils/clubTypeContext';
 
 const GameForm = ({
     clubTypes,
@@ -82,14 +82,28 @@ const GameForm = ({
 
         let value = getFieldValue(fieldDef, args);
 
-        if(fieldDef.predicate === 'gameCourse' || fieldDef.predicate === 'gameDate') {
+        setGameState(state => {
+            
+            let newState = update(state, {
+                [fieldDef.predicate]: { value: { $set: value }}
+            });
 
-            value = `${ value.courseName.value } ${ format(new Date(gameState.gameDate.value), 'dd-mm-yy hh:mm' ) }`
-        }
+            if(
+                fieldDef.predicate === 'gameCourse' ||
+                fieldDef.predicate === 'gameDate'
+            ) {
 
-        setGameState(state => update(state, {
-            [fieldDef.predicate]: { value: { $set: value } }
-        }));
+                value = `${
+                    value.courseName.value
+                } ${
+                    format(new Date(gameState.gameDate.value), 'dd-MM-yy HH:mm') 
+                }`;
+
+                newState = update(newState, { gameName: { value: { $set: value }}});
+            }
+            
+            return newState;
+        });
     };
 
     useEffect(() => {
