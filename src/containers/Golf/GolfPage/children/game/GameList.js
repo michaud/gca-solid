@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 
 import GameDetail from './GameDetail';
 import GameSummary from './GameSummary';
@@ -10,7 +10,7 @@ const GameList = ({
     onPlay
 }) => {
 
-    const [showDetail, setShowDetail] = useState(true);
+    const [showDetail, setShowDetail] = useState(false);
 
     const onSaveGameHandler = (game) => {
 
@@ -24,23 +24,26 @@ const GameList = ({
 
     const onPlayGameHandler = iri => onPlay(iri);
     
-    const onShowDetailHandler = iri => setShowDetail(state => iri === state ? undefined : !state);
+    const onShowDetailHandler = iri => {
+        console.log('iri: ', iri);
+        
+        setShowDetail(state => iri === state ? undefined : iri);
+    };
 
     return (
         <div>
-            <header className="c-header">Game list</header>
             {
-                games && games.length > 0 && games.map((game, index) => <Fragment key={ index }>
+                games && games.length > 0 && games.map((game, index) => <div className="game-container" key={ index }>
                     <GameSummary
                         game={ game }
                         onPlay={ onPlayGameHandler }
                         onShowDetail={ onShowDetailHandler }/>
-                    { showDetail && <GameDetail
+                    { showDetail && showDetail === game.iri && <GameDetail
                         onSave={ onSaveGameHandler }
                         onDelete={ onDeleteGameHandler }
                         game={ game } />
                     }
-                </Fragment>)
+                </div>)
             }
         </div>
     );

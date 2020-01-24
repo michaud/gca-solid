@@ -16,3 +16,25 @@
     }
 
 }
+
+.game-container {
+    position: relative;
+    padding: 1rem;
+    margin: 0 -1rem 1rem;
+    background-color: rgb(242, 235, 207);
+    border-radius: 4px;
+    box-shadow: 1px 2px 5px hsla(48, 29%, 43%, .4);
+    min-height: 6.75rem;
+}
+
+.game-container__header {
+    margin-top: 0;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0;
+    color: rgba(0,0,0,.9);
+}
+
+.summary-container {
+    position: relative;
+}

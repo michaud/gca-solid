@@ -12,12 +12,9 @@ import EditActions from '@containers/Golf/components/EditActions';
 import PlayerDetail from '../player/PlayerDetail';
 import PlayingHandicapDetail from './PlayingHandicapDetail';
 import {
-    FieldContainer,
     FlexContainer,
-    FlexItemData,
     FlexItemLabel,
     FlexItemValue,
-    FlexItemTools
 } from '@styles/layout.style';
 
 const getDisplayField = (data, handlers, idx) => {
@@ -48,8 +45,9 @@ const getDisplayField = (data, handlers, idx) => {
         case golf.classes.Course : {
 
             return (
-                <CourseDetail key={ idx }
-                    course={ data.value }/>
+                <div className="u-pad--coppertop"  key={ idx }>
+                    <CourseDetail course={ data.value }/>
+                </div>
             );
         }
 
@@ -155,19 +153,11 @@ const GameDetail = ({
     });
 
     return (
-        <>
-        <header className="c-header">Game</header>
-        <FieldContainer>
-            <FlexContainer>
-                <FlexItemData>
-                    { displayFields }
-                </FlexItemData>
-                <FlexItemTools>
-                    <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
-                </FlexItemTools>
-            </FlexContainer>
-        </FieldContainer>
-        </>
+        <div>
+            {/* <header className="c-header">{ game.gameName.value }</header> */}
+            { displayFields }
+            <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
+        </div>
     );
 };
 

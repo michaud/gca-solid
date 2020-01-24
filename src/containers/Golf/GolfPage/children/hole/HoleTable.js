@@ -23,7 +23,7 @@ const HoleTable = ({
 
     return (
         <div>
-            <header className="c-header">holes</header>
+            <label className="f-label--plain">holes</label>
             <table className={ holes.length > 8 ? 'hole-table u-wide' : 'hole-table' }>
                 <tbody>
                     <tr>

@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 
 import Button from '@material-ui/core/Button';
 import formStyles from '@styles/form.style';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLesIcon from '@material-ui/icons/ExpandLess';
+
 import {
     FlexContainer,
     FlexItem,
-    FlexItemRight
+    FlexItemTools
 } from '@styles/layout.style';
+import { IconButton } from '@material-ui/core';
 
 const GameSummary = ({
     game,
@@ -37,25 +41,29 @@ const GameSummary = ({
     };
 
     return (
-        <div className="c-box">
-            <h2 className="h-plain">{ title }</h2>
-            <div className="c-box">{ holeCount }, { marker }</div>
+        <div className={ showDetail ? 'summary-container u-pad--bum' : 'summary-container' }>
             <FlexContainer>
                 <FlexItem>
-                <Button
-                variant="contained"
-                onClick={ playGameHandler(game.iri) }
-                className={ classes.button }
-                color="primary">Play game</Button>
+                    <h2 className="game-container__header">{ title }</h2>
+                    <div className="c-box">{ holeCount }, { marker }</div>
                 </FlexItem>
-                <FlexItemRight>
-                { onShowDetail && <Button
+                <FlexItemTools>
+                    <Button
                     variant="contained"
-                    onClick={ onShowDetailHandler(gameId) }
+                    onClick={ playGameHandler(game.iri) }
                     className={ classes.button }
-                    color="primary">{ !showDetail ? 'Show detail' : 'cancel' }</Button>
-                }
-                </FlexItemRight>
+                    color="primary">Play</Button>
+
+                    { onShowDetail && <IconButton
+                        color="primary"
+                        aria-label="expand"
+                        component="div"
+                        className={ classes.expandButton }
+                        onClick={ onShowDetailHandler(gameId) }>
+                        { !showDetail ? <ExpandMoreIcon fontSize="large"/> : <ExpandLesIcon  fontSize="large"/> }
+                    </IconButton>
+                    }
+                </FlexItemTools>
             </FlexContainer>
         </div>
     );

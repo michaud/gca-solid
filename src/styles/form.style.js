@@ -78,6 +78,11 @@ const formStyles = makeStyles(theme => ({
             }
         }
     },
+    expandButton: {
+        position: 'absolute',
+        right: '0.325rem',
+        bottom: '-1.25rem'
+    },
     toolButton: {
         minWidth: '3rem',
         height: '5rem',

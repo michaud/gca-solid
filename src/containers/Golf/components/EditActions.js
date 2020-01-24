@@ -9,7 +9,7 @@ const EditActions = ({ onEdit, onDelete }) => {
     const showDelete = onDelete !== undefined;
 
     return (
-        <>
+        <div>
             <IconButton
                 aria-label="edit"
                 onClick={ onEdit }>
@@ -22,7 +22,7 @@ const EditActions = ({ onEdit, onDelete }) => {
                     <DeleteIcon />
                 </IconButton>
             }
-        </>
+        </div>
     );
 }
 

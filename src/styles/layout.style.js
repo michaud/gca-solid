@@ -5,6 +5,7 @@ export const FlexContainer = styled.div`
     align-items: ${props => props.center ? "center" : props.alignitems ? props.alignitems : "flex-start"};
     flex-direction: ${props => props.vertical ? "column" : "row"};
     flex: ${props => props.flex ? props.flex : "0"};
+    margin: 0 0 .25rem 0;
 `;
 
 export const HoleNavigatorContainer =  styled(FlexContainer)`
@@ -20,7 +21,7 @@ export const HoleNavigatorContainer =  styled(FlexContainer)`
 
 
 export const FieldContainer = styled.div`
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 `;
 
 export const FlexItem = styled.div`
