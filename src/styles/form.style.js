@@ -3,6 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 const formStyles = makeStyles(theme => ({
     textField: {
         width: '100%',
+        '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'rgb(80, 166, 0)'
+        },
+        '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'rgba(210, 199, 157)'
+        },
         '&.MuiFormControl-root': {
             margin: '0 0 1.5rem 0'
         },
@@ -72,10 +78,40 @@ const formStyles = makeStyles(theme => ({
             }
         }
     },
-    selectorList: {
+    expandButton: {
+        position: 'absolute',
+        right: '0.325rem',
+        bottom: '-1.25rem'
+    },
+    toolButton: {
+        minWidth: '3rem',
         height: '5rem',
+        background: 'linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%)',
+        color: 'rgba(255, 255, 255, 0.9)',
+        '& .MuiButton-root': {
+            minWidth: '3rem',
+            minHeight: '5rem'
+        },
+        '& .MuiTouchRipple-root': {
+            minWidth: '3rem',
+            minHeight: '5rem'
+        },
+        '& .MuiButton-label': {
+            color: 'white'
+        },
+        '&:disabled': {
+            opacity: 1,
+            '& .MuiButton-label': {
+                color: 'rgba(0,0,0,.5)'
+            }
+        },
+        '& .MuiSvgIcon-root': {
+            width: '1.25em',
+            height: '1.7rem'
+        }
+    },
+    selectorList: {
         flexGrow: 1,
-
         minHeight: '10rem',
         '&.MuiList-padding': {
             paddingTop: 0,
@@ -94,6 +130,15 @@ const formStyles = makeStyles(theme => ({
     },
     listItemText: {
         margin: '.125rem 0'
+    },
+    listContainer: {
+        overflowY: 'scroll',
+        height: 230,
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0
     }
 }));
 

@@ -1,0 +1,17 @@
+.hole-history {
+    padding: .5rem .5rem 0 .5rem;
+    min-height: 2.5rem;
+    position: relative;
+    background: linear-gradient(3deg,rgb(245,240,214) 0%,rgb(245,240,214) 25%,rgb(245,240,214) 75%, rgb(218, 208, 169) 100%);
+
+    &:before {
+        position: absolute;
+        z-index: 0;
+        content: "strokes";
+        font-weight: bold;
+        font-size: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: .15;
+    }
+}

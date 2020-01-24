@@ -2,12 +2,11 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import { StylesProvider } from '@material-ui/core/styles';
-import useClubDefinitions from '@hooks/useClubDefinitions';
 
-import ClubTypeContext from '@utils/clubTypeContext';
-import ManageBag from '@containers/Golf/GolfPage/children/bag/ManageBag';
 import GolfApp from '@containers/Golf/GolfPage/children/GolfApp';
-
+import PlayGame from '@containers/Golf/GolfPage/children/playGame/PlayGame';
+import ClubTypeContext from '@utils/clubTypeContext';
+import useClubDefinitions from '@hooks/useClubDefinitions';
 
 const GolfPage = ({ match, webId, history }) => {
     
@@ -18,19 +17,11 @@ const GolfPage = ({ match, webId, history }) => {
             <ClubTypeContext.Provider value={ clubTypeDefs }>
                 <Route>
                     <Switch>
+                        <Route path="/golf/game/:gameid" render={ routerProps => <PlayGame { ...routerProps } webId={ webId } /> }/>
                         <Route
                             path="/golf"
                             webId={ webId }
                             render={routerProps => <GolfApp { ...routerProps } webId={ webId } />}/>
-                        {/* <Route
-                            exact path="/golf"
-                            webId={ webId }
-                            render={routerProps => <AddClubs {...routerProps} webId={webId} />}/> */}
-
-                        <Route exact path="/golf/settings" render={routerProps => <ManageBag {...routerProps} webId={webId} />} />
-                        <Route path="/golf/game/:gameid" render={routerProps => <ManageBag {...routerProps} webId={webId} />} />
-                        {/* <Route path="/settings" component={ AppContainer } /> */}
-                        {/* <Route path="/game/:gameid" component={ GameNavigatorContainer } /> */}
                     </Switch>
                 </Route>
             </ClubTypeContext.Provider>

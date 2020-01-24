@@ -9,11 +9,11 @@ import DateTimeSelector from '@containers/Golf/GolfPage/children/game/DateTimeSe
 import BagDetail from '@containers/Golf/GolfPage/children/game/BagDetail';
 import PlayerUpdate from '@containers/Golf/GolfPage/children/game/PlayerUpdate';
 import SelectMarker from '@containers/Golf/GolfPage/children/game/SelectMarker';
-import EditPlayingHandicap from '@containers/Golf/GolfPage/children/game/EditPlayingHandicap';
+import PlayingHandicapDetail from '@containers/Golf/GolfPage/children/game/PlayingHandicapDetail';
 import SelectCourse from '@containers/Golf/GolfPage/children/game/SelectCourse';
 
 const getFieldControl = ({
-    field,
+    data,
     label,
     styles,
     onChange,
@@ -21,21 +21,21 @@ const getFieldControl = ({
     onSaveEdit,
     inputRef,
     idx,
-    data
+    dataSource
 }) => {
 
-    const required = field.hasOwnProperty('required') ? field.required : true;
+    const required = data.hasOwnProperty('required') ? data.required : true;
 
-    switch(field.fieldType) {
+    switch(data.type) {
 
         case golf.types.string : {
 
             return <TextField key={ idx }
                 required={ required }
-                label={ field.field.label }
+                label={ data.label }
                 className={ styles.textField }
-                value={ field.field.value }
-                onChange={ onChange(field) }
+                value={ data.value }
+                onChange={ onChange(data) }
                 variant="outlined"/>
         }
 
@@ -43,10 +43,10 @@ const getFieldControl = ({
 
             return <TextField key={ idx }
                 required={ required }
-                label={ field.field.label }
+                label={ data.label }
                 className={ styles.textField }
-                value={ field.field.value }
-                onChange={ onChange(field) }
+                value={ data.value }
+                onChange={ onChange(data) }
                 variant="outlined"/>
         }
 
@@ -55,59 +55,59 @@ const getFieldControl = ({
             return <TextField key={ idx }
                 required
                 type="number"
-                label={ field.field.label }
+                label={ data.label }
                 className={ styles.textField }
-                value={ field.field.value }
-                onChange={ onChange(field) }
+                value={ data.value }
+                onChange={ onChange(data) }
                 variant="outlined"/>
         }
 
         case golf.types.nonNegativeInteger : {
 
-            if(field.fieldName === 'holeStrokeIndex') {
+            if(data.predicate === 'holeStrokeIndex') {
 
                 return <TextField
                     key={ idx }
                     type="number"
                     required
-                    label={ field.field.label }
+                    label={ data.label }
                     className={ styles.textFieldNumber }
                     inputRef={ inputRef }
-                    value={ field.field.value }
-                    onChange={ onChange(field) }
+                    value={ data.value }
+                    onChange={ onChange(data) }
                     variant="outlined"/>
             }
 
             return <TextField key={ idx }
                 required={ required }
                 type="number"
-                label={ field.field.label }
+                label={ data.label }
                 className={ styles.textFieldNumber }
-                value={ field.field.value }
-                onChange={ onChange(field) }
+                value={ data.value }
+                onChange={ onChange(data) }
                 variant="outlined"/>
         }
 
         case golf.types.dateTime : {
 
             return <DateTimeSelector key={ idx }
-                onChange={ onChange(field) }/>
+                onChange={ onChange(data) }/>
         }
 
         case golf.classes.Player : {
 
             return <PlayerUpdate key={ idx }
                 onSave={ onSave }
-                player={ data.player }/>
+                player={ dataSource.player }/>
         }
 
         case golf.classes.Club: {
 
             return <ClubTypeSelector
                 key={ idx }
-                value={ field.field.value }
+                value={ data.value }
                 label={ label }
-                onChange={ onChange(field) }/>
+                onChange={ onChange(data) }/>
         }
 
         case golf.classes.Hole : {
@@ -116,40 +116,42 @@ const getFieldControl = ({
                 onSave={ onSave }
                 onSaveEdit={ onSaveEdit }
                 key={ idx }
-                holes={ field.field.value }/>
+                holes={ data.value }/>
         }
 
         case golf.classes.Course : {
 
             return <SelectCourse key={ idx }
-                courses={ data.courses }
-                onChange={ onChange(field) }/>
+                courses={ dataSource.courses }
+                onChange={ onChange(data) }/>
         }
 
         case golf.classes.Marker : {
 
             return <SelectMarker key={ idx }
-                markers={ data.markers }
+                markers={ dataSource.markers }
                 onSave={ onSave }
-                onChange={ onChange(field) }/>
+                onChange={ onChange(data) }/>
         }
             
         case golf.classes.Bag : {
-                
+
             return <BagDetail key={ idx }
-                bag={ field.field.value }/>
+                bag={ data.value }/>
         }
 
         case golf.classes.GamePlayingHandicap : {
                 
-            return <EditPlayingHandicap key={ idx }
-                handicap={ field.field.value }
-                onChange={ onChange(field) }/>
+            return <PlayingHandicapDetail key={ idx }
+                handicap={ data.value }
+                onChange={ onChange(data) }/>
         }
 
         default: {
-        
-            return <div key={ idx }>{ field.fieldType }</div>;
+
+            console.error('data:', data);
+
+            return null;
         }
     }
 };

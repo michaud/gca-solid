@@ -4,7 +4,6 @@ import { StylesProvider } from '@material-ui/core/styles';
 import { errorToaster } from '@utils';
 import { useNotification } from '@inrupt/solid-react-components';
 import useClubs from '@hooks/useClubs';
-import useClubDefinitions from '@hooks/useClubDefinitions';
 import useBagClubs from '@hooks/useBagClubs';
 import { useTranslation } from 'react-i18next';
 
@@ -12,21 +11,22 @@ import removeFromBag from '@services/removeFromBag';
 import addToBag from '@services/addToBag';
 import deleteClub from '@services/deleteClub';
 
-import ClubTypeContext from '@utils/clubTypeContext';
 import ClubForm from '@containers/Golf/GolfPage/children/club/ClubForm';
 import ClubList from '@containers/Golf/GolfPage/children/club/ClubList';
 import ModuleHeader from '@containers/Golf/GolfPage/children/ModuleHeader';
 import BagTransferList from '@containers/Golf/GolfPage/children/bag/BagTransferList';
 import { PageContainer } from '@styles/page.style';
-import saveClubToList from '@services/saveClubToList';
+import saveResource from '@services/saveResource';
+import golf from '@utils/golf-namespace';
+import { withClubTypeContext } from '@utils/clubTypeContext';
 
-const ManageBag = ({ match, webId, history }) => {
+const ManageBag = ({ match, webId, history, clubTypes, clubType }) => {
 
     const { notification } = useNotification(webId);
     const [reload, setReload] = useState(false);
-    const clubTypeDefinitions = useClubDefinitions();
-    const bagData = useBagClubs(clubTypeDefinitions, reload);
-    const clubListData = useClubs(clubTypeDefinitions, reload);
+
+    const bagData = useBagClubs(clubTypes, clubType, reload);
+    const clubListData = useClubs(clubTypes, clubType, reload);
     const [clubs, setClubs] = useState();
     const [bagClubs, setBagClubs] = useState();
     const { t } = useTranslation();
@@ -35,13 +35,21 @@ const ManageBag = ({ match, webId, history }) => {
 
         if (!clubListData) return;
 
-        await saveClubToList(club, clubListData.doc);
+        saveResource({
+            resource: club,
+            doc: clubListData.doc,
+            type: golf.classes.Club
+        });
         setReload(true);
     };
 
-    const saveClubHandler = club => {
+    const saveClubHandler = async (club) => {
         
-        saveClubToList(club, clubListData.doc);
+        saveResource({
+            resource: club,
+            doc: clubListData.doc,
+            type: golf.classes.Club
+        });
         setReload(true);
     };
 
@@ -105,23 +113,21 @@ const ManageBag = ({ match, webId, history }) => {
 
     return (
         <StylesProvider>
-            <ClubTypeContext.Provider value={ clubTypeDefinitions }>
-                <ModuleHeader label={ t('golf.whatsInTheBag') } screenheader={ true }/>
-                <PageContainer>
-                    <BagTransferList
-                        clubs={ clubs }
-                        bag={ bagClubs }
-                        onRemoveFromBag={ removeFromBagHandler }
-                        onAddToBag={ addToBagHandler }/>
-                    <ClubForm onSave={ addClubHandler } />
-                    {clubs && <ClubList
-                        onSave={ saveClubHandler }
-                        onDelete={ deleteClubHandler }
-                        clubs={ clubs } />}
-                </PageContainer>
-            </ClubTypeContext.Provider>
+            <ModuleHeader label={ t('golf.whatsInTheBag') } screenheader={ true }/>
+            <PageContainer>
+                <BagTransferList
+                    clubs={ clubs }
+                    bag={ bagClubs }
+                    onRemoveFromBag={ removeFromBagHandler }
+                    onAddToBag={ addToBagHandler }/>
+                <ClubForm onSave={ addClubHandler } />
+                {clubs && <ClubList
+                    onSave={ saveClubHandler }
+                    onDelete={ deleteClubHandler }
+                    clubs={ clubs } />}
+            </PageContainer>
         </StylesProvider>
     );
 };
 
-export default ManageBag;
+export default withClubTypeContext(ManageBag);

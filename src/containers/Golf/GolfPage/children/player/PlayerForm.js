@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 import Button from '@material-ui/core/Button';
+import update from 'immutability-helper';
 import formStyles from '@styles/form.style';
 import getFieldValue from '@utils/getFieldValue';
 import checkCanSave from '@utils/checkCanSave';
 import getFieldControl from '@utils/getFieldControl';
+import playerShape from '@contexts/player-shape';
 
 import {
     FlexContainer,
@@ -32,23 +34,9 @@ const PlayerForm = ({
 
         const value = getFieldValue(fieldDef, args);
 
-        const fields = {
-            ...playerState.fields,
-            [fieldDef.fieldName]: {
-                ...playerState.fields[fieldDef.fieldName],
-                field: {
-                    ...playerState.fields[fieldDef.fieldName].field,
-                    value
-                }
-            }
-        };
-        
-        const data = {
-            ...playerState,
-            fields
-        };
-
-        setPlayerState(data);
+        setPlayerState(state => update(state, {
+            [fieldDef.predicate]: { value: { $set: value } }
+        }));
     };
 
     useEffect(() => {
@@ -66,44 +54,46 @@ const PlayerForm = ({
 
     if(playerState) {
         
-        for (const field in playerState.fields) {
+        playerShape.shape.forEach(field => {
 
             const fieldControl = getFieldControl({
-                field: playerState.fields[field],
+                data: playerState[field.predicate],
                 styles: classes,
                 onChange: onChangeField,
                 idx: index++
             });
 
             playerFields.push(fieldControl);
-        }
+        });
     }
 
-    const canSave = checkCanSave(playerState);
+    const canSave = checkCanSave(playerState, playerShape);
 
-    return <div>
-        <header className="c-header">{ title }</header>
-        { playerFields }
-        <FlexContainer>
-            <FlexItem>
-                <Button
+    return (
+        <div>
+            <header className="c-header">{ title }</header>
+            { playerFields }
+            <FlexContainer>
+                <FlexItem>
+                    <Button
+                        variant="contained"
+                        disabled={ !canSave }
+                        onClick={ saveHandler }
+                        className={ classes.button }
+                        color="primary">{ actionLabel }</Button>
+                </FlexItem>
+                <FlexItemRight>
+                { onCancel && <Button
                     variant="contained"
                     disabled={ !canSave }
-                    onClick={ saveHandler }
+                    onClick={ onCancel }
                     className={ classes.button }
-                    color="primary">{ actionLabel }</Button>
-            </FlexItem>
-            <FlexItemRight>
-            { onCancel && <Button
-                variant="contained"
-                disabled={ !canSave }
-                onClick={ onCancel }
-                className={ classes.button }
-                color="primary">Cancel</Button>
-            }
-            </FlexItemRight>
-        </FlexContainer>
-    </div>
+                    color="primary">Cancel</Button>
+                }
+                </FlexItemRight>
+            </FlexContainer>
+        </div>
+    );
 }
 
 export default PlayerForm;

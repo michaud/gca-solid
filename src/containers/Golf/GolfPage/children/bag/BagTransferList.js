@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { withClubTypeContext } from '@utils/clubTypeContext';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import bagTransferListStyles from './bagTransferList.style';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -11,54 +10,17 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import { FormControlLabel, Switch } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        flexGrow: 1,
-        marginBottom: '2rem',
-        minHeight: '18rem'
-    },
-    list: {
-    },
-    gridItem: {
-        flexGrow: 1,
-        position: 'relative'
-    },
-    gridItemTool: {
-        flexGrow: 0,
-        padding: '4.5rem .5rem 0 .5rem'
-    },
-    paper: {
-        overflowY: 'scroll',
-        height: 230,
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: '3rem',
-        bottom: 0
-    },
-    button: {
-        margin: theme.spacing(0.5, 0),
-    },
-    listItem: {
-        paddingLeft: '.5rem',
-        paddingRight: '.5rem'
-    },
-    listItemIcon: {
-        minWidth: '2.5rem'
-    },
-    listItemText: {
-        margin: '.125rem 0'
-    }
-}));
+const not = (a, b) => a.filter(value => b.indexOf(value) === -1);
+const intersection = (a, b) => a.filter(value => b.indexOf(value) !== -1);
 
-function not(a, b) {
-    return a.filter(value => b.indexOf(value) === -1);
-}
-
-function intersection(a, b) {
-    return a.filter(value => b.indexOf(value) !== -1);
-}
+const checkDisabled = (left, leftChecked, right, rightChecked) => ({
+    canAllRight: left.length < 15 && right.length + left.length < 15,
+    canAllLeft: right.length > 0,
+    canSomeRight: leftChecked.length > 0 && leftChecked.length + right.length < 15,
+    canSomeLeft: rightChecked.length > 0
+});
 
 const BagTransferList = ({
     clubs,
@@ -71,8 +33,8 @@ const BagTransferList = ({
     const [checked, setChecked] = useState([]);
     const [left, setLeft] = useState([]);
     const [right, setRight] = useState([]);
-    const classes = useStyles();
-
+    const [autoSort, setAutoSort] = useState(true);
+    const classes = bagTransferListStyles();
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
 
@@ -90,47 +52,80 @@ const BagTransferList = ({
         setChecked(newChecked);
     };
 
+    const autoSortChangeHandler = () => setAutoSort(state => !state);
+
+    const sortClubOnType = (a ,b) => {
+        
+        const indexOfa = clubTypes.findIndex(el => el.iri === a.clubType.value.iri);
+        const indexOfb = clubTypes.findIndex(el => el.iri === b.clubType.value.iri);
+
+        return indexOfa - indexOfb;
+    };
+
     const handleAllRight = () => {
-        setRight(right.concat(left));
+        
+        const newRight = right.concat(left);
+        const sortedRight = newRight.sort(sortClubOnType);
+
+        setRight(sortedRight);
         setLeft([]);
         onAddToBag(left);
     };
 
     const handleCheckedRight = () => {
-        setRight(right.concat(leftChecked));
-        setLeft(not(left, leftChecked));
-        setChecked(not(checked, leftChecked));
-        
+
         onAddToBag(leftChecked);
+        const newLeft = not(left, leftChecked);
+        const sortedLeft = newLeft.sort(sortClubOnType);
+        setLeft(sortedLeft);
+
+        const newRight = right.concat(leftChecked);
+        const sortedRight = newRight.sort(sortClubOnType);
+        setRight(sortedRight);
+
+        onAddToBag(leftChecked);
+
+        setChecked(not(checked, leftChecked));
     };
 
     const handleCheckedLeft = () => {
-        setLeft(left.concat(rightChecked));
-        setRight(not(right, rightChecked));
-        setChecked(not(checked, rightChecked));
+
+        const newLeft = left.concat(rightChecked);
+        const sortedLeft = newLeft.sort(sortClubOnType);
+        setLeft(sortedLeft);
+
+        const newRight = not(right, rightChecked);
+        const sortedRight = newRight.sort(sortClubOnType);
+        setRight(sortedRight);
+
         onRemoveFromBag(rightChecked)
+
+        setChecked(not(checked, rightChecked));
     };
 
     const handleAllLeft = () => {
         setLeft(left.concat(right));
         setRight([]);
-        onRemoveFromBag(right)
+        onRemoveFromBag(right);
     };
 
     const customList = items => (
         <Paper className={ classes.paper }>
-            <List dense component="div" className={ classes.list } role="list">
+            <List dense component="div" role="list">
             {
                 items.map((item, index) => {
 
-                    const clubType = item.fields.clubType.field.value;
-                    const brand = item.fields.clubBrand.field.value;
-                    const name = item.fields.clubName.field.value;
+                    const clubType = item.clubType.value;
+                    const brand = item.clubBrand.value;
+                    const name = item.clubName.value;
                     const label = clubTypes.find(type => type.iri === clubType.iri).label;
                     const labelId = `transfer-list-item-${index}-label`;
 
                     return (
-                        <ListItem key={ index } className={ classes.listItem } role="listitem" button onClick={handleToggle(item)}>
+                        <ListItem key={ index }
+                            className={ classes.listItem }
+                            role="listitem"
+                            button onClick={ handleToggle(item) }>
                             <ListItemIcon className={ classes.listItemIcon }>
                                 <Checkbox
                                     checked={checked.indexOf(item) !== -1}
@@ -141,7 +136,7 @@ const BagTransferList = ({
                                 />
                             </ListItemIcon>
                             <ListItemText
-                                id={labelId}
+                                id={ labelId }
                                 className={ classes.listItemText }
                                 primary={ label }
                                 secondary={ `${ brand } ${ name }` } />
@@ -177,54 +172,89 @@ const BagTransferList = ({
 
             }, { bag:[], clubs: []})
 
-            setLeft(filteredClubs.clubs);
-            setRight(filteredClubs.bag);
+            const sortedClubs = filteredClubs.clubs.sort(sortClubOnType);
+            const sortedBag = filteredClubs.bag.sort(sortClubOnType);
+         
+            setLeft(sortedClubs);
+            setRight(sortedBag);
         }
     }, [clubs, bag]);
 
+    const getClubCountString = (testClubs) => {
+
+        if(
+            testClubs &&
+            testClubs.length === 1
+        ) return '1 club';
+
+        if(
+            testClubs &&
+            testClubs.length > 1
+        ) return `${ testClubs.length } clubs`;
+
+        return '';
+    };
+
+    const clubCountString = getClubCountString(right);
+
+    const disabled = checkDisabled(left, leftChecked, right, rightChecked);
+
     return (
-        <Grid container spacing={2} className={ classes.root }>
-            <Grid item className={ classes.gridItem }>
+        <div className={ classes.grid }>
+            <div className={ classes.gridLeftHeader }>
                 <header className="c-header">Clubs</header>
-                {customList(left)}
-            </Grid>
-            <Grid item>
-                <Grid container className={ classes.gridItemTool } direction="column" justify="center" alignItems="center">
+            </div>
+            <div className={ classes.gridRightHeader }>
+                <header className="c-header">Bag: { clubCountString }</header>
+            </div>
+            <div className={ classes.gridLeft }>{ customList(left) }</div>
+            <div className={ classes.gridRight }>
+                { customList(right) }
+            </div>
+            <div className={ classes.gridMid }>
+                <div>
                     <Button
                         variant="outlined"
                         size="small"
-                        className={classes.button}
-                        onClick={handleAllRight}
-                        disabled={left.length === 0}
+                        className={ classes.button }
+                        onClick={ handleAllRight }
+                        disabled={ !disabled.canAllRight }
                         aria-label="move all right">&gt;&gt;</Button>
                     <Button
                         variant="outlined"
                         size="small"
-                        className={classes.button}
-                        onClick={handleCheckedRight}
-                        disabled={leftChecked.length === 0}
+                        className={ classes.button }
+                        onClick={ handleCheckedRight }
+                        disabled={ !disabled.canSomeRight }
                         aria-label="move selected right">&gt;</Button>
                     <Button
                         variant="outlined"
                         size="small"
-                        className={classes.button}
-                        onClick={handleCheckedLeft}
-                        disabled={rightChecked.length === 0}
+                        className={ classes.button }
+                        onClick={ handleCheckedLeft }
+                        disabled={ !disabled.canSomeLeft }
                         aria-label="move selected left">&lt;</Button>
                     <Button
                         variant="outlined"
                         size="small"
-                        className={classes.button}
-                        onClick={handleAllLeft}
-                        disabled={right.length === 0}
+                        className={ classes.button }
+                        onClick={ handleAllLeft }
+                        disabled={ !disabled.canAllLeft }
                         aria-label="move all left">&lt;&lt;</Button>
-                </Grid>
-            </Grid>
-            <Grid item className={ classes.gridItem }>
-                <header className="c-header">Bag</header>
-                {customList(right)}
-            </Grid>
-        </Grid>
+                </div>
+            </div>
+            <div className={ classes.gridRightBottom }>
+                <FormControlLabel
+                    control={
+                        <Switch
+                            color="primary"
+                            checked={ autoSort }
+                            onChange={ autoSortChangeHandler }
+                            value="autoSort"/>
+                    }
+                    label="auto sort"/>
+            </div>
+        </div>
     );
 };
 

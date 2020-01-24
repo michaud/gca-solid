@@ -7,8 +7,8 @@ class SplashScreen extends Component {
 
     render () {
 
-        return <NavLink className="splash" to={{ pathname: 'settings', state: slide }}>
-            <svg className="splash-graph" viewBox="0 0 1600 1000" width="1600" height="1000">
+        return <NavLink className="splash" to={{ pathname: '/golf/settings', state: slide }}>
+            <svg className="splash-graph" viewBox="0 0 1600 1000">
                 <defs>
                     <filter id="shadow">
                         <feDropShadow dx="0" dy="5" floodColor="#1e3e00" floodOpacity=".7" stdDeviation="12"/>

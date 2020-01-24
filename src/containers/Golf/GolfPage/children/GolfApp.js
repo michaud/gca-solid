@@ -8,12 +8,6 @@ import ManageCourses from '@containers/Golf/GolfPage/children/course/ManageCours
 import ManagePlayers from '@containers/Golf/GolfPage/children/player/ManagePlayers';
 import ManageGames from './game/ManageGames';
 
-// import EditBagComponent from 'components/bag/EditBagComponent';
-// import AddCourseComponent from 'components/course/AddCourseComponent';
-// import GameListContainer from 'components/game/GameListContainer';
-// import PlayersComponent from 'components/player/PlayersComponent';
-// import NewGameContainer from 'components/game/edit/NewGameContainer';
-
 const GolfApp = ({ webId }) => {
 
     return <div id="app-container">

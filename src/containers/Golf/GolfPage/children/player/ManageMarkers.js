@@ -7,10 +7,10 @@ import getPlayer from '@services/getPlayer';
 import golf from '@utils/golf-namespace';
 import MarkerList from './MarkerList';
 import PlayerDetail from './PlayerDetail';
-import saveMarker from '@services/saveMarker';
 import { useNotification } from '@inrupt/solid-react-components';
 import { errorToaster } from '@utils/';
 import deleteMarker from '@services/deleteMarker';
+import saveResource from '@services/saveResource';
 
 const ManageMarkers = ({
     webId
@@ -24,7 +24,11 @@ const ManageMarkers = ({
 
     const onSaveMarker = (marker) => {
 
-        saveMarker(marker, markerData.doc);
+        saveResource({
+            resource: marker,
+            doc: markerData.doc,
+            type: golf.classes.Marker
+        });
         setReload(true);
     };
 
@@ -71,18 +75,20 @@ const ManageMarkers = ({
 
     const marker = getPlayer(undefined, golf.classes.Marker);
 
-    return <>
-        <header className="c-header">Markers</header>
-        <PlayerDetail
-            target="marker"
-            player={ marker }
-            onDelete={ onDeleteMarker }
-            onSave={ onSaveMarker }/>
-        <MarkerList
-            markers={ markers }
-            onDelete={ onDeleteMarker }
-            onSaveMarker={ onSaveMarker }/>
-        </>;
+    return (
+        <>
+            <header className="c-header">Markers</header>
+            <PlayerDetail
+                target="marker"
+                player={ marker }
+                onDelete={ onDeleteMarker }
+                onSave={ onSaveMarker }/>
+            <MarkerList
+                markers={ markers }
+                onDelete={ onDeleteMarker }
+                onSaveMarker={ onSaveMarker }/>
+        </>
+    );
 };
 
 export default ManageMarkers;

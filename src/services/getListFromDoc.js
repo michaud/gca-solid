@@ -1,9 +1,18 @@
 import { namedNode } from '@rdfjs/data-model';//, literal, quad
 import * as ns from 'rdf-namespaces';
+import parseFields from '@utils/parseData/parseFields';
+import golf from '@utils/golf-namespace';
 
-import parseFields from '@utils/parseFields';
+const getListFromDoc = (doc,  type, shape, ...rest) => (gameId) => {
 
-const getListFromDoc = (doc, type, shape, ...rest) => {
+    if(gameId) {
+
+        const [clubTypes, clubType] = rest;
+
+        const gameRef = doc.getSubject(`https://michaud.inrupt.net/public/golf/data/games.ttl#${ gameId }`, golf.classes.Game);
+        const game = parseFields(shape, doc, clubTypes, clubType)(gameRef);
+        return [game];
+    }
 
     const list = doc
         .findSubjects(ns.rdf.type, namedNode(type))

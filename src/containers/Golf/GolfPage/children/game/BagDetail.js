@@ -1,7 +1,12 @@
 import React from 'react';
-import { FlexContainer, FlexItem, FlexItemRight } from '@styles/layout.style';
+
 import Button from '@material-ui/core/Button';
 import formStyles from '@styles/form.style';
+import {
+    FlexContainer,
+    FlexItem,
+    FlexItemRight
+} from '@styles/layout.style';
 
 const BagDetail = ({ bag }) => {
 
@@ -22,13 +27,19 @@ const BagDetail = ({ bag }) => {
         <div className="c-box">
             <header className="c-header--sec">Bag</header>
             <div className="c-box">
+            <ol className="plain-list bag-summary-list">
             {
-                bag && bag.clubs.reduce((acc, club, idx) => {
+                bag && bag.clubs.value.map((club, idx) => {
 
-                    const text = `${ acc }, ${ club.fields.clubName.field.value } ${ club.fields.clubType.field.value.label }`;
-                    return text
-                }, '')
+                    return <li key={ idx } className="bag-summary-list__club bag-summary-list__club--span">
+                        <button className="bag-summary-list__club__btn">
+                            <div className="club__name">{ club.clubBrand.value } { club.clubName.value }</div>
+                            <div className="club__type">{ club.clubType.value.label }</div>
+                        </button>
+                    </li>
+                })
             }
+            </ol>
             </div>
             <FlexContainer>
                 <FlexItem>

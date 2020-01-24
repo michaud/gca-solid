@@ -4,7 +4,13 @@
     border-collapse: collapse;
     margin-bottom: 1rem;
 
+    &:last-child {
+
+        margin-bottom: 0;
+    }
+
     td, th {
+
         padding: .35rem;
         width: 2.5rem;
         height: 2.5rem;
@@ -13,21 +19,26 @@
     }
 
     td {
+
         border: 1px solid green;
     }
 
 }
 
 .hole-table__header--button {
+
     border: none;
     border-radius: 3px;
     background: linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%);
     color: rgba(255, 255, 255, 0.9);
+
     &:hover {
+
         background: linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%);
     }
 
     &:active {
+
         background: linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%);
     }
 }

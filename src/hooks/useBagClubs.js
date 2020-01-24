@@ -5,7 +5,7 @@ import golf from '@utils/golf-namespace';
 import getBagClubs from '@services/getBagClubs';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import { rdf } from 'rdf-namespaces';
-import { fetchDocument } from 'tripledoc';
+import fetchResource from '@services/fetchResource';
 
 const setupBag = (document) => {
     const bag = document.addSubject();
@@ -13,7 +13,7 @@ const setupBag = (document) => {
     return document;
 };
 
-const useBagClubs = (clubTypeDefinitions, reload) => {
+const useBagClubs = (clubTypes, clubType, reload) => {
 
     const publicTypeIndex = usePublicTypeIndex();
     const [clubList, setClubList] = useState({ list: [], doc: undefined });
@@ -46,13 +46,16 @@ const useBagClubs = (clubTypeDefinitions, reload) => {
 
                 } else {
 
-                    const { clubTypes, clubType } = clubTypeDefinitions;
                     // If the public type index does list a clubList document, fetch it:
                     const url = clubListIndex.getRef(solid.instance);
 
                     if (typeof url !== 'string') return;
-                    const doc = await fetchDocument(url);
-                    const list = await getBagClubs(doc, clubType, clubTypes)
+                    const doc = await fetchResource(url);
+                    const list = await getBagClubs(
+                        doc,
+                        clubType,
+                        clubTypes
+                    );
 
                     setClubList({
                         list,

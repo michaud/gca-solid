@@ -11,23 +11,19 @@ const getClubDefinitions = async () => {
         .findSubjects(ns.rdfs.domain, namedNode(golf.classes.Club))
         .reduce((acc, quad) => {
 
-            const fieldName = quad.getLiteral(ns.rdfs.label);
-            const fieldType = quad.getRef(ns.rdfs.range);
+            const predicate = quad.getLiteral(ns.rdfs.label);
+            const type = quad.getRef(ns.rdfs.range);
             const iri = quad.asRef();
             const label = quad.getLiteral(golf.properties.fieldLabel);
 
-            let value = '';
+            const value = '';
 
-            if(fieldName === 'ownedBy') value = 'https://michaud.inrupt.net/profile/card#me';
-
-            acc[fieldName] = {
-                fieldType,
-                fieldName,
+            acc[predicate] = {
+                type,
+                predicate,
                 iri,
-                field: {
-                    label,
-                    value
-                }
+                label,
+                value
             };
 
             return acc;
@@ -37,13 +33,13 @@ const getClubDefinitions = async () => {
     const clubTypes = await golfVocabulary
         .findSubjects(ns.rdfs.subClassOf, namedNode(golf.classes.Club))
         .map(value => ({
-            fields: clubFields,
+            ...clubFields,
             label: value.getLiteral(golf.properties.fieldLabel),
             iri: value.asNodeRef()
         }));
 
     const clubType = {
-        fields: clubFields,
+        ...clubFields,
         label: '',
         iri: ''
     }

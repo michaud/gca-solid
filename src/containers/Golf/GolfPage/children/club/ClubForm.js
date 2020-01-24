@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import { withClubTypeContext } from '@utils/clubTypeContext';
-import Button from '@material-ui/core/Button';
-import formStyles from '@styles/form.style';
+import update from 'immutability-helper';
 import { useTranslation } from 'react-i18next';
+import Button from '@material-ui/core/Button';
+import { withClubTypeContext } from '@utils/clubTypeContext';
+import clubShape from '@contexts/club-shape.json';
+import formStyles from '@styles/form.style';
 import getFieldValue from '@utils/getFieldValue';
 import checkCanSave from '@utils/checkCanSave';
 import getFieldControl from '@utils/getFieldControl';
@@ -37,23 +39,9 @@ const ClubForm = ({
 
         const value = getFieldValue(fieldDef, [...args, clubTypes]);
 
-        const fields = {
-            ...clubState.fields,
-            [fieldDef.fieldName]: {
-                ...clubState.fields[fieldDef.fieldName],
-                field: {
-                    ...clubState.fields[fieldDef.fieldName].field,
-                    value
-                }
-            }
-        };
-        
-        const data = {
-            ...clubState,
-            fields
-        };
-
-        setClubState(data);
+        setClubState(state => update(state, {
+            [fieldDef.predicate]: { value: { $set: value } }
+        }));
     };
     
     useEffect(() => {
@@ -75,10 +63,10 @@ const ClubForm = ({
 
     if(clubState) {
         
-        for (const field in clubState.fields) {
+        clubShape.shape.forEach(field => {
 
             const fieldControl = getFieldControl({
-                field: clubState.fields[field],
+                data: clubState[field.predicate],
                 label: t('golf.selectClubType'),
                 styles: classes,
                 onChange: onChangeClubField,
@@ -86,10 +74,10 @@ const ClubForm = ({
             });
 
             if(field !== 'ownedBy') clubFields.push(fieldControl);
-        }
+        })
     }
 
-    const canSave = checkCanSave(clubState);
+    const canSave = checkCanSave(clubState, clubShape);
 
     return (
         <form noValidate autoComplete="off">
@@ -107,7 +95,6 @@ const ClubForm = ({
                 <FlexItemRight>
                 { onCancel && <Button
                     variant="contained"
-                    disabled={ !canSave }
                     onClick={ onCancel }
                     className={ classes.button }
                     color="primary">Cancel</Button>

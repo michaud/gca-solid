@@ -1,0 +1,39 @@
+{
+    "@context": {
+        "thing": "https://schema.org/Thing#",
+        "schema": "https://schema.org/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "rdf": "<http://www.w3.org/1999/02/22-rdf-syntax-ns#>",
+        "as": "https://www.w3.org/ns/activitystreams#",
+        "terms": "http://purl.org/dc/terms/",
+        "game": "http://data.totl.net/game/",
+        "golf": "https://michaud.inrupt.net/public/golf/",
+        "me": "https://michaud.inrupt.net/profile/card#me"
+    },
+    "label": "Location",
+    "iri": "",
+    "shape": [
+        {
+            "prefix": "golf",
+            "predicate": "longitude",
+            "type": "http://www.w3.org/2001/XMLSchema#double",
+            "label": "longitude",
+            "value": 0
+        },
+        {
+            "prefix": "golf",
+            "predicate": "latitude",
+            "type": "http://www.w3.org/2001/XMLSchema#double",
+            "label": "latitude",
+            "value": 0
+        },
+        {
+            "prefix": "golf",
+            "predicate": "elevation",
+            "type": "http://www.w3.org/2001/XMLSchema#double",
+            "label": "elevation",
+            "value": 0
+        }
+    ]
+}

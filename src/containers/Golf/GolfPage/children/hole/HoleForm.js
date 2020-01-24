@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import holeShape from '@contexts/hole-shape.json';
+import update from 'immutability-helper';
 import setupDataObject from '@utils/setupDataObject';
 import Button from '@material-ui/core/Button';
 import formStyles from '@styles/form.style';
@@ -43,23 +44,9 @@ const HoleForm = ({
 
         const value = getFieldValue(fieldDef, args);
 
-        const fields = {
-            ...holeState.fields,
-            [fieldDef.fieldName]: {
-                ...holeState.fields[fieldDef.fieldName],
-                field: {
-                    ...holeState.fields[fieldDef.fieldName].field,
-                    value
-                }
-            }
-        };
-        
-        const data = {
-            ...holeState,
-            fields
-        };
-
-        setHoleState(data);
+        setHoleState(state => update(state, {
+            [fieldDef.predicate]: { value: { $set: value } }
+        }));
     };
 
     useEffect(() => {
@@ -82,25 +69,26 @@ const HoleForm = ({
 
         let index = 0;
 
-        for (const field in holeState.fields) {
+        holeShape.shape.forEach(field => {
 
             const fieldControl = getFieldControl({
-                field: holeState.fields[field],
+                data: holeState[field.predicate],
                 styles: classes,
                 onChange: onChangeHoleField,
                 inputRef: focusRef,
                 idx: index++
             });
             holeFields.push(fieldControl);
-        }
+        });
     }
     
-    const canSave = checkCanSave(holeState);
+    const canSave = checkCanSave(holeState, holeShape);
 
-    return <div>
-        <header className="c-header">{ title }</header>
-        { holeFields }
-        <FlexContainer>
+    return (
+        <div>
+            <header className="c-header">{ title }</header>
+            { holeFields }
+            <FlexContainer>
                 <FlexItem>
                     <Button
                         variant="contained"
@@ -119,7 +107,8 @@ const HoleForm = ({
                 }
                 </FlexItemRight>
             </FlexContainer>
-    </div>;
+        </div>
+    );
 };
 
 export default HoleForm;

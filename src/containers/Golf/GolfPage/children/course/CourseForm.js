@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 import Button from '@material-ui/core/Button';
+import update from 'immutability-helper';
 import formStyles from '@styles/form.style';
-
 import courseShape from '@contexts/course-shape.json';
 import setupDataObject from '@utils/setupDataObject';
 import getFieldValue from '@utils/getFieldValue';
@@ -36,54 +36,30 @@ const CourseForm = ({
 
     const onAddHole = (hole) => {
         
-        const newCourse = {
-            ...courseState,
-            fields: {
-                ...courseState.fields,
-                courseHoles: {
-                    ...courseState.fields.courseHoles,
-                    field: {
-                        ...courseState.fields.courseHoles.field,
-                        value: [
-                            ...courseState.fields.courseHoles.field.value,
-                            hole
-                        ]
-                    }
-                }
-            }
-        };
-
-        setCourseState(newCourse);
+        setCourseState(state => update(state, {
+            courseHoles: { value: { $push: [hole] } }
+        }));
     };
 
     const onSaveHole = (hole) => {
         
         setCourseState(state => {
 
-            const holes = state.fields.courseHoles.field.value;
+            const holes = state.courseHoles.value;
 
             const editHoleIndex = holes.findIndex(testHole => {
                 
-                return testHole.fields.holeNumber.field.value === hole.fields.holeNumber.field.value;
+                return testHole.holeNumber.value === hole.holeNumber.value;
             });
+            
             const startHoles = holes.slice(0, editHoleIndex);
             const endHoles = holes.slice(editHoleIndex + 1, holes.length);
 
             const newHoles = [...startHoles, hole, ...endHoles];
             
-            const newCourse = {
-                ...state,
-                fields: {
-                    ...state.fields,
-                    courseHoles: {
-                        ...state.fields.courseHoles,
-                        field: {
-                            ...state.fields.courseHoles.field,
-                            value: newHoles
-                        }
-                    }
-                }
-            };
+            const newCourse = update(state, {
+                courseHoles: { value: { $set: newHoles } }
+            });
 
             return newCourse;
         });
@@ -108,23 +84,9 @@ const CourseForm = ({
 
         const value = getFieldValue(fieldDef, args);
 
-        const fields = {
-            ...courseState.fields,
-            [fieldDef.fieldName]: {
-                ...courseState.fields[fieldDef.fieldName],
-                field: {
-                    ...courseState.fields[fieldDef.fieldName].field,
-                    value
-                }
-            }
-        };
-        
-        const data = {
-            ...courseState,
-            fields
-        };
-
-        setCourseState(data);
+        setCourseState(state => update(state, {
+            [fieldDef.predicate]: { value: { $set: value } }
+        }));
     };
 
     const courseFields = [];
@@ -133,10 +95,10 @@ const CourseForm = ({
 
     if(courseState) {
         
-        for (const field in courseState.fields) {
+        courseShape.shape.forEach(field => {
 
             const fieldControl = getFieldControl({
-                field: courseState.fields[field],
+                data: courseState[field.predicate],
                 styles: classes,
                 onChange: onChangeCourseField,
                 onSave: onAddHole,
@@ -145,34 +107,36 @@ const CourseForm = ({
             });
 
             courseFields.push(fieldControl);
-        }
+        })
     }
 
-    const canSave = checkCanSave(courseState);
+    const canSave = checkCanSave(courseState, courseShape);
 
-    return <form noValidate autoComplete="off">
-        <header className="c-header">{ title }</header>
-        { courseFields }
-        <FlexContainer>
-            <FlexItem>
-                <Button
+    return (
+        <form noValidate autoComplete="off">
+            <header className="c-header">{ title }</header>
+            { courseFields }
+            <FlexContainer>
+                <FlexItem>
+                    <Button
+                        variant="contained"
+                        disabled={ !canSave }
+                        onClick={ saveHandler }
+                        className={ classes.button }
+                        color="primary">{ actionLabel }</Button>
+                </FlexItem>
+                <FlexItemRight>
+                { onCancel && <Button
                     variant="contained"
                     disabled={ !canSave }
-                    onClick={ saveHandler }
+                    onClick={ onCancel }
                     className={ classes.button }
-                    color="primary">{ actionLabel }</Button>
-            </FlexItem>
-            <FlexItemRight>
-            { onCancel && <Button
-                variant="contained"
-                disabled={ !canSave }
-                onClick={ onCancel }
-                className={ classes.button }
-                color="primary">Cancel</Button>
-            }
-            </FlexItemRight>
-        </FlexContainer>
-    </form>;
+                    color="primary">Cancel</Button>
+                }
+                </FlexItemRight>
+            </FlexContainer>
+        </form>
+    );
 };
 
 export default CourseForm;

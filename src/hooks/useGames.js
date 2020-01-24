@@ -5,11 +5,11 @@ import { solid } from 'rdf-namespaces';
 import usePublicTypeIndex from './usePublicTypeIndex';
 import golf from '@utils/golf-namespace';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
-import { fetchDocument } from 'tripledoc';
 import getListFromDoc from '@services/getListFromDoc';
 import gameShape from '@contexts/game-shape.json';
+import fetchResource from '@services/fetchResource';
 
-const useGames = (reload) => {
+const useGames = (clubTypes, clubType, reload, gameId) => {
 
     const publicTypeIndex = usePublicTypeIndex(reload);
     const [data, setData] = useState({ list: [], doc: undefined });
@@ -46,18 +46,21 @@ const useGames = (reload) => {
 
                     if (typeof url !== 'string') return;
 
-                    const doc = await fetchDocument(url);
+                    const doc = await fetchResource(url);
+
                     const list = getListFromDoc(
                         doc,
                         golf.classes.Game,
-                        gameShape
-                    );
+                        gameShape,
+                        clubTypes,
+                        clubType
+                    )(gameId);
 
                     setData({ list, doc });
                 }
             })();
         }
-    }, [publicTypeIndex, reload]);
+    }, [publicTypeIndex, clubTypes, clubType, reload]);
 
     return data;
 };

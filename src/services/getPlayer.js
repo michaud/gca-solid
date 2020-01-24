@@ -2,7 +2,7 @@ import { namedNode } from '@rdfjs/data-model';//, literal, quad
 import * as ns from 'rdf-namespaces';
 
 import playerShape from '@contexts/player-shape.json';
-import parseFields from '@utils/parseFields';
+import parseFields from '@utils/parseData/parseFields';
 
 const getPlayer = (doc, type) => {
 

@@ -1,25 +1,98 @@
 import React, { useState } from 'react';
 
+import { format } from 'date-fns'
 import golf from '@utils/golf-namespace';
-
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-
-import {
-    FieldContainer,
-    FlexContainer,
-    FlexItemData,
-    FlexItemLabel,
-    FlexItemValue,
-    FlexItemTools
-} from '@styles/layout.style';
-
+import gameShape from '@contexts/game-shape.json';
 import displayStates from '@utils/displayStates';
 import GameForm from './GameForm';
 import HoleTable from '../hole/HoleTable';
 import CourseDetail from '../course/CourseDetail';
-import moment from 'moment';
+import BagDetail from './BagDetail';
+import EditActions from '@containers/Golf/components/EditActions';
+import PlayerDetail from '../player/PlayerDetail';
+import PlayingHandicapDetail from './PlayingHandicapDetail';
+import {
+    FlexContainer,
+    FlexItemLabel,
+    FlexItemValue,
+} from '@styles/layout.style';
+
+const getDisplayField = (data, handlers, idx) => {
+    
+    switch (data.type) {
+        
+        case golf.types.dateTime : {
+
+            const value = data.value instanceof Date ? format(new Date(data.value), 'dd-MM-yy HH:mm') : ''
+
+            return (
+                <FlexContainer key={ idx }>
+                    <FlexItemLabel>{ data.label }</FlexItemLabel>
+                    <FlexItemValue>{ value }</FlexItemValue>
+                </FlexContainer>
+            );
+        }
+
+        case golf.classes.Hole : {
+
+            const { editHoleHandler } = handlers;
+
+            return (
+                <HoleTable onEdit={ editHoleHandler }  key={ idx } holes={ data.value }/>
+            );
+        }
+
+        case golf.classes.Course : {
+
+            return (
+                <div className="u-pad--coppertop"  key={ idx }>
+                    <CourseDetail course={ data.value }/>
+                </div>
+            );
+        }
+
+        case golf.classes.Bag : {
+
+            return (
+                <BagDetail key={ idx }
+                    bag={ data.value }/>
+            );
+        }
+
+        case golf.classes.Player : {
+
+            return (
+                <PlayerDetail key={ idx }
+                    player={ data.value }/>
+            );
+        }
+
+        case golf.classes.Marker : {
+
+            return (
+                <PlayerDetail key={ idx }
+                    player={ data.value }/>
+            );
+        }
+
+        case golf.classes.GamePlayingHandicap: {
+
+            return (
+                <PlayingHandicapDetail handicap={ data.value } key={ idx }/>
+            )
+        }
+
+        default: {
+
+            return (
+                <FlexContainer key={ idx }>
+                    <FlexItemLabel>{ data.label }</FlexItemLabel>
+                    <FlexItemValue>{ data.value }</FlexItemValue>
+                </FlexContainer>
+            );
+        }
+    }
+};
 
 const GameDetail = ({
     game,
@@ -39,13 +112,13 @@ const GameDetail = ({
         setDisplayState(displayStates.detail);
     };
 
-    const onSaveHandler = game => {
+    const onSaveHandler = () => {
 
         onSave(game);
         setDisplayState(displayStates.detail);
     };
 
-    const onDeleteHandler = game => () => {
+    const onDeleteHandler = () => {
 
         onDelete(game);
     };
@@ -54,69 +127,6 @@ const GameDetail = ({
 
     };
     
-    const getDisplayField = (field, index) => {
-
-        switch (field.fieldType) {
-
-            case golf.types.string : {
-
-                return <FlexContainer key={ index }>
-                    <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                    <FlexItemValue>{ field.field.value }</FlexItemValue>
-                </FlexContainer>;
-            }
-
-            case golf.types.dateTime : {
-
-                const value = field.field.value instanceof Date ? moment(field.field.value).format('DD-mm-YY hh:mm') : ''
-                return <FlexContainer key={ index }>
-                    <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                    <FlexItemValue>{ value }</FlexItemValue>
-                </FlexContainer>;
-            }
-
-            case golf.types.nonNegativeInteger : {
-
-                return <FlexContainer key={ index }>
-                    <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                    <FlexItemValue>{ field.field.value }</FlexItemValue>
-                </FlexContainer>;
-            }
-
-            case golf.classes.Hole : {
-
-                return <HoleTable onEdit={ editHoleHandler }  key={ index } holes={ field.field.value }/>;
-            }
-
-            case golf.classes.Course : {
-
-                return <CourseDetail key={ index }
-                    course={ field.field.value }/>
-            }
-
-            case golf.classes.Bag : {
-
-                return <div key={ index }>Bag</div>
-            }
-
-            case golf.classes.Player : {
-                return <div key={ index }>Player</div>
-            }
-
-            case golf.classes.Marker : {
-                return <div key={ index }>Marker</div>
-            }
-
-            default: {
-
-                return <FlexContainer key={ index }>
-                    <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                    <FlexItemValue>{ field.field.value }</FlexItemValue>
-                </FlexContainer>;
-            }
-        }
-    };
-
     if(!game.iri) return <GameForm
         title={ `Create game` }
         actionLabel={ `Save game` }
@@ -134,30 +144,21 @@ const GameDetail = ({
     const displayFields = [];
 
     let count = 0;
-    for(const field in game.fields) {
-        
-        displayFields.push(getDisplayField(game.fields[field], count++));
-    }
 
-    return <FieldContainer>
-        <FlexContainer>
-            <FlexItemData>
-                { displayFields }
-            </FlexItemData>
-            <FlexItemTools>
-                <IconButton
-                    aria-label="edit"
-                    onClick={ onEdit }>
-                    <EditIcon />
-                </IconButton>
-                <IconButton
-                    aria-label="delete"
-                    onClick={ onDeleteHandler(game) }>
-                    <DeleteIcon />
-                </IconButton>
-            </FlexItemTools>
-        </FlexContainer>
-    </FieldContainer>;
-}
+    gameShape.shape.forEach(field => {
+        
+        displayFields.push(getDisplayField(game[field.predicate], {
+            editHoleHandler
+        }, count++));
+    });
+
+    return (
+        <div>
+            {/* <header className="c-header">{ game.gameName.value }</header> */}
+            { displayFields }
+            <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
+        </div>
+    );
+};
 
 export default GameDetail;

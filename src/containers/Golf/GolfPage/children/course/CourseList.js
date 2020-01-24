@@ -17,16 +17,18 @@ const CourseList = ({
         onDelete(course);
     };
 
-    return <div>
-        <header className="c-header">Course list</header>
-        {
-            courses.length > 0 && courses.map((course, index) => <CourseDetail
-                onSave={ onSaveCourse }
-                onDelete={ onDeleteCourse }
-                key={ index }
-                course={ course } />)
-        }
-    </div>;
-}
+    return (
+        <>
+            <header className="c-header">Course list</header>
+            {
+                courses.length > 0 && courses.map((course, index) => <CourseDetail
+                    onSave={ onSaveCourse }
+                    onDelete={ onDeleteCourse }
+                    key={ index }
+                    course={ course } />)
+            }
+        </>
+    );
+};
 
 export default CourseList;

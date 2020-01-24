@@ -3,9 +3,9 @@ import { solid } from 'rdf-namespaces';
 import usePublicTypeIndex from './usePublicTypeIndex';
 import golf from '@utils/golf-namespace';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
-import { fetchDocument } from 'tripledoc';
 import markerShape from '@contexts/marker-shape.json';
 import getListFromDoc from '@services/getListFromDoc';
+import fetchResource from '@services/fetchResource';
 
 const useMarkers = (reload) => {
 
@@ -43,12 +43,12 @@ const useMarkers = (reload) => {
 
                     if (typeof url !== 'string') return;
 
-                    const doc = await fetchDocument(url);
+                    const doc = await fetchResource(url);
                     const list = await getListFromDoc(
                         doc,
                         golf.classes.Marker,
                         markerShape
-                    );
+                    )();
 
                     setMarkers({ list, doc });
                 }

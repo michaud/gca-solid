@@ -1,28 +1,25 @@
 const setupDataObject = (objectShape, fieldValue) => {
 
     const obj = {
-        label: "",
-        iri: "",
-        fields: {}
+        label: objectShape.label,
+        iri: objectShape.iri,
     };
 
     objectShape.shape.forEach(field => {
 
         const prefix = objectShape['@context'][field.prefix];
-        const predicate = `${prefix}${field.predicate}`;
+        const iri = `${prefix}${field.predicate}`;
 
         const value = fieldValue && fieldValue.hasOwnProperty(field.predicate) ? fieldValue[field.predicate] : field.value;
         const required = field.hasOwnProperty('required') ? field.required : true;
 
-        obj.fields[field.predicate] = {
-            fieldType: field.type,
-            fieldName: field.predicate,
-            iri: predicate,
-            required: required,
-            field: {
-                label: field.label,
-                value
-            }
+        obj[field.predicate] = {
+            type: field.type,
+            predicate: field.predicate,
+            iri,
+            required,
+            label: field.label,
+            value
         }
     });
 

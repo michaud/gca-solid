@@ -7,7 +7,8 @@ import PlayerDetail from '@containers/Golf/GolfPage/children/player/PlayerDetail
 import usePlayer from '@hooks/usePlayer';
 import { errorToaster } from '@utils/';
 import { PageContainer } from '@styles/page.style';
-import savePlayer from '@services/savePlayer';
+import golf from '@utils/golf-namespace';
+import saveResource from '@services/saveResource';
 
 const ManagePlayers = ({
     match,
@@ -23,7 +24,12 @@ const ManagePlayers = ({
 
     const onSavePlayer = (playerData) => {
 
-        savePlayer(playerData, playerDetails.doc);
+        saveResource({
+            resource: playerData,
+            doc: playerDetails.doc,
+            type: golf.classes.Player
+        });
+        
         setReload(true);
     };
 
@@ -61,17 +67,19 @@ const ManagePlayers = ({
 
     }, [webId, playerDetails, reload, notification.notify]);
 
-    return <>
-        <ModuleHeader label={ t('golf.players') } screenheader={ true }/>
-        <PageContainer>
-            { 
-                player && <PlayerDetail
-                    onSave={ onSavePlayer }
-                    player={ player }/> 
-            }
-            <ManageMarkers webId={ webId }/>
-        </PageContainer>
-    </>;
+    return (
+        <>
+            <ModuleHeader label={ t('golf.players') } screenheader={ true }/>
+            <PageContainer>
+                { 
+                    player && <PlayerDetail
+                        onSave={ onSavePlayer }
+                        player={ player }/> 
+                }
+                <ManageMarkers webId={ webId }/>
+            </PageContainer>
+        </>
+    );
 };
 
 export default ManagePlayers;

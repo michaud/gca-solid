@@ -1,14 +1,14 @@
 import golf from "./golf-namespace";
 
-const getValue = (type, fields, predicate) => {
+const getValue = (type, data, predicate) => {
 
     switch(type) {
 
         case golf.types.text:
         case golf.types.string:
         case golf.types.integer:
-        case golf.types.nonNegativeInteger: return fields[predicate].field.value;
-        default: console.error('no field type', fields[predicate])
+        case golf.types.nonNegativeInteger: return data[predicate].value;
+        default: console.error('no field type', data[predicate])
     }
 };
 
@@ -20,8 +20,7 @@ const getFieldDisplayData = (field, data) => {
         predicate
     } = field;
 
-    const { fields } = data;
-    const value = getValue(type, fields, predicate);
+    const value = getValue(type, data, predicate);
 
     return { value, label };
 };

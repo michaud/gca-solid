@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 
 import clubShape from '@contexts/club-shape.json';
-import ClubTypeContext from "@utils/clubTypeContext";
+import { withClubTypeContext } from "@utils/clubTypeContext";
 import golf from "@utils/golf-namespace";
 
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import ClubForm  from './ClubForm';
 import displayStates from "@utils/displayStates";
+import EditActions from "@containers/Golf/components/EditActions";
 
 import {
     FieldContainer,
@@ -29,7 +27,7 @@ const checkRenderField = field => {
 
 const getFieldData = (field, club, clubType, clubTypes) => {
 
-    const label = clubType.fields[field.predicate].field.label;
+    const label = clubType[field.predicate].label;
 
     let value = '';
 
@@ -37,7 +35,7 @@ const getFieldData = (field, club, clubType, clubTypes) => {
 
         case golf.types.string: {
 
-            value = club.fields[field.predicate].field.value;
+            value = club[field.predicate].value;
 
             break;
         }
@@ -51,12 +49,13 @@ const getFieldData = (field, club, clubType, clubTypes) => {
 
         case golf.classes.Club: {
 
-            value = clubTypes.find(item => item.iri === club.fields.clubType.field.value.iri).label;
+            value = clubTypes.find(item => item.iri === club.clubType.value.iri).label;
 
             break;
         }
 
         default: {
+
             value = 'error';
             console.error('no field type', field)
         }
@@ -66,6 +65,8 @@ const getFieldData = (field, club, clubType, clubTypes) => {
 };
 
 const ClubDetail = ({
+    clubTypes,
+    clubType,
     club,
     onSave,
     onDelete
@@ -95,64 +96,47 @@ const ClubDetail = ({
         onDelete(club);
     };
 
-    return <ClubTypeContext.Consumer>
-    {
-        clubTypeData => {
-    
-            const { clubTypes = [], clubType } = clubTypeData;
-            const fields = [];
+    const displayFields = [];
 
-            if(clubTypes.length > 0 && clubType) {
+    if(clubTypes.length > 0 && clubType) {
 
-                clubShape.shape.forEach(field => {
-                    
-                    const renderField = checkRenderField(field);
-
-                    if(renderField) {
-
-                        const data = getFieldData(field, club, clubType, clubTypes);
-                        fields.push(data);
-                    }
-                });
-            }
+        clubShape.shape.forEach(field => {
             
-            if(displayState === displayStates.edit) {
+            const renderField = checkRenderField(field);
 
-                return <ClubForm
-                    club={ club }
-                    onSave={ onSaveHandler }
-                    title=""
-                    actionLabel="Save club"
-                    onCancel={ cancelEdit }/>;
+            if(renderField) {
+
+                const data = getFieldData(field, club, clubType, clubTypes);
+                displayFields.push(data);
             }
-
-            return <FieldContainer>
-                <FlexContainer>
-                    <FlexItemData>
-                    {
-                        fields.map((field, index) => <FlexContainer key={ index }>
-                            <FlexItemLabel>{ field.label }</FlexItemLabel>
-                            <FlexItemValue>{ field.value }</FlexItemValue>
-                        </FlexContainer>)
-                    }
-                    </FlexItemData>
-                    <FlexItemTools>
-                        <IconButton
-                            aria-label="delete"
-                            onClick={ onEdit }>
-                            <EditIcon />
-                        </IconButton>
-                        <IconButton
-                            aria-label="delete"
-                            onClick={ onDeleteHandler }>
-                            <DeleteIcon />
-                        </IconButton>
-                    </FlexItemTools>
-                </FlexContainer>
-            </FieldContainer>;
-        }
+        });
     }
-    </ClubTypeContext.Consumer>;
-}
+    
+    if(displayState === displayStates.edit) {
 
-export default ClubDetail;
+        return <ClubForm
+            club={ club }
+            onSave={ onSaveHandler }
+            title=""
+            actionLabel="Save club"
+            onCancel={ cancelEdit }/>;
+    }
+
+    return <FieldContainer>
+        <FlexContainer>
+            <FlexItemData>
+            {
+                displayFields.map((field, index) => <FlexContainer key={ index }>
+                    <FlexItemLabel>{ field.label }</FlexItemLabel>
+                    <FlexItemValue>{ field.value }</FlexItemValue>
+                </FlexContainer>)
+            }
+            </FlexItemData>
+            <FlexItemTools>
+                <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
+            </FlexItemTools>
+        </FlexContainer>
+    </FieldContainer>;
+};
+
+export default withClubTypeContext(ClubDetail);

@@ -5,9 +5,9 @@ import { solid } from 'rdf-namespaces';
 import usePublicTypeIndex from './usePublicTypeIndex';
 import golf from '@utils/golf-namespace';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
-import { fetchDocument } from 'tripledoc';
 import getListFromDoc from '@services/getListFromDoc';
 import courseShape from '@contexts/course-shape.json';
+import fetchResource from '@services/fetchResource';
 
 const useCourses = (reload) => {
 
@@ -46,13 +46,13 @@ const useCourses = (reload) => {
 
                     if (typeof url !== 'string') return;
 
-                    const doc = await fetchDocument(url);
+                    const doc = await fetchResource(url);
 
                     const list = getListFromDoc(
                         doc,
                         golf.classes.Course,
                         courseShape
-                    );
+                    )();
 
                     setCourseData({ list, doc });
                 }

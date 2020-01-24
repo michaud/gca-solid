@@ -1,7 +1,6 @@
 import BagTransferList from './bag/BagTransferList';
 import ButtonBar from './ButtonBar';
 import ClubDetail from './club/ClubDetail';
-import clubDetailStyles from './club/clubDetail.style';
 import ClubForm from './club/ClubForm';
 import ClubList from './club/ClubList';
 import ClubTypeSelector from './club/ClubTypeSelector';
@@ -25,13 +24,14 @@ import ModuleHeader from './ModuleHeader';
 import NavigationShell from './NavigationShell';
 import PlayerDetail from './player/PlayerDetail';
 import PlayerForm from './player/PlayerForm';
+import PlayGame from './playGame/PlayGame';
 import SplashScreen from './SplashScreen';
+import PlayingHandicapDetail from './game/PlayingHandicapDetail'
 
 export {
     BagTransferList,
     ButtonBar,
     ClubDetail,
-    clubDetailStyles,
     ClubForm,
     ClubList,
     ClubTypeSelector,
@@ -55,5 +55,7 @@ export {
     NavigationShell,
     PlayerDetail,
     PlayerForm,
-    SplashScreen
+    SplashScreen,
+    PlayGame,
+    PlayingHandicapDetail
 }

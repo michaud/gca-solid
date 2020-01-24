@@ -43,6 +43,10 @@
     }
 }
 
+.f-form-field {
+
+}
+
 .f-fields-container {
     padding: 1rem .5rem;
     padding: 0;
@@ -128,6 +132,12 @@
 .f-label--long {
 
     width: 7.6rem;
+}
+
+.f-label--plain {
+
+    display: inline-block;
+    margin-bottom: .5rem;
 }
 
 .f-edit {

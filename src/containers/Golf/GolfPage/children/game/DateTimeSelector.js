@@ -27,7 +27,7 @@ const DateTimeSelector = ({ onChange }) => {
                 className={ classes.textField }
                 value={ selectedDate }
                 ampm={ false }
-                format="dd-mm-yy hh:mm"
+                format="dd-MM-yy HH:mm"
                 onChange={ handleDateChange }/>
         </MuiPickersUtilsProvider>
     );

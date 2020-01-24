@@ -12,11 +12,13 @@ const golf = {
         Hole: `${ namespace }Hole`,
         Game: `${ namespace }Game`,
         GamePlayingHandicap:  `${ namespace }GamePlayingHandicap`,
-        Owner:  `${ namespace }Owner`,
+        Driver: `${ namespace }Driver`,
+        Putter: `${ namespace }Putter`,
+        Stroke: `${ namespace }Stroke`,
+        GameHole: `${ namespace }GameHole`
     },
     properties: {
         clubType: `${ namespace }clubType`,
-        ownedBy: `${ namespace }ownedBy`,
         fieldLabel: `${ namespace }fieldLabel`,
         clubBrand: `${ namespace }clubBrand`,
         clubName: `${ namespace }clubName`,
@@ -27,7 +29,12 @@ const golf = {
         gameMarker: `${ namespace }gameMarker`,
         gameCourse: `${ namespace }gameCourse`,
         gameBag:  `${ namespace }gameBag`,
-        gamePlayingHandicap:  `${ namespace }gamePlayingHandicap`
+        gamePlayingHandicap:  `${ namespace }gamePlayingHandicap`,
+        playerPlayingHandicap: `${ namespace }playerPlayingHandicap`,
+        markerPlayingHandicap: `${ namespace }markerPlayingHandicap`,
+        strokeLocation:  `${ namespace }strokeLocation`,
+        gameStrokes: `${ namespace }gameStrokes`,
+        strokeClub: `${ namespace }strokeClub`
     },
     types: {
         string: 'http://www.w3.org/2001/XMLSchema#string',
@@ -35,6 +42,9 @@ const golf = {
         text: 'https://schema.org/Text',
         integer: 'http://www.w3.org/2001/XMLSchema#integer',
         dateTime: 'http://www.w3.org/2001/XMLSchema#DateTime',
+        GeoCoordinates: 'https://schema.org/GeoCoordinates',
+        double: 'http://www.w3.org/2001/XMLSchema#double',
+        undefined: 'https://michaud.inrupt.net/public/golf/data/undefined'
     }
 };
 

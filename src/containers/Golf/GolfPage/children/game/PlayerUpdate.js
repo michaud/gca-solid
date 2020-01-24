@@ -5,7 +5,6 @@ import formStyles from '@styles/form.style';
 import Button from '@material-ui/core/Button';
 import {
     FlexContainer,
-    FlexItemData,
     FlexItemLabel,
     FlexItemValue,
     FlexItem,
@@ -15,7 +14,7 @@ import {
 const checkFieldsChanged = (player, state) => {
 
     const hasData = player !== undefined && state !== undefined;
-    const handicapChanged = player.fields.handicap.field.value !== state.fields.handicap.field.value;
+    const handicapChanged = player.handicap.value !== state.handicap.value;
 
     return hasData && handicapChanged;
 };
@@ -37,15 +36,9 @@ const PlayerUpdate = ({
 
         setPlayerState( state => ({
             ...state,
-            fields: {
-                ...state.fields,
-                handicap: {
-                    ...state.fields.handicap,
-                    field: {
-                        ...state.fields.handicap.field,
-                        value
-                    }
-                }
+            handicap: {
+                ...state.handicap,
+                value
             }
         }));
     };
@@ -62,23 +55,21 @@ const PlayerUpdate = ({
     const canSave = checkFieldsChanged(player, playerState);
 
     const handicapField = getFieldControl({
-        field: playerState.fields.handicap,
+        data: playerState.handicap,
         styles: classes,
         onChange: onChangeHandicap,
         idx: 0
     });
     
     return (
-        <>
+        <div className="c-box">
             <header className="c-header--sec">{ title }</header>
-            <FlexContainer>
-                <FlexItemData>
-                    <FlexContainer>
-                        <FlexItemLabel>Name</FlexItemLabel>
-                        <FlexItemValue>{ `${ player.fields.givenName.field.value } ${ player.fields.familyName.field.value }`}</FlexItemValue>
-                    </FlexContainer>
-                </FlexItemData>
-            </FlexContainer>
+            <div className="c-box">
+                <FlexContainer>
+                    <FlexItemLabel>Name</FlexItemLabel>
+                    <FlexItemValue>{ `${ player.givenName.value } ${ player.familyName.value }`}</FlexItemValue>
+                </FlexContainer>
+            </div>
             { handicapField }
             <FlexContainer>
                 <FlexItem>
@@ -99,7 +90,7 @@ const PlayerUpdate = ({
                 }
                 </FlexItemRight>
             </FlexContainer>
-        </>
+        </div>
     );
 };
 

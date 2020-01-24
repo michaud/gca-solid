@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 
 import golf from '@utils/golf-namespace';
-
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-
+import courseShape from '@contexts/course-shape.json';
 import {
     FieldContainer,
     FlexContainer,
@@ -18,11 +14,13 @@ import {
 import displayStates from '@utils/displayStates';
 import CourseForm from './CourseForm';
 import HoleTable from '../hole/HoleTable';
+import EditActions from '@containers/Golf/components/EditActions';
 
 const CourseDetail = ({
     course,
     onSave,
-    onDelete
+    onDelete,
+    showEdit = false
 }) => {
 
     const [displayState, setDisplayState] = useState(displayStates.detail);
@@ -37,7 +35,7 @@ const CourseDetail = ({
         setDisplayState(displayStates.detail);
     };
 
-    const onSaveHandler = course => {
+    const onSaveHandler = () => {
 
         onSave(course);
         setDisplayState(displayStates.detail);
@@ -54,34 +52,18 @@ const CourseDetail = ({
     
     const getDisplayField = (field, index) => {
 
-        switch (field.fieldType) {
-
-            case golf.types.string : {
-
-                return <FlexContainer key={ index }>
-                    <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                    <FlexItemValue>{ field.field.value }</FlexItemValue>
-                </FlexContainer>;
-            }
-
-            case golf.types.nonNegativeInteger : {
-
-                return <FlexContainer key={ index }>
-                    <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                    <FlexItemValue>{ field.field.value }</FlexItemValue>
-                </FlexContainer>;
-            }
+        switch (field.type) {
 
             case golf.classes.Hole : {
 
-                return <HoleTable onEdit={ editHoleHandler }  key={ index } holes={ field.field.value }/>;
+                return <HoleTable onEdit={ editHoleHandler }  key={ index } holes={ field.value }/>;
             }
 
             default: {
 
                 return <FlexContainer key={ index }>
-                    <FlexItemLabel>{ field.field.label }</FlexItemLabel>
-                    <FlexItemValue>{ field.field.value }</FlexItemValue>
+                    <FlexItemLabel>{ field.label }</FlexItemLabel>
+                    <FlexItemValue>{ field.value }</FlexItemValue>
                 </FlexContainer>;
             }
         }
@@ -105,30 +87,28 @@ const CourseDetail = ({
 
     let count = 0;
 
-    for(const field in course.fields) {
-        
-        displayFields.push(getDisplayField(course.fields[field], count++));
-    }
+    courseShape.shape.forEach(field => {
 
-    return <FieldContainer>
-        <FlexContainer>
-            <FlexItemData>
-                { displayFields }
-            </FlexItemData>
-            <FlexItemTools>
-                <IconButton
-                    aria-label="edit"
-                    onClick={ onEdit }>
-                    <EditIcon />
-                </IconButton>
-                <IconButton
-                    aria-label="delete"
-                    onClick={ onDeleteHandler(course) }>
-                    <DeleteIcon />
-                </IconButton>
-            </FlexItemTools>
-        </FlexContainer>
-    </FieldContainer>;
-}
+        displayFields.push(getDisplayField(course[field.predicate], count++));
+    });
+
+    return (
+        <>
+        <header className="c-header--sec">Course</header>
+        <FieldContainer>
+            <FlexContainer>
+                <FlexItemData>
+                    { displayFields }
+                </FlexItemData>
+                { 
+                    showEdit && <FlexItemTools>
+                        <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
+                    </FlexItemTools>
+                }
+            </FlexContainer>
+        </FieldContainer>
+    </>
+    );
+};
 
 export default CourseDetail;

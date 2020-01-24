@@ -11,7 +11,8 @@ import {
   Profile,
   GameList,
   GamePage,
-  GolfPage
+  GolfPage,
+  SplashScreen
 } from './containers';
 
 const privateRoutes = [
@@ -28,9 +29,14 @@ const privateRoutes = [
   {
     id: 'golf',
     path: '/golf',
-    component: GolfPage
+    component: SplashScreen
   },
   {
+    id: 'golf',
+    path: '/golf/settings',
+    component: GolfPage
+  },
+    {
     id: 'golf',
     path: '/golf/settings/bag',
     component: GolfPage
@@ -43,6 +49,11 @@ const privateRoutes = [
   {
     id: 'golf',
     path: '/golf/settings/players',
+    component: GolfPage
+  },
+  {
+    id: 'golf',
+    path: '/golf/game/:gameid',
     component: GolfPage
   },
   {

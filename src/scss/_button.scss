@@ -40,10 +40,11 @@
     font-size: 2rem;
 }
 
-.btn--play {
+.btn--club {
 
     display: flex;
     flex:1;
+    flex-direction: column;
     text-align: left;
     text-decoration: none;
     padding: 0 1rem;
@@ -56,5 +57,14 @@
     border-bottom: 1px solid rgb(210, 199, 157);
     background: linear-gradient(171deg, rgb(245, 240, 214) 0%, rgb(220, 210, 173) 100%);
     width: 100%;
-
 }
+
+.btn--club__name {
+
+    padding: 0.5rem 0 0.25rem 0;
+    font-size: .8rem;
+    cursor: default;
+    pointer-events: none;
+}
+
+
