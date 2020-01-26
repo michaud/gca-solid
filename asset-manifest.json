@@ -1,7 +1,7 @@
 {
   "main.css": "/gca-solid/static/css/main.0e007271.chunk.css",
-  "main.js": "/gca-solid/static/js/main.2e0e55ca.chunk.js",
-  "main.js.map": "/gca-solid/static/js/main.2e0e55ca.chunk.js.map",
+  "main.js": "/gca-solid/static/js/main.b9e3db1d.chunk.js",
+  "main.js.map": "/gca-solid/static/js/main.b9e3db1d.chunk.js.map",
   "static/css/1.60ec9cab.chunk.css": "/gca-solid/static/css/1.60ec9cab.chunk.css",
   "static/js/1.0a35a341.chunk.js": "/gca-solid/static/js/1.0a35a341.chunk.js",
   "static/js/1.0a35a341.chunk.js.map": "/gca-solid/static/js/1.0a35a341.chunk.js.map",
@@ -10,12 +10,12 @@
   "static/media/flag-icon.min.css": "/gca-solid/static/media/cr.7b4ebd50.svg",
   "static/css/1.60ec9cab.chunk.css.map": "/gca-solid/static/css/1.60ec9cab.chunk.css.map",
   "static/css/main.0e007271.chunk.css.map": "/gca-solid/static/css/main.0e007271.chunk.css.map",
-  "solid-query-ldflex.bundle.js": "/gca-solid/solid-query-ldflex.bundle.js",
   "popup.html": "/gca-solid/popup.html",
   "solid-auth-client.bundle.js": "/gca-solid/solid-auth-client.bundle.js",
   "solid-auth-client.bundle.js.map": "/gca-solid/solid-auth-client.bundle.js.map",
+  "solid-query-ldflex.bundle.js": "/gca-solid/solid-query-ldflex.bundle.js",
   "solid-query-ldflex.bundle.js.map": "/gca-solid/solid-query-ldflex.bundle.js.map",
   "index.html": "/gca-solid/index.html",
-  "precache-manifest.1dd92d86a2fb39cf15ea452963c255c1.js": "/gca-solid/precache-manifest.1dd92d86a2fb39cf15ea452963c255c1.js",
+  "precache-manifest.1f233ddd02b60bd6ad24843547994348.js": "/gca-solid/precache-manifest.1f233ddd02b60bd6ad24843547994348.js",
   "service-worker.js": "/gca-solid/service-worker.js"
 }
