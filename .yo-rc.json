@@ -1,8 +1,0 @@
-{
-  "@inrupt/generator-solid-react": {
-    "promptValues": {
-      "appName": "solid-test-app",
-      "appVersion": "0.1.0"
-    }
-  }
-}
