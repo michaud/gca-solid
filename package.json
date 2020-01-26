@@ -55,7 +55,7 @@
     "test": "node scripts/test.js",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "publish-gh-pages": "npm run predeploy && deploy"
+    "publish-gh-pages": "npm run predeploy && npm run deploy"
   },
   "eslintConfig": {
     "extends": "react-app"
