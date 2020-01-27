@@ -3,51 +3,35 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { slide } from '@components/transitions';
 
-const uiDefaultState = {
-    addCourseOpen: false,
-    courseListOpen: false,
-    addClubOpen: false,
-    clubListOpen: false,
-    bagOpen: false,
-    addHoleOpen: false,
-    newGameOpen: false,
-    playerOpen: false,
-    markerListOpen: false,
-    addMarkerOpen: false
-};
+import GolfCourseIcon from '@material-ui/icons/GolfCourse';
+import SportsGolfIcon from '@material-ui/icons/SportsGolf';
+import BagIcon from '@containers/Golf/components/BagIcon';
+import CapIcon from '@containers/Golf/components/CapIcon';
 
-class ButtonBar extends Component {
+const ButtonBar = () => {
 
-    state = {
-        path: [],
-        mailData: 'mailto:michaud@venant.nl?body=',
-        mailStrokes: 'mailto:michaud@venant.nl?body=',
-        ...uiDefaultState
-    }
-
-    render () {
-
-        return <div style={{ display: 'flex' }}>
+    return (
+        <div style={{ display: 'flex' }}>
             <NavLink className="btn--action f-btn--knob" to={{ pathname: '/golf/settings/game/new', state: slide }}>
                 <div className="btn--action__label">+</div>
             </NavLink>
             <NavLink className="btn--action wide" to={{ pathname: '/golf/settings/games', state: slide }}>
-                <div className="btn--action__label">Games</div>
+                <div className="btn--action__label"><SportsGolfIcon/>Games</div>
             </NavLink>
             <NavLink className="btn--action wide" to={{ pathname: '/golf/settings/courses', state: slide }}>
-                <div className="btn--action__label">Courses</div>
+                <div className="btn--action__label"><GolfCourseIcon/>Courses</div>
             </NavLink>
             <NavLink className="btn--action wide" to={{ pathname: '/golf/settings/bag', state: slide }}>
-                <div className="btn--action__label">Bag</div>
+                <div className="btn--action__label"><BagIcon/><div>Bag</div></div>
             </NavLink>
             <NavLink className="btn--action wide" to={{ pathname: '/golf/settings/players', state: slide }}>
-                <div className="btn--action__label">Players</div>
+                <div className="btn--action__label"><CapIcon/><div>Players</div></div>
             </NavLink>
             <NavLink className="btn--action f-btn--knob" to={{ pathname: '/golf/', state: slide }}>
                 <div className="btn--action__label">&lt;</div>
             </NavLink>
-        </div>;
-    }
+        </div>
+    );
 }
 
 export default ButtonBar;

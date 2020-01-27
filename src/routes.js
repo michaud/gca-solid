@@ -75,17 +75,32 @@ const privateRoutes = [
 
 const Routes = () => (
   <Router>
-    <Fragment>
       <Switch>
-        <NotLoggedInLayout component={Login} path="/login" exact />
-        <NotLoggedInLayout component={Register} path="/register" exact />
-        <NotLoggedInLayout path="/register/success" component={RegistrationSuccess} exact />
-        <PublicLayout path="/404" component={PageNotFound} exact />
-        <Redirect from="/" to="/welcome" exact />
-        <PrivateLayout path="/" routes={privateRoutes} />
-        <Redirect to="/404" />
+        <NotLoggedInLayout
+          component={ Login }
+          path="/login"
+          exact/>
+        <NotLoggedInLayout
+          component={ Register }
+          path="/register"
+          exact />
+        <NotLoggedInLayout
+          path="/register/success"
+          component={ RegistrationSuccess }
+          exact/>
+        <PublicLayout
+          path="/404"
+          component={ PageNotFound }
+          exact/>
+        <Redirect
+          from="/"
+          to="/welcome"
+          exact/>
+        <PrivateLayout
+          path="/"
+          routes={ privateRoutes }/>
+        <Redirect to="/404"/>
       </Switch>
-    </Fragment>
   </Router>
 );
 

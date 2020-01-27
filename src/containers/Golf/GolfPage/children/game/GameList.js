@@ -25,7 +25,6 @@ const GameList = ({
     const onPlayGameHandler = iri => onPlay(iri);
     
     const onShowDetailHandler = iri => {
-        console.log('iri: ', iri);
         
         setShowDetail(state => iri === state ? undefined : iri);
     };

@@ -5,14 +5,13 @@
     align-items: center;
     text-align: center;
     padding: 0 .5rem;
-    min-height: 3rem;
+    min-height: 4rem;
     border-radius: 0;
     border: 1px solid green;
     border: none;
-
+    font-size: .8rem;
     background: linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%);
     color: rgba(255,255,255,.9);
-    font-weight: 700;
 
     &:disabled {
 
