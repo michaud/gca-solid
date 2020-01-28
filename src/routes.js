@@ -73,35 +73,22 @@ const privateRoutes = [
   }
 ];
 
-const Routes = () => (
+const Routes = () => {
+  console.log('Routes');
+  return (
   <Router>
+    <Fragment>
       <Switch>
-        <NotLoggedInLayout
-          component={ Login }
-          path="/login"
-          exact/>
-        <NotLoggedInLayout
-          component={ Register }
-          path="/register"
-          exact />
-        <NotLoggedInLayout
-          path="/register/success"
-          component={ RegistrationSuccess }
-          exact/>
-        <PublicLayout
-          path="/404"
-          component={ PageNotFound }
-          exact/>
-        <Redirect
-          from="/"
-          to="/welcome"
-          exact/>
-        <PrivateLayout
-          path="/"
-          routes={ privateRoutes }/>
+        <NotLoggedInLayout component={ Login } path="/login" exact/>
+        <NotLoggedInLayout component={ Register } path="/register" exact />
+        <NotLoggedInLayout path="/register/success" component={ RegistrationSuccess } exact/>
+        <PublicLayout path="/404" component={ PageNotFound } exact/>
+        <Redirect from="/" to="/welcome" exact/>
+        <PrivateLayout path="/" routes={ privateRoutes }/>
         <Redirect to="/404"/>
       </Switch>
+    </Fragment>
   </Router>
-);
+)};
 
 export default Routes;
