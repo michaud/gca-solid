@@ -29,8 +29,15 @@ export const FlexItem = styled.div`
     align-items: ${props => props.alignitems ? props.alignitems : "normal"};
 `;
 export const FlexItemLabel = styled.div`min-width: 10rem;`;
-export const FlexItemValue = styled.div`flex: 1;`;
-export const FlexItemData = styled.div`flex: 1;`;
+export const FlexItemValue = styled.div`
+    flex: 1;
+    align-items: ${props => props.alignitems ? props.alignitems : "normal"};
+`;
+export const FlexItemData = styled.div`
+    flex-direction: ${props => props.vertical ? "column" : "row"};
+    flex: 1;
+    align-items: ${props => props.alignitems ? props.alignitems : "normal"};
+`;
 export const FlexItemTools = styled.div`flex: 0;`;
 
 export const FlexItemRight = styled.div`

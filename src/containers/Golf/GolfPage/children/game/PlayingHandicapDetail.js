@@ -92,9 +92,13 @@ const PlayingHandicapDetail = ({ handicap, onChange }) => {
                         </FlexContainer>)
                     }
                     </FlexItemData>
-                    <FlexItemTools>
-                        <EditActions onEdit={ onEdit }/>
-                    </FlexItemTools>
+                    {
+                        onChange !== undefined ? 
+                            <FlexItemTools>
+                                <EditActions onEdit={ onEdit }/>
+                            </FlexItemTools> :
+                            null
+                    }
                 </FlexContainer>
             </FieldContainer>
         </div>

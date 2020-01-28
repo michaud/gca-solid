@@ -44,7 +44,7 @@ const GameSummary = ({
         <div className={ showDetail ? 'summary-container u-pad--bum' : 'summary-container' }>
             <FlexContainer>
                 <FlexItem>
-                    <h2 className="game-container__header">{ title }</h2>
+                    <h2 className="c-detail__header">{ title }</h2>
                     <div className="c-box">{ holeCount }, { marker }</div>
                 </FlexItem>
                 <FlexItemTools>
