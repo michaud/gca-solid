@@ -74,7 +74,7 @@ const privateRoutes = [
 ];
 
 const Routes = () => {
-  console.log('Routes');
+
   return (
   <Router>
     <Fragment>
