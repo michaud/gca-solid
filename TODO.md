@@ -1,4 +1,5 @@
 - Should we make the game bag and clubs unique?
+-- the clubs in the (not game) bag can change at any time 
 - parse club data club type is not done
 - parsing bag data misses fields like iri & label
 - clubtype should be filled with data from club? or remove fields? 
