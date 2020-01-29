@@ -6,6 +6,7 @@ import getBagClubs from '@services/getBagClubs';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import { rdf } from 'rdf-namespaces';
 import fetchResource from '@services/fetchResource';
+import paths from '@constants/paths';
 
 const setupBag = (document) => {
     const bag = document.addSubject();
@@ -31,7 +32,7 @@ const useBagClubs = (clubTypes, clubType, reload) => {
                     // If no clubList document is listed in the public type index, create one:
                     const doc = await initialiseTypeDocument(
                         golf.classes.Bag,
-                        process.env.REACT_APP_GOLF_DATA_PATH + 'bag.ttl',
+                        paths.REACT_APP_GOLF_DATA_PATH + 'bag.ttl',
                         setupBag
                     );
 

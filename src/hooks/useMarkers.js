@@ -6,6 +6,7 @@ import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import markerShape from '@contexts/marker-shape.json';
 import getListFromDoc from '@services/getListFromDoc';
 import fetchResource from '@services/fetchResource';
+import paths from '@constants/paths';
 
 const useMarkers = (reload) => {
 
@@ -25,7 +26,7 @@ const useMarkers = (reload) => {
                     // If no player document is listed in the public type index, create one:
                     const doc = await initialiseTypeDocument(
                         golf.classes.Marker,
-                        process.env.REACT_APP_GOLF_DATA_PATH + 'markers.ttl'//,setupPlayer
+                        paths.REACT_APP_GOLF_DATA_PATH + 'markers.ttl'//,setupPlayer
                     );
 
                     if (doc === null) return;

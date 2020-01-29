@@ -6,6 +6,7 @@ import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import getListFromDoc from '@services/getListFromDoc';
 import clubShape from '@contexts/club-shape.json';
 import fetchResource from '@services/fetchResource';
+import paths from '@constants/paths';
 
 const useClubs = (clubTypes, clubType, reload) => {
 
@@ -25,7 +26,7 @@ const useClubs = (clubTypes, clubType, reload) => {
                     // If no clubList document is listed in the public type index, create one:
                     const doc = await initialiseTypeDocument(
                         golf.classes.Club,
-                        process.env.REACT_APP_GOLF_DATA_PATH + 'clubs.ttl'
+                        paths.REACT_APP_GOLF_DATA_PATH + 'clubs.ttl'
                     );
 
                     if (doc === null) return;

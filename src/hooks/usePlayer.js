@@ -5,6 +5,7 @@ import golf from '@utils/golf-namespace';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import getPlayer from '@services/getPlayer';
 import fetchResource from '@services/fetchResource';
+import paths from '@constants/paths';
 
 const usePlayer = (reload) => {
 
@@ -20,11 +21,11 @@ const usePlayer = (reload) => {
                 const playerIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Player);
 
                 if (!playerIndex) {
-
+debugger
                     // If no player document is listed in the public type index, create one:
                     const doc = await initialiseTypeDocument(
                         golf.classes.Player,
-                        process.env.REACT_APP_GOLF_DATA_PATH + 'player.ttl'//,setupPlayer
+                        paths.REACT_APP_GOLF_DATA_PATH + 'player.ttl'//,setupPlayer
                     );
 
                     if (doc === null) return;

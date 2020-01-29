@@ -8,6 +8,7 @@ import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import getListFromDoc from '@services/getListFromDoc';
 import gameShape from '@contexts/game-shape.json';
 import fetchResource from '@services/fetchResource';
+import paths from '@constants/paths';
 
 const useGames = (clubTypes, clubType, reload, gameId) => {
 
@@ -27,7 +28,7 @@ const useGames = (clubTypes, clubType, reload, gameId) => {
                     // If no clubList document is listed in the public type index, create one:
                     const doc = await initialiseTypeDocument(
                         golf.classes.Game,
-                        process.env.REACT_APP_GOLF_DATA_PATH + 'games.ttl'
+                        paths.REACT_APP_GOLF_DATA_PATH + 'games.ttl'
                     );
 
                     if (doc === null) return;
