@@ -1,5 +1,6 @@
 - Fix width of in holes table when adding holes
 - Fix save course button space with table
+- Fix space beneath app buttons
 - Should we make the game bag and clubs unique?
     - the clubs in the (not game) bag can change at any time 
 - parse club data club type is not done
