@@ -45,6 +45,17 @@ const useClubs = (clubTypes, clubType, reload) => {
                     if (typeof url !== 'string') return;
 
                     const doc = await fetchResource(url);
+
+                    if(clubType === undefined && clubTypes === undefined) {
+
+                        setClubList(state => ({
+                            ...state,
+                            doc
+                        }));
+
+                        return;
+                    }
+
                     const list = await getListFromDoc(
                         doc,
                         golf.classes.Club,

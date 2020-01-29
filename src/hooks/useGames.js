@@ -48,13 +48,23 @@ const useGames = (clubTypes, clubType, reload, gameId) => {
 
                     const doc = await fetchResource(url);
 
+                    if(clubType === undefined && clubTypes === undefined) {
+
+                        setData(state => ({
+                            ...state,
+                            doc
+                        }));
+
+                        return;
+                    }
+
                     const list = getListFromDoc(
                         doc,
                         golf.classes.Game,
                         gameShape,
                         clubTypes,
                         clubType
-                    )(gameId);
+                    )(gameId, url);
 
                     setData({ list, doc });
                 }

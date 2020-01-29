@@ -161,7 +161,7 @@ export const addField = ({
                 element: data.value,
                 doc,
                 type: golf.classes.Player
-            })
+            });
 
             ref.addRef(golf.properties.gamePlayer, elRef.asRef());
 
