@@ -9,12 +9,12 @@ import fetchResource from '@services/fetchResource';
 
 const useMarkers = (reload) => {
 
-    const publicTypeIndex = usePublicTypeIndex();
+    const publicTypeIndex = usePublicTypeIndex(reload);
     const [markers, setMarkers] = useState({ markers: [], doc: undefined });
 
     useEffect(() => {
 
-        if (publicTypeIndex || reload) {
+        if (publicTypeIndex) {
 
             (async () => {
 

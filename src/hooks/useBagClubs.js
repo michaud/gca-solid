@@ -50,7 +50,19 @@ const useBagClubs = (clubTypes, clubType, reload) => {
                     const url = clubListIndex.getRef(solid.instance);
 
                     if (typeof url !== 'string') return;
+                    
                     const doc = await fetchResource(url);
+
+                    if(clubType === undefined && clubTypes === undefined) {
+
+                        setClubList(state => ({
+                            ...state,
+                            doc
+                        }));
+
+                        return;
+                    }
+
                     const list = await getBagClubs(
                         doc,
                         clubType,

@@ -1,7 +1,7 @@
 .fade-enter {
-  opacity: 0;
-  z-index: 1;
-  margin-top: -3rem;
+    opacity: 0;
+    z-index: 1;
+    margin-top: -3rem;
     transform: translate(0,-100px);
     display: block;
     position: absolute;
@@ -15,7 +15,22 @@
     position: absolute;
     top: 0;
     width: 100%;
-  opacity: 1;
-  transform: translate(0,0);
-  transition: transform 3000ms, opacity 250ms ease-in;
+    opacity: 1;
+    transform: translate(0,0);
+    transition: transform 3000ms, opacity 250ms ease-in;
+}
+
+.c-panel-loading {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    padding: .5rem 1rem;
+    background-color: rgba(255,255,255,.5);
+    border: 1px solid rgba(255,255,255,.5);
+    border-radius: 5px;
+    color: rgba(255,255,255,.8);
+    font-size: 1.75rem;
+    font-weight: bold;
+
 }

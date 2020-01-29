@@ -1,13 +1,46 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { NavLink } from 'react-router-dom';
-import slide from '@components/transitions/slide';
+import Redirect from 'react-router-dom/Redirect';
+import { makeStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import useDataStructure from '@hooks/useDataStructure';
 
-class SplashScreen extends Component {
+const useStyles = makeStyles({
+    root: {
+      width: '80%',
+      position: 'absolute',
+      top: '80%',
+      left: '50%',
+      height: 20,
+      borderRadius: 10,
+      transform: 'translate(-50%, 0)',
+      borderTop: '1px solid rgba(0,0,0,.1)',
+      borderBottom: '1px solid rgba(255,255,255,.45)',
+      backgroundColor: 'rgba(37, 116, 37, 0.4)'
+    },
+    bar1Determinate: {
+        backgroundColor: 'transparent',
+        background: 'linear-gradient(rgba(255,255,255,.25), rgba(255,255,255,.1), rgba(255,255,255,.25))',
+        borderRadius: 10,
+        borderRight: '2px solid rgba(37, 100, 37, 0.28)'
+    },
 
-    render () {
+  }, { name: 'MuiLinearProgress'});
+const SplashScreen = () => {
 
-        return <NavLink className="splash" to={{ pathname: '/golf/settings', state: slide }}>
+    const dataStructureLoaded = useDataStructure();
+
+    const classes = useStyles();
+    const [completed, setCompleted] = useState(0);
+
+    useEffect(() => {
+
+        const { count, progress } = dataStructureLoaded;
+        setCompleted((100 / count) * progress);
+
+    }, [dataStructureLoaded.progress]);
+    return (
+        <div className="splash">
             <svg className="splash-graph" viewBox="0 0 1600 1000">
                 <defs>
                     <filter id="shadow">
@@ -50,8 +83,14 @@ class SplashScreen extends Component {
                     </g>
                 </g>
             </svg>
-        </NavLink>;
-    }
-}
+            <div>
+            {
+                  completed === 100 ? <Redirect to="/golf/settings"/> :
+                    <LinearProgress classes={ classes } variant="determinate" value={ completed } />
+            }
+            </div>
+        </div>
+    );
+};
 
 export default SplashScreen;
