@@ -1,5 +1,5 @@
 - Should we make the game bag and clubs unique?
--- the clubs in the (not game) bag can change at any time 
+    - the clubs in the (not game) bag can change at any time 
 - parse club data club type is not done
 - parsing bag data misses fields like iri & label
 - clubtype should be filled with data from club? or remove fields? 
@@ -7,7 +7,6 @@
 - use fieldLabel for labels
 - add game start time filled should be put in gamestate?  
 - game detail view
-- implement playing handicap (game detail)
 - implement Add marker in Select Marker or GameForm
 - implement Change Player Handicap in player update
 - implement delete game
@@ -21,3 +20,4 @@ X saveCourse, saveClub as saveClubToList
 X flesh out the complete shape of the geocoordinate fields in setupobject i think
 X add missing labels to data
 X update fields on contexts/shape with  label value
+X implement playing handicap (game detail)
