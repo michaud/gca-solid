@@ -1,6 +1,23 @@
 import React from 'react';
+import {
+    LinearProgress,
+    makeStyles
+} from '@material-ui/core';
 
-const ModuleHeader = ({ label, children, screenheader = false }) =>
+const useStyles = makeStyles({
+    root: {
+        width: '100%',
+        backgroundColor: 'rgba(37, 116, 37, 0.4)',
+        position: 'absolute',
+        top: 0
+    }
+}, { name: 'MuiLinearProgress' });
+
+const ModuleHeader = ({ label, children, screenheader = false, loading = false }) => {
+
+    const classes = useStyles();
+
+    return (<>
     <h2 className={ `header--action${ screenheader ? ' header--screen' : '' }` }>
         { screenheader && <svg viewBox="0 0 1600 1000" width="160" height="100" style={{
             zIndex: 0,
@@ -44,6 +61,9 @@ const ModuleHeader = ({ label, children, screenheader = false }) =>
 
         <span className="header--action__text">{label}</span>
     { children && <div>{ children }</div> }
-    </h2>;
+    </h2>
+    { loading && <LinearProgress classes={ classes } variant="indeterminate" /> }
+    </>);
+};
 
 export default ModuleHeader;

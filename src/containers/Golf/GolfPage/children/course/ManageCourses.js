@@ -75,9 +75,11 @@ const ManageCourses = ({
 
     }, [webId, courseData, reload, notification.notify]);
 
+    const loading = reload || courseData.doc === undefined;
+
     return (
         <>
-            <ModuleHeader label="Courses" screenheader={ true }/>
+            <ModuleHeader label="Courses" screenheader={ true } loading={ loading }/>
             <PageContainer>
                 <CourseForm onSave={ onSaveCourse }/>
                 <CourseList

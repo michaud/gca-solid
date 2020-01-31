@@ -111,9 +111,11 @@ const ManageBag = ({ match, webId, history, clubTypes, clubType }) => {
 
     }, [webId, clubListData, bagData, reload, notification.notify]);
 
+    const loading = reload || clubListData.doc === undefined || bagData.doc === undefined;
+
     return (
         <StylesProvider>
-            <ModuleHeader label={ t('golf.whatsInTheBag') } screenheader={ true }/>
+            <ModuleHeader label={ t('golf.whatsInTheBag') } screenheader={ true } loading={ loading }/>
             <PageContainer>
                 <BagTransferList
                     clubs={ clubs }

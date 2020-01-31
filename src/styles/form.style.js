@@ -65,7 +65,6 @@ const formStyles = makeStyles(theme => ({
         '&:nth-child(5)': {
             marginRight: '-9%'
         }
-
     },
     button: {
         '& .MuiButton-label': {

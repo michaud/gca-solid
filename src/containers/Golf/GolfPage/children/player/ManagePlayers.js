@@ -10,13 +10,10 @@ import { PageContainer } from '@styles/page.style';
 import golf from '@utils/golf-namespace';
 import saveResource from '@services/saveResource';
 
-const ManagePlayers = ({
-    match,
-    webId,
-    history
-}) => {
+const ManagePlayers = ({ webId }) => {
 
     const { notification } = useNotification(webId);
+
     const [player, setPlayer] = useState();
     const [reload, setReload] = useState(false);
     const playerDetails = usePlayer(reload);
@@ -69,14 +66,19 @@ const ManagePlayers = ({
 
     return (
         <>
-            <ModuleHeader label={ t('golf.players') } screenheader={ true }/>
+            <ModuleHeader
+                label={ t('golf.players') }
+                screenheader={ true }
+                loading={ !player || reload === true }/>
             <PageContainer>
-                { 
-                    player && <PlayerDetail
-                        onSave={ onSavePlayer }
-                        player={ player }/> 
-                }
-                <ManageMarkers webId={ webId }/>
+            { 
+                player && <PlayerDetail
+                    onSave={ onSavePlayer }
+                    player={ player }/> 
+            }
+            {
+                player && <ManageMarkers webId={ webId }/>
+            }
             </PageContainer>
         </>
     );

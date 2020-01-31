@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 
 export const PageContainer = styled.div`
-    margin: 0 1rem 1rem 1rem;
+    padding: 1rem 1rem 2rem 1rem;
+    overflow-y: auto;
+    height: calc(100vh - 10.8rem);
+
     > * {
+
         margin-bottom: 2rem;
 
         &:last-child {

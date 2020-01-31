@@ -25,7 +25,6 @@ const PlayerDetail = ({
 }) => {
 
     const [displayState, setDisplayState] = useState(displayStates.detail);
-    //const { t } = useTranslation();
 
     const onSaveHandler = (player) => {
         

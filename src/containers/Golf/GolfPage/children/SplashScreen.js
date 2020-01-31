@@ -7,25 +7,25 @@ import useDataStructure from '@hooks/useDataStructure';
 
 const useStyles = makeStyles({
     root: {
-      width: '80%',
-      position: 'absolute',
-      top: '80%',
-      left: '50%',
-      height: 20,
-      borderRadius: 10,
-      transform: 'translate(-50%, 0)',
-      borderTop: '1px solid rgba(0,0,0,.1)',
-      borderBottom: '1px solid rgba(255,255,255,.45)',
-      backgroundColor: 'rgba(37, 116, 37, 0.4)'
+        width: '80%',
+        position: 'absolute',
+        top: '80%',
+        left: '50%',
+        height: 20,
+        borderRadius: 10,
+        transform: 'translate(-50%, 0)',
+        borderTop: '1px solid rgba(0,0,0,.1)',
+        borderBottom: '1px solid rgba(255,255,255,.45)',
+        backgroundColor: 'rgba(37, 116, 37, 0.4)'
     },
     bar1Determinate: {
         backgroundColor: 'transparent',
         background: 'linear-gradient(rgba(255,255,255,.25), rgba(255,255,255,.1), rgba(255,255,255,.25))',
         borderRadius: 10,
         borderRight: '2px solid rgba(37, 100, 37, 0.28)'
-    },
+    }
+}, { name: 'MuiLinearProgress' });
 
-  }, { name: 'MuiLinearProgress'});
 const SplashScreen = () => {
 
     const dataStructureLoaded = useDataStructure();
@@ -44,19 +44,19 @@ const SplashScreen = () => {
             <svg className="splash-graph" viewBox="0 0 1600 1000">
                 <defs>
                     <filter id="shadow">
-                        <feDropShadow dx="0" dy="5" floodColor="#1e3e00" floodOpacity=".7" stdDeviation="12"/>
+                        <feDropShadow dx="0" dy="5" floodColor="#1e3e00" floodOpacity=".7" stdDeviation="12" />
                     </filter>
                     <linearGradient x1="0" y1="1" x2="1" y2="0" id="svg_1">
-                        <stop offset="0" stopColor="rgba(0, 191, 0, 1)"/>
-                        <stop offset="1" stopColor="rgba(0, 191, 0, 0)"/>
+                        <stop offset="0" stopColor="rgba(0, 191, 0, 1)" />
+                        <stop offset="1" stopColor="rgba(0, 191, 0, 0)" />
                     </linearGradient>
                     <linearGradient x1=".5" y1="0" x2=".5" y2="1" id="svg_2">
-                        <stop offset="0" stopColor="rgba(212, 255, 170,0)"/>
-                        <stop offset="1" stopColor="rgba(212, 255, 170,1)"/>
+                        <stop offset="0" stopColor="rgba(212, 255, 170,0)" />
+                        <stop offset="1" stopColor="rgba(212, 255, 170,1)" />
                     </linearGradient>
                     <linearGradient x1="0" y1="1" x2="1" y2="0" id="svg_3">
-                        <stop offset="0" stopColor="rgba(170, 255, 86, 0)"/>
-                        <stop offset="1" stopColor="rgba(170, 255, 86, 1)"/>
+                        <stop offset="0" stopColor="rgba(170, 255, 86, 0)" />
+                        <stop offset="1" stopColor="rgba(170, 255, 86, 1)" />
                     </linearGradient>
                 </defs>
                 <g>
@@ -72,25 +72,25 @@ const SplashScreen = () => {
                         <path d="m0,0l800,473l0,4000l-800,0l0,0z" fillOpacity="0.6" fill="url(#svg_1)" />
                         <path d="m1600,0l0,4000l-800,0l0,-3527l0,0z" fillOpacity="0.6" fill="url(#svg_3)" />
                     </g>
-                    <g style={{transform: 'translate(0,-20%)' }}>
-                        <text x="-20px" textAnchor="middle" alignmentBaseline="central" fill="rgba(255, 255, 255, 0.9)" style={{fontSize: '7rem', filter: 'url(#shadow)', fontWeight: 'bold', color: 'white', transform: 'translate(50%,0)' }}>
-                        Golf</text>
-                        <text x="-20px" y="6rem" textAnchor="middle" alignmentBaseline="central" fill="rgba(255, 255, 255, 0.9)" style={{fontSize: '7rem', filter: 'url(#shadow)', fontWeight: 'bold', color: 'white', transform: 'translate(50%,0)' }}>
-                        Course</text>
-                        <text x="-20px" y="13rem" textAnchor="middle" alignmentBaseline="central" fill="rgba(255, 255, 255, 0.9)" style={{fontSize: '7rem', filter: 'url(#shadow)', fontWeight: 'bold', color: 'white', transform: 'translate(50%,0)' }}>
-                        Assistant
+                    <g style={{ transform: 'translate(0,-20%)' }}>
+                        <text x="-20px" textAnchor="middle" alignmentBaseline="central" fill="rgba(255, 255, 255, 0.9)" style={{ fontSize: '7rem', filter: 'url(#shadow)', fontWeight: 'bold', color: 'white', transform: 'translate(50%,0)' }}>
+                            Golf</text>
+                        <text x="-20px" y="6rem" textAnchor="middle" alignmentBaseline="central" fill="rgba(255, 255, 255, 0.9)" style={{ fontSize: '7rem', filter: 'url(#shadow)', fontWeight: 'bold', color: 'white', transform: 'translate(50%,0)' }}>
+                            Course</text>
+                        <text x="-20px" y="13rem" textAnchor="middle" alignmentBaseline="central" fill="rgba(255, 255, 255, 0.9)" style={{ fontSize: '7rem', filter: 'url(#shadow)', fontWeight: 'bold', color: 'white', transform: 'translate(50%,0)' }}>
+                            Assistant
                         </text>
                     </g>
                 </g>
             </svg>
             <div>
-            {
-                  completed === 100 ? <Redirect to={{
-                      state: { ...dataStructureLoaded},
-                      pathname: "/golf/settings"
-                    }}/> :
-                    <LinearProgress classes={ classes } variant="determinate" value={ completed } />
-            }
+                {
+                    completed === 100 ? <Redirect to={{
+                        state: { ...dataStructureLoaded },
+                        pathname: "/golf/settings"
+                    }} /> :
+                        <LinearProgress classes={classes} variant="determinate" value={completed} />
+                }
             </div>
         </div>
     );

@@ -108,9 +108,11 @@ const ManageGames = ({
         return <Redirect to={ `/golf/game/${ playGame }` } />
     }
 
+    const loading = reload || gameData.doc === undefined;
+
     return (
         <>
-            <ModuleHeader label="Games" screenheader={ true }/>
+            <ModuleHeader label="Games" screenheader={ true } loading={ loading }/>
             <PageContainer>
                 {
                     showGameForm && <div className="c-box c-box--hold-height">
