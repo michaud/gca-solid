@@ -19,12 +19,6 @@ export const NavigationItems = [
     icon: '/img/people.svg',
     label: 'navBar.golf',
     to: '/golf'
-  },
-  {
-    id: 'tictactoe',
-    icon: '/img/icon/tictactoe.svg',
-    label: 'navBar.tictactoe',
-    to: '/tictactoe'
   }
 ];
 

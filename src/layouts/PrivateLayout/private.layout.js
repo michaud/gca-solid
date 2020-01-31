@@ -6,7 +6,7 @@ import {
   AppPermission,
   AccessControlList
 } from '@inrupt/solid-react-components';
-import { AuthNavBar, Footer } from '@components';
+import { AuthNavBar } from '@components';
 import { errorToaster, checkAppPermissions } from '@utils';
 import styled from 'styled-components';
 
@@ -19,7 +19,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  padding-top: 60px;
+  padding-top: 45px;
   flex: 1 0 auto;
   display: flex;
   flex-direction: column;
@@ -81,7 +81,6 @@ const PrivateLayout = ({ routes, webId, location, history, ...rest }) => {
             </Content>
           )}
         />
-        <Footer />
       </Container>
     </React.Fragment>
   );

@@ -3,8 +3,6 @@ import { media } from '../../utils';
 
 export const WelcomeWrapper = styled.section`
   width: 100%;
-  background-image: url('/img/concentric-hex-pattern_2x.png');
-  background-repeat: repeat;
   padding: 50px 0;
 
   h3 {
@@ -72,15 +70,6 @@ export const WelcomeProfile = styled.div`
 
   ${media.tablet`
     width: 50%;
-    &:after {
-      display: block;
-      content: "";
-      position: absolute;
-      height: 100%;
-      width: 1px;
-      background-color:#D0D0D0;
-      top:0;
-    }
   `}
 `;
 

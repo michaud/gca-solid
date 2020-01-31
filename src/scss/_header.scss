@@ -46,3 +46,29 @@
 .header--action__text {
     flex: 1 0;
 }
+
+/*override inrupt theming*/
+header.header, footer.footer, header.header__desktop {
+    height: 45px;
+}
+
+.nav.nav__primary > ul {
+    height: 45px;
+}
+
+nav.nav > ul {
+    min-height: 45px;
+}
+
+nav.nav__primary > ul > li > a:hover,
+nav.nav__primary > ul > li > a.active,
+nav.nav__primary > ul > li > button:hover,
+nav.nav__primary > ul > li > button.active {
+    background: transparent;
+    border-bottom: 4px solid rgb(0, 128, 0);
+
+}
+
+.mobile-navigation__toggle > button, .mobile-navigation__toggle > a {
+    padding: 0 1rem;
+}

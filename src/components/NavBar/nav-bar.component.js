@@ -1,5 +1,8 @@
 import React, { useEffect, useState, Fragment } from 'react';
+
 import { Link } from 'react-router-dom';
+import AppsIcon from '@material-ui/icons/Apps';
+
 import { Navigation, Toolbar, HamburgerButton, MobileNavigation } from './children';
 
 type Props = {
@@ -57,9 +60,7 @@ const NavBar = (props: Props) => {
     <header role="navigation" className="header header__desktop fixed" ref={componentElement}>
       <section className="header-wrap">
         <div className="logo-block">
-          <Link to="/welcome">
-            <img src="/img/inrupt.svg" alt="inrupt" />
-          </Link>
+          <Link to="/welcome"><AppsIcon/></Link>
         </div>
 
         {isOpenMobile ? (
