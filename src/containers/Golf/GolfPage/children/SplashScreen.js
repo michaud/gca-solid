@@ -85,7 +85,10 @@ const SplashScreen = () => {
             </svg>
             <div>
             {
-                  completed === 100 ? <Redirect to="/golf/settings"/> :
+                  completed === 100 ? <Redirect to={{
+                      state: { ...dataStructureLoaded},
+                      pathname: "/golf/settings"
+                    }}/> :
                     <LinearProgress classes={ classes } variant="determinate" value={ completed } />
             }
             </div>

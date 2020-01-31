@@ -46,10 +46,31 @@ const useDataStructure = () => {
 
     const count = dataFiles.length;
 
-    const progress = dataFiles.reduce((acc, file) => file.doc !== undefined ? acc + 1 : acc, 0);
+    const data = dataFiles.reduce((acc, file) => {
+
+        return ({
+            ...acc,
+            progress: file.doc !== undefined ? acc.progress + 1 : acc.progress,
+            hasPlayerData: playerData.player !== undefined,
+            hasMarkerData: markerData.list.length > 0,
+            hasClubData: clubData.list.length > 0,
+            hasBagData: bagData.list.length > 0,
+            hasGameData: gameData.list.length > 0,
+            hasCourseData: courseData.list.length > 0
+        })
+        
+    }, {
+        progress: 0,
+        hasPlayerData: undefined,
+        hasMarkerData: undefined,
+        hasClubData: undefined,
+        hasBagData: undefined,
+        hasGameData: undefined,
+        hasCourseData: undefined
+    });
 
     return { count,
-        progress
+        ...data
     };
 };
 

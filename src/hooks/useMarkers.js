@@ -11,7 +11,7 @@ import paths from '@constants/paths';
 const useMarkers = (reload) => {
 
     const publicTypeIndex = usePublicTypeIndex(reload);
-    const [markers, setMarkers] = useState({ markers: [], doc: undefined });
+    const [markers, setMarkers] = useState({ list: [], doc: undefined });
 
     useEffect(() => {
 

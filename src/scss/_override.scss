@@ -6,3 +6,12 @@
 .mobile-navigation__toggle > button {
     padding: .3rem .8rem 0 1rem;
 }
+
+.c-content-icon {
+
+    &.MuiSvgIcon-root {
+        width: 2.25rem;
+        height: 2.25rem;
+        fill: rgb(55, 116, 0);
+    }
+}

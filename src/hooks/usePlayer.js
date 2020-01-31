@@ -21,7 +21,7 @@ const usePlayer = (reload) => {
                 const playerIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Player);
 
                 if (!playerIndex) {
-debugger
+
                     // If no player document is listed in the public type index, create one:
                     const doc = await initialiseTypeDocument(
                         golf.classes.Player,

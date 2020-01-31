@@ -1,0 +1,65 @@
+.c-intro-panel {
+
+    position: relative;
+    margin: 0 1rem 1rem;
+    background-color: rgb(242, 235, 207);
+    border-radius: 4px;
+    box-shadow: 1px 2px 5px hsla(48, 29%, 43%, .4);
+
+    .c-intro-panel__icon {
+        padding: 1rem;
+    }
+
+    .c-intro-panel__content {
+
+        width: 100%;
+        padding-right: .75rem;
+        p {
+            margin: 0 0 0 0;
+            font-size: .9rem;
+        }
+    }
+
+    &.disabled {
+
+        .c-content-icon.MuiSvgIcon-root {
+            fill: rgb(212, 201, 155);
+        }
+
+        .c-intro-panel__content {
+
+            .h-intro, p {
+                color: rgb(212, 201, 155);
+            }
+        }
+    }
+}
+
+.action-intro {
+
+    margin: 1rem 0 1rem 1rem;
+    
+    &.MuiSvgIcon-root {
+
+        fill: rgb(55, 116, 0);
+    }
+
+}
+
+.action-intro--inside {
+
+    margin: 1rem 1rem 1rem 1rem;
+
+    &.MuiSvgIcon-root {
+
+        fill: rgb(55, 116, 0)
+    }
+}
+
+.disabled {
+
+    .MuiSvgIcon-root {
+
+        fill: rgb(212, 201, 155);
+    }
+}
