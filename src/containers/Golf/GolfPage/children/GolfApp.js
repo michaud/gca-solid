@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { lazy } from 'react';
 
 import { Route, Switch } from 'react-router-dom';
 import NavigationShell from './NavigationShell';
-import ManageBag from '@containers/Golf/GolfPage/children/bag/ManageBag';
 import SplashScreen from './SplashScreen';
-import ManageCourses from '@containers/Golf/GolfPage/children/course/ManageCourses';
-import ManagePlayers from '@containers/Golf/GolfPage/children/player/ManagePlayers';
-import ManageGames from './game/ManageGames';
-import Home from '@containers/Golf/GolfPage/children/home/Home';
+
+const ManageBag = lazy(() => import('@containers/Golf/GolfPage/children/bag/ManageBag'));
+const ManageCourses = lazy(() => import('@containers/Golf/GolfPage/children/course/ManageCourses'));
+const ManagePlayers = lazy(() => import('@containers/Golf/GolfPage/children/player/ManagePlayers'));
+const ManageGames = lazy(() => import('@containers/Golf/GolfPage/children/game/ManageGames'));
+const Home = lazy(() => import('@containers/Golf/GolfPage/children/home/Home'));
 
 const GolfApp = ({ webId }) => {
 
@@ -40,7 +41,6 @@ const GolfApp = ({ webId }) => {
                             render={ (routerProps) => <ManageGames
                                 { ...routerProps }
                                 webId={ webId }/> }/>
-                        {/* <Route path="/golf/settings/game/new" render={ () => <NewGameContainer/> }/> */}
                     </Switch>
                 )
             }} />
