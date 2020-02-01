@@ -19,6 +19,7 @@ const ClubForm = ({
     club,
     onSave,
     onCancel,
+    onDelete,
     clubTypes,
     clubType,
     title ='Add club',
@@ -34,6 +35,8 @@ const ClubForm = ({
         onSave(clubState);
         setClubState(clubType);
     };
+
+    const onDeleteHandler = player => () => onDelete(player);
 
     const onChangeClubField = fieldDef => (...args)  => {
 
@@ -78,6 +81,7 @@ const ClubForm = ({
     }
 
     const canSave = checkCanSave(clubState, clubShape);
+    const handleDelete = typeof(onDelete) === 'function' ? onDeleteHandler : undefined;
 
     return (
         <form noValidate autoComplete="off">
@@ -92,6 +96,18 @@ const ClubForm = ({
                         className={ classes.button }
                         color="primary">{ actionLabel }</Button>
                 </FlexItem>
+                {
+                    handleDelete ? (
+                        <FlexItem>
+                            <Button
+                                variant="contained"
+                                disabled={ !canSave }
+                                onClick={ handleDelete(club) }
+                                className={ classes.button }
+                                color="primary">Delete</Button>
+                        </FlexItem>
+                    ) : null
+                }
                 <FlexItemRight>
                 { onCancel && <Button
                     variant="contained"

@@ -55,7 +55,10 @@ const ManageBag = ({ match, webId, history, clubTypes, clubType }) => {
 
     const deleteClubHandler = club => {
 
-        removeFromBag([club], bagData.doc);
+        const isClubInBag = bagData.list.find(testClub => testClub.iri === club.iri);
+
+        if(isClubInBag) removeFromBag([club], bagData.doc);
+
         deleteClub(club, clubListData.doc);
         setReload(true);
     };

@@ -35,10 +35,10 @@ const ClubDetail = ({
         setDisplayState(displayStates.detail);
     };
 
-    // const onDeleteHandler = () => {
+    const onDeleteHandler = () => {
 
-    //     onDelete(club);
-    // };
+        onDelete(club);
+    };
 
     const { clubName, clubBrand, clubType } = club;
     const clubDescription = `${ clubBrand.value }, ${ clubName.value }, ${ clubType.value.label }`;
@@ -57,9 +57,10 @@ const ClubDetail = ({
 
                 <ClubForm
                     club={ club }
-                    onSave={ onSaveHandler }
                     title=""
                     actionLabel="Save club"
+                    onSave={ onSaveHandler }
+                    onDelete={ onDeleteHandler }
                     onCancel={ cancelEdit }/>
             )}
         </div>
