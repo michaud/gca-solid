@@ -1,19 +1,14 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 
-import playerShape from '@contexts/player-shape.json';
 import displayStates from '@utils/displayStates';
 
 import {
-    FieldContainer,
     FlexContainer,
     FlexItemData,
-    FlexItemLabel,
-    FlexItemValue,
     FlexItemTools
 } from '@styles/layout.style';
 
 import PlayerForm from './PlayerForm';
-import getFieldDisplayData from '@utils/getFieldDisplayData';
 import EditActions from '@containers/Golf/components/EditActions';
 
 const MarkerDetail = ({
@@ -46,20 +41,6 @@ const MarkerDetail = ({
 
         onDelete(player);
     };
-
-    const displayFields = useMemo(() => {
-
-        const displayFields = [];
-
-        playerShape.shape.forEach(field => {
-            
-            const data = getFieldDisplayData(field, player);
-            displayFields.push(data);
-        });
-
-        return displayFields;
-
-    }, [player]);
 
     const handleDelete = typeof(onDelete) === 'function' ? onDeleteHandler : undefined ;
 
