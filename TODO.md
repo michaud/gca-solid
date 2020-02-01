@@ -1,3 +1,4 @@
+- implement delete club
 - rewrite game data so separate game files are used
 - Fix width of in holes table when adding holes
 - Fix save course button space with table

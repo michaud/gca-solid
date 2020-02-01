@@ -74,6 +74,7 @@ const ManagePlayers = ({ webId }) => {
             { 
                 player && <PlayerDetail
                     onSave={ onSavePlayer }
+                    showEdit={ true }
                     player={ player }/> 
             }
             {

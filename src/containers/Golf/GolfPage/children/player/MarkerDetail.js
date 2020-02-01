@@ -63,7 +63,6 @@ const MarkerDetail = ({
 
     const handleDelete = typeof(onDelete) === 'function' ? onDeleteHandler : undefined ;
 
-    console.log('player: ', player);
     const markerDescription = player ? `${
         player.givenName.value
     } ${
