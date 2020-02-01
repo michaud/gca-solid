@@ -1,21 +1,22 @@
 import React from 'react';
-import PlayerDetail from './PlayerDetail';
+import MarkerDetail from './MarkerDetail';
 
 const MarkerList = ({
-    markers,
+    markers = [],
     onDelete,
     onSaveMarker
 }) => {
 
     return markers.map((marker, idx) => {
 
-        return <PlayerDetail
+        return <MarkerDetail
             key={ idx }
             player={ marker }
             target="marker"
             onDelete={ onDelete }
+            showEdit={ true }
             onSave={ onSaveMarker }/>;
-    })
+    });
 };
 
 export default MarkerList;

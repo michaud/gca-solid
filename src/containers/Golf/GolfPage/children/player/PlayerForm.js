@@ -18,17 +18,15 @@ const PlayerForm = ({
     player,
     onSave,
     onCancel,
-    title = 'Add player',
-    actionLabel = 'Save player'
+    onDelete,
+    title = 'Add player'
 }) => {
 
     const [playerState, setPlayerState] = useState(player);
     const classes = formStyles();
 
-    const saveHandler = () => {
-
-        onSave(playerState);
-    };
+    const saveHandler = () => onSave(playerState);
+    const onDeleteHandler = player => () => onDelete(player);
 
     const onChangeField = fieldDef => (...args)  => {
 
@@ -68,7 +66,7 @@ const PlayerForm = ({
     }
 
     const canSave = checkCanSave(playerState, playerShape);
-
+    const handleDelete = typeof(onDelete) === 'function' ? onDeleteHandler : undefined;
     return (
         <div>
             <header className="c-header">{ title }</header>
@@ -80,15 +78,29 @@ const PlayerForm = ({
                         disabled={ !canSave }
                         onClick={ saveHandler }
                         className={ classes.button }
-                        color="primary">{ actionLabel }</Button>
+                        color="primary">Save</Button>
                 </FlexItem>
+                {
+                    handleDelete ? (
+                        <FlexItem>
+                            <Button
+                                variant="contained"
+                                disabled={ !canSave }
+                                onClick={ handleDelete(player) }
+                                className={ classes.button }
+                                color="primary">Delete</Button>
+                        </FlexItem>
+                    ) : null
+                }
                 <FlexItemRight>
-                { onCancel && <Button
-                    variant="contained"
-                    disabled={ !canSave }
-                    onClick={ onCancel }
-                    className={ classes.button }
-                    color="primary">Cancel</Button>
+                { onCancel ? (
+                    <Button
+                        variant="contained"
+                        disabled={ !canSave }
+                        onClick={ onCancel }
+                        className={ classes.button }
+                        color="primary">Cancel</Button>
+                    ) : null
                 }
                 </FlexItemRight>
             </FlexContainer>

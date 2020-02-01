@@ -1,5 +1,4 @@
 - rewrite game data so separate game files are used
-- Fix Create player loading in later than Marker component
 - Fix width of in holes table when adding holes
 - Fix save course button space with table
 - Fix club list diplay
@@ -27,3 +26,4 @@ X add missing labels to data
 X update fields on contexts/shape with  label value
 X implement playing handicap (game detail)
 X Fix space beneath app buttons
+X Fix Create player loading in later than Marker component

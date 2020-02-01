@@ -43,25 +43,27 @@ const ClubDetail = ({
     const { clubName, clubBrand, clubType } = club;
     const clubDescription = `${ clubBrand.value }, ${ clubName.value }, ${ clubType.value.label }`;
 
-    return <div className="c-detail__container">
-        <FlexContainer alignitems="center">
-            <FlexItemData vertical alignitems="center">
-                <div>{ clubDescription }</div>
-            </FlexItemData>
-            <FlexItemTools>
-                <EditActions onEdit={ onEdit }/>
-            </FlexItemTools>
-        </FlexContainer>
-        { displayState === displayStates.edit && (
+    return (
+        <div className="c-detail__container">
+            <FlexContainer alignitems="center">
+                <FlexItemData vertical alignitems="center">
+                    <div>{ clubDescription }</div>
+                </FlexItemData>
+                <FlexItemTools>
+                    <EditActions onEdit={ onEdit }/>
+                </FlexItemTools>
+            </FlexContainer>
+            { displayState === displayStates.edit && (
 
-            <ClubForm
-                club={ club }
-                onSave={ onSaveHandler }
-                title=""
-                actionLabel="Save club"
-                onCancel={ cancelEdit }/>
-        )}
-    </div>;
+                <ClubForm
+                    club={ club }
+                    onSave={ onSaveHandler }
+                    title=""
+                    actionLabel="Save club"
+                    onCancel={ cancelEdit }/>
+            )}
+        </div>
+    );
 };
 
 export default ClubDetail;
