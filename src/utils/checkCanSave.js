@@ -76,15 +76,47 @@ const hasValue = item => {
             const tested = item.value.find(hole => parseInt(hole.holeStrokeIndex.value) === 0);
             const hasZeroValue = tested === undefined ? false : true;
             const can = item.value.length > 0 && !hasZeroValue;
+
             return ({
                 can,
                 reason: hasZeroValue ? `hole ${ tested.holeNumber.value } has SI 0` : !can ? `add ${ item.label }` : ''
             })
         }
-        case golf.classes.Player:
-        case golf.classes.Course:
-        case golf.classes.Marker:
-        case golf.classes.Bag:
+        case golf.classes.Player:{
+
+            const can = typeof(item.value) === 'object';
+
+            return ({
+                can,
+                reason: !can ? `set a ${ item.label}` : ''
+            });
+        }
+        case golf.classes.Course:{
+
+            const can = typeof(item.value) === 'object';
+            return ({
+                can,
+                reason: !can ? `set a ${ item.label}` : ''
+            });
+        }
+        case golf.classes.Marker: {
+
+            const can = typeof(item.value) === 'object';
+
+            return ({
+                can,
+                reason: !can ? `set a ${ item.label}` : ''
+            });
+        }
+        case golf.classes.Bag:{
+
+            const can = item.value.clubs.value.length > 0;
+
+            return ({
+                can,
+                reason: !can ? `put clubs in your ${ item.label}` : ''
+            });
+        }
         case golf.classes.GamePlayingHandicap:{
             
             const can = typeof(item.value) === 'object';
