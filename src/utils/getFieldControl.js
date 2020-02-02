@@ -2,6 +2,10 @@ import React from 'react';
 import golf from "./golf-namespace";
 
 import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 
 import ManageHoles from "@containers/Golf/GolfPage/children/hole/ManageHoles";
 import ClubTypeSelector from '@containers/Golf/GolfPage/children/club/ClubTypeSelector';
@@ -11,8 +15,6 @@ import PlayerUpdate from '@containers/Golf/GolfPage/children/game/PlayerUpdate';
 import SelectMarker from '@containers/Golf/GolfPage/children/game/SelectMarker';
 import PlayingHandicapDetail from '@containers/Golf/GolfPage/children/game/PlayingHandicapDetail';
 import SelectCourse from '@containers/Golf/GolfPage/children/game/SelectCourse';
-import { Select, MenuItem, FormControl } from '@material-ui/core';
-import InputLabel from '@material-ui/core/InputLabel';
 
 const getFieldControl = ({
     data,

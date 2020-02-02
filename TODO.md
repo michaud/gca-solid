@@ -1,5 +1,3 @@
-- Fix width of in holes table when adding holes
-- Fix save course button space with table
 - rewrite game data so separate game files are used
 - Fix club list display
 - Should we make the game bag and clubs unique?
@@ -28,3 +26,5 @@ X implement playing handicap (game detail)
 X Fix space beneath app buttons
 X Fix Create player loading in later than Marker component
 X implement delete club
+X Fix width of in holes table when adding holes
+X Fix save course button space with table
