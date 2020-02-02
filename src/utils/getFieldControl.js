@@ -11,6 +11,8 @@ import PlayerUpdate from '@containers/Golf/GolfPage/children/game/PlayerUpdate';
 import SelectMarker from '@containers/Golf/GolfPage/children/game/SelectMarker';
 import PlayingHandicapDetail from '@containers/Golf/GolfPage/children/game/PlayingHandicapDetail';
 import SelectCourse from '@containers/Golf/GolfPage/children/game/SelectCourse';
+import { Select, MenuItem, FormControl } from '@material-ui/core';
+import InputLabel from '@material-ui/core/InputLabel';
 
 const getFieldControl = ({
     data,
@@ -21,7 +23,8 @@ const getFieldControl = ({
     onSaveEdit,
     inputRef,
     idx,
-    dataSource
+    dataSource,
+    availableStrokeIndices
 }) => {
 
     const required = data.hasOwnProperty('required') ? data.required : true;
@@ -66,16 +69,24 @@ const getFieldControl = ({
 
             if(data.predicate === 'holeStrokeIndex') {
 
-                return <TextField
-                    key={ idx }
-                    type="number"
-                    required
-                    label={ data.label }
-                    className={ styles.textFieldNumber }
-                    inputRef={ inputRef }
-                    value={ data.value }
-                    onChange={ onChange(data) }
-                    variant="outlined"/>
+                return <FormControl required variant="outlined" className={ styles.SIselect } key={ idx }>
+                    <InputLabel shrink id="holeStrokeIndexLabel">{ data.label }</InputLabel>
+                    <Select
+                        labelId="holeStrokeIndex"
+                        label={ data.label }
+                        inputRef={ inputRef }
+                        value={ parseInt(data.value) > 0 ? parseInt(data.value) : '' }
+                        onChange={ onChange(data) }>
+                        {
+                            availableStrokeIndices
+                                .map((SI, idx) => <MenuItem
+                                    key={ idx }
+                                    value={ SI }>
+                                        { SI }
+                                    </MenuItem>)
+                        }
+                    </Select>
+                </FormControl>;
             }
 
             return <TextField key={ idx }

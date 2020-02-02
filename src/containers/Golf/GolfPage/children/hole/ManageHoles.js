@@ -11,10 +11,22 @@ const ManageHoles = ({
 }) => {
 
     const [holeNumber, setHoleNumber] = useState(holes.length + 1);
+    const [availableStrokeIndices, setAvailableStrokeIndices] = useState([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]);
     const [editHole, setEditHole] = useState();
 
     useEffect(() => {
         setHoleNumber(holes.length + 1);
+        setAvailableStrokeIndices(state => {
+            const newState = state.reduce((acc, SI) => {
+
+                const used = holes.find(hole => parseInt(hole.holeStrokeIndex.value) === SI);
+                if(!used) acc.push(SI)
+                return acc;
+            },[]);
+
+            return newState;
+        });
+
     }, [holes])
 
     const onSaveHoleHandler = hole => {
@@ -41,6 +53,7 @@ const ManageHoles = ({
                 onSave={ onSaveHoleHandler }
                 onEdit={ onSaveEditHoleHandler }
                 holeNumber={ holeNumber }
+                availableStrokeIndices={ availableStrokeIndices }
                 actionLabel={ editHole ? 'save hole' : 'add hole' }/>
             <HoleTable
                 holes={ holes }

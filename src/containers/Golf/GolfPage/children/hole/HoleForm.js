@@ -22,7 +22,8 @@ const HoleForm = ({
     onEdit,
     onCancel,
     title = 'Add hole',
-    actionLabel = 'add hole'
+    actionLabel = 'add hole',
+    availableStrokeIndices
 }) => {
 
     const [holeState, setHoleState] = useState();
@@ -59,6 +60,7 @@ const HoleForm = ({
                 styles: classes,
                 onChange: onChangeHoleField,
                 inputRef: focusRef,
+                availableStrokeIndices,
                 idx: index++
             });
 
@@ -80,7 +82,7 @@ const HoleForm = ({
             
             if(holeState.holeStrokeIndex.value === 0) {
 
-                focusRef.current.select();
+                //focusRef.current.select();
             }
         }
 

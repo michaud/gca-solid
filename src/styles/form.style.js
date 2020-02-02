@@ -66,6 +66,20 @@ const formStyles = makeStyles(theme => ({
             marginRight: '-9%'
         }
     },
+    SIselect: {
+        '&.MuiFormControl-root': {
+            margin: '0 0 1.5rem 0',
+            width: '22.7%',
+            marginRight:'3%'
+        },
+        '& .MuiOutlinedInput-notchedOutline legend': {
+            width: '5rem !important'
+        },
+        '&:nth-child(5)': {
+            marginRight: '-9%'
+        }
+    },
+
     button: {
         '& .MuiButton-label': {
             color: 'white'
