@@ -56,6 +56,9 @@
     border-bottom: 1px solid rgb(210, 199, 157);
     background: linear-gradient(171deg, rgb(245, 240, 214) 0%, rgb(220, 210, 173) 100%);
     width: 100%;
+    color:  rgba(0, 0, 0, 0.9);
+    font-family: Raleway, sans-serif;
+
 }
 
 .btn--club__name {
@@ -65,7 +68,9 @@
     cursor: default;
     pointer-events: none;
 }
-
+.btn--club__type {
+    font-weight: bold;
+}
 .btn--start {
 
     display: block;

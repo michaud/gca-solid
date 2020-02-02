@@ -61,7 +61,10 @@ const HoleNavigator = ({ holes, onChangeHole }) => {
             <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
                 <FlexContainer center flex="1 0 auto" alignitems="stretch">
                     <FlexContainer flex="1 0 auto" center>
-                        <div className="u-pad--airy">{currHole && `hole ${currHole.holeNumber.value}, ${currHole.holeLength.value}m`}</div>
+                        <div className="u-pad--airy">
+                            <div>{ currHole && `hole ${ currHole.holeNumber.value }` }</div>
+                            <div>{ currHole && `${ currHole.holeLength.value } m` }</div>
+                        </div>
                     </FlexContainer>
                     <FlexItem narrow>
                         {currHole && <table className="select-hole__info">
