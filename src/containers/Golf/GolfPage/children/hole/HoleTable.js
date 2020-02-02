@@ -22,7 +22,7 @@ const HoleTable = ({
     const inGameStrokes = inHoles.map(hole => hole.gameStrokes ? hole.gameStrokes.value.length > 0 ? hole.gameStrokes.value.length : '' : '');
 
     return (
-        <div>
+        <div className="c-box">
             <label className="f-label--plain">holes</label>
             <table className={ holes.length > 8 ? 'hole-table u-wide' : 'hole-table' }>
                 <tbody>
@@ -43,7 +43,7 @@ const HoleTable = ({
                     </tr>
                 </tbody>
             </table>
-            <table className={ holes.length > 8 ? 'hole-table u-wide' : 'hole-table' }>
+            <table className={ holes.length > 17 ? 'hole-table u-wide' : 'hole-table' }>
                 <tbody>
                     <tr>
                         { inHoleNumbers.map((nr, index) => <th className="hole-table__header--button" key={ index}>{ nr }</th>) }

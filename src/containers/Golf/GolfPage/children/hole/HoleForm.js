@@ -43,27 +43,10 @@ const HoleForm = ({
     const onChangeHoleField = fieldDef => (...args)  => {
 
         const value = getFieldValue(fieldDef, args);
-
         setHoleState(state => update(state, {
             [fieldDef.predicate]: { value: { $set: value } }
         }));
     };
-
-    useEffect(() => {
-
-        holeData ? setHoleState(holeData) : setHoleState(setupDataObject(holeShape, {
-            holeNumber
-        }));
-
-        if(focusRef && focusRef.current) {
-
-            const { current } = focusRef;
-            current.focus();
-            current.select();
-        }
-
-    }, [holeData, holeNumber, focusRef.current]);
-
 
     if(holeState) {
 
@@ -78,14 +61,35 @@ const HoleForm = ({
                 inputRef: focusRef,
                 idx: index++
             });
+
             holeFields.push(fieldControl);
         });
     }
-    
+
+    useEffect(() => {
+
+        holeData ? setHoleState(holeData) : setHoleState(setupDataObject(holeShape, {
+            holeNumber
+        }));
+
+    }, [holeData, holeNumber]);
+
+    useEffect(() => {
+
+        if(focusRef && focusRef.current && holeState.holeStrokeIndex) {
+            
+            if(holeState.holeStrokeIndex.value === 0) {
+
+                focusRef.current.select();
+            }
+        }
+
+    }, [focusRef.current, holeNumber, holeState])
+
     const canSave = checkCanSave(holeState, holeShape);
 
     return (
-        <div>
+        <div className="c-box">
             <header className="c-header">{ title }</header>
             { holeFields }
             <FlexContainer>
