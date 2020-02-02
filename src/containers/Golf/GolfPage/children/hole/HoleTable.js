@@ -30,35 +30,35 @@ const HoleTable = ({
                         { outHoleNumbers.map((nr, index) => <th className="hole-table__header--button" onClick={ editHoleHandler(index) } key={ index }>{ nr }</th>) }
                     </tr>
                     <tr>
-                        { outPars.map((p, index) => <td key={ index}>{ p }</td>) }
+                        { outPars.map((p, index) => <td key={ index }>{ p }</td>) }
                     </tr>
                     <tr>
-                        { outGameStrokes.map((s, index) => <td key={ index}>{ s }</td>) }
+                        { outGameStrokes.map((s, index) => <td key={ index }>{ s }</td>) }
                     </tr>
                     <tr>
-                        { outStrokeIndices.map((s, index) => <td key={ index}>{ s }</td>) }
+                        { outStrokeIndices.map((s, index) => <td key={ index }>{ s }</td>) }
                     </tr>
                     <tr>
-                        { outLengths.map((l, index) => <td key={ index}>{ l }</td>) }
+                        { outLengths.map((l, index) => <td key={ index }>{ l }</td>) }
                     </tr>
                 </tbody>
             </table>
             <table className={ holes.length > 17 ? 'hole-table u-wide' : 'hole-table' }>
                 <tbody>
                     <tr>
-                        { inHoleNumbers.map((nr, index) => <th className="hole-table__header--button" key={ index}>{ nr }</th>) }
+                        { inHoleNumbers.map((nr, index) => <th className="hole-table__header--button" key={ index }>{ nr }</th>) }
                     </tr>
                     <tr>
-                        { inPars.map((p, index) => <td key={ index}>{ p }</td>) }
+                        { inPars.map((p, index) => <td key={ index }>{ p }</td>) }
                     </tr>
                     <tr>
-                        { inGameStrokes.map((s, index) => <td key={ index}>{ s }</td>) }
+                        { inGameStrokes.map((s, index) => <td key={ index }>{ s }</td>) }
                     </tr>
                     <tr>
-                        { inStrokeIndices.map((s, index) => <td key={ index}>{ s }</td>) }
+                        { inStrokeIndices.map((s, index) => <td key={ index }>{ s }</td>) }
                     </tr>
                     <tr>
-                        { inLengths.map((l, index) => <td key={ index}>{ l }</td>) }
+                        { inLengths.map((l, index) => <td key={ index }>{ l }</td>) }
                     </tr>
                 </tbody>
             </table>

@@ -8,6 +8,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
         prefix: fieldPrefix,
         predicate: fieldPredicate,
         type,
+        required,
         value: fieldValue
     } = field;
 
@@ -129,12 +130,18 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
         }
     }
 
-    return {
+    return required === undefined ? ({
         type,
         predicate: field.predicate,
         iri: predicate,
         ...fieldData
-    };
+    }) : ({
+        type,
+        predicate: field.predicate,
+        iri: predicate,
+        required,
+        ...fieldData
+    });
 };
 
 export default getFieldData;

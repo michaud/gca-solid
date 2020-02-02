@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import HoleForm from './HoleForm';
 import HoleTable from './HoleTable';
 
+const initAvailableSI = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
+
 const ManageHoles = ({
     holes = [],
     onSave,
@@ -11,23 +13,38 @@ const ManageHoles = ({
 }) => {
 
     const [holeNumber, setHoleNumber] = useState(holes.length + 1);
-    const [availableStrokeIndices, setAvailableStrokeIndices] = useState([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]);
+    const [availableStrokeIndices, setAvailableStrokeIndices] = useState([...initAvailableSI]);
     const [editHole, setEditHole] = useState();
 
     useEffect(() => {
+
         setHoleNumber(holes.length + 1);
-        setAvailableStrokeIndices(state => {
-            const newState = state.reduce((acc, SI) => {
 
-                const used = holes.find(hole => parseInt(hole.holeStrokeIndex.value) === SI);
-                if(!used) acc.push(SI)
-                return acc;
-            },[]);
+        if(editHole) {
 
-            return newState;
-        });
+            setAvailableStrokeIndices([...initAvailableSI]);
+        
+        } else {
 
-    }, [holes])
+            setAvailableStrokeIndices(state => {
+
+                const newState = state.reduce((acc, SI) => {
+
+                    const used = editHole !== undefined ?
+                        false :
+                        holes.find(hole => parseInt(hole.holeStrokeIndex.value) === SI);
+
+                    if(!used) acc.push(SI)
+
+                    return acc;
+
+                },[]);
+
+                return newState;
+            });
+        }
+
+    }, [holes, editHole])
 
     const onSaveHoleHandler = hole => {
 

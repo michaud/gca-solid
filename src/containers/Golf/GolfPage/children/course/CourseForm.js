@@ -45,18 +45,36 @@ const CourseForm = ({
         
         setCourseState(state => {
 
-            const holes = state.courseHoles.value;
+            let holes = state.courseHoles.value;
 
             const editHoleIndex = holes.findIndex(testHole => {
-                
-                return testHole.holeNumber.value === hole.holeNumber.value;
+
+                return parseInt(testHole.holeNumber.value) === parseInt(hole.holeNumber.value);
             });
-            
+
+            const holeWithSameStrokeIndexIndex = holes.findIndex(testHole => {
+                return parseInt(testHole.holeStrokeIndex.value) === parseInt(hole.holeStrokeIndex.value);
+            });
+
+            if(holeWithSameStrokeIndexIndex > -1 ) {
+
+                const startHoles = holes.slice(0, holeWithSameStrokeIndexIndex);
+                const endHoles = holes.slice(holeWithSameStrokeIndexIndex + 1, holes.length);
+    
+                const updatedHole = update(holes[holeWithSameStrokeIndexIndex], {
+                    
+                    holeStrokeIndex: { value: { $set: 0 }}
+                });
+
+                holes = [...startHoles, updatedHole, ...endHoles];
+            }
+
+
             const startHoles = holes.slice(0, editHoleIndex);
             const endHoles = holes.slice(editHoleIndex + 1, holes.length);
 
             const newHoles = [...startHoles, hole, ...endHoles];
-            
+
             const newCourse = update(state, {
                 courseHoles: { value: { $set: newHoles } }
             });

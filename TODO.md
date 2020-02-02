@@ -1,3 +1,6 @@
+- implement Edit course
+- implement Delete course
+- handle available SI when editing holes in edit course 
 - rewrite game data so separate game files are used
 - Fix club list display
 - Should we make the game bag and clubs unique?
