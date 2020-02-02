@@ -177,7 +177,7 @@ const GameForm = ({
                     <FlexItem>
                         <Button
                             variant="contained"
-                            disabled={ !canSave }
+                            disabled={ !canSave.can }
                             onClick={ saveGameHandler }
                             className={ classes.button }
                             color="primary">{ actionLabel }</Button>

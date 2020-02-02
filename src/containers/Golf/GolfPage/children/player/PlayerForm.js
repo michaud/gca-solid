@@ -75,7 +75,7 @@ const PlayerForm = ({
                 <FlexItem>
                     <Button
                         variant="contained"
-                        disabled={ !canSave }
+                        disabled={ !canSave.can }
                         onClick={ saveHandler }
                         className={ classes.button }
                         color="primary">Save</Button>
@@ -85,7 +85,7 @@ const PlayerForm = ({
                         <FlexItem>
                             <Button
                                 variant="contained"
-                                disabled={ !canSave }
+                                disabled={ !canSave.can }
                                 onClick={ handleDelete(player) }
                                 className={ classes.button }
                                 color="primary">Delete</Button>

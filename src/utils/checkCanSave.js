@@ -3,20 +3,96 @@ import golf from "./golf-namespace";
 const hasValue = item => {
 
     switch(item.type) {
-        case golf.types.string: return item.value !== '';
-        case golf.types.nonNegativeInteger: return item.value > 0;
-        case golf.types.integer: return typeof(item.value) === 'number';
-        case golf.types.text: return item.value !== '';
-        case golf.types.dateTime: return item.value instanceof Date;
-        case golf.classes.Club: return item.predicate === 'clubType' ?
-            typeof(item.value) === 'object'
-            : item.value.length > 0;
-        case golf.classes.Hole: return item.value.length > 0;
-        case golf.classes.Player: return typeof(item.value) === 'object';
-        case golf.classes.Course: return typeof(item.value) === 'object';
-        case golf.classes.Marker: return typeof(item.value) === 'object';
-        case golf.classes.Bag: return typeof(item.value) === 'object';
-        case golf.classes.GamePlayingHandicap: return typeof(item.value) === 'object';
+
+        case golf.types.string: {
+        
+            const can = item.value !== '';
+
+            return ({
+                can,
+                reason: !can ? `add a ${ item.label}` : ''
+            });
+        }
+
+        case golf.types.nonNegativeInteger: {
+
+            const can = item.value > 0;
+            return ({
+                can,
+                reason: !can ? `add a ${ item.label}` : ''
+            });
+        }
+
+        case golf.types.integer: {
+            
+            const can = typeof(item.value) === 'number';
+            return ({
+                can,
+                reason: !can ? `add a ${ item.label}` : ''
+            });
+        }
+
+        case golf.types.text: {
+        
+            const can = item.value !== '';
+            return ({
+                can,
+                reason: !can ? `add a ${ item.label }` : ''
+            });
+        }
+
+        case golf.types.dateTime: {
+            
+            const can = item.value instanceof Date;
+            return ({
+                can,
+                reason: !can ? `fill the ${ item.label }` : ''
+            });
+        }
+
+        case golf.classes.Club: {
+            
+            let can = false;
+            let reason = '';
+            if(item.predicate === 'clubType') {
+
+                can = typeof(item.value) === 'object';
+                reason = !can ?  `fill the ${ item.label }` : ''
+
+            } else {
+
+                can = item.value.length > 0;
+                reason = !can ?  `add a ${ item.label }` : ''
+            }
+
+            return ({
+                can,
+                reason
+            });
+        }
+
+        case golf.classes.Hole: {
+
+            const tested = item.value.find(hole => parseInt(hole.holeStrokeIndex.value) === 0);
+            const hasZeroValue = tested === undefined ? false : true;
+            const can = item.value.length > 0 && !hasZeroValue;
+            return ({
+                can,
+                reason: hasZeroValue ? `hole ${ tested.holeNumber.value } has SI 0` : !can ? `add ${ item.label }` : ''
+            })
+        }
+        case golf.classes.Player:
+        case golf.classes.Course:
+        case golf.classes.Marker:
+        case golf.classes.Bag:
+        case golf.classes.GamePlayingHandicap:{
+            
+            const can = typeof(item.value) === 'object';
+            return ({
+                can,
+                reason: !can ? `set a ${ item.label}` : ''
+            });
+        }
 
         default: return false;
     }
@@ -27,16 +103,34 @@ const test = state => entry => {
     const field = state[entry.predicate];
     const entryNeedsValue = field.hasOwnProperty('required') ? field.required : true;
 
-    return entryNeedsValue ? hasValue(field) : true;
+    return entryNeedsValue ? hasValue(field) : ({
+        can: true,
+        reason: ''
+    });
 };
 
 const checkCanSave = (state, stateShape) => {
     
-    if(!state) return false;
+    if(!state) return ({
+        can: false,
+        reasons: ['nothing to save']
+    }) ;
     
     const tester = test(state);
 
-    return stateShape.shape.every(tester);
+    const reasons = [];
+    const can = stateShape.shape.every(item => {
+
+        const tested = tester(item);
+        if(!tested.can) reasons.push(tested.reason);
+
+        return tester(item).can;
+    });
+
+    return ({
+        can,
+        reasons
+    }) 
 };
 
 export default checkCanSave;

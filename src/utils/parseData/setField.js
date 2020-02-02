@@ -82,6 +82,43 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
             break;
         }
 
+        case golf.classes.Hole: {
+
+            if(predicate === golf.properties.courseHoles && data) {
+
+                data.value.forEach(hole => {
+
+                    let iri = hole.iri;
+
+                    if(hole.iri === '') {
+
+                        const elRef = saveResource({
+                            element: hole,
+                            doc,
+                            type: field.type
+                        })
+
+                        iri = elRef.asRef();
+                        //setting the iri prevents the code from seeing the current hole as a new hole when 
+                        //it has been saved to the server with the iri 
+                        hole.iri = iri;
+
+                        ref.addRef(golf.properties.courseHoles, iri);
+
+                    } else {
+
+                        saveResource({
+                            element: hole,
+                            doc,
+                            type: field.type
+                        })
+                    }
+                });
+            }
+
+            break;
+        }
+
         default : {
 
             console.error('setField: no field defined', field);

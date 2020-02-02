@@ -27,7 +27,7 @@ const HoleTable = ({
             <table className={ holes.length > 8 ? 'hole-table u-wide' : 'hole-table' }>
                 <tbody>
                     <tr>
-                        { outHoleNumbers.map((nr, index) => <th className="hole-table__header--button" onClick={ editHoleHandler(index) } key={ index }>{ nr }</th>) }
+                        { outHoleNumbers.map((nr, index) => <th className="hole-table__header--button" onClick={ editHoleHandler(index) } key={ index }><span>{ nr }</span></th>) }
                     </tr>
                     <tr>
                         { outPars.map((p, index) => <td key={ index }>{ p }</td>) }
@@ -36,7 +36,7 @@ const HoleTable = ({
                         { outGameStrokes.map((s, index) => <td key={ index }>{ s }</td>) }
                     </tr>
                     <tr>
-                        { outStrokeIndices.map((s, index) => <td key={ index }>{ s }</td>) }
+                        { outStrokeIndices.map((s, index) => <td className={ s === 0 ? 'invalid' : '' } key={ index }>{ s }</td>) }
                     </tr>
                     <tr>
                         { outLengths.map((l, index) => <td key={ index }>{ l }</td>) }
@@ -55,7 +55,7 @@ const HoleTable = ({
                         { inGameStrokes.map((s, index) => <td key={ index }>{ s }</td>) }
                     </tr>
                     <tr>
-                        { inStrokeIndices.map((s, index) => <td key={ index }>{ s }</td>) }
+                        { inStrokeIndices.map((s, index) => <td className={ s === 0 ? 'invalid' : '' } key={ index }>{ s }</td>) }
                     </tr>
                     <tr>
                         { inLengths.map((l, index) => <td key={ index }>{ l }</td>) }

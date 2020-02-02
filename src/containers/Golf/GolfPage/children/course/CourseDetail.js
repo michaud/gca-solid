@@ -29,7 +29,7 @@ const CourseDetail = ({
         setDisplayState(displayStates.detail);
     };
 
-    const onSaveHandler = () => {
+    const onSaveHandler = (course) => {
 
         onSave(course);
         setDisplayState(displayStates.detail);

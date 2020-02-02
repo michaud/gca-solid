@@ -84,6 +84,7 @@ const ManageCourses = ({
                 <CourseForm onSave={ onSaveCourse }/>
                 <CourseList
                     courses={ courses }
+                    onSaveCourse={ onSaveCourse }
                     onDelete={ onDeleteCourseHandler }/>
             </PageContainer>
         </>

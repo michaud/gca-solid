@@ -91,7 +91,7 @@ const ClubForm = ({
                 <FlexItem>
                     <Button
                         variant="contained"
-                        disabled={ !canSave }
+                        disabled={ !canSave.can }
                         onClick={ saveHandler }
                         className={ classes.button }
                         color="primary">{ actionLabel }</Button>
@@ -101,7 +101,7 @@ const ClubForm = ({
                         <FlexItem>
                             <Button
                                 variant="contained"
-                                disabled={ !canSave }
+                                disabled={ !canSave.can }
                                 onClick={ handleDelete(club) }
                                 className={ classes.button }
                                 color="primary">Delete</Button>

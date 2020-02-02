@@ -1,6 +1,8 @@
+- handle available SI when editing holes in edit course 
+    - validate hole SI has > 0 value
 - implement Edit course
 - implement Delete course
-- handle available SI when editing holes in edit course 
+- implement delete hole in edit course
 - rewrite game data so separate game files are used
 - Fix club list display
 - Should we make the game bag and clubs unique?
@@ -31,3 +33,4 @@ X Fix Create player loading in later than Marker component
 X implement delete club
 X Fix width of in holes table when adding holes
 X Fix save course button space with table
+

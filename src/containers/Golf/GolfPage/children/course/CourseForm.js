@@ -14,6 +14,7 @@ import {
     FlexItem,
     FlexItemRight,
 } from '@styles/layout.style';
+import { map } from 'rdf-namespaces/dist/schema';
 
 const CourseForm = ({
     course,
@@ -134,11 +135,12 @@ const CourseForm = ({
         <form noValidate autoComplete="off">
             <header className="c-header">{ title }</header>
             { courseFields }
+            { !canSave.can && <div className="c-box">{ canSave.reasons.map(item => item) }</div> }
             <FlexContainer>
                 <FlexItem>
                     <Button
                         variant="contained"
-                        disabled={ !canSave }
+                        disabled={ !canSave.can }
                         onClick={ saveHandler }
                         className={ classes.button }
                         color="primary">{ actionLabel }</Button>
@@ -146,7 +148,7 @@ const CourseForm = ({
                 <FlexItemRight>
                 { onCancel && <Button
                     variant="contained"
-                    disabled={ !canSave }
+                    disabled={ !canSave.can }
                     onClick={ onCancel }
                     className={ classes.button }
                     color="primary">Cancel</Button>

@@ -98,7 +98,7 @@ const HoleForm = ({
                 <FlexItem>
                     <Button
                         variant="contained"
-                        disabled={ !canSave }
+                        disabled={ !canSave.can }
                         onClick={ saveHandler }
                         className={ classes.button }
                         color="primary">{ actionLabel }</Button>
@@ -106,7 +106,7 @@ const HoleForm = ({
                 <FlexItemRight>
                 { onCancel && <Button
                     variant="contained"
-                    disabled={ !canSave }
+                    disabled={ !canSave.can }
                     onClick={ onCancel }
                     className={ classes.button }
                     color="primary">{ t('golf.cancel') }</Button>

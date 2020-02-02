@@ -4,12 +4,12 @@ import CourseDetail from './CourseDetail';
 const CourseList = ({
     courses,
     onDelete,
-    saveCourse
+    onSaveCourse
 }) => {
 
-    const onSaveCourse = (course) => {
+    const onSaveCourseHandler = (course) => {
 
-        saveCourse(course)
+        onSaveCourse(course)
     };
 
     const onDeleteCourse = (course) => {
@@ -22,7 +22,7 @@ const CourseList = ({
             <header className="c-header">Course list</header>
             {
                 courses.length > 0 && courses.map((course, index) => <CourseDetail
-                    onSave={ onSaveCourse }
+                    onSave={ onSaveCourseHandler }
                     onDelete={ onDeleteCourse }
                     key={ index }
                     course={ course } />)
