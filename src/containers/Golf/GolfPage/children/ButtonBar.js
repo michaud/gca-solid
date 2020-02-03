@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { NavLink } from 'react-router-dom';
-import { slide } from '@components/transitions';
 
 import GolfCourseIcon from '@material-ui/icons/GolfCourse';
 import SportsGolfIcon from '@material-ui/icons/SportsGolf';

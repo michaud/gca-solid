@@ -18,8 +18,7 @@ import {
   Profile,
   GameList,
   GamePage,
-  GolfPage,
-  SplashScreen
+  GolfPage
 } from './containers';
 
 const privateRoutes = [
@@ -36,7 +35,7 @@ const privateRoutes = [
   {
     id: 'golf',
     path: '/golf',
-    component: SplashScreen
+    component: GolfPage
   },
   {
     id: 'golf',

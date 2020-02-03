@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import Redirect from 'react-router-dom/Redirect';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import useDataStructure from '@hooks/useDataStructure';
 import { withClubTypeContext } from '@utils/clubTypeContext';
 
 const useStyles = makeStyles({
@@ -27,22 +26,9 @@ const useStyles = makeStyles({
     }
 }, { name: 'MuiLinearProgress' });
 
-const SplashScreen = () => {
-
-    const [reload] = useState(false);
-    const [completed, setCompleted] = useState(0);
-
-    const dataStructureLoaded = useDataStructure(reload);
+const SplashScreen = ({ completed }) => {
 
     const classes = useStyles();
-
-    useEffect(() => {
-
-        const { data: { progress }, count } = dataStructureLoaded;
-
-        setCompleted((100 / count) * progress);
-
-    }, [dataStructureLoaded.data.progress]);
 
     return (
         <div className="splash">
@@ -90,11 +76,8 @@ const SplashScreen = () => {
             </svg>
             <div>
                 {
-                    completed === 100 ? <Redirect to={{
-                        state: { ...dataStructureLoaded },
-                        pathname: "/golf/settings"
-                    }} /> :
-                        <LinearProgress classes={classes} variant="determinate" value={completed} />
+                    completed === 100 ? <Redirect to="/golf/settings" /> :
+                        <LinearProgress classes={classes} variant="determinate" value={ completed } />
                 }
             </div>
         </div>
