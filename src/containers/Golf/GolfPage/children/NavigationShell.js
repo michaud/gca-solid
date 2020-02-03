@@ -9,7 +9,9 @@ const Container = styled.div`
     flex: 1;
     position: relative;
 `;
-const NavigationShell = ({ children }) => {
+const NavigationShell = (props) => {
+
+    const { children } = props;
 
     return <FlexContainer vertical alignitems="stretch" flex="1">
         <Container>

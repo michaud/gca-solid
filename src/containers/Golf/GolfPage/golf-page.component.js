@@ -8,8 +8,10 @@ import PlayGame from '@containers/Golf/GolfPage/children/playGame/PlayGame';
 import ClubTypeContext from '@utils/clubTypeContext';
 import useClubDefinitions from '@hooks/useClubDefinitions';
 
-const GolfPage = ({ match, webId, history }) => {
+const GolfPage = (props) => {
     
+    const { webId } = props;
+
     const clubTypeDefinitions = useClubDefinitions();
     const clubTypeDefs = clubTypeDefinitions || { clubTypes: [], clubType: null };
 

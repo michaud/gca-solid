@@ -13,19 +13,19 @@ const ButtonBar = () => {
 
     return (
         <div style={{ display: 'flex' }}>
-            <NavLink className="btn--action wide" to={{ pathname: '/golf/settings/games', state: slide }}>
+            <NavLink className="btn--action wide" to={{ pathname: '/golf/settings/games' }}>
                 <div className="btn--action__label"><SportsGolfIcon/><div>Games</div></div>
             </NavLink>
-            <NavLink className="btn--action wide" to={{ pathname: '/golf/settings/courses', state: slide }}>
+            <NavLink className="btn--action wide" to={{ pathname: '/golf/settings/courses' }}>
                 <div className="btn--action__label"><GolfCourseIcon/><div>Courses</div></div>
             </NavLink>
-            <NavLink className="btn--action wide" to={{ pathname: '/golf/settings/bag', state: slide }}>
+            <NavLink className="btn--action wide" to={{ pathname: '/golf/settings/bag' }}>
                 <div className="btn--action__label"><BagIcon/><div>Bag</div></div>
             </NavLink>
-            <NavLink className="btn--action wide" to={{ pathname: '/golf/settings/players', state: slide }}>
+            <NavLink className="btn--action wide" to={{ pathname: '/golf/settings/players' }}>
                 <div className="btn--action__label"><CapIcon/><div>Players</div></div>
             </NavLink>
-            <NavLink className="btn--action f-btn--knob" to={{ pathname: '/golf/settings', state: slide }}>
+            <NavLink className="btn--action f-btn--knob" to={{ pathname: '/golf/settings' }}>
                 <div className="btn--action__label"><AppIcon/></div>
             </NavLink>
         </div>

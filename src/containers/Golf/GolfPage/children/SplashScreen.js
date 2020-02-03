@@ -4,6 +4,7 @@ import Redirect from 'react-router-dom/Redirect';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import useDataStructure from '@hooks/useDataStructure';
+import { withClubTypeContext } from '@utils/clubTypeContext';
 
 const useStyles = makeStyles({
     root: {
@@ -28,17 +29,21 @@ const useStyles = makeStyles({
 
 const SplashScreen = () => {
 
-    const dataStructureLoaded = useDataStructure();
+    const [reload] = useState(false);
+    const [completed, setCompleted] = useState(0);
+
+    const dataStructureLoaded = useDataStructure(reload);
 
     const classes = useStyles();
-    const [completed, setCompleted] = useState(0);
 
     useEffect(() => {
 
-        const { count, progress } = dataStructureLoaded;
+        const { data: { progress }, count } = dataStructureLoaded;
+
         setCompleted((100 / count) * progress);
 
-    }, [dataStructureLoaded.progress]);
+    }, [dataStructureLoaded.data.progress]);
+
     return (
         <div className="splash">
             <svg className="splash-graph" viewBox="0 0 1600 1000">
@@ -96,4 +101,4 @@ const SplashScreen = () => {
     );
 };
 
-export default SplashScreen;
+export default withClubTypeContext(SplashScreen);

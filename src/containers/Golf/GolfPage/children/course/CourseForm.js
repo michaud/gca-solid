@@ -14,7 +14,6 @@ import {
     FlexItem,
     FlexItemRight,
 } from '@styles/layout.style';
-import { map } from 'rdf-namespaces/dist/schema';
 
 const CourseForm = ({
     course,

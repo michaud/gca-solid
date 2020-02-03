@@ -10,11 +10,14 @@ const ManagePlayers = lazy(() => import('@containers/Golf/GolfPage/children/play
 const ManageGames = lazy(() => import('@containers/Golf/GolfPage/children/game/ManageGames'));
 const Home = lazy(() => import('@containers/Golf/GolfPage/children/home/Home'));
 
-const GolfApp = ({ webId }) => {
+const GolfApp = (props) => {
+
+    const { webId } = props;
 
     return <div id="app-container">
         <NavigationShell>
             <Route render={ (props) => {
+
                 return (
                     <Switch location={ props.location }>
                         <Route exact path="/golf"

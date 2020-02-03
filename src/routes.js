@@ -1,6 +1,13 @@
 import React, { Fragment } from 'react';
-import { PrivateLayout, PublicLayout, NotLoggedInLayout } from '@layouts';
+
 import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
+
+import {
+  PrivateLayout,
+  PublicLayout,
+  NotLoggedInLayout
+} from '@layouts';
+
 
 import {
   Login,

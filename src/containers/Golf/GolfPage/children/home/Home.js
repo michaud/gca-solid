@@ -10,19 +10,33 @@ import BagIcon from '@containers/Golf/components/BagIcon';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { FlexContainer, FlexItem } from '@styles/layout.style';
 import ModuleHeader from '../ModuleHeader';
+import { PageContainer } from '@styles/page.style';
 
-const Home = ({
-    hasPlayerData,
+const Home = ({ location }) => {
+    
+    const { state = {} } = location;
+
+    let hasPlayerData,
     hasMarkerData,
     hasClubData,
     hasBagData,
-    hasGameData,
-    hasCourseData
-}) => {
+    hasCourseData,
+    hasGameData = false;
+
+    if(state && state.data && Object.keys(state.data).length > 0) {
+        hasPlayerData = state.data.hasPlayerData;
+        hasMarkerData = state.data.hasMarkerData;
+        hasClubData = state.data.hasClubData;
+        hasBagData = state.data.hasBagData;
+        hasCourseData = state.data.hasCourseData;
+        hasGameData = state.data.hasGameData;
+    }
 
     return (
         <div>
             <ModuleHeader label="Golf Course assistant" screenheader={ true }/>
+            <PageContainer>
+
             { !hasPlayerData ? (
                 <IntroPanel
                     icon={ <CapIcon className="c-content-icon"/> }>
@@ -154,6 +168,7 @@ const Home = ({
                 </IntroPanel>
             )            
             }
+            </PageContainer>
         </div>
     );
 };

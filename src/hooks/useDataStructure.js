@@ -5,15 +5,19 @@ import useClubs from './useClubs';
 import useBagClubs from './useBagClubs';
 import useCourses from './useCourses';
 import useGames from './useGames';
+import useClubDefinitions from './useClubDefinitions';
 
-const useDataStructure = () => {
+const useDataStructure = (reload) => {
 
-    const playerData = usePlayer();
-    const markerData = useMarkers();
-    const clubData = useClubs();
-    const bagData = useBagClubs();
-    const courseData = useCourses();
-    const gameData = useGames();
+    const clubTypeDefinitions = useClubDefinitions();
+    const clubTypeDefs = clubTypeDefinitions || { clubTypes: [], clubType: null };
+
+    const playerData = usePlayer(reload);
+    const markerData = useMarkers(reload);
+    const clubData = useClubs(clubTypeDefs.clubTypes, clubTypeDefs.clubType, reload);
+    const bagData = useBagClubs(clubTypeDefs.clubTypes, clubTypeDefs.clubType, reload);
+    const courseData = useCourses(reload);
+    const gameData = useGames(clubTypeDefs.clubTypes, clubTypeDefs.clubType, reload);
 
     const [dataFiles, setDataFiles] = useState([
         playerData,
@@ -70,7 +74,7 @@ const useDataStructure = () => {
     });
 
     return { count,
-        ...data
+        data
     };
 };
 
