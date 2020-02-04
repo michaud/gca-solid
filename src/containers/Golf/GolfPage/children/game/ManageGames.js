@@ -13,7 +13,7 @@ import GameList from '@containers/Golf/GolfPage/children/game/GameList';
 import { withClubTypeContext } from '@utils/clubTypeContext';
 import formStyles from '@styles/form.style';
 import golf from '@utils/golf-namespace';
-import saveResource from '@services/saveResource';
+import saveGameResourse from '@services/saveGameResourse';
 
 const ManageGames = ({
     match,
@@ -37,7 +37,7 @@ const ManageGames = ({
 
     const onSaveGameHandler = (game) => {
 
-        saveResource({
+        saveGameResourse({
             resource: game,
             doc: gameData.doc,
             type: golf.classes.Game
@@ -123,7 +123,7 @@ const ManageGames = ({
                     </div>
                 }
                 {
-                    !showGameForm && <div className="c-box">
+                    !showGameForm && !loading && <div className="c-box">
                         <Button
                             variant="contained"
                             onClick={ toggleShowGameForm }

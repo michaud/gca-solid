@@ -1,14 +1,33 @@
 import { useState, useEffect } from 'react';
 
+import { namedNode } from '@rdfjs/data-model';//, literal, quad
 import { solid } from 'rdf-namespaces';
+import * as ns from 'rdf-namespaces';
 
 import usePublicTypeIndex from './usePublicTypeIndex';
 import golf from '@utils/golf-namespace';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
-import getListFromDoc from '@services/getListFromDoc';
 import gameShape from '@contexts/game-shape.json';
 import fetchResource from '@services/fetchResource';
 import paths from '@constants/paths';
+import parseFields from '@utils/parseData/parseFields';
+
+const getGameListFromDoc = async (
+    doc,  type, shape, ...rest
+) => {
+
+    const gameRefs = doc.getTriples();
+    const promises = gameRefs.map(item => fetchResource(item.object.id))
+    const games = await Promise.all(promises);
+
+    const data = games.map(doc => {
+
+        const game = doc.findSubject(ns.rdf.type, namedNode(type))
+        return parseFields(shape, doc, ...rest)(game);
+    });
+
+    return data;
+}
 
 const useGames = (clubTypes, clubType, reload, gameId) => {
 
@@ -59,13 +78,21 @@ const useGames = (clubTypes, clubType, reload, gameId) => {
                         return;
                     }
 
-                    const list = getListFromDoc(
+                    const list = await getGameListFromDoc(
                         doc,
                         golf.classes.Game,
                         gameShape,
                         clubTypes,
                         clubType
-                    )(gameId, url);
+                    );
+
+                    // const list = getListFromDoc(
+                    //     doc,
+                    //     golf.classes.Game,
+                    //     gameShape,
+                    //     clubTypes,
+                    //     clubType
+                    // )(gameId, url);
 
                     setData({ list, doc });
                 }
@@ -77,3 +104,4 @@ const useGames = (clubTypes, clubType, reload, gameId) => {
 };
 
 export default useGames;
+

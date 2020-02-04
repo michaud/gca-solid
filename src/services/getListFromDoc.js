@@ -5,6 +5,7 @@ import golf from '@utils/golf-namespace';
 
 const getListFromDoc = (doc,  type, shape, ...rest) => (gameId, url) => {
 
+
     if(gameId && url) {
 
         const [clubTypes, clubType] = rest;
@@ -14,9 +15,8 @@ const getListFromDoc = (doc,  type, shape, ...rest) => (gameId, url) => {
         return [game];
     }
 
-    const list = doc
-        .findSubjects(ns.rdf.type, namedNode(type))
-        .map(parseFields(shape, doc, ...rest));
+    const subjects = doc.findSubjects(ns.rdf.type, namedNode(type));
+    const list = subjects.map(parseFields(shape, doc, ...rest));
 
     return list;
 };

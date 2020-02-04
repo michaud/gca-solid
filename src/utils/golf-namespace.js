@@ -34,7 +34,8 @@ const golf = {
         markerPlayingHandicap: `${ namespace }markerPlayingHandicap`,
         strokeLocation:  `${ namespace }strokeLocation`,
         gameStrokes: `${ namespace }gameStrokes`,
-        strokeClub: `${ namespace }strokeClub`
+        strokeClub: `${ namespace }strokeClub`,
+        courseName: `${ namespace }courseName`,
     },
     types: {
         string: 'http://www.w3.org/2001/XMLSchema#string',
