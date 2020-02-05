@@ -1,10 +1,7 @@
 - implement Edit course
 - implement Delete course
 - implement delete hole in edit course
-- rewrite game data so separate game files are used
 - Fix club list display
-- Should we make the game bag and clubs unique?
-    - the clubs in the (not game) bag can change at any time 
 - parse club data club type is not done
 - parsing bag data misses fields like iri & label
 - clubtype should be filled with data from club? or remove fields? 
@@ -33,3 +30,7 @@ X Fix width of in holes table when adding holes
 X Fix save course button space with table
 X handle available SI when editing holes in edit course 
     X validate hole SI has > 0 value
+X rewrite game data so separate game files are used
+X Should we make the game bag and clubs unique?
+    X the clubs in the (not game) bag can change at any time 
+

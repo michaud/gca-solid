@@ -81,8 +81,12 @@ const formStyles = makeStyles(theme => ({
     },
 
     button: {
+        background: 'linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%)',
         '& .MuiButton-label': {
             color: 'white'
+        },
+        '&.Mui-disabled.Mui-disabled': {
+            background: 'linear-gradient(171deg, rgb(241, 234, 208) 0%, rgb(218, 208, 169) 100%)',
         },
         '&:disabled': {
             opacity: 1,

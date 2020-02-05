@@ -4,13 +4,14 @@ import { format } from 'date-fns'
 import golf from '@utils/golf-namespace';
 import gameShape from '@contexts/game-shape.json';
 import displayStates from '@utils/displayStates';
-import GameForm from './GameForm';
-import HoleTable from '../hole/HoleTable';
-import CourseDetail from '../course/CourseDetail';
-import BagDetail from './BagDetail';
+import GameForm from '@containers/Golf/GolfPage/children/game/GameForm';
+import HoleTable from '@containers/Golf/GolfPage/children/hole/HoleTable';
+import BagDetail from '@containers/Golf/GolfPage/children/game/BagDetail';
 import EditActions from '@containers/Golf/components/EditActions';
-import PlayerDetail from '../player/PlayerDetail';
-import PlayingHandicapDetail from './PlayingHandicapDetail';
+import PlayerDetail from '@containers/Golf/GolfPage/children/player/PlayerDetail';
+import PlayingHandicapDetail from '@containers/Golf/GolfPage/children/game/PlayingHandicapDetail';
+import CourseSummary from '@containers/Golf/GolfPage/children/course/CourseSummary';
+
 import {
     FlexContainer,
     FlexItemLabel,
@@ -46,7 +47,7 @@ const getDisplayField = (data, handlers, idx) => {
 
             return (
                 <div className="u-pad--coppertop"  key={ idx }>
-                    <CourseDetail course={ data.value }/>
+                    <CourseSummary course={ data.value }/>
                 </div>
             );
         }
@@ -102,15 +103,9 @@ const GameDetail = ({
 
     const [displayState, setDisplayState] = useState(displayStates.detail);
 
-    const onEdit = () => {
-
-        setDisplayState(displayStates.edit);
-    }
-
-    const cancelEdit = () => {
-
-        setDisplayState(displayStates.detail);
-    };
+    const onEdit = () => setDisplayState(displayStates.edit);
+    const cancelEdit = () => setDisplayState(displayStates.detail);
+    const onDeleteHandler = () => onDelete(game);
 
     const onSaveHandler = () => {
 
@@ -118,10 +113,6 @@ const GameDetail = ({
         setDisplayState(displayStates.detail);
     };
 
-    const onDeleteHandler = () => {
-
-        onDelete(game);
-    };
 
     const editHoleHandler = index => {
 

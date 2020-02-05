@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Redirect } from 'react-router-dom';
 import { useNotification } from '@inrupt/solid-react-components';
 import useGames from '@hooks/useGames';
-import ModuleHeader from '../ModuleHeader';
+import ModuleHeader from '@containers/Golf/GolfPage/children/ModuleHeader';
 import { errorToaster } from '@utils/';
 import { PageContainer } from '@styles/page.style';
 import GameForm from '@containers/Golf/GolfPage/children/game/GameForm';
@@ -35,7 +35,7 @@ const ManageGames = ({
 
     const toggleShowGameForm = () => setShowGameForm(state => !state);
 
-    const onSaveGameHandler = (game) => {
+    const onSaveGameHandler = game => {
 
         saveGameResourse({
             resource: game,
@@ -46,10 +46,7 @@ const ManageGames = ({
         setReload(true);
     };
 
-    const onCancelHandler = () => {
-
-        setShowGameForm(false);
-    };
+    const onCancelHandler = () => setShowGameForm(false);
 
     const onDeleteGameHandler = (game) => {
 
@@ -57,10 +54,7 @@ const ManageGames = ({
         setReload(true);
     };
 
-    const onPlayGameHandler = (game) => {
-
-        setPlayGame(game.split('#')[1]);
-    };
+    const onPlayGameHandler = game => setPlayGame(game.split('#')[1]);
         
     const init = async () => {
 
@@ -103,10 +97,7 @@ const ManageGames = ({
 
     }, [webId, gameData, notification.notify]);
 
-    if (playGame) {
-
-        return <Redirect to={ `/golf/game/${ playGame }` } />
-    }
+    if (playGame) return <Redirect to={ `/golf/game/${ playGame }` } />
 
     const loading = reload || gameData.doc === undefined;
 

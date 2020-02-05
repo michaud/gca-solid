@@ -2,9 +2,10 @@
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+
     grid-column-gap: 4px;
     grid-row-gap: 4px;
+    grid-auto-rows: auto;
 }
 
 .bag-summary-list__club {
@@ -25,10 +26,7 @@
 
 .bag-summary-list__club--span {
 
-    &:first-child,
-    &:last-child {
-        grid-column: span 3;
-    }
+    grid-column: span 3;
 }
 
 .club__name {
