@@ -16,16 +16,16 @@
     "shape": [
         {
             "prefix": "golf",
-            "predicate": "gameDate",
-            "type": "http://www.w3.org/2001/XMLSchema#DateTime",
-            "label": "Start date",
+            "predicate": "gameCourse",
+            "type": "https://michaud.inrupt.net/public/golf/Course",
+            "label": "Course",
             "value": ""
         },
         {
             "prefix": "golf",
-            "predicate": "gameCourse",
-            "type": "https://michaud.inrupt.net/public/golf/Course",
-            "label": "Course",
+            "predicate": "gameMarker",
+            "type": "https://michaud.inrupt.net/public/golf/Marker",
+            "label": "Marker",
             "value": ""
         },
         {
@@ -44,16 +44,16 @@
         },
         {
             "prefix": "golf",
-            "predicate": "gameMarker",
-            "type": "https://michaud.inrupt.net/public/golf/Marker",
-            "label": "Marker",
+            "predicate": "gamePlayingHandicap",
+            "type": "https://michaud.inrupt.net/public/golf/GamePlayingHandicap",
+            "label": "Playing handicap",
             "value": ""
         },
         {
             "prefix": "golf",
-            "predicate": "gamePlayingHandicap",
-            "type": "https://michaud.inrupt.net/public/golf/GamePlayingHandicap",
-            "label": "Playing handicap",
+            "predicate": "gameDate",
+            "type": "http://www.w3.org/2001/XMLSchema#DateTime",
+            "label": "Start date",
             "value": ""
         },
         {
