@@ -102,7 +102,7 @@ const formStyles = makeStyles(theme => ({
     },
     toolButton: {
         minWidth: '3rem',
-        height: '5rem',
+        height: '4rem',
         background: 'linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%)',
         color: 'rgba(255, 255, 255, 0.9)',
         '& .MuiButton-root': {
