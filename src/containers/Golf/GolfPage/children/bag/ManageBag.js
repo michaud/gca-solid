@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import { StylesProvider } from '@material-ui/core/styles';
-import { errorToaster } from '@utils';
-import { useNotification } from '@inrupt/solid-react-components';
 import useClubs from '@hooks/useClubs';
 import useBagClubs from '@hooks/useBagClubs';
 import { useTranslation } from 'react-i18next';

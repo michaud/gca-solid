@@ -11,7 +11,7 @@ const ManagePlayers = lazy(() => import('@containers/Golf/GolfPage/children/play
 const ManageGames = lazy(() => import('@containers/Golf/GolfPage/children/game/ManageGames'));
 const Home = lazy(() => import('@containers/Golf/GolfPage/children/home/Home'));
 
-const GolfApp = (props) => {
+const GolfApp = ({ webId }) => {
 
     const [reload] = useState(false);
 
@@ -26,8 +26,6 @@ const GolfApp = (props) => {
         setCompleted((100 / count) * progress);
 
     }, [dataStructure.progress]);
-
-    const { webId } = props;
 
     return <div id="app-container">
         <Route render={ (props) => {

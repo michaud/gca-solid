@@ -59,9 +59,7 @@ const PlayingHandicapDetail = ({ handicap, onChange }) => {
 
     useEffect(() => {
 
-        if (handicap) {
-            setHandicapState(handicap);
-        }
+        if (handicap) setHandicapState(handicap);
 
     }, [handicap]);
 

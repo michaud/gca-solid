@@ -25,7 +25,6 @@ const HoleNavigator = ({ holes, onChangeHole }) => {
             onChangeHole && onChangeHole(newState);
             return newState;
         });
-        
     };
 
     const onPreviousHole = () => {
@@ -37,13 +36,13 @@ const HoleNavigator = ({ holes, onChangeHole }) => {
         });
     };
 
-    const init = () => {
-        onChangeHole && onChangeHole(currHoleIndex)
-    }
 
     useEffect(() => {
-        init();
+
+        if(onChangeHole) onChangeHole(currHoleIndex);
+
     }, [holes]);
+
     const currHole = holes ? holes[currHoleIndex] : undefined;
     const canPrevious = currHoleIndex > 0;
     const canNext = holes ? currHoleIndex < holes.length - 1 : false;

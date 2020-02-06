@@ -39,10 +39,7 @@ const PlayerForm = ({
 
     useEffect(() => {
 
-        if(player) {
-            
-            setPlayerState(player);
-        }
+        if(player) setPlayerState(player);
 
     }, [player]);
 

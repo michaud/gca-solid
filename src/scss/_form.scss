@@ -203,11 +203,17 @@
 .f-btn--knob {
 
     flex: 1;
-    min-height: 3rem;
+    min-height: 4rem;
     min-width: 4rem;
     white-space: normal;
 }
-
+.f-btn--knop__icon {
+    &.MuiSvgIcon-root {
+        width: 2.25rem;
+        height: 2.25rem;
+        margin: .1rem 0 0 .1rem;
+    }
+}
 .f-btn--header-knob {
     flex: 1;
     min-height: 3.5rem;
