@@ -76,18 +76,6 @@ const HoleForm = ({
 
     }, [holeData, holeNumber]);
 
-    // useEffect(() => {
-
-    //     if(focusRef && focusRef.current && holeState.holeStrokeIndex) {
-            
-    //         if(holeState.holeStrokeIndex.value === 0) {
-
-    //             focusRef.current.focus();
-    //         }
-    //     }
-
-    // }, [focusRef.current, holeNumber, holeState])
-
     const canSave = checkCanSave(holeState, holeShape);
 
     return (

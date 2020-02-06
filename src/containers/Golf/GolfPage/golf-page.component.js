@@ -13,10 +13,9 @@ const GolfPage = (props) => {
     const { webId } = props;
 
     const clubTypeDefinitions = useClubDefinitions();
-    const clubTypeDefs = clubTypeDefinitions || { clubTypes: [], clubType: null };
 
     return (<StylesProvider>
-            <ClubTypeContext.Provider value={ clubTypeDefs }>
+            <ClubTypeContext.Provider value={ clubTypeDefinitions }>
                 <Route>
                     <Switch>
                         <Route path="/golf/game/:gameid" render={ routerProps => <PlayGame { ...routerProps } webId={ webId } /> }/>

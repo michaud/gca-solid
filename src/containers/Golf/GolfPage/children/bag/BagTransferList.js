@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
-import { withClubTypeContext } from '@utils/clubTypeContext';
+import ClubTypeContext from '@utils/clubTypeContext';
 
 import bagTransferListStyles from './bagTransferList.style';
 import List from '@material-ui/core/List';
@@ -26,14 +26,15 @@ const BagTransferList = ({
     clubs,
     bag,
     onRemoveFromBag,
-    onAddToBag,
-    clubTypes
+    onAddToBag
 }) => {
 
     const [checked, setChecked] = useState([]);
     const [left, setLeft] = useState([]);
     const [right, setRight] = useState([]);
     const [autoSort, setAutoSort] = useState(true);
+    const clubTypeData = useContext(ClubTypeContext);
+
     const classes = bagTransferListStyles();
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
@@ -56,8 +57,8 @@ const BagTransferList = ({
 
     const sortClubOnType = (a ,b) => {
         
-        const indexOfa = clubTypes.findIndex(el => el.iri === a.clubType.value.iri);
-        const indexOfb = clubTypes.findIndex(el => el.iri === b.clubType.value.iri);
+        const indexOfa = clubTypeData.clubTypes.findIndex(el => el.iri === a.clubType.value.iri);
+        const indexOfb = clubTypeData.clubTypes.findIndex(el => el.iri === b.clubType.value.iri);
 
         return indexOfa - indexOfb;
     };
@@ -118,7 +119,7 @@ const BagTransferList = ({
                     const clubType = item.clubType.value;
                     const brand = item.clubBrand.value;
                     const name = item.clubName.value;
-                    const label = clubTypes.find(type => type.iri === clubType.iri).label;
+                    const label = clubTypeData.clubTypes.find(type => type.iri === clubType.iri).label;
                     const labelId = `transfer-list-item-${index}-label`;
 
                     return (
@@ -258,4 +259,4 @@ const BagTransferList = ({
     );
 };
 
-export default withClubTypeContext(BagTransferList);
+export default BagTransferList;

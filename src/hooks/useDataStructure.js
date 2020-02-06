@@ -9,15 +9,13 @@ import useClubDefinitions from './useClubDefinitions';
 
 const useDataStructure = (reload, forData = false) => {
 
-    const clubTypeDefinitions = useClubDefinitions();
-    const clubTypeDefs = clubTypeDefinitions || { clubTypes: [], clubType: null };
-
+    const clubTypeData = useClubDefinitions();
     const playerData = usePlayer(reload);
     const markerData = useMarkers(reload);
-    const clubData = useClubs(clubTypeDefs.clubTypes, clubTypeDefs.clubType, reload);
-    const bagData = useBagClubs(clubTypeDefs.clubTypes, clubTypeDefs.clubType, reload);
+    const clubData = useClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    const bagData = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
     const courseData = useCourses(reload);
-    const gameData = useGames(clubTypeDefs.clubTypes, clubTypeDefs.clubType, reload);
+    const gameData = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload);
 
     const [dataFiles, setDataFiles] = useState([
         playerData,

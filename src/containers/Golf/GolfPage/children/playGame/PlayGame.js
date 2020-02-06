@@ -1,32 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { useNotification } from '@inrupt/solid-react-components';
 import useGames from '@hooks/useGames';
-import { errorToaster } from '@utils/';
-import { useTranslation } from 'react-i18next';
 import { FlexContainer } from '@styles/layout.style';
 import HoleNavigator from './HoleNavigator';
 import HoleHistory from './HoleHistory';
 import addStrokeToHole from '@utils/addStrokeToHole';
 import ClubActionList from './ClubActionList';
-import { withClubTypeContext } from '@utils/clubTypeContext';
+import useClubDefinitions from '@hooks/useClubDefinitions';
 
 const PlayGame = ({
-    clubTypes,
-    clubType,
-    match,
-    webId,
-    history
+    match
 }) => {
 
     const { params: { gameid } } = match;
-    
-    const { notification } = useNotification(webId);
+   
     const [reload, setReload] = useState(false);
     const [game, setGame] = useState();
     const [currHole, setCurrHole] = useState();
-    const { t } = useTranslation();
     
-    const gameData = useGames(clubTypes, clubType, reload, gameid);
+    const clubTypeData = useClubDefinitions();
+    const gameData = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload, gameid);
 
     const onClubActionHandler = club => {
 
@@ -38,43 +30,16 @@ const PlayGame = ({
         game && setCurrHole(game.gameCourse.value.courseHoles.value[holeIndex]);
     };
 
-    const init = async () => {
-
-        try {
-
-            if (gameData) {
-
-                setGame(gameData.list.find(game => game.iri.includes(gameid)));
-
-                // if(gameData.list.length > 0) {
-
-                //     setCurrHoleIndex();
-                // }
-                
-                setReload(false);
-            }
-
-        } catch (e) {
-            /**
-             * Check if something fails when we try to create a inbox
-             * and show user a possible solution
-             */
-            if (e.name === 'Inbox Error') {
-                return errorToaster(e.message, 'Error', {
-                    label: t('errorCreateInbox.link.label'),
-                    href: t('errorCreateInbox.link.href')
-                });
-            }
-
-            errorToaster(e.message, 'Error');
-        }
-    };
-
     useEffect(() => {
 
-        if (webId && notification.notify) init();
+        if (gameData) {
 
-    }, [webId, gameData, notification.notify]);
+            setGame(gameData.list.find(game => game.iri.includes(gameid)));
+            setReload(false);
+        }
+
+
+    }, [gameData]);
 
     const clubs = game && game.gameBag.value.clubs.value;
 
@@ -87,4 +52,4 @@ const PlayGame = ({
     );
 };
 
-export default withClubTypeContext(PlayGame);
+export default PlayGame;

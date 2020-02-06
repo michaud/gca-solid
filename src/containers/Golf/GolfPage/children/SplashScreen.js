@@ -3,7 +3,6 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { withClubTypeContext } from '@utils/clubTypeContext';
 
 const useStyles = makeStyles({
     root: {
@@ -84,4 +83,4 @@ const SplashScreen = ({ completed }) => {
     );
 };
 
-export default withClubTypeContext(SplashScreen);
+export default SplashScreen;

@@ -47,7 +47,7 @@ const useClubs = (clubTypes, clubType, reload) => {
 
                     const doc = await fetchResource(url);
 
-                    if(clubType === undefined && clubTypes === undefined) {
+                    if(clubType === undefined && clubTypes.length === 0) {
 
                         setClubList(state => ({
                             ...state,

@@ -68,7 +68,7 @@ const useGames = (clubTypes, clubType, reload, gameId) => {
 
                     const doc = await fetchResource(url);
 
-                    if(clubType === undefined && clubTypes === undefined) {
+                    if(clubType === undefined && clubTypes.length === 0) {
 
                         setData(state => ({
                             ...state,

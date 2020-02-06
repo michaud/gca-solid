@@ -1,37 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import Button from '@material-ui/core/Button';
-import { useTranslation } from 'react-i18next';
 import { Redirect } from 'react-router-dom';
-import { useNotification } from '@inrupt/solid-react-components';
 import useGames from '@hooks/useGames';
 import ModuleHeader from '@containers/Golf/GolfPage/children/ModuleHeader';
-import { errorToaster } from '@utils/';
 import { PageContainer } from '@styles/page.style';
 import GameForm from '@containers/Golf/GolfPage/children/game/GameForm';
 import GameList from '@containers/Golf/GolfPage/children/game/GameList';
-import { withClubTypeContext } from '@utils/clubTypeContext';
+import ClubTypeContext from '@utils/clubTypeContext';
 import formStyles from '@styles/form.style';
 import golf from '@utils/golf-namespace';
 import saveGameResourse from '@services/saveGameResourse';
 
-const ManageGames = ({
-    match,
-    webId,
-    history,
-    clubTypes, clubType
-}) => {
+const ManageGames = () => {
 
-    const { notification } = useNotification(webId);
     const classes = formStyles();
     const [reload, setReload] = useState(false);
-    const gameData = useGames(clubTypes, clubType, reload);
     const [currentGame, setCurrentGame] = useState();
     const [games, setGames] = useState([]);
     const [showGameForm, setShowGameForm] = useState(false);
     const [playGame, setPlayGame] = useState();
-
-    const { t } = useTranslation();
+    const clubTypeData = useContext(ClubTypeContext);
+    const gameData = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload);
 
     const toggleShowGameForm = () => setShowGameForm(state => !state);
 
@@ -56,46 +46,21 @@ const ManageGames = ({
 
     const onPlayGameHandler = game => setPlayGame(game.split('#')[1]);
         
-    const init = async () => {
-
-        try {
-
-            if (gameData) {
-
-                const gameList = gameData.list;
-                setGames(gameList);
-
-                if(reload) {
-                    setCurrentGame();
-                }
-
-                setReload(false);
-            }
-
-
-        } catch (e) {
-            /**
-             * Check if something fails when we try to create a inbox
-             * and show user a possible solution
-             */
-            if (e.name === 'Inbox Error') {
-                return errorToaster(e.message, 'Error', {
-                    label: t('errorCreateInbox.link.label'),
-                    href: t('errorCreateInbox.link.href')
-                });
-            }
-
-            errorToaster(e.message, 'Error');
-        }
-    };
-
     useEffect(() => {
 
-        if (webId && notification.notify) {
-            init();
+        if (gameData) {
+
+            setGames(gameData.list);
+
+            if(reload) {
+
+                setCurrentGame();
+            }
+
+            setReload(false);
         }
 
-    }, [webId, gameData, notification.notify]);
+    }, [gameData]);
 
     if (playGame) return <Redirect to={ `/golf/game/${ playGame }` } />
 
@@ -133,4 +98,4 @@ const ManageGames = ({
     );
 };
 
-export default withClubTypeContext(ManageGames);
+export default ManageGames;

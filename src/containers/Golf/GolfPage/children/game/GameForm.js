@@ -18,7 +18,7 @@ import usePlayer from '@hooks/usePlayer';
 import { putClubsInBag } from '@utils/putClubsInBag';
 import saveResource from '@services/saveResource';
 import golf from '@utils/golf-namespace';
-import { withClubTypeContext } from '@utils/clubTypeContext';
+import useClubDefinitions from '@hooks/useClubDefinitions';
 
 import {
     FlexContainer,
@@ -27,8 +27,6 @@ import {
 } from '@styles/layout.style';
 
 const GameForm = ({
-    clubTypes,
-    clubType,
     game,
     onSave,
     onCancel,
@@ -39,8 +37,9 @@ const GameForm = ({
     const classes = formStyles();
     const [reload, setReload] = useState(false);
     const playerData = usePlayer(reload);
-    const bagData = useBagClubs(clubTypes, clubType, reload);
-    const clubData = useClubs(clubTypes, clubType, reload);
+    const clubTypeData = useClubDefinitions();
+    const clubData = useClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    const bagData = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
     const courseData = useCourses(reload);
     const markerData = useMarkers(reload);
     const [gameState, setGameState] = useState(game);
@@ -197,4 +196,4 @@ const GameForm = ({
     );
 };
 
-export default withClubTypeContext(GameForm);
+export default GameForm;

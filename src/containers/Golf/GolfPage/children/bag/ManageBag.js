@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import { StylesProvider } from '@material-ui/core/styles';
 import useClubs from '@hooks/useClubs';
@@ -16,18 +16,31 @@ import BagTransferList from '@containers/Golf/GolfPage/children/bag/BagTransferL
 import { PageContainer } from '@styles/page.style';
 import saveResource from '@services/saveResource';
 import golf from '@utils/golf-namespace';
-import { withClubTypeContext } from '@utils/clubTypeContext';
 
-const ManageBag = ({ match, webId, history, clubTypes, clubType }) => {
+import ClubTypeContext from '@utils/clubTypeContext';
 
-    const { notification } = useNotification(webId);
+const ManageBag = () => {
+
     const [reload, setReload] = useState(false);
-
-    const bagData = useBagClubs(clubTypes, clubType, reload);
-    const clubListData = useClubs(clubTypes, clubType, reload);
     const [clubs, setClubs] = useState();
     const [bagClubs, setBagClubs] = useState();
+    const clubTypeData = useContext(ClubTypeContext);
+    const clubListData = useClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    const bagData = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
     const { t } = useTranslation();
+
+    useEffect(() => {
+
+        if((clubListData.list !== clubs && bagClubs !== bagData) || reload) {
+
+            const clubs = clubListData.list;
+    
+            setClubs(state => clubs);
+            setBagClubs(state => bagData);
+            setReload(state => false);
+        }
+
+    }, [clubListData.list, bagData.list, reload]);
 
     const addClubHandler = async (club) => {
 
@@ -73,45 +86,6 @@ const ManageBag = ({ match, webId, history, clubTypes, clubType }) => {
         setReload(true)
     };
 
-    const init = async () => {
-
-        try {
-
-            if (clubListData) {
-
-                const clubs = clubListData.list;
-                setClubs(clubs);
-                setReload(false);
-            }
-
-            if(bagData) {
-
-                setBagClubs(bagData);
-            }
-        } catch (e) {
-            /**
-             * Check if something fails when we try to create a inbox
-             * and show user a possible solution
-             */
-            if (e.name === 'Inbox Error') {
-                return errorToaster(e.message, 'Error', {
-                    label: t('errorCreateInbox.link.label'),
-                    href: t('errorCreateInbox.link.href')
-                });
-            }
-
-            errorToaster(e.message, 'Error');
-        }
-    };
-
-    useEffect(() => {
-
-        if (webId && notification.notify) {
-            init();
-        }
-
-    }, [webId, clubListData, bagData, reload, notification.notify]);
-
     const loading = reload || clubListData.doc === undefined || bagData.doc === undefined;
 
     return (
@@ -133,4 +107,4 @@ const ManageBag = ({ match, webId, history, clubTypes, clubType }) => {
     );
 };
 
-export default withClubTypeContext(ManageBag);
+export default ManageBag;

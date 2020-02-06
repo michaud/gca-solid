@@ -3,11 +3,11 @@ import getClubDefinitions from "@services/getClubDefinitions";
 
 const useClubDefinitions = () => {
 
-    const [clubDefinitions, setClubDefinitions] = useState();
+    const [clubDefinitions, setClubDefinitions] = useState({ clubTypes: [], clubType: undefined });
 
     useEffect(() => {
         
-        if(!clubDefinitions) {
+        if(clubDefinitions.clubTypes.length === 0 & clubDefinitions.clubType === undefined ) {
 
             (async () => {
 

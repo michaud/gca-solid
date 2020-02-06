@@ -54,7 +54,7 @@ const useBagClubs = (clubTypes, clubType, reload) => {
                     
                     const doc = await fetchResource(url);
 
-                    if(clubType === undefined && clubTypes === undefined) {
+                    if(!clubType && clubTypes.length === 0) {
 
                         setClubList(state => ({
                             ...state,

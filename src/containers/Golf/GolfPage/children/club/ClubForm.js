@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import update from 'immutability-helper';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
-import { withClubTypeContext } from '@utils/clubTypeContext';
 import clubShape from '@contexts/club-shape.json';
 import formStyles from '@styles/form.style';
 import getFieldValue from '@utils/getFieldValue';
@@ -14,33 +13,34 @@ import {
     FlexItem,
     FlexItemRight
 } from '@styles/layout.style';
+import ClubTypeContext from '@utils/clubTypeContext';
 
 const ClubForm = ({
     club,
     onSave,
     onCancel,
     onDelete,
-    clubTypes,
-    clubType,
     title ='Add club',
     actionLabel = 'add club'
 }) => {
 
     const [clubState, setClubState] = useState(club);
+    const clubTypeData = useContext(ClubTypeContext);
+
     const { t } = useTranslation();
     const classes = formStyles();
 
     const saveHandler = () => {
 
         onSave(clubState);
-        setClubState(clubType);
+        setClubState(clubTypeData.clubType);
     };
 
     const onDeleteHandler = player => () => onDelete(player);
 
     const onChangeClubField = fieldDef => (...args)  => {
 
-        const value = getFieldValue(fieldDef, [...args, clubTypes]);
+        const value = getFieldValue(fieldDef, [...args, clubTypeData.clubTypes]);
 
         setClubState(state => update(state, {
             [fieldDef.predicate]: { value: { $set: value } }
@@ -55,10 +55,10 @@ const ClubForm = ({
     
         } else {
             
-            if(clubType) setClubState(clubType);
+            if(clubTypeData.clubType) setClubState(clubTypeData.clubType);
         }
 
-    }, [club, clubType]);
+    }, [club, clubTypeData.clubType]);
 
     const clubFields = [];
     
@@ -121,4 +121,4 @@ const ClubForm = ({
     );
 };
 
-export default withClubTypeContext(ClubForm);
+export default ClubForm;
