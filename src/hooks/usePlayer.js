@@ -19,6 +19,8 @@ const usePlayer = (initialReload) => {
 
         let didCancel = false;
 
+        if(!didCancel) setIsLoading(true);
+
         if (publicTypeIndex) {
 
             const loadData = async () => {
@@ -28,7 +30,6 @@ const usePlayer = (initialReload) => {
 
                     if (!playerIndex) {
 
-                        if(!didCancel) setIsLoading(true);
                         // If no player document is listed in the public type index, create one:
                         const doc = await initialiseTypeDocument(
                             golf.classes.Player,
@@ -51,8 +52,6 @@ const usePlayer = (initialReload) => {
                         const url = playerIndex.getRef(solid.instance);
 
                         if (typeof url !== 'string') return;
-
-                        if(!didCancel) setIsLoading(true);
 
                         const doc = await fetchResource(url);
                         const playerData = await getPlayer(

@@ -20,6 +20,8 @@ const useClubs = (clubTypes, clubType, initialReload) => {
 
         let didCancel = false;
 
+        if(!didCancel) setIsLoading(true);
+
         if (publicTypeIndex && clubTypes.length > 0 && clubType) {
 
             const loadData = async () => {
@@ -29,7 +31,6 @@ const useClubs = (clubTypes, clubType, initialReload) => {
 
                     if (!clubListIndex) {
 
-                        if(!didCancel) setIsLoading(true);
                         // If no clubList document is listed in the public type index, create one:
                         const doc = await initialiseTypeDocument(
                             golf.classes.Club,
@@ -54,8 +55,6 @@ const useClubs = (clubTypes, clubType, initialReload) => {
 
                         if (typeof url !== 'string') return;
                         
-                        if(!didCancel) setIsLoading(true);
-
                         const doc = await fetchResource(url);
 
                         if(clubType === undefined && clubTypes.length === 0) {
