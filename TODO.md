@@ -1,3 +1,4 @@
+
 - implement Edit course
 - implement Delete course
 - implement delete hole in edit course
@@ -33,4 +34,4 @@ X handle available SI when editing holes in edit course
 X rewrite game data so separate game files are used
 X Should we make the game bag and clubs unique?
     X the clubs in the (not game) bag can change at any time 
-
+X fix setstate on unmounted components
