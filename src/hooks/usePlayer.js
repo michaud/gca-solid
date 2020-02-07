@@ -7,16 +7,22 @@ import getPlayer from '@services/getPlayer';
 import fetchResource from '@services/fetchResource';
 import paths from '@constants/paths';
 
-const usePlayer = (reload) => {
+const usePlayer = (initialReload) => {
 
-    const publicTypeIndex = usePublicTypeIndex(reload);
+    const [reload, setReload] = useState(initialReload);
+    const [{ publicTypeIndex, publicTypeIndexIsLoading, publicTypeIndexIsError }, reLoadPublicTypeIndex] = usePublicTypeIndex(reload);
     const [playerData, setPlayerData] = useState({ player: undefined, doc: undefined });
+    const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
 
     useEffect(() => {
 
-        if (publicTypeIndex || reload) {
+        let didCancel = false;
 
-            (async () => {
+        if (publicTypeIndex) {
+
+            const loadData = async () => {
 
                 const playerIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Player);
 
@@ -30,7 +36,7 @@ const usePlayer = (reload) => {
 
                     if (doc === null) return;
                     
-                    setPlayerData(state => ({
+                    if(!didCancel) setPlayerData(state => ({
                         player: getPlayer(undefined, golf.classes.Player),
                         doc
                     }));
@@ -49,13 +55,18 @@ const usePlayer = (reload) => {
                         golf.classes.Player
                     );
 
-                    setPlayerData({ player: playerData, doc });
+                    if(!didCancel) setPlayerData({ player: playerData, doc });
                 }
-            })();
-        }
-    }, [publicTypeIndex]);
+            };
 
-    return playerData;
+            loadData();
+        }
+
+        return () => { didCancel = true; }
+
+    }, [publicTypeIndex, reload]);
+
+    return [{ playerData, isLoading, isError }, setReload];
 };
 
 export default usePlayer;

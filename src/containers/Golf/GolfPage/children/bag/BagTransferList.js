@@ -30,14 +30,13 @@ const BagTransferList = ({
 }) => {
 
     const [checked, setChecked] = useState([]);
-    const [left, setLeft] = useState([]);
-    const [right, setRight] = useState([]);
+    const [leftAndRight, setLeftAndRight] = useState({ left: [], right: []})
     const [autoSort, setAutoSort] = useState(true);
     const clubTypeData = useContext(ClubTypeContext);
 
     const classes = bagTransferListStyles();
-    const leftChecked = intersection(checked, left);
-    const rightChecked = intersection(checked, right);
+    const leftChecked = intersection(checked, leftAndRight.left);
+    const rightChecked = intersection(checked, leftAndRight.right);
 
     const handleToggle = value => () => {
 
@@ -65,24 +64,27 @@ const BagTransferList = ({
 
     const handleAllRight = () => {
         
-        const newRight = right.concat(left);
-        const sortedRight = newRight.sort(sortClubOnType);
+        const newRight = leftAndRight.right.concat(leftAndRight.left);
+        const right = newRight.sort(sortClubOnType);
 
-        setRight(sortedRight);
-        setLeft([]);
-        onAddToBag(left);
+        setLeftAndRight(state => ({ left: [],right }));
+        onAddToBag(leftAndRight.left);
     };
 
     const handleCheckedRight = () => {
 
         onAddToBag(leftChecked);
-        const newLeft = not(left, leftChecked);
-        const sortedLeft = newLeft.sort(sortClubOnType);
-        setLeft(sortedLeft);
 
-        const newRight = right.concat(leftChecked);
-        const sortedRight = newRight.sort(sortClubOnType);
-        setRight(sortedRight);
+        const newLeft = not(leftAndRight.left, leftChecked);
+        const left = newLeft.sort(sortClubOnType);
+
+        const newRight = leftAndRight.right.concat(leftChecked);
+        const right = newRight.sort(sortClubOnType);
+
+        setLeftAndRight({
+            left,
+            right
+        });
 
         onAddToBag(leftChecked);
 
@@ -91,13 +93,16 @@ const BagTransferList = ({
 
     const handleCheckedLeft = () => {
 
-        const newLeft = left.concat(rightChecked);
-        const sortedLeft = newLeft.sort(sortClubOnType);
-        setLeft(sortedLeft);
+        const newLeft = leftAndRight.left.concat(rightChecked);
+        const left = newLeft.sort(sortClubOnType);
 
-        const newRight = not(right, rightChecked);
-        const sortedRight = newRight.sort(sortClubOnType);
-        setRight(sortedRight);
+        const newRight = not(leftAndRight.right, rightChecked);
+        const right = newRight.sort(sortClubOnType);
+
+        setLeftAndRight({
+            left,
+            right
+        });
 
         onRemoveFromBag(rightChecked)
 
@@ -105,9 +110,14 @@ const BagTransferList = ({
     };
 
     const handleAllLeft = () => {
-        setLeft(left.concat(right));
-        setRight([]);
-        onRemoveFromBag(right);
+
+        setLeftAndRight(state => ({
+
+            left: state.right,
+            right: []
+        }));
+
+        onRemoveFromBag(leftAndRight.right);
     };
 
     const customList = items => (
@@ -152,13 +162,15 @@ const BagTransferList = ({
 
     useEffect(() => {
 
-        if (clubs && bag) {
+        let didCancel = false;
+
+        if (!didCancel && clubs && bag) {
 
             const filteredClubs = clubs.reduce((acc, club) => {
 
                 const ref = club.iri.split('#')[1];
 
-                const bagClub = bag.list.find(obj => obj.ref === ref);
+                const bagClub = bag.find(obj => obj.ref === ref);
 
                 if(bagClub) {
 
@@ -171,14 +183,20 @@ const BagTransferList = ({
 
                 return acc;
 
-            }, { bag:[], clubs: []})
+            }, { clubs: [], bag:[]})
 
-            const sortedClubs = filteredClubs.clubs.sort(sortClubOnType);
-            const sortedBag = filteredClubs.bag.sort(sortClubOnType);
-         
-            setLeft(sortedClubs);
-            setRight(sortedBag);
+
+            const left = filteredClubs.clubs.sort(sortClubOnType);
+            const right = filteredClubs.bag.sort(sortClubOnType);
+
+            setLeftAndRight({
+                left,
+                right
+            });
         }
+
+        return () => { didCancel = true; }
+
     }, [clubs, bag]);
 
     const getClubCountString = (testClubs) => {
@@ -196,9 +214,9 @@ const BagTransferList = ({
         return '';
     };
 
-    const clubCountString = getClubCountString(right);
+    const clubCountString = getClubCountString(leftAndRight.right);
 
-    const disabled = checkDisabled(left, leftChecked, right, rightChecked);
+    const disabled = checkDisabled(leftAndRight.left, leftChecked, leftAndRight.right, rightChecked);
 
     return (
         <div className={ classes.grid }>
@@ -208,9 +226,9 @@ const BagTransferList = ({
             <div className={ classes.gridRightHeader }>
                 <header className="c-header">Bag: { clubCountString }</header>
             </div>
-            <div className={ classes.gridLeft }>{ customList(left) }</div>
+            <div className={ classes.gridLeft }>{ customList(leftAndRight.left) }</div>
             <div className={ classes.gridRight }>
-                { customList(right) }
+                { customList(leftAndRight.right) }
             </div>
             <div className={ classes.gridMid }>
                 <div>

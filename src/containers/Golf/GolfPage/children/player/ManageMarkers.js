@@ -9,40 +9,49 @@ import PlayerDetail from './PlayerDetail';
 import deleteMarker from '@services/deleteMarker';
 import saveResource from '@services/saveResource';
 
-const ManageMarkers = ({
-    webId
-}) => {
+const ManageMarkers = () => {
 
     const [reload, setReload] = useState(false);
-    const markerData = useMarkers(reload);
+    const [{
+        markerListData,
+        isLoading: markerListDataIsLoading,
+        isError: markerListDataIsError
+    }, reloadMarkerListData] = useMarkers(reload);
+
     const [markers, setMarkers] = useState([]);
+
+    useEffect(() => {
+
+        let didCancel = false;
+
+        const init = () => {
+
+            if(!didCancel) {
+                setMarkers(markerListData.list);
+                setReload(false);
+            }
+        }
+
+        init();
+
+    }, [markerListData.list, reload]);
 
     const onSaveMarker = (marker) => {
 
         saveResource({
             resource: marker,
-            doc: markerData.doc,
+            doc: markerListData.doc,
             type: golf.classes.Marker
         });
+
         setReload(true);
     };
 
     const onDeleteMarker = marker => {
 
-        deleteMarker(marker, markerData.doc);
+        deleteMarker(marker, markerListData.doc);
         setReload(true);
     };
-
-    useEffect(() => {
-
-        if (markerData.list) {
-
-            const markerList = markerData.list;
-            setMarkers(markerList);
-            setReload(false);
-        }
-
-    }, [markerData, reload]);
 
     const marker = getPlayer(undefined, golf.classes.Marker);
 

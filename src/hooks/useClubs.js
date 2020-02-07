@@ -8,16 +8,21 @@ import clubShape from '@contexts/club-shape.json';
 import fetchResource from '@services/fetchResource';
 import paths from '@constants/paths';
 
-const useClubs = (clubTypes, clubType, reload) => {
+const useClubs = (clubTypes, clubType, initialReload) => {
 
-    const publicTypeIndex = usePublicTypeIndex(reload);
-    const [clubList, setClubList] = useState({ list: [], doc: undefined });
+    const [reload, setReload] = useState(initialReload);
+    const [{ publicTypeIndex, publicTypeIndexIsLoading, publicTypeIndexIsError }, reLoadPublicTypeIndex] = usePublicTypeIndex(reload);
+    const [clubListData, setClubListData] = useState({ list: [], doc: undefined });
+    const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
 
-        if (publicTypeIndex || reload) {
+        let didCancel = false;
 
-            (async () => {
+        if (publicTypeIndex && clubTypes.length > 0 && clubType) {
+
+            const loadData = async () => {
 
                 const clubListIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Club);
 
@@ -31,7 +36,7 @@ const useClubs = (clubTypes, clubType, reload) => {
 
                     if (doc === null) return;
                     
-                    setClubList(state => ({
+                    if(!didCancel) setClubListData(state => ({
                         ...state,
                         doc
                     }));
@@ -49,7 +54,7 @@ const useClubs = (clubTypes, clubType, reload) => {
 
                     if(clubType === undefined && clubTypes.length === 0) {
 
-                        setClubList(state => ({
+                        if(!didCancel) setClubListData(state => ({
                             ...state,
                             doc
                         }));
@@ -65,13 +70,18 @@ const useClubs = (clubTypes, clubType, reload) => {
                         clubType
                     )();
                         
-                    setClubList({ list, doc });
+                    if(!didCancel) setClubListData({ list, doc });
                 }
-            })();
-        }
-    }, [publicTypeIndex, clubTypes, clubType, reload]);
+            };
 
-    return clubList;
+            loadData();
+        }
+
+        return () => { didCancel = true; }
+
+    }, [publicTypeIndex, reload]);
+
+    return [{ clubListData, isLoading, isError }, setReload];
 };
 
 export default useClubs;

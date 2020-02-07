@@ -21,7 +21,34 @@ const ManageGames = () => {
     const [showGameForm, setShowGameForm] = useState(false);
     const [playGame, setPlayGame] = useState();
     const clubTypeData = useContext(ClubTypeContext);
-    const gameData = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    const [{
+        gameListData,
+        isLoading: gameListDataIsLoading,
+        isError: gameListDataIsError
+    }, reloadGameListData] = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+
+    useEffect(() => {
+
+        let didCancel = false;
+
+        const init = () => {
+
+            if(!didCancel) {
+                setGames(gameListData.list);
+
+                if(reload) {
+
+                    setCurrentGame();
+                }
+
+                setReload(false);
+            }
+        }
+
+        init();
+
+    }, [gameListData]);
+
 
     const toggleShowGameForm = () => setShowGameForm(state => !state);
 
@@ -29,7 +56,7 @@ const ManageGames = () => {
 
         saveGameResourse({
             resource: game,
-            doc: gameData.doc,
+            doc: gameListData.doc,
             type: golf.classes.Game
         });
 
@@ -46,25 +73,9 @@ const ManageGames = () => {
 
     const onPlayGameHandler = game => setPlayGame(game.split('#')[1]);
         
-    useEffect(() => {
-
-        if (gameData) {
-
-            setGames(gameData.list);
-
-            if(reload) {
-
-                setCurrentGame();
-            }
-
-            setReload(false);
-        }
-
-    }, [gameData]);
-
     if (playGame) return <Redirect to={ `/golf/game/${ playGame }` } />
 
-    const loading = reload || gameData.doc === undefined;
+    const loading = reload || gameListData.doc === undefined;
 
     return (
         <>

@@ -8,16 +8,21 @@ import getListFromDoc from '@services/getListFromDoc';
 import fetchResource from '@services/fetchResource';
 import paths from '@constants/paths';
 
-const useMarkers = (reload) => {
+const useMarkers = (initialReload) => {
 
-    const publicTypeIndex = usePublicTypeIndex(reload);
-    const [markers, setMarkers] = useState({ list: [], doc: undefined });
+    const [reload, setReload] = useState(initialReload);
+    const [{ publicTypeIndex, isLoading: publicTypeIndexIsLoading, isError: publicTypeIndexIsError }, reLoadPublicTypeIndex] = usePublicTypeIndex(reload);
+    const [markerListData, setMarkerListData] = useState({ list: [], doc: undefined });
+   const [isError, setIsError] = useState(false);
+   const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
 
+        let didCancel = false;
+
         if (publicTypeIndex) {
 
-            (async () => {
+            const fetchData = async () => {
 
                 const markersIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Marker);
 
@@ -31,7 +36,7 @@ const useMarkers = (reload) => {
 
                     if (doc === null) return;
                     
-                    setMarkers(state => ({
+                    if(!didCancel) setMarkerListData(state => ({
                         ...state,
                         doc
                     }));
@@ -51,13 +56,18 @@ const useMarkers = (reload) => {
                         markerShape
                     )();
 
-                    setMarkers({ list, doc });
+                    if(!didCancel) setMarkerListData({ list, doc });
                 }
-            })();
+            };
+
+            fetchData();
         }
+
+        return () => { didCancel = true; }
+
     }, [publicTypeIndex, reload]);
 
-    return markers;
+    return [{ markerListData, isLoading, isError }, setReload];
 };
 
 export default useMarkers;

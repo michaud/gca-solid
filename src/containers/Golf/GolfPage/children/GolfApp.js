@@ -14,18 +14,23 @@ const Home = lazy(() => import('@containers/Golf/GolfPage/children/home/Home'));
 const GolfApp = ({ webId }) => {
 
     const [reload] = useState(false);
-
     const [completed, setCompleted] = useState(0);
 
     const dataStructure = useDataStructure(reload, true);
 
     useEffect(() => {
 
-        const { progress, count } = dataStructure;
+        let didCancel = false;
 
-        setCompleted((100 / count) * progress);
+        if(!didCancel) {
 
-    }, [dataStructure.progress]);
+            const { progress, count } = dataStructure;
+            setCompleted((100 / count) * progress);
+        }
+
+        return () => { didCancel = true; }
+
+    }, [dataStructure.progress, dataStructure.count, completed, setCompleted]);
 
     return <div id="app-container">
         <Route render={ (props) => {
@@ -39,9 +44,10 @@ const GolfApp = ({ webId }) => {
                     <NavigationShell>
                         <Switch location={ props.location }>
                             <Route path="/golf/settings/" exact
-                                render={ routerProps => <Home { ...dataStructure }
+                                render={ routerProps => <Home 
                                     { ...routerProps }
-                                    webId={ webId } /> }/>
+                                    { ...dataStructure } /> }/>
+                                    
                             <Route path="/golf/settings/bag"
                                 render={ routerProps => <ManageBag
                                     { ...routerProps }

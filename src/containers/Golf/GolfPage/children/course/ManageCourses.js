@@ -12,14 +12,34 @@ import golf from '@utils/golf-namespace';
 const ManageCourses = () => {
 
     const [reload, setReload] = useState(false);
-    const courseData = useCourses(reload);
+    const [{ courseListData, courseListDataIsLoading, courseListDataIsError }, reloadCourseListData] = useCourses(reload);
     const [courses, setCourses] = useState([]);
+
+    useEffect(() => {
+
+        let didCancel = false;
+
+        const init = () => {
+
+            if(!didCancel) {
+                setCourses(courseListData.list);
+                setReload(false);
+            }
+        }
+
+        init();
+
+        return () => {
+            didCancel = true;
+        }
+
+    }, [courseListData, reload]);
 
     const onSaveCourse = (course) => {
 
         saveResource({
             resource: course,
-            doc: courseData.doc,
+            doc: courseListData.doc,
             type: golf.classes.Course
         });
         setReload(true);
@@ -27,24 +47,11 @@ const ManageCourses = () => {
 
     const onDeleteCourseHandler = (course) => {
 
-        deleteCourse(course, courseData.doc);
+        deleteCourse(course, courseListData.doc);
         setReload(true);
     };
 
-
-    useEffect(() => {
-
-        if (courseData) {
-
-            const couseList = courseData.list;
-
-            setCourses(couseList);
-            setReload(false);
-        }
-
-    }, [courseData, reload]);
-
-    const loading = reload || courseData.doc === undefined;
+    const loading = reload || courseListData.doc === undefined;
 
     return (
         <>

@@ -10,31 +10,47 @@ import saveResource from '@services/saveResource';
 
 const ManagePlayers = ({ webId }) => {
 
-    const [player, setPlayer] = useState();
     const [reload, setReload] = useState(false);
-    const playerDetails = usePlayer(reload);
+    const [player, setPlayer] = useState();
+    const [{
+        playerData,
+        isLoading: playerDataIsLoading,
+        isError: playerDataIsError
+    }, reloadPlayerData] = usePlayer(reload);
+    
     const { t } = useTranslation();
+
+    useEffect(() => {
+
+        let didCancel = false;
+
+        const init = () => {
+
+            if (!didCancel) {
+
+                setPlayer(playerData.player);
+                setReload(false)
+            }
+        }
+
+        init();
+
+        return () => {
+            didCancel = true;
+        }
+       
+    }, [playerData, reload]);
 
     const onSavePlayer = (playerData) => {
 
         saveResource({
             resource: playerData,
-            doc: playerDetails.doc,
+            doc: playerData.doc,
             type: golf.classes.Player
         });
         
         setReload(true);
     };
-
-    useEffect(() => {
-
-        if (playerDetails) {
-
-            setPlayer(playerDetails.player);
-            setReload(false)
-        }
-
-    }, [playerDetails, reload]);
 
     return (
         <>

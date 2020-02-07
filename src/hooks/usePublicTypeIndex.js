@@ -1,27 +1,42 @@
 import { useState, useEffect } from 'react';
 import fetchPublicTypeIndex from '@services/fetchPublicTypeIndex';
 
-const usePublicTypeIndex = (reload) => {
+const usePublicTypeIndex = (initialReload) => {
     
+    const [reload, setReload] = useState(initialReload);
     const [publicTypeIndex, setPublicTypeIndex] = useState();
-
+    const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    
     useEffect(() => {
 
-        if(!publicTypeIndex || reload) {
+        let didCancel = false;
 
-            fetchPublicTypeIndex().then(fetchedPublicTypeIndex => {
+        const fetchData = async () => {
 
-                if (fetchedPublicTypeIndex === null) {
-                    return;
-                }
+            if(!publicTypeIndex || reload) {
 
-                setPublicTypeIndex(fetchedPublicTypeIndex);
-            });
+                if(!didCancel) setIsError(false);
+                if(!didCancel) setIsLoading(true);
+
+                try {
+                    const result = await fetchPublicTypeIndex();
+
+                    if(!didCancel) setPublicTypeIndex(result);
+
+                } catch(error) { if(!didCancel) setIsError(true) }
+
+                if(!didCancel) setIsLoading(false);
+            }
         }
+
+        fetchData();
+
+        return () => { didCancel = true; }
 
     }, [reload]);
 
-    return publicTypeIndex;
-}
+    return [{ publicTypeIndex, isLoading, isError }, setReload];
+};
 
 export default usePublicTypeIndex;

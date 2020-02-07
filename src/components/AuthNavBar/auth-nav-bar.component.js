@@ -71,9 +71,15 @@ const AuthNavBar = React.memo((props: Props) => {
   }, [webId, inboxes]);
 
   useEffect(() => {
+
+    let didCancel = false;
+
     if (webId) {
-      discoverInbox();
+      if(!didCancel) discoverInbox();
     }
+
+    return () => { didCancel = true }
+
   }, [webId]);
   const { history } = props;
 

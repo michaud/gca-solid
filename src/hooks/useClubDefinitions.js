@@ -7,16 +7,21 @@ const useClubDefinitions = () => {
 
     useEffect(() => {
         
-        if(clubDefinitions.clubTypes.length === 0 & clubDefinitions.clubType === undefined ) {
+        let didCancel = false;
+
+        if(clubDefinitions.clubTypes.length === 0 && clubDefinitions.clubType === undefined ) {
 
             (async () => {
 
                 const clubTypeData = await getClubDefinitions();
 
-                setClubDefinitions(clubTypeData);
+                if(!didCancel) setClubDefinitions(clubTypeData);
             })();
         }
-    })
+
+        return () => { didCancel = true }
+
+    }, [clubDefinitions.clubTypes, clubDefinitions.clubType])
 
     return clubDefinitions;
 };

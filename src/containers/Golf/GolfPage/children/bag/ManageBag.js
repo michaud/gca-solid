@@ -1,4 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, {
+    useEffect,
+    useState,
+    useContext
+} from 'react';
 
 import { StylesProvider } from '@material-ui/core/styles';
 import useClubs from '@hooks/useClubs';
@@ -25,22 +29,43 @@ const ManageBag = () => {
     const [clubs, setClubs] = useState();
     const [bagClubs, setBagClubs] = useState();
     const clubTypeData = useContext(ClubTypeContext);
-    const clubListData = useClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
-    const bagData = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    const [{
+        clubListData,
+        isLoading: clubListDataIsLoading,
+        isError: clubListDataIsError
+    }] = useClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    const [{
+        bagListData,
+        isLoading: bagListDataIsLoading,
+        isError: bagListDataIsError
+    }] = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
     const { t } = useTranslation();
 
     useEffect(() => {
 
-        if((clubListData.list !== clubs && bagClubs !== bagData) || reload) {
+        let didCancel = false;
 
-            const clubs = clubListData.list;
-    
-            setClubs(state => clubs);
-            setBagClubs(state => bagData);
-            setReload(state => false);
+        const init = () => {
+
+            if(!didCancel && (!clubListDataIsLoading && !bagListDataIsLoading)) {
+                setClubs(state => clubListData.list);
+                setBagClubs(state => bagListData.list);
+                setReload(state => false);
+            }
         }
 
-    }, [clubListData.list, bagData.list, reload]);
+        init();
+
+        return () => { didCancel = true; }
+
+    }, [
+        clubListData.list,
+        bagListData.list,
+        clubs,
+        bagClubs,
+        clubTypeData.clubTypes,
+        clubTypeData.clubType,
+        reload]);
 
     const addClubHandler = async (club) => {
 
@@ -66,9 +91,9 @@ const ManageBag = () => {
 
     const deleteClubHandler = club => {
 
-        const isClubInBag = bagData.list.find(testClub => testClub.iri === club.iri);
+        const isClubInBag = bagListData.list.find(testClub => testClub.iri === club.iri);
 
-        if(isClubInBag) removeFromBag([club], bagData.doc);
+        if(isClubInBag) removeFromBag([club], bagListData.doc);
 
         deleteClub(club, clubListData.doc);
         setReload(true);
@@ -76,29 +101,29 @@ const ManageBag = () => {
 
     const addToBagHandler = (clubs) => {
         
-        addToBag(clubs, bagData.doc);
+        addToBag(clubs, bagListData.doc);
         setReload(true)
     };
     
     const removeFromBagHandler = (clubs) => {
         
-        removeFromBag(clubs, bagData.doc);
+        removeFromBag(clubs, bagListData.doc);
         setReload(true)
     };
-
-    const loading = reload || clubListData.doc === undefined || bagData.doc === undefined;
+    
+   const loading = reload || clubListData.doc === undefined || bagListData.doc === undefined;
 
     return (
         <StylesProvider>
             <ModuleHeader label={ t('golf.whatsInTheBag') } screenheader={ true } loading={ loading }/>
-            <PageContainer>
+             <PageContainer>
                 <BagTransferList
                     clubs={ clubs }
                     bag={ bagClubs }
                     onRemoveFromBag={ removeFromBagHandler }
                     onAddToBag={ addToBagHandler }/>
                 <ClubForm onSave={ addClubHandler } />
-                {clubs && <ClubList
+                { clubs && <ClubList
                     onSave={ saveClubHandler }
                     onDelete={ deleteClubHandler }
                     clubs={ clubs } />}

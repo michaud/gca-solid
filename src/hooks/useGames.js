@@ -29,16 +29,26 @@ const getGameListFromDoc = async (
     return data;
 }
 
-const useGames = (clubTypes, clubType, reload, gameId) => {
+const useGames = (clubTypes, clubType, initialReload, gameId) => {
 
-    const publicTypeIndex = usePublicTypeIndex(reload);
-    const [data, setData] = useState({ list: [], doc: undefined });
+    const [reload, setReload] = useState(initialReload);
+    const [{
+        publicTypeIndex,
+        isLoading: publicTypeIndexIsLoading,
+        isError: publicTypeIndexIsError
+    }, reLoadPublicTypeIndex] = usePublicTypeIndex(reload);
+    
+    const [gameListData, setGameListData] = useState({ list: [], doc: undefined });
+    const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
 
-        if (publicTypeIndex || reload) {
+        let didCancel = false;
 
-            (async () => {
+        if (publicTypeIndex) {
+
+            const loadData = async () => {
 
                 const listIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Game);
 
@@ -52,7 +62,7 @@ const useGames = (clubTypes, clubType, reload, gameId) => {
 
                     if (doc === null) return;
                     
-                    setData(state => ({
+                    if(!didCancel) setGameListData(state => ({
                         ...state,
                         doc
                     }));
@@ -70,7 +80,7 @@ const useGames = (clubTypes, clubType, reload, gameId) => {
 
                     if(clubType === undefined && clubTypes.length === 0) {
 
-                        setData(state => ({
+                        if(!didCancel) setGameListData(state => ({
                             ...state,
                             doc
                         }));
@@ -94,13 +104,18 @@ const useGames = (clubTypes, clubType, reload, gameId) => {
                     //     clubType
                     // )(gameId, url);
 
-                    setData({ list, doc });
+                    if(!didCancel) setGameListData({ list, doc });
                 }
-            })();
+            };
+
+            loadData();
         }
+
+        return () => { didCancel = true; }
+
     }, [publicTypeIndex, clubTypes, clubType, reload]);
 
-    return data;
+    return [{ gameListData, isLoading, isError }, setReload];
 };
 
 export default useGames;

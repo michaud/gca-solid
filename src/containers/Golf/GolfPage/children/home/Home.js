@@ -16,18 +16,19 @@ const Home = ({
     count,
     progress,
     playerData,
-    markerData,
-    clubData,
-    bagData,
-    courseData,
-    gameData
+    markerListData,
+    clubListData,
+    bagListData,
+    courseListData,
+    gameListData
 }) => {
-    
+
     return (
         <div>
             <ModuleHeader label="Golf Course assistant" screenheader={ true } loading={ count !== progress }/>
-            { count === progress && <PageContainer>
-                { playerData.player === undefined ? (
+            { 
+                count === progress && <PageContainer>
+                { playerData && playerData.player === undefined ? (
                     <IntroPanel
                         icon={ <CapIcon className="c-content-icon"/> }>
                             <FlexContainer flex="1">
@@ -43,7 +44,7 @@ const Home = ({
                                         </FlexContainer>
                                     </NavLink>
                                 </FlexItem>
-                                { markerData.list.length === 0 ? (
+                                { markerListData && markerListData.list.length === 0 ? (
                                     <FlexItem>
                                         <NavLink className="a-intro-link" to="/golf/settings/player">
                                             <FlexContainer flex="1" alignitems="center">
@@ -61,7 +62,7 @@ const Home = ({
                             </FlexContainer>
                     </IntroPanel>
                 ) : null }
-                { clubData.list.length === 0 ? (
+                { clubListData && clubListData.list.length === 0 ? (
                     <IntroPanel
                         icon={ <BagIcon className="c-content-icon"/> }>
                             <FlexContainer flex="1">
@@ -78,7 +79,7 @@ const Home = ({
                                         </FlexContainer>
                                     </NavLink>
                                 </FlexItem>
-                                { !bagData ? (
+                                { !bagListData ? (
                                     <FlexItem>
                                         <NavLink className="a-intro-link" to="/golf/settings/bag">
                                             <FlexContainer flex="1" alignitems="center">
@@ -96,7 +97,7 @@ const Home = ({
                             </FlexContainer>
                     </IntroPanel>
                 ) : null }
-                { !courseData.list.length === 0 ? (
+                { courseListData && !courseListData.list.length === 0 ? (
                     <IntroPanel
                         icon={ <GolfCourseIcon className="c-content-icon"/> }>
                             <NavLink className="a-intro-link" to="/golf/settings/courses">
@@ -112,7 +113,7 @@ const Home = ({
                             </NavLink>
                     </IntroPanel>
                 ) : null }
-                { !gameData.list.length === 0 ? (
+                { gameListData && gameListData.list.length === 0 ? (
                     <IntroPanel
                         icon={ <SportsGolfIcon className="c-content-icon"/> }>
                             <NavLink className="a-intro-link" to="/golf/settings/games">
@@ -128,7 +129,7 @@ const Home = ({
                             </NavLink>
                     </IntroPanel>
                 ) : null }
-                { gameData ? (
+                { gameListData && gameListData.list.length > 0 ? (
                     <IntroPanel
                         icon={ <CapIcon className="c-content-icon"/> }>
                             <NavLink className="a-intro-link" to="/golf/settings/games">

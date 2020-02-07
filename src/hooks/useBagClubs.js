@@ -14,16 +14,22 @@ const setupBag = (document) => {
     return document;
 };
 
-const useBagClubs = (clubTypes, clubType, reload) => {
+const useBagClubs = (clubTypes, clubType, initialReload) => {
 
-    const publicTypeIndex = usePublicTypeIndex();
-    const [clubList, setClubList] = useState({ list: [], doc: undefined });
+    const [reload, setReload] = useState(initialReload);
+    const [{ publicTypeIndex, publicTypeIndexIsLoading, publicTypeIndexIsError }, reLoadPublicTypeIndex] = usePublicTypeIndex(reload);
+    const [bagListData, setBagListData] = useState({ list: [], doc: undefined });
+    const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
 
     useEffect(() => {
 
-        if (publicTypeIndex || reload) {
+        let didCancel = false;
 
-            (async () => {
+        if (publicTypeIndex && clubTypes.length > 0 && clubType) {
+
+            const loadData = async () => {
 
                 const clubListIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Bag);
 
@@ -38,7 +44,7 @@ const useBagClubs = (clubTypes, clubType, reload) => {
 
                     if (doc === null) return;
                     
-                    setClubList(state => ({
+                    if(!didCancel) setBagListData(state => ({
                         ...state,
                         doc
                     }));
@@ -56,7 +62,7 @@ const useBagClubs = (clubTypes, clubType, reload) => {
 
                     if(!clubType && clubTypes.length === 0) {
 
-                        setClubList(state => ({
+                        if(!didCancel) setBagListData(state => ({
                             ...state,
                             doc
                         }));
@@ -70,16 +76,21 @@ const useBagClubs = (clubTypes, clubType, reload) => {
                         clubTypes
                     );
 
-                    setClubList({
+                    if(!didCancel) setBagListData({
                         list,
                         doc
                     });
                 }
-            })();
+            };
+
+            loadData();
         }
+
+        return () => { didCancel = true; }
+
     }, [publicTypeIndex, reload]);
 
-    return clubList;
+    return [{ bagListData, isLoading, isError }, setReload];
 };
 
 export default useBagClubs;

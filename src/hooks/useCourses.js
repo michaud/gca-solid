@@ -10,16 +10,22 @@ import courseShape from '@contexts/course-shape.json';
 import fetchResource from '@services/fetchResource';
 import paths from '@constants/paths';
 
-const useCourses = (reload) => {
+const useCourses = (initialReload) => {
+    
+    const [reload, setReload] = useState(initialReload);
+    const [{ publicTypeIndex, publicTypeIndexIsLoading, publicTypeIndexIsError }, reLoadPublicTypeIndex] = usePublicTypeIndex(reload);
+    const [courseListData, setCourseListData] = useState({ list: [], doc: undefined });
+    const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const publicTypeIndex = usePublicTypeIndex(reload);
-    const [courseData, setCourseData] = useState({ list: [], doc: undefined });
 
     useEffect(() => {
 
-        if (publicTypeIndex || reload) {
+        let didCancel = false;
 
-            (async () => {
+        if (publicTypeIndex) {
+
+            const loadData = async () => {
 
                 const courseListIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Course);
 
@@ -33,7 +39,7 @@ const useCourses = (reload) => {
 
                     if (doc === null) return;
                     
-                    setCourseData(state => ({
+                    if(!didCancel) setCourseListData(state => ({
                         ...state,
                         doc
                     }));
@@ -55,13 +61,18 @@ const useCourses = (reload) => {
                         courseShape
                     )();
 
-                    setCourseData({ list, doc });
+                    if(!didCancel) setCourseListData({ list, doc });
                 }
-            })();
+            };
+
+            loadData();
         }
+
+        return () => { didCancel = true; }
+
     }, [publicTypeIndex, reload]);
 
-    return courseData;
+    return [{ courseListData, isLoading, isError }, setReload];;
 };
 
 export default useCourses;

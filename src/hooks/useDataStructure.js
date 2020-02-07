@@ -7,43 +7,81 @@ import useCourses from './useCourses';
 import useGames from './useGames';
 import useClubDefinitions from './useClubDefinitions';
 
-const useDataStructure = (reload, forData = false) => {
+const useDataStructure = (initialReload, forData = false) => {
+
+    const [reload, setReload] = useState(initialReload)
 
     const clubTypeData = useClubDefinitions();
-    const playerData = usePlayer(reload);
-    const markerData = useMarkers(reload);
-    const clubData = useClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
-    const bagData = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
-    const courseData = useCourses(reload);
-    const gameData = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    const [{
+        playerData,
+        isLoading: playerDataIsLoading,
+        isError: playerDataIsError
+    }, reloadPlayerData] = usePlayer(reload);
+
+    const [{
+        markerListData,
+        isLoading: markerListDataIsLoading,
+        isError: markerListDataIsError
+    }, reloadMarkerListData] = useMarkers(reload);
+
+    const [{
+        clubListData,
+        isLoading: clubListDataIsLoading,
+        isError: clubListDataIsError
+    }, reloadClubListData] = useClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+
+    const [{
+        bagListData,
+        isLoading: bagListDataIsLoading,
+        isError: bagListDataIsError
+    }, reloadBagListData] = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+
+    const [{
+        courseListData,
+        courseListDataIsLoading,
+        courseListDataIsError
+    }, reloadCourseListData] = useCourses(reload);
+
+    const [{
+        gameListData,
+        isLoading: gameListDataIsLoading,
+        isError: gameListDataIsError
+    }, reloadGameListData] = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload);
 
     const [dataFiles, setDataFiles] = useState([
         playerData,
-        markerData,
-        clubData,
-        bagData,
-        courseData,
-        gameData
+        markerListData,
+        clubListData,
+        bagListData,
+        courseListData,
+        gameListData
     ]);
 
     useEffect(() => {
 
-        setDataFiles([
-            playerData,
-            markerData,
-            clubData,
-            bagData,
-            courseData,
-            gameData
-        ])
+        let didCancel = false;
+
+        if(!didCancel) {
+
+            setDataFiles([
+                playerData,
+                markerListData,
+                clubListData,
+                bagListData,
+                courseListData,
+                gameListData
+            ]);
+        }
+
+        return () => { didCancel = true; }
 
     }, [
         playerData,
-        markerData,
-        clubData,
-        bagData,
-        gameData,
-        courseData
+        markerListData,
+        clubListData,
+        bagListData,
+        gameListData,
+        courseListData
     ]);
 
     const count = dataFiles.length;
@@ -55,21 +93,21 @@ const useDataStructure = (reload, forData = false) => {
                 ...acc,
                 progress: file.doc !== undefined ? acc.progress + 1 : acc.progress,
                 playerData,
-                markerData,
-                clubData,
-                bagData,
-                gameData,
-                courseData
+                markerListData,
+                clubListData,
+                bagListData,
+                gameListData,
+                courseListData
             })
             
         }, {
             progress: 0,
             playerData: undefined,
-            markerData: undefined,
-            clubData: undefined,
-            bagData: undefined,
-            gameData: undefined,
-            courseData: undefined
+            markerListData: undefined,
+            clubListData: undefined,
+            bagListData: undefined,
+            gameListData: undefined,
+            courseListData: undefined
         }) :
         dataFiles.reduce((acc, file) => {
 
@@ -77,21 +115,21 @@ const useDataStructure = (reload, forData = false) => {
                 ...acc,
                 progress: file.doc !== undefined ? acc.progress + 1 : acc.progress,
                 hasPlayerData: playerData.player !== undefined,
-                hasMarkerData: markerData.list.length > 0,
-                hasClubData: clubData.list.length > 0,
-                hasBagData: bagData.list.length > 0,
-                hasGameData: gameData.list.length > 0,
-                hasCourseData: courseData.list.length > 0
+                hasMarkerData: markerListData.list.length > 0,
+                hasClubListData: clubListData.list.length > 0,
+                hasBagListData: bagListData.list.length > 0,
+                hasGameListData: gameListData.list.length > 0,
+                hasCourseListData: courseListData.list.length > 0
             })
             
         }, {
             progress: 0,
             hasPlayerData: undefined,
             hasMarkerData: undefined,
-            hasClubData: undefined,
-            hasBagData: undefined,
-            hasGameData: undefined,
-            hasCourseData: undefined
+            hasClubListData: undefined,
+            hasBagListData: undefined,
+            hasGameListData: undefined,
+            hasCourseListData: undefined
         });
 
     return ({ count,
