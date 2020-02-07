@@ -8,12 +8,19 @@ import deleteCourse from '@services/deleteCourse';
 import { PageContainer } from '@styles/page.style';
 import saveResource from '@services/saveResource';
 import golf from '@utils/golf-namespace';
+import { Snackbar } from '@material-ui/core';
+import Alert from '@containers/Golf/components/Alert';
 
 const ManageCourses = () => {
 
     const [reload, setReload] = useState(false);
-    const [{ courseListData, courseListDataIsLoading, courseListDataIsError }, reloadCourseListData] = useCourses(reload);
     const [courses, setCourses] = useState([]);
+    const [snackOpen, setSnackOpen] = useState(false);
+    const [{
+        courseListData,
+        isLoading: courseListDataIsLoading,
+        isError: courseListDataIsError
+    }] = useCourses(reload);
 
     useEffect(() => {
 
@@ -22,6 +29,8 @@ const ManageCourses = () => {
         const init = () => {
 
             if(!didCancel) {
+
+                setSnackOpen(courseListDataIsError);
                 setCourses(courseListData.list);
                 setReload(false);
             }
@@ -33,7 +42,15 @@ const ManageCourses = () => {
             didCancel = true;
         }
 
-    }, [courseListData, reload]);
+    }, [courseListData, courseListDataIsError, reload]);
+
+    const handleSnackClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setSnackOpen(false);
+    };
 
     const onSaveCourse = (course) => {
 
@@ -51,11 +68,18 @@ const ManageCourses = () => {
         setReload(true);
     };
 
-    const loading = reload || courseListData.doc === undefined;
-
     return (
         <>
-            <ModuleHeader label="Courses" screenheader={ true } loading={ loading }/>
+            <ModuleHeader label="Courses" screenheader={ true } loading={ courseListDataIsLoading }/>
+            <Snackbar
+                open={ snackOpen }
+                autoHideDuration={ 4000 }
+                onClose={ handleSnackClose }
+                anchorOrigin={{ vertical:'top', horizontal: 'center' }}>
+                <Alert onClose={ handleSnackClose } severity="error">
+                    Courses did not load
+                </Alert>
+            </Snackbar>
             <PageContainer>
                 <CourseForm onSave={ onSaveCourse }/>
                 <CourseList

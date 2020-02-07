@@ -11,10 +11,10 @@ import paths from '@constants/paths';
 const useMarkers = (initialReload) => {
 
     const [reload, setReload] = useState(initialReload);
-    const [{ publicTypeIndex, isLoading: publicTypeIndexIsLoading, isError: publicTypeIndexIsError }, reLoadPublicTypeIndex] = usePublicTypeIndex(reload);
+    const [{ publicTypeIndex }] = usePublicTypeIndex(reload);
     const [markerListData, setMarkerListData] = useState({ list: [], doc: undefined });
-   const [isError, setIsError] = useState(false);
-   const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
 
@@ -24,39 +24,57 @@ const useMarkers = (initialReload) => {
 
             const fetchData = async () => {
 
-                const markersIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Marker);
+                try {
+                    const markersIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Marker);
 
-                if (!markersIndex) {
+                    if (!markersIndex) {
 
-                    // If no player document is listed in the public type index, create one:
-                    const doc = await initialiseTypeDocument(
-                        golf.classes.Marker,
-                        paths.REACT_APP_GOLF_DATA_PATH + 'markers.ttl'//,setupPlayer
-                    );
+                        if(!didCancel) setIsLoading(true);
+                        // If no player document is listed in the public type index, create one:
+                        const doc = await initialiseTypeDocument(
+                            golf.classes.Marker,
+                            paths.REACT_APP_GOLF_DATA_PATH + 'markers.ttl'//,setupPlayer
+                        );
 
-                    if (doc === null) return;
-                    
-                    if(!didCancel) setMarkerListData(state => ({
-                        ...state,
-                        doc
-                    }));
+                        if (doc === null) return;
+                        
+                        if(!didCancel) setMarkerListData(state => ({
+                            ...state,
+                            doc
+                        }));
 
-                    return;
+                        if(!didCancel) setIsLoading(false);
 
-                } else {
+                        return;
 
-                    const url = markersIndex.getRef(solid.instance);
+                    } else {
 
-                    if (typeof url !== 'string') return;
+                        const url = markersIndex.getRef(solid.instance);
 
-                    const doc = await fetchResource(url);
-                    const list = await getListFromDoc(
-                        doc,
-                        golf.classes.Marker,
-                        markerShape
-                    )();
+                        if (typeof url !== 'string') return;
 
-                    if(!didCancel) setMarkerListData({ list, doc });
+                        if(!didCancel) setIsLoading(true);
+
+                        const doc = await fetchResource(url);
+                        const list = await getListFromDoc(
+                            doc,
+                            golf.classes.Marker,
+                            markerShape
+                        )();
+
+                        if(!didCancel) {
+
+                            setMarkerListData({ list, doc });
+                            setIsLoading(false);
+                        }
+                    }
+                } catch (error) {
+
+                    if(!didCancel) {
+
+                        setIsError(true);
+                        setIsLoading(false);
+                    }
                 }
             };
 

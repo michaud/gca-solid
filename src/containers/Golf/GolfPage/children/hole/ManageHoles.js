@@ -18,15 +18,17 @@ const ManageHoles = ({
 
     useEffect(() => {
 
-        setHoleNumber(holes.length + 1);
+        let didCancel = false;
+
+        if(!didCancel) setHoleNumber(holes.length + 1);
 
         if(editHole) {
 
-            setAvailableStrokeIndices([...initAvailableSI]);
+            if(!didCancel) setAvailableStrokeIndices([...initAvailableSI]);
         
         } else {
 
-            setAvailableStrokeIndices(state => {
+            if(!didCancel) setAvailableStrokeIndices(state => {
 
                 const newState = state.reduce((acc, SI) => {
 
@@ -43,6 +45,8 @@ const ManageHoles = ({
                 return newState;
             });
         }
+
+        return () => { didCancel = true; }
 
     }, [holes, editHole])
 

@@ -32,11 +32,7 @@ const getGameListFromDoc = async (
 const useGames = (clubTypes, clubType, initialReload, gameId) => {
 
     const [reload, setReload] = useState(initialReload);
-    const [{
-        publicTypeIndex,
-        isLoading: publicTypeIndexIsLoading,
-        isError: publicTypeIndexIsError
-    }, reLoadPublicTypeIndex] = usePublicTypeIndex(reload);
+    const [{ publicTypeIndex }] = usePublicTypeIndex(reload);
     
     const [gameListData, setGameListData] = useState({ list: [], doc: undefined });
     const [isError, setIsError] = useState(false);
@@ -50,62 +46,76 @@ const useGames = (clubTypes, clubType, initialReload, gameId) => {
 
             const loadData = async () => {
 
-                const listIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Game);
+                try {
+                    const listIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Game);
 
-                if (!listIndex) {
+                    if (!listIndex) {
 
-                    // If no clubList document is listed in the public type index, create one:
-                    const doc = await initialiseTypeDocument(
-                        golf.classes.Game,
-                        paths.REACT_APP_GOLF_DATA_PATH + 'games.ttl'
-                    );
+                        if(!didCancel) setIsLoading(true);
+                        // If no clubList document is listed in the public type index, create one:
+                        const doc = await initialiseTypeDocument(
+                            golf.classes.Game,
+                            paths.REACT_APP_GOLF_DATA_PATH + 'games.ttl'
+                        );
 
-                    if (doc === null) return;
-                    
-                    if(!didCancel) setGameListData(state => ({
-                        ...state,
-                        doc
-                    }));
-
-                    return;
-
-                } else {
-
-                    // If the public type index does list a clubList document, fetch it:
-                    const url = listIndex.getRef(solid.instance);
-
-                    if (typeof url !== 'string') return;
-
-                    const doc = await fetchResource(url);
-
-                    if(clubType === undefined && clubTypes.length === 0) {
-
+                        if (doc === null) return;
+                        
                         if(!didCancel) setGameListData(state => ({
                             ...state,
                             doc
                         }));
 
+                        if(!didCancel) setIsLoading(false);
+
                         return;
+
+                    } else {
+
+                        // If the public type index does list a clubList document, fetch it:
+                        const url = listIndex.getRef(solid.instance);
+
+                        if (typeof url !== 'string') return;
+
+                        if(!didCancel) setIsLoading(true);
+
+                        const doc = await fetchResource(url);
+
+                        if(clubType === undefined && clubTypes.length === 0) {
+
+                            if(!didCancel) setGameListData(state => ({
+                                ...state,
+                                doc
+                            }));
+
+                            if(!didCancel) setIsLoading(false);
+
+                            return;
+                        }
+
+                        if(!didCancel) setIsLoading(true);
+
+                        const list = await getGameListFromDoc(
+                            doc,
+                            golf.classes.Game,
+                            gameShape,
+                            clubTypes,
+                            clubType
+                        );
+
+                        // const list = getListFromDoc(
+                        //     doc,
+                        //     golf.classes.Game,
+                        //     gameShape,
+                        //     clubTypes,
+                        //     clubType
+                        // )(gameId, url);
+
+                        if(!didCancel) setIsLoading(false);
+
+                        if(!didCancel) setGameListData({ list, doc });
                     }
 
-                    const list = await getGameListFromDoc(
-                        doc,
-                        golf.classes.Game,
-                        gameShape,
-                        clubTypes,
-                        clubType
-                    );
-
-                    // const list = getListFromDoc(
-                    //     doc,
-                    //     golf.classes.Game,
-                    //     gameShape,
-                    //     clubTypes,
-                    //     clubType
-                    // )(gameId, url);
-
-                    if(!didCancel) setGameListData({ list, doc });
-                }
+                } catch (error) { if(!didCancel) setIsError(true) }
             };
 
             loadData();

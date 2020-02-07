@@ -17,11 +17,10 @@ const setupBag = (document) => {
 const useBagClubs = (clubTypes, clubType, initialReload) => {
 
     const [reload, setReload] = useState(initialReload);
-    const [{ publicTypeIndex, publicTypeIndexIsLoading, publicTypeIndexIsError }, reLoadPublicTypeIndex] = usePublicTypeIndex(reload);
+    const [{ publicTypeIndex }] = usePublicTypeIndex(reload);
     const [bagListData, setBagListData] = useState({ list: [], doc: undefined });
     const [isError, setIsError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
 
     useEffect(() => {
 
@@ -31,55 +30,86 @@ const useBagClubs = (clubTypes, clubType, initialReload) => {
 
             const loadData = async () => {
 
-                const clubListIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Bag);
-
-                if (!clubListIndex) {
-
-                    // If no clubList document is listed in the public type index, create one:
-                    const doc = await initialiseTypeDocument(
-                        golf.classes.Bag,
-                        paths.REACT_APP_GOLF_DATA_PATH + 'bag.ttl',
-                        setupBag
-                    );
-
-                    if (doc === null) return;
+                try {
                     
-                    if(!didCancel) setBagListData(state => ({
-                        ...state,
-                        doc
-                    }));
+                    const clubListIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Bag);
 
-                    return;
+                    if (!clubListIndex) {
 
-                } else {
+                        if(!didCancel) setIsLoading(true);
+                        // If no clubList document is listed in the public type index, create one:
+                        const doc = await initialiseTypeDocument(
+                            golf.classes.Bag,
+                            paths.REACT_APP_GOLF_DATA_PATH + 'bag.ttl',
+                            setupBag
+                        );
 
-                    // If the public type index does list a clubList document, fetch it:
-                    const url = clubListIndex.getRef(solid.instance);
+                        if (doc === null) {
 
-                    if (typeof url !== 'string') return;
-                    
-                    const doc = await fetchResource(url);
+                            if(!didCancel) setIsLoading(false);
 
-                    if(!clubType && clubTypes.length === 0) {
+                            return;
+                        }
+                        
+                        if(!didCancel) {
+                            setBagListData(state => ({
+                                ...state,
+                                doc
+                            }));
 
-                        if(!didCancel) setBagListData(state => ({
-                            ...state,
-                            doc
-                        }));
+                            setIsLoading(false);
+                        }
 
                         return;
+
+                    } else {
+
+                        // If the public type index does list a clubList document, fetch it:
+                        const url = clubListIndex.getRef(solid.instance);
+
+                        if (typeof url !== 'string') return;
+                        
+                        if(!didCancel) setIsLoading(true);                        
+                        
+                        const doc = await fetchResource(url);
+
+                        if(!clubType && clubTypes.length === 0) {
+
+                            if(!didCancel) {
+
+                                setBagListData(state => ({
+                                    ...state,
+                                    doc
+                                }));
+
+                                setIsLoading(false);
+                            }
+                            return;
+                        }
+
+                        const list = await getBagClubs(
+                            doc,
+                            clubType,
+                            clubTypes
+                        );
+
+                        if(!didCancel) {
+                            
+                            setIsLoading(false);
+                            setBagListData({
+                                list,
+                                doc
+                            });
+
+                        }
                     }
+                } catch (error) {
 
-                    const list = await getBagClubs(
-                        doc,
-                        clubType,
-                        clubTypes
-                    );
+                    if(!didCancel) {
 
-                    if(!didCancel) setBagListData({
-                        list,
-                        doc
-                    });
+                        setIsLoading(false);
+                        setIsError(true);
+                    }
                 }
             };
 

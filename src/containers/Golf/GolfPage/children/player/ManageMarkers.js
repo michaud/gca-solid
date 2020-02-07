@@ -12,11 +12,7 @@ import saveResource from '@services/saveResource';
 const ManageMarkers = () => {
 
     const [reload, setReload] = useState(false);
-    const [{
-        markerListData,
-        isLoading: markerListDataIsLoading,
-        isError: markerListDataIsError
-    }, reloadMarkerListData] = useMarkers(reload);
+    const [{ markerListData }] = useMarkers(reload);
 
     const [markers, setMarkers] = useState([]);
 
@@ -27,6 +23,7 @@ const ManageMarkers = () => {
         const init = () => {
 
             if(!didCancel) {
+
                 setMarkers(markerListData.list);
                 setReload(false);
             }

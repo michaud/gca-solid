@@ -13,11 +13,10 @@ import paths from '@constants/paths';
 const useCourses = (initialReload) => {
     
     const [reload, setReload] = useState(initialReload);
-    const [{ publicTypeIndex, publicTypeIndexIsLoading, publicTypeIndexIsError }, reLoadPublicTypeIndex] = usePublicTypeIndex(reload);
+    const [{ publicTypeIndex }] = usePublicTypeIndex(reload);
     const [courseListData, setCourseListData] = useState({ list: [], doc: undefined });
     const [isError, setIsError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
 
     useEffect(() => {
 
@@ -27,42 +26,53 @@ const useCourses = (initialReload) => {
 
             const loadData = async () => {
 
-                const courseListIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Course);
+                try {
+                    const courseListIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Course);
 
-                if (!courseListIndex) {
+                    if (!courseListIndex) {
 
-                    // If no clubList document is listed in the public type index, create one:
-                    const doc = await initialiseTypeDocument(
-                        golf.classes.Course,
-                        paths.REACT_APP_GOLF_DATA_PATH + 'courses.ttl'
-                    );
+                        if(!didCancel) setIsLoading(true);
+                        // If no clubList document is listed in the public type index, create one:
+                        const doc = await initialiseTypeDocument(
+                            golf.classes.Course,
+                            paths.REACT_APP_GOLF_DATA_PATH + 'courses.ttl'
+                        );
 
-                    if (doc === null) return;
-                    
-                    if(!didCancel) setCourseListData(state => ({
-                        ...state,
-                        doc
-                    }));
+                        if (doc === null) return;
+                        
+                        if(!didCancel) setCourseListData(state => ({
+                            ...state,
+                            doc
+                        }));
 
-                    return;
+                        if(!didCancel)  setIsLoading(false);
 
-                } else {
+                        return;
 
-                    // If the public type index does list a clubList document, fetch it:
-                    const url = courseListIndex.getRef(solid.instance);
+                    } else {
 
-                    if (typeof url !== 'string') return;
+                        // If the public type index does list a clubList document, fetch it:
+                        const url = courseListIndex.getRef(solid.instance);
 
-                    const doc = await fetchResource(url);
+                        if (typeof url !== 'string') return;
 
-                    const list = getListFromDoc(
-                        doc,
-                        golf.classes.Course,
-                        courseShape
-                    )();
+                        if(!didCancel) setIsLoading(true);
 
-                    if(!didCancel) setCourseListData({ list, doc });
-                }
+                        const doc = await fetchResource(url);
+
+                        const list = getListFromDoc(
+                            doc,
+                            golf.classes.Course,
+                            courseShape
+                        )();
+
+                        if(!didCancel) setIsLoading(false);
+
+                        if(!didCancel) setCourseListData({ list, doc });
+                    }
+
+                } catch (error) { if(!didCancel) setIsError(true) }
+                
             };
 
             loadData();
@@ -72,7 +82,7 @@ const useCourses = (initialReload) => {
 
     }, [publicTypeIndex, reload]);
 
-    return [{ courseListData, isLoading, isError }, setReload];;
+    return [{ courseListData, isLoading, isError }, setReload];
 };
 
 export default useCourses;

@@ -7,16 +7,20 @@ import usePlayer from '@hooks/usePlayer';
 import { PageContainer } from '@styles/page.style';
 import golf from '@utils/golf-namespace';
 import saveResource from '@services/saveResource';
+import { Snackbar } from '@material-ui/core';
+import Alert from '@containers/Golf/components/Alert';
 
 const ManagePlayers = ({ webId }) => {
 
     const [reload, setReload] = useState(false);
     const [player, setPlayer] = useState();
+    const [snackOpen, setSnackOpen] = useState(false);
+
     const [{
         playerData,
         isLoading: playerDataIsLoading,
         isError: playerDataIsError
-    }, reloadPlayerData] = usePlayer(reload);
+    }] = usePlayer(reload);
     
     const { t } = useTranslation();
 
@@ -27,7 +31,7 @@ const ManagePlayers = ({ webId }) => {
         const init = () => {
 
             if (!didCancel) {
-
+                setSnackOpen(playerDataIsError);
                 setPlayer(playerData.player);
                 setReload(false)
             }
@@ -40,6 +44,14 @@ const ManagePlayers = ({ webId }) => {
         }
        
     }, [playerData, reload]);
+
+    const handleSnackClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setSnackOpen(false);
+    };
 
     const onSavePlayer = (playerData) => {
 
@@ -57,7 +69,17 @@ const ManagePlayers = ({ webId }) => {
             <ModuleHeader
                 label={ t('golf.players') }
                 screenheader={ true }
-                loading={ !player || reload === true }/>
+                loading={ playerDataIsLoading }/>
+            <Snackbar
+                open={ snackOpen }
+                autoHideDuration={ 4000 }
+                onClose={ handleSnackClose }
+                anchorOrigin={{ vertical:'top', horizontal: 'center' }}>
+                <Alert onClose={ handleSnackClose } severity="error">
+                    Player did not load
+                </Alert>
+            </Snackbar>
+
             <PageContainer>
             { 
                 player && <PlayerDetail

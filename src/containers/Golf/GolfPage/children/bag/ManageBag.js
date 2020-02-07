@@ -20,6 +20,8 @@ import BagTransferList from '@containers/Golf/GolfPage/children/bag/BagTransferL
 import { PageContainer } from '@styles/page.style';
 import saveResource from '@services/saveResource';
 import golf from '@utils/golf-namespace';
+import { Snackbar } from '@material-ui/core';
+import Alert from '@containers/Golf/components/Alert';
 
 import ClubTypeContext from '@utils/clubTypeContext';
 
@@ -28,6 +30,7 @@ const ManageBag = () => {
     const [reload, setReload] = useState(false);
     const [clubs, setClubs] = useState();
     const [bagClubs, setBagClubs] = useState();
+    const [snackOpen, setSnackOpen] = useState(false);
     const clubTypeData = useContext(ClubTypeContext);
     const [{
         clubListData,
@@ -48,6 +51,7 @@ const ManageBag = () => {
         const init = () => {
 
             if(!didCancel && (!clubListDataIsLoading && !bagListDataIsLoading)) {
+                setSnackOpen(clubListDataIsError || bagListDataIsError);
                 setClubs(state => clubListData.list);
                 setBagClubs(state => bagListData.list);
                 setReload(state => false);
@@ -65,7 +69,16 @@ const ManageBag = () => {
         bagClubs,
         clubTypeData.clubTypes,
         clubTypeData.clubType,
-        reload]);
+        reload
+    ]);
+
+    const handleSnackClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setSnackOpen(false);
+    };
 
     const addClubHandler = async (club) => {
 
@@ -110,12 +123,19 @@ const ManageBag = () => {
         removeFromBag(clubs, bagListData.doc);
         setReload(true)
     };
-    
-   const loading = reload || clubListData.doc === undefined || bagListData.doc === undefined;
 
     return (
         <StylesProvider>
-            <ModuleHeader label={ t('golf.whatsInTheBag') } screenheader={ true } loading={ loading }/>
+            <ModuleHeader label={ t('golf.whatsInTheBag') } screenheader={ true } loading={ clubListDataIsLoading === true || bagListDataIsLoading === true }/>
+            <Snackbar
+                open={ snackOpen }
+                autoHideDuration={ 4000 }
+                onClose={ handleSnackClose }
+                anchorOrigin={{ vertical:'top', horizontal: 'center' }}>
+                <Alert onClose={ handleSnackClose } severity="error">
+                    Courses did not load
+                </Alert>
+            </Snackbar>
              <PageContainer>
                 <BagTransferList
                     clubs={ clubs }

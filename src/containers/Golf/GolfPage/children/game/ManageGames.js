@@ -11,6 +11,8 @@ import ClubTypeContext from '@utils/clubTypeContext';
 import formStyles from '@styles/form.style';
 import golf from '@utils/golf-namespace';
 import saveGameResourse from '@services/saveGameResourse';
+import { Snackbar } from '@material-ui/core';
+import Alert from '@containers/Golf/components/Alert';
 
 const ManageGames = () => {
 
@@ -20,12 +22,13 @@ const ManageGames = () => {
     const [games, setGames] = useState([]);
     const [showGameForm, setShowGameForm] = useState(false);
     const [playGame, setPlayGame] = useState();
+    const [snackOpen, setSnackOpen] = useState(false);
     const clubTypeData = useContext(ClubTypeContext);
     const [{
         gameListData,
         isLoading: gameListDataIsLoading,
         isError: gameListDataIsError
-    }, reloadGameListData] = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    }] = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload);
 
     useEffect(() => {
 
@@ -34,6 +37,8 @@ const ManageGames = () => {
         const init = () => {
 
             if(!didCancel) {
+
+                setSnackOpen(gameListDataIsError);
                 setGames(gameListData.list);
 
                 if(reload) {
@@ -49,6 +54,13 @@ const ManageGames = () => {
 
     }, [gameListData]);
 
+    const handleSnackClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setSnackOpen(false);
+    };
 
     const toggleShowGameForm = () => setShowGameForm(state => !state);
 
@@ -75,11 +87,18 @@ const ManageGames = () => {
         
     if (playGame) return <Redirect to={ `/golf/game/${ playGame }` } />
 
-    const loading = reload || gameListData.doc === undefined;
-
     return (
         <>
-            <ModuleHeader label="Games" screenheader={ true } loading={ loading }/>
+            <ModuleHeader label="Games" screenheader={ true } loading={ gameListDataIsLoading }/>
+            <Snackbar
+                open={ snackOpen }
+                autoHideDuration={ 4000 }
+                onClose={ handleSnackClose }
+                anchorOrigin={{ vertical:'center', horizontal: 'center' }}>
+                <Alert onClose={ handleSnackClose } severity="error">
+                    Courses did not load
+                </Alert>
+            </Snackbar>
             <PageContainer>
                 {
                     showGameForm && <div className="c-box c-box--hold-height">
@@ -90,7 +109,7 @@ const ManageGames = () => {
                     </div>
                 }
                 {
-                    !showGameForm && !loading && <div className="c-box">
+                    !showGameForm && !gameListDataIsLoading && <div className="c-box">
                         <Button
                             variant="contained"
                             onClick={ toggleShowGameForm }

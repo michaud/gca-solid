@@ -9,44 +9,39 @@ import useClubDefinitions from './useClubDefinitions';
 
 const useDataStructure = (initialReload, forData = false) => {
 
-    const [reload, setReload] = useState(initialReload)
+    const [reload] = useState(initialReload)
 
     const clubTypeData = useClubDefinitions();
+
     const [{
         playerData,
-        isLoading: playerDataIsLoading,
         isError: playerDataIsError
-    }, reloadPlayerData] = usePlayer(reload);
+    }] = usePlayer(reload);
 
     const [{
         markerListData,
-        isLoading: markerListDataIsLoading,
         isError: markerListDataIsError
-    }, reloadMarkerListData] = useMarkers(reload);
+    }] = useMarkers(reload);
 
     const [{
         clubListData,
-        isLoading: clubListDataIsLoading,
         isError: clubListDataIsError
-    }, reloadClubListData] = useClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    }] = useClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
 
     const [{
         bagListData,
-        isLoading: bagListDataIsLoading,
         isError: bagListDataIsError
-    }, reloadBagListData] = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    }] = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
 
     const [{
         courseListData,
-        courseListDataIsLoading,
         courseListDataIsError
-    }, reloadCourseListData] = useCourses(reload);
+    }] = useCourses(reload);
 
     const [{
         gameListData,
-        isLoading: gameListDataIsLoading,
         isError: gameListDataIsError
-    }, reloadGameListData] = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    }] = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload);
 
     const [dataFiles, setDataFiles] = useState([
         playerData,
@@ -132,8 +127,16 @@ const useDataStructure = (initialReload, forData = false) => {
             hasCourseListData: undefined
         });
 
+    const hasError = playerDataIsError ||
+        markerListDataIsError ||
+        clubListDataIsError ||
+        bagListDataIsError ||
+        courseListDataIsError ||
+        gameListDataIsError;
+
     return ({ count,
-        ...data
+        ...data,
+        hasError
     });
 };
 
