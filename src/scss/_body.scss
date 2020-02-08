@@ -19,6 +19,7 @@ body {
     background: rgb(247, 241, 217);
     display: flex;
     flex-direction: row;
+    overscroll-behavior-y: contain;
 }
 
 #app-container {
