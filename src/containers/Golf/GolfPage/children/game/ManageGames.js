@@ -94,7 +94,7 @@ const ManageGames = () => {
                 open={ snackOpen }
                 autoHideDuration={ 4000 }
                 onClose={ handleSnackClose }
-                anchorOrigin={{ vertical:'center', horizontal: 'center' }}>
+                anchorOrigin={{ vertical:'top', horizontal: 'center' }}>
                 <Alert onClose={ handleSnackClose } severity="error">
                     Courses did not load
                 </Alert>
