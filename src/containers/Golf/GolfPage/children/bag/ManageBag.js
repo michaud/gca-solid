@@ -51,6 +51,7 @@ const ManageBag = () => {
         const init = () => {
 
             if(!didCancel && (!clubListDataIsLoading && !bagListDataIsLoading)) {
+
                 setSnackOpen(clubListDataIsError || bagListDataIsError);
                 setClubs(state => clubListData.list);
                 setBagClubs(state => bagListData.list);

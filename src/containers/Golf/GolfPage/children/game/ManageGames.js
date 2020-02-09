@@ -1,27 +1,26 @@
 import React, { useEffect, useState, useContext } from 'react';
 
-import Button from '@material-ui/core/Button';
 import { Redirect } from 'react-router-dom';
 import useGames from '@hooks/useGames';
 import ModuleHeader from '@containers/Golf/GolfPage/children/ModuleHeader';
 import { PageContainer } from '@styles/page.style';
-import GameForm from '@containers/Golf/GolfPage/children/game/GameForm';
 import GameList from '@containers/Golf/GolfPage/children/game/GameList';
 import ClubTypeContext from '@utils/clubTypeContext';
-import formStyles from '@styles/form.style';
 import golf from '@utils/golf-namespace';
 import saveGameResourse from '@services/saveGameResourse';
 import { Snackbar } from '@material-ui/core';
 import Alert from '@containers/Golf/components/Alert';
+import IntroPanel from '../home/IntroPanel';
+import SportsGolfIcon from '@material-ui/icons/SportsGolf';
+import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
+import { FlexContainer, FlexItem } from '@styles/layout.style';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 const ManageGames = () => {
 
-    const classes = formStyles();
     const [reload, setReload] = useState(false);
-    const [currentGame, setCurrentGame] = useState();
     const [games, setGames] = useState([]);
-    const [showGameForm, setShowGameForm] = useState(false);
-    const [playGame, setPlayGame] = useState();
+    const [playGame, setPlayGame] = useState(false);
     const [snackOpen, setSnackOpen] = useState(false);
     const clubTypeData = useContext(ClubTypeContext);
     const [{
@@ -36,33 +35,27 @@ const ManageGames = () => {
 
         const init = () => {
 
-            if(!didCancel) {
+            if (!didCancel) {
 
                 setSnackOpen(gameListDataIsError);
                 setGames(gameListData.list);
-
-                if(reload) {
-
-                    setCurrentGame();
-                }
-
                 setReload(false);
             }
         }
 
         init();
 
+        return () => { didCancel = true }
+
     }, [gameListData]);
 
     const handleSnackClose = (event, reason) => {
         if (reason === 'clickaway') {
-          return;
+            return;
         }
-    
+
         setSnackOpen(false);
     };
-
-    const toggleShowGameForm = () => setShowGameForm(state => !state);
 
     const onSaveGameHandler = game => {
 
@@ -75,49 +68,47 @@ const ManageGames = () => {
         setReload(true);
     };
 
-    const onCancelHandler = () => setShowGameForm(false);
-
     const onDeleteGameHandler = (game) => {
 
-//        deleteGame(game, gameData.doc);
+        //        deleteGame(game, gameData.doc);
         setReload(true);
     };
 
     const onPlayGameHandler = game => setPlayGame(game.split('#')[1]);
-        
-    if (playGame) return <Redirect to={ `/golf/game/${ playGame }` } />
+
+    if (playGame) return <Redirect to={`/golf/game/${playGame}`} />
 
     return (
         <>
-            <ModuleHeader label="Games" screenheader={ true } loading={ gameListDataIsLoading }/>
+            <ModuleHeader label="Games"
+                screenheader={ true }
+                loading={ gameListDataIsLoading } />
             <Snackbar
                 open={ snackOpen }
                 autoHideDuration={ 4000 }
                 onClose={ handleSnackClose }
-                anchorOrigin={{ vertical:'top', horizontal: 'center' }}>
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
                 <Alert onClose={ handleSnackClose } severity="error">
-                    Courses did not load
+                    Game data did not load
                 </Alert>
             </Snackbar>
             <PageContainer>
-                {
-                    showGameForm && <div className="c-box c-box--hold-height">
-                        <GameForm
-                            game={ currentGame }
-                            onSave={ onSaveGameHandler }
-                            onCancel={ onCancelHandler }/>
-                    </div>
-                }
-                {
-                    !showGameForm && !gameListDataIsLoading && <div className="c-box">
-                        <Button
-                            variant="contained"
-                            onClick={ toggleShowGameForm }
-                            className={ classes.button }
-                            fullWidth={ true }
-                            color="primary">New game</Button>
-                    </div>
-                }
+                <div className="c-box">
+                    <IntroPanel
+                        icon={ <SportsGolfIcon className="c-content-icon" /> }>
+                        <NavLink className="a-intro-link" to="/golf/settings/games/new">
+                            <FlexContainer alignitems="center">
+                                <FlexItem>
+                                    <h3 className="h-intro">Add a Game</h3>
+                                    <p>Do you feel lucky, punk?</p>
+                                </FlexItem>
+                                <FlexItem narrow>
+                                    <ArrowForwardIosIcon className="action-intro" />
+                                </FlexItem>
+                            </FlexContainer>
+                        </NavLink>
+                    </IntroPanel>
+                </div>
                 <GameList
                     games={ games }
                     onDelete={ onDeleteGameHandler }

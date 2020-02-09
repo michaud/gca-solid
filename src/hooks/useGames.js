@@ -33,7 +33,6 @@ const useGames = (clubTypes, clubType, initialReload, gameId) => {
 
     const [reload, setReload] = useState(initialReload);
     const [{ publicTypeIndex }] = usePublicTypeIndex(reload);
-    
     const [gameListData, setGameListData] = useState({ list: [], doc: undefined });
     const [isError, setIsError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -42,16 +41,15 @@ const useGames = (clubTypes, clubType, initialReload, gameId) => {
 
         let didCancel = false;
 
-        if (publicTypeIndex) {
+        const loadData = async () => {
 
-            const loadData = async () => {
+            if (publicTypeIndex) {
 
                 try {
                     const listIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Game);
 
                     if (!listIndex) {
 
-                        if(!didCancel) setIsLoading(true);
                         // If no clubList document is listed in the public type index, create one:
                         const doc = await initialiseTypeDocument(
                             golf.classes.Game,
@@ -102,24 +100,17 @@ const useGames = (clubTypes, clubType, initialReload, gameId) => {
                             clubType
                         );
 
-                        // const list = getListFromDoc(
-                        //     doc,
-                        //     golf.classes.Game,
-                        //     gameShape,
-                        //     clubTypes,
-                        //     clubType
-                        // )(gameId, url);
-
                         if(!didCancel) setIsLoading(false);
-
                         if(!didCancel) setGameListData({ list, doc });
                     }
 
                 } catch (error) { if(!didCancel) setIsError(true) }
-            };
-
-            loadData();
-        }
+            }
+        };
+    
+        if(!didCancel) setIsLoading(true);
+    
+        loadData();
 
         return () => { didCancel = true; }
 

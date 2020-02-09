@@ -6,6 +6,7 @@ import SplashScreen from './SplashScreen';
 import useDataStructure from '@hooks/useDataStructure';
 import { Snackbar } from '@material-ui/core';
 import Alert from '@containers/Golf/components/Alert';
+import NewGame from './newGame/NewGame';
 
 const ManageBag = lazy(() => import('@containers/Golf/GolfPage/children/bag/ManageBag'));
 const ManageCourses = lazy(() => import('@containers/Golf/GolfPage/children/course/ManageCourses'));
@@ -83,10 +84,15 @@ const GolfApp = ({ webId }) => {
                                 render={ (routerProps) => <ManagePlayers
                                     { ...routerProps }
                                     webId={ webId }/> }/>
+                            <Route path="/golf/settings/games/new" exact
+                                render={ (routerProps) => <NewGame
+                                    { ...routerProps }
+                                    webId={ webId }/> }/>
                             <Route path="/golf/settings/games"
                                 render={ (routerProps) => <ManageGames
                                     { ...routerProps }
                                     webId={ webId }/> }/>
+
                         </Switch>
                     </NavigationShell>
                 </Switch>

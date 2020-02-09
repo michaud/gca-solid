@@ -6,7 +6,7 @@ import golf from "@utils/golf-namespace";
 import fetchProfile from "./fetchProfile";
 import { space } from "rdf-namespaces";
 
-const saveGameResourse = async({
+const saveGameResourse = async ({
     resource,
     doc: sourceDoc,
     type

@@ -19,6 +19,9 @@ import { putClubsInBag } from '@utils/putClubsInBag';
 import saveResource from '@services/saveResource';
 import golf from '@utils/golf-namespace';
 import useClubDefinitions from '@hooks/useClubDefinitions';
+import { Snackbar } from '@material-ui/core';
+import Alert from '@containers/Golf/components/Alert';
+
 
 import {
     FlexContainer,
@@ -33,19 +36,96 @@ const GameForm = ({
     title ='Add game',
     actionLabel = 'add game'
 }) => {
-
+    
     const classes = formStyles();
     const [reload, setReload] = useState(false);
-    const playerData = usePlayer(reload);
-    const clubTypeData = useClubDefinitions();
-    const clubData = useClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
-    const bagData = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
-    const courseData = useCourses(reload);
-    const markerData = useMarkers(reload);
     const [gameState, setGameState] = useState(game);
+    const [snackOpen, setSnackOpen] = useState(false);
+    const clubTypeData = useClubDefinitions();
+    const [{
+        playerData,
+        isError: playerDataIsError
+    }] = usePlayer(reload);
+    
+    const [{
+        markerListData,
+        isError: markerListDataIsError
+    }] = useMarkers(reload);
+    
+    const [{
+        clubListData,
+        isError: clubListDataIsError
+    }] = useClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    
+    const [{
+        bagListData,
+        isError: bagListDataIsError
+    }] = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    
+    const [{
+        courseListData,
+        courseListDataIsError
+    }] = useCourses(reload);
+    
+    useEffect(() => {
+
+        let didCancel = false;
+
+        const update = () => {
+
+            if(!didCancel) {
+                setSnackOpen(
+                    playerDataIsError ||
+                    bagListDataIsError ||
+                    clubListDataIsError ||
+                    courseListDataIsError ||
+                    markerListDataIsError);
+            }
+
+            if(game) {
+                
+                if(!didCancel) setGameState(game);
+                
+            } else if(
+                bagListData['doc'] !== undefined &&
+                clubListData['doc'] !== undefined &&
+                courseListData['doc'] !== undefined &&
+                markerListData['doc'] !== undefined &&
+                playerData['doc'] !== undefined
+            ) {
+
+                const gameBag = putClubsInBag(clubListData.list, bagListData.list);
+                const newGame = setupDataObject(gameShape, {
+                    gameBag,
+                    gamePlayer: playerData.player,
+                    gamePlayingHandicap: setupDataObject(playingHandicapShape),
+                    gameDate: new Date(Date.now())
+                });
+
+                if(!didCancel) {
+
+                    setGameState(newGame);
+                    setReload(false);
+                }
+            }
+        }
+
+        update();
+
+        return () => { didCancel = true; }
+
+    }, [game, reload, bagListData, clubListData, courseListData, markerListData]);
+
+    const handleSnackClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setSnackOpen(false);
+    };
 
     const saveGamePlayer = doc => player => {
-
+        
         saveResource({
             resource: player,
             doc,
@@ -55,7 +135,7 @@ const GameForm = ({
     };
     
     const saveGameMarker = doc => player => {
-    
+        
         saveResource({
             resource: player,
             doc,
@@ -110,7 +190,7 @@ const GameForm = ({
 
         const doc = {
             gamePlayer: playerData.doc,
-            gameMarker: markerData.doc
+            gameMarker: markerListData.doc
         };
 
         let index = 0;
@@ -126,8 +206,8 @@ const GameForm = ({
                 onSave: callback ? callback(doc[field]) : undefined,
                 idx: index++,
                 dataSource: {
-                    markers: markerData.list,
-                    courses: courseData.list,
+                    markers: markerListData.list,
+                    courses: courseListData.list,
                     player: playerData.player
                 }
             });
@@ -138,39 +218,22 @@ const GameForm = ({
 
     const canSave = checkCanSave(gameState, gameShape);
 
-    useEffect(() => {
-
-        if(game) {
-            
-            setGameState(game);
-            
-        } else if(
-            bagData['doc'] !== undefined &&
-            clubData['doc'] !== undefined &&
-            courseData['doc'] !== undefined &&
-            markerData['doc'] !== undefined &&
-            playerData['doc'] !== undefined
-        ) {
-
-            const gameBag = putClubsInBag(clubData.list, bagData.list);
-            const newGame = setupDataObject(gameShape, {
-                gameBag,
-                gamePlayer: playerData.player,
-                gamePlayingHandicap: setupDataObject(playingHandicapShape),
-                gameDate: new Date(Date.now())
-            });
-
-            setGameState(newGame);
-            setReload(false);
-        }
-
-    }, [game, reload, bagData, clubData, courseData, markerData]);
 
     return (
         <form noValidate autoComplete="off">
         {
             gameState && <div className="f-form-field">
                 <header className="c-header">{ title }</header>
+                <Snackbar
+                    open={ snackOpen }
+                    autoHideDuration={ 4000 }
+                    onClose={ handleSnackClose }
+                    anchorOrigin={{ vertical:'top', horizontal: 'center' }}>
+                    <Alert onClose={ handleSnackClose } severity="error">
+                        Game data did not load
+                    </Alert>
+                </Snackbar>
+
                 { gameFields }
                 <FlexContainer>
                     <FlexItem>

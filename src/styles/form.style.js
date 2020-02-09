@@ -97,8 +97,11 @@ const formStyles = makeStyles(theme => ({
     },
     expandButton: {
         position: 'absolute',
-        right: '-0.2rem',
-        bottom: '-0.75rem'
+        right: '0.3rem',
+        bottom: '-0.75rem',
+        '& .MuiSvgIcon-root': {
+            fill: 'rgb(55, 116, 0)'
+        }
     },
     toolButton: {
         minWidth: '3rem',
