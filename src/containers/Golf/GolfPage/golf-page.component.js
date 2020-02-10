@@ -3,6 +3,7 @@ import React from 'react';
 import './../scss/_style.scss';
 
 import { Switch, Route } from 'react-router-dom';
+
 import { StylesProvider } from '@material-ui/core/styles';
 
 import ClubTypeContext from '@golfutils/clubTypeContext';

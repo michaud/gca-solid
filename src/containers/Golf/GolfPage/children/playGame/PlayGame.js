@@ -22,7 +22,7 @@ const PlayGame = ({
     const { params: { gameid } } = match;
    
     const [reload, setReload] = useState(false);
-    const [game, setGame] = useState();
+    const [gameData, setGameData] = useState();
     const [currHole, setCurrHole] = useState();
     const [snackOpen, setSnackOpen] = useState(false);
     const classes = useStyles();
@@ -41,10 +41,10 @@ const PlayGame = ({
 
         const update = () => {
 
-            if (!didCancel) {
+            if (!didCancel && gameListData.doc) {
 
                 setSnackOpen(gameListDataIsError);
-                setGame(gameListData.list.find(game => game.iri.includes(gameid)));
+                setGameData(gameListData.list[0]);
                 setReload(false);
             }
         }
@@ -65,20 +65,21 @@ const PlayGame = ({
 
     const onClubActionHandler = club => {
 
-        addStrokeToHole(club, currHole.iri, game, gameListData.doc, setGame);
+        console.log('gameData: ', gameData);
+        addStrokeToHole(club, currHole.iri, gameData.game, gameData.doc, setGameData);
     };
 
     const onChangeHoleHandler = (holeIndex) => {
 
-        game && setCurrHole(game.gameCourse.value.courseHoles.value[holeIndex]);
+        gameData && setCurrHole(gameData.game.gameCourse.value.courseHoles.value[holeIndex]);
     };
 
-    const clubs = game && game.gameBag.value.clubs.value;
+    const clubs = gameData && gameData.game.gameBag.value.clubs.value;
 
     return (
-        <div style={{ position: 'relative'}}>
+        <div style={{ position: 'relative' }}>
             <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
-                <HoleNavigator holes={ game && game.gameCourse.value.courseHoles.value } onChangeHole={ onChangeHoleHandler } />
+                <HoleNavigator holes={ gameData && gameData.game.gameCourse.value.courseHoles.value } onChangeHole={ onChangeHoleHandler } />
                 { gameListDataIsLoading && <LinearProgress classes={ classes } variant="indeterminate" /> }
                 <HoleHistory hole={ currHole } />
                 <ClubActionList clubs={ clubs } onAction={ onClubActionHandler }/>

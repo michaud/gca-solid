@@ -7,7 +7,7 @@ import catchGeoConnectErrors from '@golfutils/catchGeoConnectErrors';
 const persistData = (
     club,
     game,
-    gameDoc,
+    doc,
     holeIri,
     setState
 ) => ({
@@ -34,10 +34,12 @@ const persistData = (
     setState(state => {
 
         const newState = update(state, {
-            gameCourse: {
-                value: {
-                    courseHoles: {
-                        value: { [holeIndex]: { $set: hole } }
+            game: {
+                gameCourse: {
+                    value: {
+                        courseHoles: {
+                            value: { [holeIndex]: { $set: hole } }
+                        }
                     }
                 }
             }
@@ -50,15 +52,11 @@ const persistData = (
         stroke,
         hole,
         game,
-        gameDoc
+        doc
     };
 };
 
-const getPosition = async (options) => new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(resolve, reject, options);
-});
-
-const addStrokeToHole = async (club, holeIri, game, gameDoc, setState) => {
+const addStrokeToHole = async (club, holeIri, game, doc, setState) => {
 
     const options = {
         enableHighAccuracy: true,
@@ -66,10 +64,20 @@ const addStrokeToHole = async (club, holeIri, game, gameDoc, setState) => {
         maximumAge: 0
     };
 
-    await getPosition(options)
-        .then(persistData(club,  game, gameDoc, holeIri, setState))
-        .then(saveHoleToGame)
-        .catch(catchGeoConnectErrors);
+    navigator.geolocation.getCurrentPosition(result => {
+
+        const geo = {
+            coords: {
+                latitude: result.coords.latitude,
+                longitude: result.coords.longitude,
+                altitude: result.coords.altitude
+            }
+        };
+
+        const persist = persistData(club,  game, doc, holeIri, setState);
+        saveHoleToGame(persist(geo));
+
+    }, catchGeoConnectErrors, options)
 };
 
 export default addStrokeToHole;

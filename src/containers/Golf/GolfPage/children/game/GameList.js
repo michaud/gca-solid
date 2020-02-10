@@ -32,15 +32,15 @@ const GameList = ({
     return (
         <div>
             {
-                games && games.length > 0 && games.map((game, index) => <div className="c-detail__container" key={ index }>
+                games && games.length > 0 && games.map((gameData, index) => <div className="c-detail__container" key={ index }>
                     <GameSummary
-                        game={ game }
+                        game={ gameData.game }
                         onPlay={ onPlayGameHandler }
                         onShowDetail={ onShowDetailHandler }/>
-                    { showDetail && showDetail === game.iri && <GameDetail
+                    { showDetail && showDetail === gameData.game.iri && <GameDetail
                         onSave={ onSaveGameHandler }
                         onDelete={ onDeleteGameHandler }
-                        game={ game } />
+                        gameData={ gameData } />
                     }
                 </div>)
             }

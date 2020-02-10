@@ -29,8 +29,6 @@ const catchGeoConnectErrors = (error) => {
 
             break;
     }
-
-    alert(msg);
 };
 
 export default catchGeoConnectErrors;

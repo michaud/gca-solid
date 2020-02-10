@@ -96,7 +96,7 @@ const getDisplayField = (data, handlers, idx) => {
 };
 
 const GameDetail = ({
-    game,
+    gameData,
     onSave,
     onDelete
 }) => {
@@ -105,11 +105,11 @@ const GameDetail = ({
 
     const onEdit = () => setDisplayState(displayStates.edit);
     const cancelEdit = () => setDisplayState(displayStates.detail);
-    const onDeleteHandler = () => onDelete(game);
+    const onDeleteHandler = () => onDelete(gameData.game);
 
     const onSaveHandler = () => {
 
-        onSave(game);
+        onSave(gameData.game);
         setDisplayState(displayStates.detail);
     };
 
@@ -118,34 +118,35 @@ const GameDetail = ({
 
     };
     
-    if(!game.iri) return <GameForm
+    if(!gameData.game.iri) return <GameForm
         title={ `Create game` }
         actionLabel={ `Save game` }
         onSave={ onSaveHandler }
         onCancel={ cancelEdit }
-        game={ game }/>;
+        game={ gameData.game }/>;
 
     if(displayState === displayStates.edit) return <GameForm
         title={ `Edit game` }
         actionLabel={ `Save game` }
         onSave={ onSaveHandler }
         onCancel={ cancelEdit }
-        game={ game }/>;
+        game={ gameData.game }/>;
 
     const displayFields = [];
 
     let count = 0;
 
+    console.log('gameData.game: ', gameData.game);
     gameShape.shape.forEach(field => {
         
-        displayFields.push(getDisplayField(game[field.predicate], {
+        displayFields.push(getDisplayField(gameData.game[field.predicate], {
             editHoleHandler
         }, count++));
     });
 
     return (
         <div>
-            {/* <header className="c-header">{ game.gameName.value }</header> */}
+
             { displayFields }
             <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
         </div>

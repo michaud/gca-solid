@@ -1,15 +1,15 @@
 import saveResource from "@golfservices/saveResource";
 import golf from "@golfutils/golf-namespace";
 
-const saveHoleToGame = ({ hole, gameDoc }) => {
+const saveHoleToGame = ({ hole, doc }) => {
 
     saveResource({
         element: hole,
-        doc: gameDoc,
+        doc,
         type: golf.classes.GameHole
     });
 
-    gameDoc.save();
+    doc.save();
 };
 
 export default saveHoleToGame;

@@ -5,6 +5,7 @@ import ClubAction from './ClubAction';
 const ClubActionList = ({ clubs, onAction }) => {
 
     const onStrokeWithClub = club => () => {
+
         onAction && onAction(club);
     };
 

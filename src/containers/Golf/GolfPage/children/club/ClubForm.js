@@ -5,11 +5,11 @@ import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 
 import clubShape from '@golfcontexts/club-shape.json';
-import formStyles from '@golfstyles/form.style';
 import getFieldValue from '@golfutils/getFieldValue';
 import checkCanSave from '@golfutils/checkCanSave';
 import getFieldControl from '@golfutils/getFieldControl';
 import ClubTypeContext from '@golfutils/clubTypeContext';
+import formStyles from '@golfstyles/form.style';
 import {
     FlexContainer,
     FlexItem,

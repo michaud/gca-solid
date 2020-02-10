@@ -12,7 +12,7 @@ const IntroPanel = ({
 
     return (
         <div className={ `c-intro-panel ${ className }` }>
-            <FlexContainer alignitems="center">
+            <FlexContainer alignitems="center" flex="1">
                 <div className="c-intro-panel__icon">{ icon }</div>
                 <div className="c-intro-panel__content">
                     { children }

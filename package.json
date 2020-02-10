@@ -51,6 +51,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
+    "startsec": "set HTTPS=true&&npm start",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "testserve": "npm run build && serve -s build"

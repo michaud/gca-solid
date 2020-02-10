@@ -23,15 +23,18 @@ const getGameListFromDoc = async (
         return fetchResource(item.object.id)
     });
 
-    const games = await Promise.all(promises);
+    const gameDocs = await Promise.all(promises);
 
-    const data = games.map(doc => {
+    const games = gameDocs.map(doc => {
 
-        const game = doc.findSubject(ns.rdf.type, namedNode(type))
-        return parseFields(shape, doc, ...rest)(game);
+        const gameRef = doc.findSubject(ns.rdf.type, namedNode(type))
+        return ({
+            game: parseFields(shape, doc, ...rest)(gameRef),
+            doc
+        })
     });
 
-    return data;
+    return games;
 }
 
 const useGames = (clubTypes, clubType, initialReload, gameId) => {

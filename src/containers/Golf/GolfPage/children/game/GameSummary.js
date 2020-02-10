@@ -34,6 +34,7 @@ const GameSummary = ({
     const marker = `marker: ${ gameMarker.value.givenName.value } ${ gameMarker.value.familyName.value}`
 
     const playGameHandler = iri => () => onPlay && onPlay(iri);
+
     const onShowDetailHandler = iri => () => {
 
         setShowDetail(state => !state);

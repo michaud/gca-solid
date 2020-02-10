@@ -13,6 +13,7 @@ import ModuleHeader from '@containers/Golf/components/ModuleHeader';
 
 import { FlexContainer, FlexItem } from '@golfstyles/layout.style';
 import { PageContainer } from '@golfstyles/page.style';
+import AllowLocation from './AllowLocation';
 
 const Home = ({
     count,
@@ -160,8 +161,10 @@ const Home = ({
                             </FlexContainer>
                     </IntroPanel>
                 )}
+                <AllowLocation/>
             </PageContainer>
         }
+
         </div>
     );
 };
