@@ -75,7 +75,7 @@ const NewGame = () => {
         setIsNavigateBack(true);
     };
 
-    const onCancelHandler = () => {};
+    const onCancelHandler = () => { setIsNavigateBack(true) };
 
     if(isNavigateBack) return <Redirect to="/golf/settings/games"/>;
 
