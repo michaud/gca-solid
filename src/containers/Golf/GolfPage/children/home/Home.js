@@ -118,7 +118,7 @@ const Home = ({
                 { gameListData && gameListData.list.length === 0 ? (
                     <IntroPanel
                         icon={ <SportsGolfIcon className="c-content-icon"/> }>
-                            <NavLink className="a-intro-link" to="/golf/settings/games">
+                            <NavLink className="a-intro-link" to="/golf/settings/games/new">
                                 <FlexContainer alignitems="center">
                                     <FlexItem>
                                         <h3 className="h-intro">Add a Game</h3>
