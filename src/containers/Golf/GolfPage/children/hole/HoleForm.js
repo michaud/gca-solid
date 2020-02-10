@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import holeShape from '@contexts/hole-shape.json';
 import update from 'immutability-helper';
-import setupDataObject from '@utils/setupDataObject';
-import Button from '@material-ui/core/Button';
-import formStyles from '@styles/form.style';
 import { useTranslation } from 'react-i18next';
-import checkCanSave from '@utils/checkCanSave';
-import getFieldValue from '@utils/getFieldValue';
-import getFieldControl from '@utils/getFieldControl';
+
+import Button from '@material-ui/core/Button';
+import holeShape from '@golfcontexts/hole-shape.json';
+import setupDataObject from '@golfutils/setupDataObject';
+import checkCanSave from '@golfutils/checkCanSave';
+import getFieldValue from '@golfutils/getFieldValue';
+import getFieldControl from '@golfutils/getFieldControl';
+
+import formStyles from '@golfstyles/form.style';
 import {
     FlexContainer,
     FlexItem,
     FlexItemRight,
-} from '@styles/layout.style';
+} from '@golfstyles/layout.style';
 
 const HoleForm = ({
     hole: holeData,

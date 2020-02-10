@@ -12,7 +12,12 @@
         "@utils/*": ["./src/utils/*"],
         "@hooks/*": ["./src/hooks/*"],
         "@constants/*": ["./src/constants/*"],
-        "@styles/*": ["./src/styles/*"]
+        "@golfhooks/*": ["./src/containers/Golf/hooks/*"],
+        "@golfcontexts/*": ["./src/containers/Golf/contexts/"],
+        "@golfutils/*": ["./src/containers/Golf/utils/*"],
+        "@golfservices/*": ["./src/containers/Golf/services/*"],
+        "@golfconstants/*": ["./src/containers/Golf/constants/*"],
+        "@golfstyles/*": ["./src/containers/Golf/styles/*"]
       }
     }
   }

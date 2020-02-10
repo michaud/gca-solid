@@ -1,11 +1,14 @@
 import React from 'react';
 
 import Button from '@material-ui/core/Button';
-import MarkerSelector from './MarkerSelector';
+import MarkerSelector from '@containers/Golf/GolfPage/children/game/MarkerSelector';
 
-import formStyles from '@styles/form.style';
+import formStyles from '@golfstyles/form.style';
 
-const SelectMarker = ({ markers = [], onSave, onChange }) => {
+const SelectMarker = ({
+    markers = [],
+    onChange
+}) => {
 
     const classes = formStyles();
 

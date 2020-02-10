@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import GameDetail from './GameDetail';
-import GameSummary from './GameSummary';
+import GameDetail from '@containers/Golf/GolfPage/children/game/GameDetail';
+import GameSummary from '@containers/Golf/GolfPage/children/game/GameSummary';
 
 const GameList = ({
     games,

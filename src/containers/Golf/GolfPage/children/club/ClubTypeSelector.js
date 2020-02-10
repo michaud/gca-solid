@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 
-import formStyles from '@styles/form.style';
 import AutoComplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
-import ClubTypeContext from '@utils/clubTypeContext';
+
+import ClubTypeContext from '@golfutils/clubTypeContext';
+
+import formStyles from '@golfstyles/form.style';
 
 const ClubTypeSelector = ({
     label,

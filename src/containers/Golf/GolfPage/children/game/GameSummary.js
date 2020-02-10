@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 
+import { IconButton } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import formStyles from '@styles/form.style';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLesIcon from '@material-ui/icons/ExpandLess';
 
+import formStyles from '@golfstyles/form.style';
 import {
     FlexContainer,
     FlexItem,
     FlexItemTools
-} from '@styles/layout.style';
-import { IconButton } from '@material-ui/core';
+} from '@golfstyles/layout.style';
 
 const GameSummary = ({
     game,

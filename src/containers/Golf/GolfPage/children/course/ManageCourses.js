@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
-import ModuleHeader from '@containers/Golf/GolfPage/children/ModuleHeader';
-import useCourses from '@hooks/useCourses';
+import { Snackbar } from '@material-ui/core';
+
+import useCourses from '@golfhooks/useCourses';
+
+import deleteCourse from '@golfservices/deleteCourse';
+import { PageContainer } from '@golfstyles/page.style';
+import saveResource from '@golfservices/saveResource';
+
+import golf from '@golfutils/golf-namespace';
+
+import Alert from '@containers/Golf/components/Alert';
+import ModuleHeader from '@containers/Golf/components/ModuleHeader';
+
 import CourseList from '@containers/Golf/GolfPage/children/course/CourseList';
 import CourseForm from '@containers/Golf/GolfPage/children/course/CourseForm';
-import deleteCourse from '@services/deleteCourse';
-import { PageContainer } from '@styles/page.style';
-import saveResource from '@services/saveResource';
-import golf from '@utils/golf-namespace';
-import { Snackbar } from '@material-ui/core';
-import Alert from '@containers/Golf/components/Alert';
 
 const ManageCourses = () => {
 

@@ -1,20 +1,26 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, {
+    useEffect,
+    useState,
+    useContext
+} from 'react';
 
 import { Redirect } from 'react-router-dom';
-import useGames from '@hooks/useGames';
-import ModuleHeader from '@containers/Golf/GolfPage/children/ModuleHeader';
-import { PageContainer } from '@styles/page.style';
-import GameList from '@containers/Golf/GolfPage/children/game/GameList';
-import ClubTypeContext from '@utils/clubTypeContext';
-import golf from '@utils/golf-namespace';
-import saveGameResourse from '@services/saveGameResourse';
 import { Snackbar } from '@material-ui/core';
-import Alert from '@containers/Golf/components/Alert';
-import IntroPanel from '../home/IntroPanel';
+import { NavLink } from 'react-router-dom';
 import SportsGolfIcon from '@material-ui/icons/SportsGolf';
-import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
-import { FlexContainer, FlexItem } from '@styles/layout.style';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import useGames from '@golfhooks/useGames';
+import ClubTypeContext from '@golfutils/clubTypeContext';
+import golf from '@golfutils/golf-namespace';
+import saveGameResourse from '@golfservices/saveGameResourse';
+
+import ModuleHeader from '@containers/Golf/components/ModuleHeader';
+import GameList from '@containers/Golf/GolfPage/children/game/GameList';
+import Alert from '@containers/Golf/components/Alert';
+import IntroPanel from '@containers/Golf/components/IntroPanel';
+
+import { PageContainer } from '@golfstyles/page.style';
+import { FlexContainer, FlexItem } from '@golfstyles/layout.style';
 
 const ManageGames = () => {
 
@@ -70,7 +76,7 @@ const ManageGames = () => {
 
     const onDeleteGameHandler = (game) => {
 
-        //        deleteGame(game, gameData.doc);
+        //deleteGame(game, gameData.doc);
         setReload(true);
     };
 

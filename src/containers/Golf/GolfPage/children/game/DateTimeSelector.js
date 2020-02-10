@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import formStyles from '@styles/form.style';
+import formStyles from '@golfstyles/form.style';
 
 import DateFnsUtils from '@date-io/date-fns';
 import {

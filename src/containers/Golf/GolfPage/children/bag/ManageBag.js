@@ -5,25 +5,27 @@ import React, {
 } from 'react';
 
 import { StylesProvider } from '@material-ui/core/styles';
-import useClubs from '@hooks/useClubs';
-import useBagClubs from '@hooks/useBagClubs';
+import { Snackbar } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import removeFromBag from '@services/removeFromBag';
-import addToBag from '@services/addToBag';
-import deleteClub from '@services/deleteClub';
+import useClubs from '@golfhooks/useClubs';
+import useBagClubs from '@golfhooks/useBagClubs';
 
-import ClubForm from '@containers/Golf/GolfPage/children/club/ClubForm';
+import removeFromBag from '@golfservices/removeFromBag';
+import addToBag from '@golfservices/addToBag';
+import deleteClub from '@golfservices/deleteClub';
+import saveResource from '@golfservices/saveResource';
+
+import golf from '@golfutils/golf-namespace';
+import { PageContainer } from '@golfstyles/page.style';
+
+import ClubTypeContext from '@golfutils/clubTypeContext';
 import ClubList from '@containers/Golf/GolfPage/children/club/ClubList';
-import ModuleHeader from '@containers/Golf/GolfPage/children/ModuleHeader';
+import ModuleHeader from '@containers/Golf/components/ModuleHeader';
 import BagTransferList from '@containers/Golf/GolfPage/children/bag/BagTransferList';
-import { PageContainer } from '@styles/page.style';
-import saveResource from '@services/saveResource';
-import golf from '@utils/golf-namespace';
-import { Snackbar } from '@material-ui/core';
 import Alert from '@containers/Golf/components/Alert';
+import ClubForm from '@containers/Golf/GolfPage/children/club/ClubForm';
 
-import ClubTypeContext from '@utils/clubTypeContext';
 
 const ManageBag = () => {
 

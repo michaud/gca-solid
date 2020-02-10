@@ -1,12 +1,15 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
 
+import './../scss/_style.scss';
+
+import { Switch, Route } from 'react-router-dom';
 import { StylesProvider } from '@material-ui/core/styles';
+
+import ClubTypeContext from '@golfutils/clubTypeContext';
+import useClubDefinitions from '@golfhooks/useClubDefinitions';
 
 import GolfApp from '@containers/Golf/GolfPage/children/GolfApp';
 import PlayGame from '@containers/Golf/GolfPage/children/playGame/PlayGame';
-import ClubTypeContext from '@utils/clubTypeContext';
-import useClubDefinitions from '@hooks/useClubDefinitions';
 
 const GolfPage = (props) => {
     

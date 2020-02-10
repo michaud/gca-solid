@@ -4,10 +4,11 @@ import {
     FlexContainer,
     FlexItemData,
     FlexItemTools
-} from '@styles/layout.style';
+} from '@golfstyles/layout.style';
 
-import displayStates from '@utils/displayStates';
-import CourseForm from './CourseForm';
+import displayStates from '@golfutils/displayStates';
+
+import CourseForm from '@containers/Golf/GolfPage/children/course/CourseForm';
 import EditActions from '@containers/Golf/components/EditActions';
 
 const CourseDetail = ({

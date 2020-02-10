@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+    useState,
+    useEffect
+} from 'react';
 
-import formStyles from '@styles/form.style';
-import getFieldControl from '@utils/getFieldControl';
-import playingHandicapShape from '@contexts/playing-handicap-shape.json';
-import getFieldValue from '@utils/getFieldValue';
 import update from 'immutability-helper';
 
-const PLayingHandicapForm = ({ handicap, onChange }) => {
+import getFieldControl from '@golfutils/getFieldControl';
+import playingHandicapShape from '@golfcontexts/playing-handicap-shape.json';
+import getFieldValue from '@golfutils/getFieldValue';
+import formStyles from '@golfstyles/form.style';
+
+const PLayingHandicapForm = ({
+    handicap,
+    onChange
+}) => {
 
     const [handicapState, setHandicapState] = useState();
     const classes = formStyles();

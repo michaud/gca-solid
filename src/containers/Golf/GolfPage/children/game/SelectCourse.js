@@ -1,12 +1,14 @@
 import React from 'react';
 
 import Button from '@material-ui/core/Button';
-import CourseSelector from './CourseSelector';
+import CourseSelector from '@containers/Golf/GolfPage/children/game/CourseSelector';
 
-import formStyles from '@styles/form.style';
+import formStyles from '@golfstyles/form.style';
 
-
-const SelectCourse = ({ courses, onChange }) => {
+const SelectCourse = ({
+    courses,
+    onChange
+}) => {
 
     const classes = formStyles();
 

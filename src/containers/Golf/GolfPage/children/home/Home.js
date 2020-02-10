@@ -2,15 +2,17 @@ import React from 'react';
 
 import { NavLink } from 'react-router-dom';
 
-import IntroPanel from './IntroPanel';
-import CapIcon from '@containers/Golf/components/CapIcon';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import GolfCourseIcon from '@material-ui/icons/GolfCourse';
 import SportsGolfIcon from '@material-ui/icons/SportsGolf';
+
+import IntroPanel from '@containers/Golf/components/IntroPanel';
+import CapIcon from '@containers/Golf/components/CapIcon';
 import BagIcon from '@containers/Golf/components/BagIcon';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import { FlexContainer, FlexItem } from '@styles/layout.style';
-import ModuleHeader from '../ModuleHeader';
-import { PageContainer } from '@styles/page.style';
+import ModuleHeader from '@containers/Golf/components/ModuleHeader';
+
+import { FlexContainer, FlexItem } from '@golfstyles/layout.style';
+import { PageContainer } from '@golfstyles/page.style';
 
 const Home = ({
     count,

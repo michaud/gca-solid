@@ -3,17 +3,18 @@ import React, { useState, useEffect, useContext } from 'react';
 import update from 'immutability-helper';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
-import clubShape from '@contexts/club-shape.json';
-import formStyles from '@styles/form.style';
-import getFieldValue from '@utils/getFieldValue';
-import checkCanSave from '@utils/checkCanSave';
-import getFieldControl from '@utils/getFieldControl';
+
+import clubShape from '@golfcontexts/club-shape.json';
+import formStyles from '@golfstyles/form.style';
+import getFieldValue from '@golfutils/getFieldValue';
+import checkCanSave from '@golfutils/checkCanSave';
+import getFieldControl from '@golfutils/getFieldControl';
+import ClubTypeContext from '@golfutils/clubTypeContext';
 import {
     FlexContainer,
     FlexItem,
     FlexItemRight
-} from '@styles/layout.style';
-import ClubTypeContext from '@utils/clubTypeContext';
+} from '@golfstyles/layout.style';
 
 const ClubForm = ({
     club,

@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 
-import ClubForm  from './ClubForm';
-import displayStates from "@utils/displayStates";
+import displayStates from "@golfutils/displayStates";
+
 import EditActions from "@containers/Golf/components/EditActions";
+import ClubForm  from '@containers/Golf/GolfPage/children/club/ClubForm';
 
 import {
     FlexContainer,
     FlexItemData,
     FlexItemTools
-} from '@styles/layout.style';
+} from '@golfstyles/layout.style';
 
 const ClubDetail = ({
     club,

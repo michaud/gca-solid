@@ -6,14 +6,17 @@ import React, {
 
 import { Redirect } from 'react-router-dom';
 import { Snackbar } from '@material-ui/core';
+
+import saveGameResourse from '@golfservices/saveGameResourse';
+import useGames from '@golfhooks/useGames';
+import ClubTypeContext from '@golfutils/clubTypeContext';
+import golf from '@golfutils/golf-namespace';
+
 import Alert from '@containers/Golf/components/Alert';
-import ModuleHeader from '@containers/Golf/GolfPage/children/ModuleHeader';
+import ModuleHeader from '@containers/Golf/components/ModuleHeader';
 import GameForm from '@containers/Golf/GolfPage/children/game/GameForm';
-import saveGameResourse from '@services/saveGameResourse';
-import useGames from '@hooks/useGames';
-import ClubTypeContext from '@utils/clubTypeContext';
-import golf from '@utils/golf-namespace';
-import { PageContainer } from '@styles/page.style';
+
+import { PageContainer } from '@golfstyles/page.style';
 
 const NewGame = () => {
 

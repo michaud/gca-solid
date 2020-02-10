@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 
-import getFieldControl from '@utils/getFieldControl';
-import formStyles from '@styles/form.style';
 import Button from '@material-ui/core/Button';
+
+import getFieldControl from '@golfutils/getFieldControl';
+import formStyles from '@golfstyles/form.style';
 import {
     FlexContainer,
     FlexItemLabel,
     FlexItemValue,
     FlexItem,
     FlexItemRight
-} from '@styles/layout.style';
+} from '@golfstyles/layout.style';
 
 const checkFieldsChanged = (player, state) => {
 

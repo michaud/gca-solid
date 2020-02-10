@@ -1,5 +1,5 @@
 import React from 'react';
-import golf from '@utils/golf-namespace';
+import golf from '@golfutils/golf-namespace';
 import ClubAction from './ClubAction';
 
 const ClubActionList = ({ clubs, onAction }) => {

@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+    useState,
+    useEffect
+} from 'react';
 
 import Button from '@material-ui/core/Button';
 import update from 'immutability-helper';
-import formStyles from '@styles/form.style';
-import courseShape from '@contexts/course-shape.json';
-import setupDataObject from '@utils/setupDataObject';
-import getFieldValue from '@utils/getFieldValue';
-import checkCanSave from '@utils/checkCanSave';
-import getFieldControl from '@utils/getFieldControl';
+
+import courseShape from '@golfcontexts/course-shape.json';
+import setupDataObject from '@golfutils/setupDataObject';
+import getFieldValue from '@golfutils/getFieldValue';
+import checkCanSave from '@golfutils/checkCanSave';
+import getFieldControl from '@golfutils/getFieldControl';
+
+import formStyles from '@golfstyles/form.style';
 
 import {
     FlexContainer,
     FlexItem,
     FlexItemRight,
-} from '@styles/layout.style';
+} from '@golfstyles/layout.style';
 
 const CourseForm = ({
     course,

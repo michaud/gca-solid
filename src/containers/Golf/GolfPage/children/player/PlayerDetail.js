@@ -1,7 +1,11 @@
 import React, { useState, useMemo } from 'react';
 
-import playerShape from '@contexts/player-shape.json';
-import displayStates from '@utils/displayStates';
+import playerShape from '@golfcontexts/player-shape.json';
+import displayStates from '@golfutils/displayStates';
+
+import getFieldDisplayData from '@golfutils/getFieldDisplayData';
+import EditActions from '@containers/Golf/components/EditActions';
+import PlayerForm from '@containers/Golf/GolfPage/children/player/PlayerForm';
 
 import {
     FieldContainer,
@@ -10,11 +14,8 @@ import {
     FlexItemLabel,
     FlexItemValue,
     FlexItemTools
-} from '@styles/layout.style';
+} from '@golfstyles/layout.style';
 
-import PlayerForm from './PlayerForm';
-import getFieldDisplayData from '@utils/getFieldDisplayData';
-import EditActions from '@containers/Golf/components/EditActions';
 
 const PlayerDetail = ({
     player,

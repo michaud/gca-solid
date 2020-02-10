@@ -1,15 +1,17 @@
 import React from 'react';
 
 import Button from '@material-ui/core/Button';
-import formStyles from '@styles/form.style';
+
+import golf from '@golfutils/golf-namespace';
+
+import formStyles from '@golfstyles/form.style';
 import {
     FlexContainer,
     FlexItem,
     FlexItemRight
-} from '@styles/layout.style';
-import golf from '@utils/golf-namespace';
+} from '@golfstyles/layout.style';
 
-const BagDetail = ({ bag, clubTypes }) => {
+const BagDetail = ({ bag }) => {
 
     const classes = formStyles();
 

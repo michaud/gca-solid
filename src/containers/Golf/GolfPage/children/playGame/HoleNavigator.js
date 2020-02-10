@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import formStyles from '@styles/form.style';
+import formStyles from '@golfstyles/form.style';
 import Button from '@material-ui/core/Button';
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
 import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
@@ -11,7 +11,7 @@ import {
     FlexContainer,
     FlexItem,
     FlexToolRight
-} from '@styles/layout.style';
+} from '@golfstyles/layout.style';
 
 const HoleNavigator = ({ holes, onChangeHole }) => {
 

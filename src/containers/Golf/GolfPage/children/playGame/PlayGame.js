@@ -1,11 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import useGames from '@hooks/useGames';
-import { FlexContainer } from '@styles/layout.style';
-import HoleNavigator from './HoleNavigator';
-import HoleHistory from './HoleHistory';
-import addStrokeToHole from '@utils/addStrokeToHole';
-import ClubActionList from './ClubActionList';
-import useClubDefinitions from '@hooks/useClubDefinitions';
+
+import { Snackbar } from '@material-ui/core';
+
+import useGames from '@golfhooks/useGames';
+import addStrokeToHole from '@golfutils/addStrokeToHole';
+import useClubDefinitions from '@golfhooks/useClubDefinitions';
+
+import Alert from '@containers/Golf/components/Alert';
+import HoleNavigator from '@containers/Golf/GolfPage/children/playGame/HoleNavigator';
+import HoleHistory from '@containers/Golf/GolfPage/children/playGame/HoleHistory';
+import ClubActionList from '@containers/Golf/GolfPage/children/playGame/ClubActionList';
+
+import { FlexContainer } from '@golfstyles/layout.style';
+
+import {
+    LinearProgress,
+    makeStyles
+} from '@material-ui/core';
+
+const useStyles = makeStyles({
+    root: {
+        width: '100%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: 0,
+        zIndex: 0,
+        left: 0,
+        height: '4.125rem',
+        '& .MuiLinearProgress-bar': {
+            top: '3.75rem',
+            borderRadius: '1rem',
+            backgroundColor: 'rgba(37, 116, 37, 0.5)'
+        }
+    }
+}, { name: 'MuiLinearProgress' });
 
 const PlayGame = ({
     match
@@ -16,13 +44,48 @@ const PlayGame = ({
     const [reload, setReload] = useState(false);
     const [game, setGame] = useState();
     const [currHole, setCurrHole] = useState();
-    
+    const [snackOpen, setSnackOpen] = useState(false);
+    const classes = useStyles();
+   
     const clubTypeData = useClubDefinitions();
-    const gameData = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload, gameid);
+
+    const [{
+        gameListData,
+        isLoading: gameListDataIsLoading,
+        isError: gameListDataIsError
+    }] = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload, gameid);
+
+    useEffect(() => {
+
+        let didCancel = false;
+
+        const update = () => {
+
+            if (!didCancel) {
+
+                setSnackOpen(gameListDataIsError);
+                setGame(gameListData.list.find(game => game.iri.includes(gameid)));
+                setReload(false);
+            }
+        }
+
+        update();
+
+        return () => { didCancel = true }
+
+    }, [gameListData]);
+
+    const handleSnackClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setSnackOpen(false);
+    };
 
     const onClubActionHandler = club => {
 
-        addStrokeToHole(club, currHole.iri, game, gameData.doc, setGame);
+        addStrokeToHole(club, currHole.iri, game, gameListData.doc, setGame);
     };
 
     const onChangeHoleHandler = (holeIndex) => {
@@ -30,25 +93,26 @@ const PlayGame = ({
         game && setCurrHole(game.gameCourse.value.courseHoles.value[holeIndex]);
     };
 
-    useEffect(() => {
-
-        if (gameData) {
-
-            setGame(gameData.list.find(game => game.iri.includes(gameid)));
-            setReload(false);
-        }
-
-
-    }, [gameData]);
-
     const clubs = game && game.gameBag.value.clubs.value;
 
     return (
-        <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
-            <HoleNavigator holes={ game && game.gameCourse.value.courseHoles.value } onChangeHole={ onChangeHoleHandler } />
-            <HoleHistory hole={ currHole } />
-            <ClubActionList clubs={ clubs } onAction={ onClubActionHandler }/>
-        </FlexContainer>
+        <div style={{ position: 'relative'}}>
+            <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
+                <HoleNavigator holes={ game && game.gameCourse.value.courseHoles.value } onChangeHole={ onChangeHoleHandler } />
+                { gameListDataIsLoading && <LinearProgress classes={ classes } variant="indeterminate" /> }
+                <HoleHistory hole={ currHole } />
+                <ClubActionList clubs={ clubs } onAction={ onClubActionHandler }/>
+            </FlexContainer>
+            <Snackbar
+                open={ snackOpen }
+                autoHideDuration={ 4000 }
+                onClose={ handleSnackClose }
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                <Alert onClose={ handleSnackClose } severity="error">
+                    Game data did not load
+                </Alert>
+            </Snackbar>
+        </div>
     );
 };
 

@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+    useState,
+    useEffect
+} from 'react';
 
-import displayStates from '@utils/displayStates';
+import playingHandicapShape from '@golfcontexts/playing-handicap-shape.json';
+import displayStates from '@golfutils/displayStates';
+import golf from '@golfutils/golf-namespace';
+
 import EditActions from '@containers/Golf/components/EditActions';
-import playingHandicapShape from '@contexts/playing-handicap-shape.json';
-import golf from '@utils/golf-namespace';
-import PLayingHandicapForm from './PLayingHandicapForm';
+import PLayingHandicapForm from '@containers/Golf/GolfPage/children/game/PLayingHandicapForm';
 
 import {
     FieldContainer,
@@ -13,7 +17,7 @@ import {
     FlexItemLabel,
     FlexItemValue,
     FlexItemTools
-} from '@styles/layout.style';
+} from '@golfstyles/layout.style';
 
 const getFieldData = (field, handicap) => {
 

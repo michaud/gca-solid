@@ -1,33 +1,36 @@
 import React, { useState, useEffect } from 'react';
 
 import Button from '@material-ui/core/Button';
+import { Snackbar } from '@material-ui/core';
 import update from 'immutability-helper';
 import { format } from 'date-fns'
-import formStyles from '@styles/form.style';
-import gameShape from '@contexts/game-shape.json';
-import playingHandicapShape from '@contexts/playing-handicap-shape.json';
-import setupDataObject from '@utils/setupDataObject';
-import getFieldValue from '@utils/getFieldValue';
-import checkCanSave from '@utils/checkCanSave';
-import getFieldControl from '@utils/getFieldControl';
-import useBagClubs from '@hooks/useBagClubs';
-import useClubs from '@hooks/useClubs';
-import useCourses from '@hooks/useCourses';
-import useMarkers from '@hooks/useMarkers';
-import usePlayer from '@hooks/usePlayer';
-import { putClubsInBag } from '@utils/putClubsInBag';
-import saveResource from '@services/saveResource';
-import golf from '@utils/golf-namespace';
-import useClubDefinitions from '@hooks/useClubDefinitions';
-import { Snackbar } from '@material-ui/core';
+import gameShape from '@golfcontexts/game-shape.json';
+
+import useBagClubs from '@golfhooks/useBagClubs';
+import useClubs from '@golfhooks/useClubs';
+import useCourses from '@golfhooks/useCourses';
+import useMarkers from '@golfhooks/useMarkers';
+import usePlayer from '@golfhooks/usePlayer';
+import useClubDefinitions from '@golfhooks/useClubDefinitions';
+
+import playingHandicapShape from '@golfcontexts/playing-handicap-shape.json';
+import setupDataObject from '@golfutils/setupDataObject';
+import getFieldValue from '@golfutils/getFieldValue';
+import checkCanSave from '@golfutils/checkCanSave';
+import getFieldControl from '@golfutils/getFieldControl';
+import { putClubsInBag } from '@golfutils/putClubsInBag';
+import golf from '@golfutils/golf-namespace';
+import saveResource from '@golfservices/saveResource';
+
 import Alert from '@containers/Golf/components/Alert';
 
+import formStyles from '@golfstyles/form.style';
 
 import {
     FlexContainer,
     FlexItem,
     FlexItemRight,
-} from '@styles/layout.style';
+} from '@golfstyles/layout.style';
 
 const GameForm = ({
     game,

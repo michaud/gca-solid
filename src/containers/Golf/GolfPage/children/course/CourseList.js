@@ -1,5 +1,6 @@
 import React from 'react';
-import CourseDetail from './CourseDetail';
+
+import CourseDetail from '@containers/Golf/GolfPage/children/course/CourseDetail';
 
 const CourseList = ({
     courses,

@@ -1,5 +1,6 @@
 import React from 'react';
-import MarkerDetail from './MarkerDetail';
+
+import MarkerDetail from '@containers/Golf/GolfPage/children/player/MarkerDetail';
 
 const MarkerList = ({
     markers = [],

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
 import { format } from 'date-fns'
-import golf from '@utils/golf-namespace';
-import gameShape from '@contexts/game-shape.json';
-import displayStates from '@utils/displayStates';
+import golf from '@golfutils/golf-namespace';
+import gameShape from '@golfcontexts/game-shape.json';
+import displayStates from '@golfutils/displayStates';
+import EditActions from '@containers/Golf/components/EditActions';
 import GameForm from '@containers/Golf/GolfPage/children/game/GameForm';
 import HoleTable from '@containers/Golf/GolfPage/children/hole/HoleTable';
 import BagDetail from '@containers/Golf/GolfPage/children/game/BagDetail';
-import EditActions from '@containers/Golf/components/EditActions';
 import PlayerDetail from '@containers/Golf/GolfPage/children/player/PlayerDetail';
 import PlayingHandicapDetail from '@containers/Golf/GolfPage/children/game/PlayingHandicapDetail';
 import CourseSummary from '@containers/Golf/GolfPage/children/course/CourseSummary';
@@ -16,7 +16,7 @@ import {
     FlexContainer,
     FlexItemLabel,
     FlexItemValue,
-} from '@styles/layout.style';
+} from '@golfstyles/layout.style';
 
 const getDisplayField = (data, handlers, idx) => {
     

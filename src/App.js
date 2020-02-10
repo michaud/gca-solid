@@ -15,7 +15,6 @@ import './index.css';
 import { Toaster } from './App.styled';
 import { createMuiTheme, ThemeProvider as MUIThemeProvider } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
-import './scss/_style.scss';
 
 const muitheme = createMuiTheme({
     palette: {

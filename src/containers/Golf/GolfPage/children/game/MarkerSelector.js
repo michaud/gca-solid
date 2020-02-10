@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import formStyles from '@styles/form.style';
-
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -10,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
+import formStyles from '@golfstyles/form.style';
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
@@ -22,7 +21,10 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const MarkerSelector = ({ markers = [], onSelect }) => {
+const MarkerSelector = ({
+    markers = [],
+    onSelect
+}) => {
 
     const classes = formStyles();
     const classesmui = useStyles();

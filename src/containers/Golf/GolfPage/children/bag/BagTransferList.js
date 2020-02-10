@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import ClubTypeContext from '@utils/clubTypeContext';
-
-import bagTransferListStyles from './bagTransferList.style';
+import {
+    FormControlLabel,
+    Switch
+} from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -10,7 +11,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import { FormControlLabel, Switch } from '@material-ui/core';
+
+import ClubTypeContext from '@golfutils/clubTypeContext';
+
+import bagTransferListStyles from './bagTransferList.style';
 
 const not = (a, b) => a.filter(value => b.indexOf(value) === -1);
 const intersection = (a, b) => a.filter(value => b.indexOf(value) !== -1);

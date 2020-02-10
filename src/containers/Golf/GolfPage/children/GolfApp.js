@@ -1,12 +1,18 @@
-import React, { lazy, useState, useEffect } from 'react';
+import React, {
+    lazy,
+    useState,
+    useEffect
+} from 'react';
 
 import { Route, Switch } from 'react-router-dom';
-import NavigationShell from './NavigationShell';
-import SplashScreen from './SplashScreen';
-import useDataStructure from '@hooks/useDataStructure';
 import { Snackbar } from '@material-ui/core';
+
+import useDataStructure from '@golfhooks/useDataStructure';
+
+import NavigationShell from '@containers/Golf/components/NavigationShell';
 import Alert from '@containers/Golf/components/Alert';
-import NewGame from './newGame/NewGame';
+import SplashScreen from '@containers/Golf/GolfPage/children/splash/SplashScreen';
+import NewGame from '@containers/Golf/GolfPage/children/newGame/NewGame';
 
 const ManageBag = lazy(() => import('@containers/Golf/GolfPage/children/bag/ManageBag'));
 const ManageCourses = lazy(() => import('@containers/Golf/GolfPage/children/course/ManageCourses'));
@@ -71,7 +77,6 @@ const GolfApp = ({ webId }) => {
                                 render={ routerProps => <Home 
                                     { ...routerProps }
                                     { ...dataStructure } /> }/>
-                                    
                             <Route path="/golf/settings/bag"
                                 render={ routerProps => <ManageBag
                                     { ...routerProps }
@@ -92,7 +97,6 @@ const GolfApp = ({ webId }) => {
                                 render={ (routerProps) => <ManageGames
                                     { ...routerProps }
                                     webId={ webId }/> }/>
-
                         </Switch>
                     </NavigationShell>
                 </Switch>

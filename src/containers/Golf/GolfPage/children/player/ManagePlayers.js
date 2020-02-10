@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import ManageMarkers from './ManageMarkers';
-import ModuleHeader from '@containers/Golf/GolfPage/children/ModuleHeader';
+
 import { useTranslation } from 'react-i18next';
-import PlayerDetail from '@containers/Golf/GolfPage/children/player/PlayerDetail';
-import usePlayer from '@hooks/usePlayer';
-import { PageContainer } from '@styles/page.style';
-import golf from '@utils/golf-namespace';
-import saveResource from '@services/saveResource';
 import { Snackbar } from '@material-ui/core';
+
+import usePlayer from '@golfhooks/usePlayer';
+import golf from '@golfutils/golf-namespace';
+import saveResource from '@golfservices/saveResource';
+
 import Alert from '@containers/Golf/components/Alert';
+import ModuleHeader from '@containers/Golf/components/ModuleHeader';
+import ManageMarkers from '@containers/Golf/GolfPage/children/player/ManageMarkers';
+import PlayerDetail from '@containers/Golf/GolfPage/children/player/PlayerDetail';
+
+import { PageContainer } from '@golfstyles/page.style';
 
 const ManagePlayers = ({ webId }) => {
 
