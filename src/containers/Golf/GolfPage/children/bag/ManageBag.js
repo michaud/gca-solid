@@ -26,7 +26,6 @@ import BagTransferList from '@containers/Golf/GolfPage/children/bag/BagTransferL
 import Alert from '@containers/Golf/components/Alert';
 import ClubForm from '@containers/Golf/GolfPage/children/club/ClubForm';
 
-
 const ManageBag = () => {
 
     const [reload, setReload] = useState(false);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import update from 'immutability-helper';
 import { format } from 'date-fns'
+import { makeStyles } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
 import { Snackbar, DialogTitle, DialogContent } from '@material-ui/core';
@@ -35,6 +36,12 @@ import {
 } from '@golfstyles/layout.style';
 import CourseForm from '../course/CourseForm';
 
+const dialogStyles = makeStyles(theme => ({
+    root: {
+        backgroundColor: 'rgb(247, 241, 217)'
+    }
+}));
+
 const GameForm = ({
     game,
     onSave,
@@ -44,6 +51,7 @@ const GameForm = ({
 }) => {
 
     const classes = formStyles();
+    const dclasses = dialogStyles();
     const [reload, setReload] = useState(false);
     const [gameState, setGameState] = useState(game);
     const [snackOpen, setSnackOpen] = useState(false);
@@ -276,52 +284,54 @@ const GameForm = ({
 
     return (
         <form noValidate autoComplete="off">
-        <Dialog fullScreen 
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-            open={ courseModalOpen }
-            scroll="paper"
-            onClose={ handleCourseModalClose }>
-            <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
-            <DialogContent>
-                <CourseForm
-                    onSave={ onSaveCourse }
-                    onCancel={ handleCourseModalClose }/>
-            </DialogContent>
-        </Dialog>
-        {
-            gameState && <div className="f-form-field">
-                <header className="c-header">{ title }</header>
-                <Snackbar
-                    open={ snackOpen }
-                    autoHideDuration={ 4000 }
-                    onClose={ handleSnackClose }
-                    anchorOrigin={{ vertical:'top', horizontal: 'center' }}>
-                    <Alert onClose={ handleSnackClose } severity="error">
-                        Game data did not load
-                    </Alert>
-                </Snackbar>
-                { gameFields }
-                <FlexContainer>
-                    <FlexItem>
-                        <Button
+            <Dialog fullScreen 
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                open={ courseModalOpen }
+                scroll="paper"
+                onClose={ handleCourseModalClose }>
+                <DialogTitle className={ dclasses.root } id="scroll-dialog-title">Subscribe</DialogTitle>
+                <DialogContent className={ dclasses.root }>
+                    <div className="c-box">
+                        <CourseForm
+                            onSave={ onSaveCourse }
+                            onCancel={ handleCourseModalClose }/>
+                    </div>
+                </DialogContent>
+            </Dialog>
+            {
+                gameState && <div className="f-form-field">
+                    <header className="c-header">{ title }</header>
+                    <Snackbar
+                        open={ snackOpen }
+                        autoHideDuration={ 4000 }
+                        onClose={ handleSnackClose }
+                        anchorOrigin={{ vertical:'top', horizontal: 'center' }}>
+                        <Alert onClose={ handleSnackClose } severity="error">
+                            Game data did not load
+                        </Alert>
+                    </Snackbar>
+                    { gameFields }
+                    <FlexContainer>
+                        <FlexItem>
+                            <Button
+                                variant="contained"
+                                disabled={ !canSave.can }
+                                onClick={ saveGameHandler }
+                                className={ classes.button }
+                                color="primary">{ actionLabel }</Button>
+                        </FlexItem>
+                        <FlexItemRight>
+                        { onCancel !== undefined && <Button
                             variant="contained"
-                            disabled={ !canSave.can }
-                            onClick={ saveGameHandler }
+                            onClick={ onCancel }
                             className={ classes.button }
-                            color="primary">{ actionLabel }</Button>
-                    </FlexItem>
-                    <FlexItemRight>
-                    { onCancel !== undefined && <Button
-                        variant="contained"
-                        onClick={ onCancel }
-                        className={ classes.button }
-                        color="primary">Cancel</Button>
-                    }
-                    </FlexItemRight>
-                </FlexContainer>
-            </div>
-        }
+                            color="primary">Cancel</Button>
+                        }
+                        </FlexItemRight>
+                    </FlexContainer>
+                </div>
+            }
         </form>
     );
 };
