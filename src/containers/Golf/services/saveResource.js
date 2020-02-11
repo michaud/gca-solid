@@ -17,7 +17,7 @@ const saveResource = ({
     const fieldAction = isNew ? addField : setField;
 
     if(isNew) ref.addRef(rdf.type, type);
-    
+
     const resourceShape = shapeFromType[type];
 
     resourceShape.shape.forEach(field => {
@@ -32,7 +32,7 @@ const saveResource = ({
         });
     });
 
-    if(resource) doc.save();
+    if(resource) (async () => await doc.save())();
 
     return ref;
 };

@@ -11,7 +11,10 @@ import {
     FlexItemRight
 } from '@golfstyles/layout.style';
 
-const BagDetail = ({ bag }) => {
+const BagDetail = ({
+    bag,
+    onEdit
+}) => {
 
     const classes = formStyles();
 
@@ -19,8 +22,8 @@ const BagDetail = ({ bag }) => {
 
     };
 
-    const saveHandler = () => {
-
+    const editHandler = () => {
+        onEdit && onEdit();
     };
 
     const canSave = false;
@@ -49,12 +52,13 @@ const BagDetail = ({ bag }) => {
             </div>
             <FlexContainer>
                 <FlexItem>
-                    <Button
+                {
+                    onEdit && <Button
                         variant="contained"
-                        disabled={ !canSave }
-                        onClick={ saveHandler }
+                        onClick={ editHandler }
                         className={ classes.button }
                         color="primary">{ actionLabel }</Button>
+                }
                 </FlexItem>
                 <FlexItemRight>
                 { onCancel && <Button

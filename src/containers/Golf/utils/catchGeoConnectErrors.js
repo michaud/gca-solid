@@ -1,6 +1,5 @@
 const catchGeoConnectErrors = (error) => {
 
-    console.error(error.message);
     let msg = null;
 
     switch(error.code) {
@@ -29,6 +28,8 @@ const catchGeoConnectErrors = (error) => {
 
             break;
     }
+
+    console.error(error.message, msg);
 };
 
 export default catchGeoConnectErrors;

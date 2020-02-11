@@ -34,7 +34,7 @@ const CourseForm = ({
 
     const saveHandler = () => {
 
-        onSave(courseState);
+        onSave({ ...courseState });
         const newCourse = setupDataObject(courseShape);
         setCourseState(newCourse);
     };
@@ -47,7 +47,7 @@ const CourseForm = ({
     };
 
     const onSaveHole = (hole) => {
-        
+
         setCourseState(state => {
 
             let holes = state.courseHoles.value;
@@ -152,7 +152,6 @@ const CourseForm = ({
                 <FlexItemRight>
                 { onCancel && <Button
                     variant="contained"
-                    disabled={ !canSave.can }
                     onClick={ onCancel }
                     className={ classes.button }
                     color="primary">Cancel</Button>

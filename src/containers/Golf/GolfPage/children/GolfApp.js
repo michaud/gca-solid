@@ -27,7 +27,7 @@ const GolfApp = ({ webId }) => {
     const [snackOpen, setSnackOpen] = useState(false);
 
     const dataStructure = useDataStructure(reload, true);
-
+    
     useEffect(() => {
 
         let didCancel = false;

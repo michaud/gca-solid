@@ -22,7 +22,9 @@ const getFieldControl = ({
     styles,
     onChange,
     onSave,
+    onAdd,
     onSaveEdit,
+    onEdit,
     inputRef,
     idx,
     dataSource,
@@ -136,7 +138,8 @@ const getFieldControl = ({
 
             return <SelectCourse key={ idx }
                 courses={ dataSource.courses }
-                onChange={ onChange(data) }/>
+                onChange={ onChange(data) }
+                onAdd={ onAdd }/>
         }
 
         case golf.classes.Marker : {
@@ -144,13 +147,15 @@ const getFieldControl = ({
             return <SelectMarker key={ idx }
                 markers={ dataSource.markers }
                 onSave={ onSave }
+                onAdd={ onAdd }
                 onChange={ onChange(data) }/>
         }
             
         case golf.classes.Bag : {
 
             return <BagDetail key={ idx }
-                bag={ data.value }/>
+                bag={ data.value }
+                onEdit={ onEdit }/>
         }
 
         case golf.classes.GamePlayingHandicap : {

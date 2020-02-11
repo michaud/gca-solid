@@ -1,5 +1,4 @@
 const namespace = 'https://michaud.inrupt.net/public/golf/';
-const namespaceHashed = 'https://michaud.inrupt.net/public/golf#';
 
 const golf = {
     root: `${ namespace }`,

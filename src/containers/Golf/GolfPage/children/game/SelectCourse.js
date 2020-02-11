@@ -7,15 +7,16 @@ import formStyles from '@golfstyles/form.style';
 
 const SelectCourse = ({
     courses,
-    onChange
+    onChange,
+    onAdd
 }) => {
 
     const classes = formStyles();
 
     const hasCourses = courses.length > 0;
 
-    const saveHandler = () => {
-
+    const addHandler = () => {
+        onAdd();
     };
 
     const displayFields = [];
@@ -30,7 +31,7 @@ const SelectCourse = ({
 
     displayFields.push(<Button key={ displayFields.length }
         variant="contained"
-        onClick={ saveHandler }
+        onClick={ addHandler }
         className={ classes.button }
         color="primary">Add Course</Button>)
 

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-import Button from '@material-ui/core/Button';
-import { Snackbar } from '@material-ui/core';
 import update from 'immutability-helper';
 import { format } from 'date-fns'
-import gameShape from '@golfcontexts/game-shape.json';
 
+import Button from '@material-ui/core/Button';
+import { Snackbar, DialogTitle, DialogContent } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+
+import gameShape from '@golfcontexts/game-shape.json';
 import useBagClubs from '@golfhooks/useBagClubs';
 import useClubs from '@golfhooks/useClubs';
 import useCourses from '@golfhooks/useCourses';
@@ -31,6 +33,7 @@ import {
     FlexItem,
     FlexItemRight,
 } from '@golfstyles/layout.style';
+import CourseForm from '../course/CourseForm';
 
 const GameForm = ({
     game,
@@ -39,36 +42,38 @@ const GameForm = ({
     title ='Add game',
     actionLabel = 'add game'
 }) => {
-    
+
     const classes = formStyles();
     const [reload, setReload] = useState(false);
     const [gameState, setGameState] = useState(game);
     const [snackOpen, setSnackOpen] = useState(false);
+    const [courseModalOpen, setCourseModalOpen] = useState(false)
     const clubTypeData = useClubDefinitions();
+
     const [{
         playerData,
         isError: playerDataIsError
-    }] = usePlayer(reload);
+    }, doPlayerReload] = usePlayer(reload);
     
     const [{
         markerListData,
         isError: markerListDataIsError
-    }] = useMarkers(reload);
+    }, doMarkerReload] = useMarkers(reload);
     
     const [{
         clubListData,
         isError: clubListDataIsError
-    }] = useClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    }, doCLubsReload] = useClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
     
     const [{
         bagListData,
         isError: bagListDataIsError
-    }] = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    }, doBagReload] = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
     
     const [{
         courseListData,
         courseListDataIsError
-    }] = useCourses(reload);
+    }, doCourseReload] = useCourses(reload);
     
     useEffect(() => {
 
@@ -119,6 +124,24 @@ const GameForm = ({
 
     }, [game, reload, bagListData, clubListData, courseListData, markerListData]);
 
+    const handleCourseModalClose = () => {
+
+        setCourseModalOpen(false);
+    };
+
+    const onSaveCourse = async (course) => {
+
+        saveResource({
+            resource: course,
+            doc: courseListData.doc,
+            type: golf.classes.Course
+        });
+
+        setCourseModalOpen(false);
+        doCourseReload(true);
+        setReload(true);
+    };
+
     const handleSnackClose = (event, reason) => {
         if (reason === 'clickaway') {
           return;
@@ -127,19 +150,9 @@ const GameForm = ({
         setSnackOpen(false);
     };
 
-    const saveGamePlayer = doc => player => {
+    const saveGamePlayer = doc => async (player) => {
         
-        saveResource({
-            resource: player,
-            doc,
-            type: golf.classes.Player
-        });
-        setReload(true);
-    };
-    
-    const saveGameMarker = doc => player => {
-        
-        saveResource({
+        await saveResource({
             resource: player,
             doc,
             type: golf.classes.Player
@@ -148,11 +161,47 @@ const GameForm = ({
         setReload(true);
     };
     
-    const saveGamePlayerCallbacks = {
-        gamePlayer: saveGamePlayer,
-        gameMarker: saveGameMarker
-    }
+    const saveGameMarker = doc => async (player) => {
+        
+        await saveResource({
+            resource: player,
+            doc,
+            type: golf.classes.Player
+        });
+
+        setReload(true);
+    };
     
+    const addGameCourse = doc => () => {
+        setCourseModalOpen(true);
+    };
+
+    const addGameMarker = doc => () => {
+
+        console.log('addGameMarker');
+    };
+
+    const editGameBag = doc => () => {
+
+        console.log('editGameBag');
+    }
+
+    const callbacks = {
+        gamePlayer: {
+            save: saveGamePlayer
+        },
+        gameMarker: {
+            save: saveGameMarker,
+            add: addGameMarker
+        },
+        gameCourse: {
+            add: addGameCourse,
+        },
+        gameBag: {
+            edit: editGameBag
+        }
+    };
+
     const saveGameHandler = () => {
 
         onSave(gameState);
@@ -200,13 +249,17 @@ const GameForm = ({
 
         gameShape.shape.forEach(field => {
 
-            const callback = saveGamePlayerCallbacks[field];
+            const saveCallback = callbacks[field.predicate] ? callbacks[field.predicate].save : undefined;
+            const addCallback = callbacks[field.predicate] ? callbacks[field.predicate].add : undefined;
+            const editCallback = callbacks[field.predicate] ? callbacks[field.predicate].edit : undefined;
 
             const fieldControl = getFieldControl({
                 data: gameState[field.predicate],
                 styles: classes,
                 onChange: onChangeField,
-                onSave: callback ? callback(doc[field]) : undefined,
+                onSave: saveCallback ? saveCallback(doc[field]) : undefined,
+                onAdd: addCallback ? addCallback(doc[field]) : undefined,
+                onEdit: editCallback ? editCallback(doc[field]) : undefined,
                 idx: index++,
                 dataSource: {
                     markers: markerListData.list,
@@ -221,9 +274,21 @@ const GameForm = ({
 
     const canSave = checkCanSave(gameState, gameShape);
 
-
     return (
         <form noValidate autoComplete="off">
+        <Dialog fullScreen 
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={ courseModalOpen }
+            scroll="paper"
+            onClose={ handleCourseModalClose }>
+            <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
+            <DialogContent>
+                <CourseForm
+                    onSave={ onSaveCourse }
+                    onCancel={ handleCourseModalClose }/>
+            </DialogContent>
+        </Dialog>
         {
             gameState && <div className="f-form-field">
                 <header className="c-header">{ title }</header>
@@ -236,7 +301,6 @@ const GameForm = ({
                         Game data did not load
                     </Alert>
                 </Snackbar>
-
                 { gameFields }
                 <FlexContainer>
                     <FlexItem>

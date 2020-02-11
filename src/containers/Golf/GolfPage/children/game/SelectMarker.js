@@ -7,15 +7,16 @@ import formStyles from '@golfstyles/form.style';
 
 const SelectMarker = ({
     markers = [],
-    onChange
+    onChange,
+    onAdd
 }) => {
 
     const classes = formStyles();
 
     const hasMarkers = markers.length > 0;
 
-    const saveHandler = () => {
-
+    const addHandler = () => {
+        onAdd();
     };
 
     const displayFields = [];
@@ -30,7 +31,7 @@ const SelectMarker = ({
 
     displayFields.push(<Button key={ displayFields.length }
         variant="contained"
-        onClick={ saveHandler }
+        onClick={ addHandler }
         className={ classes.button }
         color="primary">Add Marker</Button>)
 

@@ -37,15 +37,19 @@ const HoleForm = ({
     const saveHandler = () => {
 
         if(holeData) {
+
             onEdit(holeState);
+
         } else {
+            
             onSave(holeState);
         }            
     };
 
     const onChangeHoleField = fieldDef => (...args)  => {
-
+        
         const value = getFieldValue(fieldDef, args);
+
         setHoleState(state => update(state, {
             [fieldDef.predicate]: { value: { $set: value } }
         }));
