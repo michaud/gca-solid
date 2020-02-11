@@ -23,7 +23,6 @@ const golf = {
         clubBrand: `${ namespace }clubBrand`,
         clubName: `${ namespace }clubName`,
         clubs: `${ namespace }clubs`,
-        clubsH: `${ namespaceHashed }clubs`,
         courseHoles: `${ namespace }courseHoles`,
         gamePlayer: `${ namespace }gamePlayer`,
         gameMarker: `${ namespace }gameMarker`,
