@@ -136,7 +136,6 @@ const GameDetail = ({
 
     let count = 0;
 
-    console.log('gameData.game: ', gameData.game);
     gameShape.shape.forEach(field => {
         
         displayFields.push(getDisplayField(gameData.game[field.predicate], {

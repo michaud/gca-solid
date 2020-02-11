@@ -65,7 +65,6 @@ const PlayGame = ({
 
     const onClubActionHandler = club => {
 
-        console.log('gameData: ', gameData);
         addStrokeToHole(club, currHole.iri, gameData.game, gameData.doc, setGameData);
     };
 
