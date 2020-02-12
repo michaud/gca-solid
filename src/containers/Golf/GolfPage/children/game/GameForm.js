@@ -75,7 +75,7 @@ const GameForm = ({
     const [{
         clubListData,
         isError: clubListDataIsError
-    }, doCLubsReload] = useClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    }] = useClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
     
     const [{
         bagListData,

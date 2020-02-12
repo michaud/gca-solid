@@ -41,13 +41,8 @@ const PlayerForm = ({
     useEffect(() => {
 
         let currentPlayer = player;
-        console.log('player: ', player);
         
-        if(!currentPlayer) {
-
-            currentPlayer = setupDataObject(playerShape);
-            console.log('currentPlayer: ', currentPlayer);
-        }
+        if(!currentPlayer) currentPlayer = setupDataObject(playerShape);
 
         setPlayerState(currentPlayer);
 

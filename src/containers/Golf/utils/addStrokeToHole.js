@@ -1,5 +1,7 @@
 import update from 'immutability-helper';
 
+import Cookies from 'js-cookie'
+
 import createStroke from '@golfutils/createStroke';
 import saveHoleToGame from '@golfutils/saveHoleToGame';
 import catchGeoConnectErrors from '@golfutils/catchGeoConnectErrors';
@@ -58,26 +60,35 @@ const persistData = (
 
 const addStrokeToHole = async (club, holeIri, game, doc, setState) => {
 
-    const options = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
+    const persist = persistData(club,  game, doc, holeIri, setState);
+    const geo = {
+        coords: {
+            latitude: 0,
+            longitude: 0,
+            altitude: 0
+        }
     };
 
-    navigator.geolocation.getCurrentPosition(result => {
+    if(Cookies.get('canUseLocation') === 'true') {
 
-        const geo = {
-            coords: {
-                latitude: result.coords.latitude,
-                longitude: result.coords.longitude,
-                altitude: result.coords.altitude
-            }
+        const options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
         };
+    
+        navigator.geolocation.getCurrentPosition(result => {
 
-        const persist = persistData(club,  game, doc, holeIri, setState);
-        saveHoleToGame(persist(geo));
+            geo.coords.latitude = result.coords.latitude;
+            geo.coords.longitude = result.coords.longitude;
+            geo.coords.altitude = result.coords.altitude;
 
-    }, catchGeoConnectErrors, options)
+            saveHoleToGame(persist(geo));
+
+        }, catchGeoConnectErrors, options);
+    
+    } else { saveHoleToGame(persist(geo)); }
+
 };
 
 export default addStrokeToHole;
