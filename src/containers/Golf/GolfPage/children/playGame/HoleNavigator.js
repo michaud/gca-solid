@@ -60,7 +60,7 @@ const HoleNavigator = ({ holes, onChangeHole }) => {
             <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
                 <FlexContainer center flex="1 0 auto" alignitems="stretch">
                     <FlexContainer flex="1 0 auto" center>
-                        <div className="u-pad--airy">
+                        <div className="hole-info u-pad--airy">
                             <div>{ currHole && `hole ${ currHole.holeNumber.value }` }</div>
                             <div>{ currHole && `${ currHole.holeLength.value } m` }</div>
                         </div>
