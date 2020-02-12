@@ -7,6 +7,7 @@ import React, {
 import { StylesProvider } from '@material-ui/core/styles';
 import { Snackbar } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import Button from '@material-ui/core/Button';
 
 import useClubs from '@golfhooks/useClubs';
 import useBagClubs from '@golfhooks/useBagClubs';
@@ -26,12 +27,22 @@ import BagTransferList from '@containers/Golf/GolfPage/children/bag/BagTransferL
 import Alert from '@containers/Golf/components/Alert';
 import ClubForm from '@containers/Golf/GolfPage/children/club/ClubForm';
 
-const ManageBag = () => {
+import {
+    FlexContainer,
+    FlexItem,
+    FlexItemRight,
+} from '@golfstyles/layout.style';
+import formStyles from '@golfstyles/form.style';
+
+const ManageBag = ({ onSave, onCancel }) => {
 
     const [reload, setReload] = useState(false);
     const [clubs, setClubs] = useState();
     const [bagClubs, setBagClubs] = useState();
     const [snackOpen, setSnackOpen] = useState(false);
+
+    const classes = formStyles();
+
     const clubTypeData = useContext(ClubTypeContext);
     const [{
         clubListData,
@@ -126,9 +137,17 @@ const ManageBag = () => {
         setReload(true)
     };
 
+    const PageContainerOrNot = ({ plain, children }) => {
+        
+        return plain ? children :
+        <PageContainer>
+            { children }
+        </PageContainer>;
+    };
+
     return (
         <StylesProvider>
-            <ModuleHeader label={ t('golf.whatsInTheBag') } screenheader={ true } loading={ clubListDataIsLoading === true || bagListDataIsLoading === true }/>
+            { !onSave  ? <ModuleHeader label={ t('golf.whatsInTheBag') } screenheader={ true } loading={ clubListDataIsLoading === true || bagListDataIsLoading === true }/> : null }
             <Snackbar
                 open={ snackOpen }
                 autoHideDuration={ 4000 }
@@ -138,7 +157,7 @@ const ManageBag = () => {
                     Courses did not load
                 </Alert>
             </Snackbar>
-             <PageContainer>
+             <PageContainerOrNot plain={ onSave !== undefined }>
                 <BagTransferList
                     clubs={ clubs }
                     bag={ bagClubs }
@@ -149,7 +168,24 @@ const ManageBag = () => {
                     onSave={ saveClubHandler }
                     onDelete={ deleteClubHandler }
                     clubs={ clubs } />}
-            </PageContainer>
+                <FlexContainer>
+                    <FlexItem>
+                        <Button
+                            variant="contained"
+                            onClick={ onSave }
+                            className={ classes.button }
+                            color="primary">Save bag</Button>
+                    </FlexItem>
+                    <FlexItemRight>
+                    { onCancel !== undefined && <Button
+                        variant="contained"
+                        onClick={ onCancel }
+                        className={ classes.button }
+                        color="primary">Cancel</Button>
+                    }
+                    </FlexItemRight>
+                </FlexContainer>
+            </PageContainerOrNot>
         </StylesProvider>
     );
 };

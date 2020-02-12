@@ -26,6 +26,9 @@ import golf from '@golfutils/golf-namespace';
 import saveResource from '@golfservices/saveResource';
 
 import Alert from '@containers/Golf/components/Alert';
+import CourseForm from '@containers/Golf/GolfPage/children/course/CourseForm';
+import PlayerForm from '@containers/Golf/GolfPage/children/player/PlayerForm';
+import ManageBag from '@containers/Golf/GolfPage/children/bag/ManageBag';
 
 import formStyles from '@golfstyles/form.style';
 
@@ -34,7 +37,6 @@ import {
     FlexItem,
     FlexItemRight,
 } from '@golfstyles/layout.style';
-import CourseForm from '../course/CourseForm';
 
 const dialogStyles = makeStyles(theme => ({
     root: {
@@ -56,6 +58,8 @@ const GameForm = ({
     const [gameState, setGameState] = useState(game);
     const [snackOpen, setSnackOpen] = useState(false);
     const [courseModalOpen, setCourseModalOpen] = useState(false)
+    const [markerModalOpen, setMarkerModalOpen] = useState(false)
+    const [bagModalOpen, setBagModalOpen] = useState(false)
     const clubTypeData = useClubDefinitions();
 
     const [{
@@ -137,7 +141,17 @@ const GameForm = ({
         setCourseModalOpen(false);
     };
 
-    const onSaveCourse = async (course) => {
+    const handleMarkerModalClose = () => {
+
+        setMarkerModalOpen(false);
+    };
+
+    const handleBagModalClose = () => {
+
+        setBagModalOpen(false);
+    };
+
+    const onSaveCourse = course => {
 
         saveResource({
             resource: course,
@@ -147,6 +161,14 @@ const GameForm = ({
 
         setCourseModalOpen(false);
         doCourseReload(true);
+        setReload(true);
+    };
+
+    
+    const onSaveBag = () => {
+
+        setBagModalOpen(false);
+        doBagReload(true);
         setReload(true);
     };
 
@@ -162,53 +184,40 @@ const GameForm = ({
         
         await saveResource({
             resource: player,
-            doc,
+            doc: playerData.doc,
             type: golf.classes.Player
         });
 
+        doPlayerReload(true);
         setReload(true);
     };
-    
-    const saveGameMarker = doc => async (player) => {
-        
-        await saveResource({
-            resource: player,
-            doc,
-            type: golf.classes.Player
+
+    const onSaveMarker = marker => {
+
+        saveResource({
+            resource: marker,
+            doc: markerListData.doc,
+            type: golf.classes.Marker
         });
 
+        setMarkerModalOpen(false);
+        doMarkerReload(true);
         setReload(true);
     };
-    
+
     const addGameCourse = doc => () => {
         setCourseModalOpen(true);
     };
 
     const addGameMarker = doc => () => {
 
-        console.log('addGameMarker');
+        setMarkerModalOpen(true);
     };
 
     const editGameBag = doc => () => {
 
-        console.log('editGameBag');
+        setBagModalOpen(true);
     }
-
-    const callbacks = {
-        gamePlayer: {
-            save: saveGamePlayer
-        },
-        gameMarker: {
-            save: saveGameMarker,
-            add: addGameMarker
-        },
-        gameCourse: {
-            add: addGameCourse,
-        },
-        gameBag: {
-            edit: editGameBag
-        }
-    };
 
     const saveGameHandler = () => {
 
@@ -255,6 +264,21 @@ const GameForm = ({
 
         let index = 0;
 
+        const callbacks = {
+            gamePlayer: {
+                save: saveGamePlayer
+            },
+            gameMarker: {
+                add: addGameMarker
+            },
+            gameCourse: {
+                add: addGameCourse,
+            },
+            gameBag: {
+                edit: editGameBag
+            }
+        };
+    
         gameShape.shape.forEach(field => {
 
             const saveCallback = callbacks[field.predicate] ? callbacks[field.predicate].save : undefined;
@@ -296,6 +320,37 @@ const GameForm = ({
                         <CourseForm
                             onSave={ onSaveCourse }
                             onCancel={ handleCourseModalClose }/>
+                    </div>
+                </DialogContent>
+            </Dialog>
+            <Dialog fullScreen 
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                open={ markerModalOpen }
+                scroll="paper"
+                onClose={ handleMarkerModalClose }>
+                <DialogTitle className={ dclasses.root } id="scroll-dialog-title">Subscribe</DialogTitle>
+                <DialogContent className={ dclasses.root }>
+                    <div className="c-box">
+                        <PlayerForm
+                            title="Add marker"
+                            onSave={ onSaveMarker }
+                            onCancel={ setMarkerModalOpen }/>
+                    </div>
+                </DialogContent>
+            </Dialog>
+            <Dialog fullScreen 
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                open={ bagModalOpen }
+                scroll="paper"
+                onClose={ handleBagModalClose }>
+                <DialogTitle className={ dclasses.root } id="scroll-dialog-title">Edit Bag</DialogTitle>
+                <DialogContent className={ dclasses.root }>
+                    <div className="c-box">
+                        <ManageBag
+                            onSave={ onSaveBag }
+                            onCancel={ handleBagModalClose }/>
                     </div>
                 </DialogContent>
             </Dialog>

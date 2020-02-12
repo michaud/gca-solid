@@ -7,6 +7,7 @@ import getFieldValue from '@golfutils/getFieldValue';
 import checkCanSave from '@golfutils/checkCanSave';
 import getFieldControl from '@golfutils/getFieldControl';
 import playerShape from '@golfcontexts/player-shape';
+import setupDataObject from '@containers/Golf/utils/setupDataObject';
 
 import {
     FlexContainer,
@@ -39,7 +40,16 @@ const PlayerForm = ({
 
     useEffect(() => {
 
-        if(player) setPlayerState(player);
+        let currentPlayer = player;
+        console.log('player: ', player);
+        
+        if(!currentPlayer) {
+
+            currentPlayer = setupDataObject(playerShape);
+            console.log('currentPlayer: ', currentPlayer);
+        }
+
+        setPlayerState(currentPlayer);
 
     }, [player]);
 
