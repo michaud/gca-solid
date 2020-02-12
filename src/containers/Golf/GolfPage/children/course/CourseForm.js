@@ -138,26 +138,28 @@ const CourseForm = ({
     return (
         <form noValidate autoComplete="off">
             <header className="c-header">{ title }</header>
-            { courseFields }
-            { !canSave.can && <div className="c-box">{ canSave.reasons.map(item => item) }</div> }
-            <FlexContainer>
-                <FlexItem>
-                    <Button
+            <div className="c-box">
+                { courseFields }
+                { !canSave.can && <div className="c-box">{ canSave.reasons.map(item => item) }</div> }
+                <FlexContainer>
+                    <FlexItem>
+                        <Button
+                            variant="contained"
+                            disabled={ !canSave.can }
+                            onClick={ saveHandler }
+                            className={ classes.button }
+                            color="primary">{ actionLabel }</Button>
+                    </FlexItem>
+                    <FlexItemRight>
+                    { onCancel && <Button
                         variant="contained"
-                        disabled={ !canSave.can }
-                        onClick={ saveHandler }
+                        onClick={ onCancel }
                         className={ classes.button }
-                        color="primary">{ actionLabel }</Button>
-                </FlexItem>
-                <FlexItemRight>
-                { onCancel && <Button
-                    variant="contained"
-                    onClick={ onCancel }
-                    className={ classes.button }
-                    color="primary">Cancel</Button>
-                }
-                </FlexItemRight>
-            </FlexContainer>
+                        color="primary">Cancel</Button>
+                    }
+                    </FlexItemRight>
+                </FlexContainer>
+            </div>
         </form>
     );
 };

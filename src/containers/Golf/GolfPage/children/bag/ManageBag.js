@@ -172,19 +172,24 @@ const ManageBag = ({ onSave, onCancel }) => {
                     clubs={ clubs } />}
                 <FlexContainer>
                     <FlexItem>
+                    { onSave !== undefined ? (
                         <Button
                             variant="contained"
                             onClick={ onSave }
                             className={ classes.button }
                             color="primary">Save bag</Button>
+                    ) : null }
                     </FlexItem>
                     <FlexItemRight>
-                    { onCancel !== undefined && <Button
-                        variant="contained"
-                        onClick={ onCancel }
-                        className={ classes.button }
-                        color="primary">Cancel</Button>
-                    }
+                    { onCancel !== undefined ? (
+                        <Button
+                            variant="contained"
+                            onClick={ onCancel }
+                            className={ classes.button }
+                            color="primary">
+                                Cancel
+                        </Button>
+                    ) : null }
                     </FlexItemRight>
                 </FlexContainer>
             </PageContainerOrNot>

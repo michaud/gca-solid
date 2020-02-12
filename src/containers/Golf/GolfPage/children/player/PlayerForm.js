@@ -70,7 +70,7 @@ const PlayerForm = ({
     const canSave = checkCanSave(playerState, playerShape);
     const handleDelete = typeof(onDelete) === 'function' ? onDeleteHandler : undefined;
     return (
-        <div>
+        <div className="c-box">
             <header className="c-header">{ title }</header>
             { playerFields }
             <FlexContainer>

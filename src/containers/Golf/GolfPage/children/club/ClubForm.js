@@ -88,36 +88,38 @@ const ClubForm = ({
         <form noValidate autoComplete="off">
             <header className="c-header">{ title }</header>
             { clubFields }
-            <FlexContainer>
-                <FlexItem>
-                    <Button
+            <div className="c-box">
+                <FlexContainer>
+                    <FlexItem>
+                        <Button
+                            variant="contained"
+                            disabled={ !canSave.can }
+                            onClick={ saveHandler }
+                            className={ classes.button }
+                            color="primary">{ actionLabel }</Button>
+                    </FlexItem>
+                    {
+                        handleDelete ? (
+                            <FlexItem>
+                                <Button
+                                    variant="contained"
+                                    disabled={ !canSave.can }
+                                    onClick={ handleDelete(club) }
+                                    className={ classes.button }
+                                    color="primary">Delete</Button>
+                            </FlexItem>
+                        ) : null
+                    }
+                    <FlexItemRight>
+                    { onCancel && <Button
                         variant="contained"
-                        disabled={ !canSave.can }
-                        onClick={ saveHandler }
+                        onClick={ onCancel }
                         className={ classes.button }
-                        color="primary">{ actionLabel }</Button>
-                </FlexItem>
-                {
-                    handleDelete ? (
-                        <FlexItem>
-                            <Button
-                                variant="contained"
-                                disabled={ !canSave.can }
-                                onClick={ handleDelete(club) }
-                                className={ classes.button }
-                                color="primary">Delete</Button>
-                        </FlexItem>
-                    ) : null
-                }
-                <FlexItemRight>
-                { onCancel && <Button
-                    variant="contained"
-                    onClick={ onCancel }
-                    className={ classes.button }
-                    color="primary">Cancel</Button>
-                }
-                </FlexItemRight>
-            </FlexContainer>
+                        color="primary">Cancel</Button>
+                    }
+                    </FlexItemRight>
+                </FlexContainer>
+            </div>
         </form>
     );
 };
