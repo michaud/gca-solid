@@ -134,7 +134,7 @@ const Home = ({
                 ) : null }
                 { gameListData && gameListData.list.length > 0 ? (
                     <IntroPanel
-                        icon={ <CapIcon className="c-content-icon"/> }>
+                        icon={ <CapIcon className="c-content-icon plain"/> }>
                             <NavLink className="a-intro-link" to="/golf/settings/games">
                                 <FlexContainer alignitems="center">
                                     <FlexItem>
@@ -149,7 +149,7 @@ const Home = ({
                     </IntroPanel>
                 ) : (
                     <IntroPanel className="disabled"
-                        icon={ <CapIcon className="c-content-icon"/> }>
+                        icon={ <CapIcon className="c-content-icon plain"/> }>
                             <FlexContainer alignitems="center">
                                 <FlexItem>
                                     <h3 className="h-intro">Start a game</h3>

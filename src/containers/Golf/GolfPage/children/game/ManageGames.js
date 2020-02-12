@@ -101,7 +101,7 @@ const ManageGames = () => {
             <PageContainer>
                 <div className="c-box">
                     <IntroPanel
-                        icon={ <SportsGolfIcon className="c-content-icon" /> }>
+                        icon={ <SportsGolfIcon className="c-content-icon plain" /> }>
                         <NavLink className="a-intro-link" to="/golf/settings/games/new">
                             <FlexContainer alignitems="center">
                                 <FlexItem>

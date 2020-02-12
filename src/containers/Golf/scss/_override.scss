@@ -10,8 +10,13 @@
 .c-content-icon {
 
     &.MuiSvgIcon-root {
+
         width: 2.25rem;
         height: 2.25rem;
-        fill: rgb(55, 116, 0);
+
+        &.plain {
+
+            fill: rgb(55, 116, 0);
+        }
     }
 }

@@ -4,7 +4,8 @@ import Cookies from 'js-cookie'
 import { ButtonBase, Switch, FormControlLabel } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import LocationIcon from '@material-ui/icons/LocationOn';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import LocationOffIcon from '@material-ui/icons/LocationOff';
 import { withStyles } from '@material-ui/core/styles';
 
 import IntroPanel from '@golf/components/IntroPanel';
@@ -140,7 +141,7 @@ const AllowLocation = () => {
 
     return (
         <IntroPanel onClick={ clickHandler }
-            icon={ <LocationIcon className="c-content-icon"/> }>
+            icon={ canUseLocation ? <LocationOnIcon className="c-content-icon plain"/> : <LocationOffIcon htmlColor="rgb(238, 124, 43)" className="c-content-icon"/> }>
             <ButtonBase onClick={ clickHandler } disableRipple focusRipple={ false} className={ btnClasses.root }>
                 <FlexContainer alignitems="center" flex="1">
                     <FlexItem>
