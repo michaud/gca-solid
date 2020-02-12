@@ -16,7 +16,7 @@ import Alert from '@golf/components/Alert';
 import ModuleHeader from '@golf/components/ModuleHeader';
 import GameForm from '@golf/GolfPage/children/game/GameForm';
 
-import { PageContainer } from '@golfstyles/page.style';
+import { PageContainer, PageContent } from '@golfstyles/page.style';
 
 const NewGame = () => {
 
@@ -92,10 +92,12 @@ const NewGame = () => {
                 </Alert>
             </Snackbar>
             <PageContainer>
-                <GameForm
-                    game={ currentGame }
-                    onSave={ onSaveGameHandler }
-                    onCancel={ onCancelHandler }/>
+                <PageContent>
+                    <GameForm
+                        game={ currentGame }
+                        onSave={ onSaveGameHandler }
+                        onCancel={ onCancelHandler }/>
+                </PageContent>
             </PageContainer>
         </>
     );

@@ -5,7 +5,7 @@ import { Snackbar } from '@material-ui/core';
 import useCourses from '@golfhooks/useCourses';
 
 import deleteCourse from '@golfservices/deleteCourse';
-import { PageContainer } from '@golfstyles/page.style';
+import { PageContainer, PageContent } from '@golfstyles/page.style';
 import saveResource from '@golfservices/saveResource';
 
 import golf from '@golfutils/golf-namespace';
@@ -86,11 +86,13 @@ const ManageCourses = () => {
                 </Alert>
             </Snackbar>
             <PageContainer>
-                <CourseForm onSave={ onSaveCourse }/>
-                <CourseList
-                    courses={ courses }
-                    onSaveCourse={ onSaveCourse }
-                    onDelete={ onDeleteCourseHandler }/>
+                <PageContent>
+                    <CourseForm onSave={ onSaveCourse }/>
+                    <CourseList
+                        courses={ courses }
+                        onSaveCourse={ onSaveCourse }
+                        onDelete={ onDeleteCourseHandler }/>
+                </PageContent>
             </PageContainer>
         </>
     );

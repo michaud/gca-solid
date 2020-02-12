@@ -19,7 +19,7 @@ import GameList from '@golf/GolfPage/children/game/GameList';
 import Alert from '@golf/components/Alert';
 import IntroPanel from '@golf/components/IntroPanel';
 
-import { PageContainer } from '@golfstyles/page.style';
+import { PageContainer, PageContent } from '@golfstyles/page.style';
 import { FlexContainer, FlexItem } from '@golfstyles/layout.style';
 
 const ManageGames = () => {
@@ -99,27 +99,29 @@ const ManageGames = () => {
                 </Alert>
             </Snackbar>
             <PageContainer>
-                <div className="c-box">
-                    <IntroPanel
-                        icon={ <SportsGolfIcon className="c-content-icon plain" /> }>
-                        <NavLink className="a-intro-link" to="/golf/settings/games/new">
-                            <FlexContainer alignitems="center">
-                                <FlexItem>
-                                    <h3 className="h-intro">Add a Game</h3>
-                                    <p>Do you feel lucky, punk?</p>
-                                </FlexItem>
-                                <FlexItem narrow>
-                                    <ArrowForwardIosIcon className="action-intro" />
-                                </FlexItem>
-                            </FlexContainer>
-                        </NavLink>
-                    </IntroPanel>
-                </div>
-                <GameList
-                    games={ games }
-                    onDelete={ onDeleteGameHandler }
-                    onSave={ onSaveGameHandler }
-                    onPlay={ onPlayGameHandler }/>
+                <PageContent>
+                    <div className="c-box">
+                        <IntroPanel
+                            icon={ <SportsGolfIcon className="c-content-icon plain" /> }>
+                            <NavLink className="a-intro-link" to="/golf/settings/games/new">
+                                <FlexContainer alignitems="center">
+                                    <FlexItem>
+                                        <h3 className="h-intro">Add a Game</h3>
+                                        <p>Do you feel lucky, punk?</p>
+                                    </FlexItem>
+                                    <FlexItem narrow>
+                                        <ArrowForwardIosIcon className="action-intro" />
+                                    </FlexItem>
+                                </FlexContainer>
+                            </NavLink>
+                        </IntroPanel>
+                    </div>
+                    <GameList
+                        games={ games }
+                        onDelete={ onDeleteGameHandler }
+                        onSave={ onSaveGameHandler }
+                        onPlay={ onPlayGameHandler }/>
+                </PageContent>
             </PageContainer>
         </>
     );

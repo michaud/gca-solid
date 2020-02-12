@@ -12,7 +12,7 @@ import ModuleHeader from '@golf/components/ModuleHeader';
 import ManageMarkers from '@golf/GolfPage/children/player/ManageMarkers';
 import PlayerDetail from '@golf/GolfPage/children/player/PlayerDetail';
 
-import { PageContainer } from '@golfstyles/page.style';
+import { PageContainer, PageContent } from '@golfstyles/page.style';
 
 const ManagePlayers = ({ webId }) => {
 
@@ -85,15 +85,17 @@ const ManagePlayers = ({ webId }) => {
             </Snackbar>
 
             <PageContainer>
-            { 
-                player && <PlayerDetail
-                    onSave={ onSavePlayer }
-                    showEdit={ true }
-                    player={ player }/> 
-            }
-            {
-                player && <ManageMarkers webId={ webId }/>
-            }
+                <PageContent>
+                { 
+                    player && <PlayerDetail
+                        onSave={ onSavePlayer }
+                        showEdit={ true }
+                        player={ player }/> 
+                }
+                {
+                    player && <ManageMarkers webId={ webId }/>
+                }
+                </PageContent>
             </PageContainer>
         </>
     );

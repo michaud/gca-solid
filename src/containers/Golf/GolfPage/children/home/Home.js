@@ -12,7 +12,7 @@ import BagIcon from '@golf/components/BagIcon';
 import ModuleHeader from '@golf/components/ModuleHeader';
 
 import { FlexContainer, FlexItem } from '@golfstyles/layout.style';
-import { PageContainer } from '@golfstyles/page.style';
+import { PageContainer, PageContent } from '@golfstyles/page.style';
 import AllowLocation from './AllowLocation';
 
 const Home = ({
@@ -29,6 +29,7 @@ const Home = ({
     return (
         <div>
             <ModuleHeader label="Golf Course assistant" screenheader={ true } loading={ count !== progress }/>
+            <PageContent>
             { 
                 count === progress && <PageContainer>
                 { playerData && playerData.player === undefined ? (
@@ -162,9 +163,10 @@ const Home = ({
                     </IntroPanel>
                 )}
                 <AllowLocation/>
+                
             </PageContainer>
         }
-
+        </PageContent>
         </div>
     );
 };

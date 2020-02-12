@@ -37,6 +37,7 @@ import {
     FlexItem,
     FlexItemRight,
 } from '@golfstyles/layout.style';
+import { PageContent } from '@containers/Golf/styles/page.style';
 
 const dialogStyles = makeStyles(theme => ({
     root: {
@@ -316,11 +317,13 @@ const GameForm = ({
                 onClose={ handleCourseModalClose }>
                 <DialogTitle className={ dclasses.root } id="scroll-dialog-title">Subscribe</DialogTitle>
                 <DialogContent className={ dclasses.root }>
-                    <div className="c-box">
-                        <CourseForm
-                            onSave={ onSaveCourse }
-                            onCancel={ handleCourseModalClose }/>
-                    </div>
+                    <PageContent>
+                        <div className="c-box">
+                            <CourseForm
+                                onSave={ onSaveCourse }
+                                onCancel={ handleCourseModalClose }/>
+                        </div>
+                    </PageContent>
                 </DialogContent>
             </Dialog>
             <Dialog fullScreen 
@@ -331,12 +334,14 @@ const GameForm = ({
                 onClose={ handleMarkerModalClose }>
                 <DialogTitle className={ dclasses.root } id="scroll-dialog-title">Subscribe</DialogTitle>
                 <DialogContent className={ dclasses.root }>
-                    <div className="c-box">
-                        <PlayerForm
-                            title="Add marker"
-                            onSave={ onSaveMarker }
-                            onCancel={ setMarkerModalOpen }/>
-                    </div>
+                    <PageContent>
+                        <div className="c-box">
+                            <PlayerForm
+                                title="Add marker"
+                                onSave={ onSaveMarker }
+                                onCancel={ handleMarkerModalClose }/>
+                        </div>
+                    </PageContent>
                 </DialogContent>
             </Dialog>
             <Dialog fullScreen 
@@ -347,11 +352,13 @@ const GameForm = ({
                 onClose={ handleBagModalClose }>
                 <DialogTitle className={ dclasses.root } id="scroll-dialog-title">Edit Bag</DialogTitle>
                 <DialogContent className={ dclasses.root }>
-                    <div className="c-box">
-                        <ManageBag
-                            onSave={ onSaveBag }
-                            onCancel={ handleBagModalClose }/>
-                    </div>
+                    <PageContent>
+                        <div className="c-box">
+                            <ManageBag
+                                onSave={ onSaveBag }
+                                onCancel={ handleBagModalClose }/>
+                        </div>
+                    </PageContent>
                 </DialogContent>
             </Dialog>
             {

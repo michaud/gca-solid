@@ -18,7 +18,7 @@ import deleteClub from '@golfservices/deleteClub';
 import saveResource from '@golfservices/saveResource';
 
 import golf from '@golfutils/golf-namespace';
-import { PageContainer } from '@golfstyles/page.style';
+import { PageContainer, PageContent } from '@golfstyles/page.style';
 
 import ClubTypeContext from '@golfutils/clubTypeContext';
 import ClubList from '@golf/GolfPage/children/club/ClubList';
@@ -141,7 +141,9 @@ const ManageBag = ({ onSave, onCancel }) => {
         
         return plain ? children :
         <PageContainer>
+            <PageContent>
             { children }
+            </PageContent>
         </PageContainer>;
     };
 
