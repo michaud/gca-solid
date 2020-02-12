@@ -13,7 +13,7 @@
 - implement Bag detail edit
 - sorting of clubs for display in game hole
 - implement Add marker in Select Marker or GameForm
-- implement Change Player Handicap in player update
+
 X implement Owner on Club
 X handle card#me references
 X saveMarker as savePlayer
@@ -35,3 +35,4 @@ X Should we make the game bag and clubs unique?
 X fix setstate on unmounted components
 X Fix club list display
 X Bag detail
+X implement Change Player Handicap in player update
