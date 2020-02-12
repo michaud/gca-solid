@@ -2,7 +2,6 @@
 - implement Edit course
 - implement Delete course
 - implement delete hole in edit course
-- Fix club list display
 - parse club data club type is not done
 - parsing bag data misses fields like iri & label
 - clubtype should be filled with data from club? or remove fields? 
@@ -12,7 +11,6 @@
 - game detail view
 - implement delete game
 - implement Bag detail edit
-- Bag detail
 - sorting of clubs for display in game hole
 - implement Add marker in Select Marker or GameForm
 - implement Change Player Handicap in player update
@@ -35,3 +33,5 @@ X rewrite game data so separate game files are used
 X Should we make the game bag and clubs unique?
     X the clubs in the (not game) bag can change at any time 
 X fix setstate on unmounted components
+X Fix club list display
+X Bag detail
