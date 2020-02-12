@@ -1,6 +1,6 @@
 import React from 'react';
 
-import HoleTable from '@containers/Golf/GolfPage/children/hole/HoleTable';
+import HoleTable from '@golf/GolfPage/children/hole/HoleTable';
 
 const CourseSummary = ({ course }) => {
     return (

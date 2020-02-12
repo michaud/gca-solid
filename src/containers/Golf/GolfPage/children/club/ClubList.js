@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ClubDetail from '@containers/Golf/GolfPage/children/club/ClubDetail';
+import ClubDetail from '@golf/GolfPage/children/club/ClubDetail';
 
 const ClubList = ({
     clubs = [],

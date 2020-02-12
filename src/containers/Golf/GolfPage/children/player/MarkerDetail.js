@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import displayStates from '@golfutils/displayStates';
 
-import EditActions from '@containers/Golf/components/EditActions';
-import PlayerForm from '@containers/Golf/GolfPage/children/player/PlayerForm';
+import EditActions from '@golf/components/EditActions';
+import PlayerForm from '@golf/GolfPage/children/player/PlayerForm';
 
 import {
     FlexContainer,

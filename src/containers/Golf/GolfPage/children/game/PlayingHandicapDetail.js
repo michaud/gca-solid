@@ -7,8 +7,8 @@ import playingHandicapShape from '@golfcontexts/playing-handicap-shape.json';
 import displayStates from '@golfutils/displayStates';
 import golf from '@golfutils/golf-namespace';
 
-import EditActions from '@containers/Golf/components/EditActions';
-import PLayingHandicapForm from '@containers/Golf/GolfPage/children/game/PLayingHandicapForm';
+import EditActions from '@golf/components/EditActions';
+import PLayingHandicapForm from '@golf/GolfPage/children/game/PLayingHandicapForm';
 
 import {
     FieldContainer,

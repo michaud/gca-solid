@@ -6,10 +6,10 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import GolfCourseIcon from '@material-ui/icons/GolfCourse';
 import SportsGolfIcon from '@material-ui/icons/SportsGolf';
 
-import IntroPanel from '@containers/Golf/components/IntroPanel';
-import CapIcon from '@containers/Golf/components/CapIcon';
-import BagIcon from '@containers/Golf/components/BagIcon';
-import ModuleHeader from '@containers/Golf/components/ModuleHeader';
+import IntroPanel from '@golf/components/IntroPanel';
+import CapIcon from '@golf/components/CapIcon';
+import BagIcon from '@golf/components/BagIcon';
+import ModuleHeader from '@golf/components/ModuleHeader';
 
 import { FlexContainer, FlexItem } from '@golfstyles/layout.style';
 import { PageContainer } from '@golfstyles/page.style';

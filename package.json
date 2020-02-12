@@ -128,6 +128,7 @@
             { "@utils": "./src/utils" },
             { "@hooks": "./src/hooks" }, 
             { "@constants": "./src/constants" },
+            { "@golf": "./src/containers/Golf" },
             { "@golfservices": "./src/containers/Golf/services" },
             { "@golfhooks": "./src/containers/Golf/hooks" },
             { "@golfcontexts": "./src/containers/Golf/contexts/" },

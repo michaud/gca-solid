@@ -1,6 +1,6 @@
 import React from 'react';
 
-import HoleDetail from '@containers/Golf/GolfPage/children/hole/HoleDetail';
+import HoleDetail from '@golf/GolfPage/children/hole/HoleDetail';
 
 const HoleList = ({
     holes,

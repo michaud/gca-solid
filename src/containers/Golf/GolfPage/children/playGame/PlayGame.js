@@ -7,10 +7,10 @@ import useGames from '@golfhooks/useGames';
 import addStrokeToHole from '@golfutils/addStrokeToHole';
 import useClubDefinitions from '@golfhooks/useClubDefinitions';
 
-import Alert from '@containers/Golf/components/Alert';
-import HoleNavigator from '@containers/Golf/GolfPage/children/playGame/HoleNavigator';
-import HoleHistory from '@containers/Golf/GolfPage/children/playGame/HoleHistory';
-import ClubActionList from '@containers/Golf/GolfPage/children/playGame/ClubActionList';
+import Alert from '@golf/components/Alert';
+import HoleNavigator from '@golf/GolfPage/children/playGame/HoleNavigator';
+import HoleHistory from '@golf/GolfPage/children/playGame/HoleHistory';
+import ClubActionList from '@golf/GolfPage/children/playGame/ClubActionList';
 
 import { FlexContainer } from '@golfstyles/layout.style';
 import useStyles from './PlayGame.styles';

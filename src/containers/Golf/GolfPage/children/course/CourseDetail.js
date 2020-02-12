@@ -8,8 +8,8 @@ import {
 
 import displayStates from '@golfutils/displayStates';
 
-import CourseForm from '@containers/Golf/GolfPage/children/course/CourseForm';
-import EditActions from '@containers/Golf/components/EditActions';
+import CourseForm from '@golf/GolfPage/children/course/CourseForm';
+import EditActions from '@golf/components/EditActions';
 
 const CourseDetail = ({
     course,

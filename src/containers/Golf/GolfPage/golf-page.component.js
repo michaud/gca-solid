@@ -9,8 +9,8 @@ import { StylesProvider } from '@material-ui/core/styles';
 import ClubTypeContext from '@golfutils/clubTypeContext';
 import useClubDefinitions from '@golfhooks/useClubDefinitions';
 
-import GolfApp from '@containers/Golf/GolfPage/children/GolfApp';
-import PlayGame from '@containers/Golf/GolfPage/children/playGame/PlayGame';
+import GolfApp from '@golf/GolfPage/children/GolfApp';
+import PlayGame from '@golf/GolfPage/children/playGame/PlayGame';
 
 const GolfPage = (props) => {
     

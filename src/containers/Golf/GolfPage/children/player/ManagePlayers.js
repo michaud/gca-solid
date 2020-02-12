@@ -7,10 +7,10 @@ import usePlayer from '@golfhooks/usePlayer';
 import golf from '@golfutils/golf-namespace';
 import saveResource from '@golfservices/saveResource';
 
-import Alert from '@containers/Golf/components/Alert';
-import ModuleHeader from '@containers/Golf/components/ModuleHeader';
-import ManageMarkers from '@containers/Golf/GolfPage/children/player/ManageMarkers';
-import PlayerDetail from '@containers/Golf/GolfPage/children/player/PlayerDetail';
+import Alert from '@golf/components/Alert';
+import ModuleHeader from '@golf/components/ModuleHeader';
+import ManageMarkers from '@golf/GolfPage/children/player/ManageMarkers';
+import PlayerDetail from '@golf/GolfPage/children/player/PlayerDetail';
 
 import { PageContainer } from '@golfstyles/page.style';
 

@@ -4,9 +4,9 @@ import { NavLink, Link } from 'react-router-dom';
 
 import GolfCourseIcon from '@material-ui/icons/GolfCourse';
 import SportsGolfIcon from '@material-ui/icons/SportsGolf';
-import BagIcon from '@containers/Golf/components/BagIcon';
-import AppIcon from '@containers/Golf/components/AppIcon';
-import CapIcon from '@containers/Golf/components/CapIcon';
+import BagIcon from '@golf/components/BagIcon';
+import AppIcon from '@golf/components/AppIcon';
+import CapIcon from '@golf/components/CapIcon';
 import { FlexContainer } from '@golfstyles/layout.style';
 
 const ButtonBar = () => {

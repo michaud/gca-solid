@@ -9,16 +9,16 @@ import { Snackbar } from '@material-ui/core';
 
 import useDataStructure from '@golfhooks/useDataStructure';
 
-import NavigationShell from '@containers/Golf/components/NavigationShell';
-import Alert from '@containers/Golf/components/Alert';
-import SplashScreen from '@containers/Golf/GolfPage/children/splash/SplashScreen';
-import NewGame from '@containers/Golf/GolfPage/children/newGame/NewGame';
+import NavigationShell from '@golf/components/NavigationShell';
+import Alert from '@golf/components/Alert';
+import SplashScreen from '@golf/GolfPage/children/splash/SplashScreen';
+import NewGame from '@golf/GolfPage/children/newGame/NewGame';
 
-const ManageBag = lazy(() => import('@containers/Golf/GolfPage/children/bag/ManageBag'));
-const ManageCourses = lazy(() => import('@containers/Golf/GolfPage/children/course/ManageCourses'));
-const ManagePlayers = lazy(() => import('@containers/Golf/GolfPage/children/player/ManagePlayers'));
-const ManageGames = lazy(() => import('@containers/Golf/GolfPage/children/game/ManageGames'));
-const Home = lazy(() => import('@containers/Golf/GolfPage/children/home/Home'));
+const ManageBag = lazy(() => import('@golf/GolfPage/children/bag/ManageBag'));
+const ManageCourses = lazy(() => import('@golf/GolfPage/children/course/ManageCourses'));
+const ManagePlayers = lazy(() => import('@golf/GolfPage/children/player/ManagePlayers'));
+const ManageGames = lazy(() => import('@golf/GolfPage/children/game/ManageGames'));
+const Home = lazy(() => import('@golf/GolfPage/children/home/Home'));
 
 const GolfApp = ({ webId }) => {
 

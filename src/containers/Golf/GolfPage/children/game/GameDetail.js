@@ -4,13 +4,13 @@ import { format } from 'date-fns'
 import golf from '@golfutils/golf-namespace';
 import gameShape from '@golfcontexts/game-shape.json';
 import displayStates from '@golfutils/displayStates';
-import EditActions from '@containers/Golf/components/EditActions';
-import GameForm from '@containers/Golf/GolfPage/children/game/GameForm';
-import HoleTable from '@containers/Golf/GolfPage/children/hole/HoleTable';
-import BagDetail from '@containers/Golf/GolfPage/children/game/BagDetail';
-import PlayerDetail from '@containers/Golf/GolfPage/children/player/PlayerDetail';
-import PlayingHandicapDetail from '@containers/Golf/GolfPage/children/game/PlayingHandicapDetail';
-import CourseSummary from '@containers/Golf/GolfPage/children/course/CourseSummary';
+import EditActions from '@golf/components/EditActions';
+import GameForm from '@golf/GolfPage/children/game/GameForm';
+import HoleTable from '@golf/GolfPage/children/hole/HoleTable';
+import BagDetail from '@golf/GolfPage/children/game/BagDetail';
+import PlayerDetail from '@golf/GolfPage/children/player/PlayerDetail';
+import PlayingHandicapDetail from '@golf/GolfPage/children/game/PlayingHandicapDetail';
+import CourseSummary from '@golf/GolfPage/children/course/CourseSummary';
 
 import {
     FlexContainer,

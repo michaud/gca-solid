@@ -14,10 +14,10 @@ import ClubTypeContext from '@golfutils/clubTypeContext';
 import golf from '@golfutils/golf-namespace';
 import saveGameResourse from '@golfservices/saveGameResourse';
 
-import ModuleHeader from '@containers/Golf/components/ModuleHeader';
-import GameList from '@containers/Golf/GolfPage/children/game/GameList';
-import Alert from '@containers/Golf/components/Alert';
-import IntroPanel from '@containers/Golf/components/IntroPanel';
+import ModuleHeader from '@golf/components/ModuleHeader';
+import GameList from '@golf/GolfPage/children/game/GameList';
+import Alert from '@golf/components/Alert';
+import IntroPanel from '@golf/components/IntroPanel';
 
 import { PageContainer } from '@golfstyles/page.style';
 import { FlexContainer, FlexItem } from '@golfstyles/layout.style';

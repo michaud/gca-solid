@@ -10,11 +10,11 @@ import saveResource from '@golfservices/saveResource';
 
 import golf from '@golfutils/golf-namespace';
 
-import Alert from '@containers/Golf/components/Alert';
-import ModuleHeader from '@containers/Golf/components/ModuleHeader';
+import Alert from '@golf/components/Alert';
+import ModuleHeader from '@golf/components/ModuleHeader';
 
-import CourseList from '@containers/Golf/GolfPage/children/course/CourseList';
-import CourseForm from '@containers/Golf/GolfPage/children/course/CourseForm';
+import CourseList from '@golf/GolfPage/children/course/CourseList';
+import CourseForm from '@golf/GolfPage/children/course/CourseForm';
 
 const ManageCourses = () => {
 

@@ -4,8 +4,8 @@ import playerShape from '@golfcontexts/player-shape.json';
 import displayStates from '@golfutils/displayStates';
 
 import getFieldDisplayData from '@golfutils/getFieldDisplayData';
-import EditActions from '@containers/Golf/components/EditActions';
-import PlayerForm from '@containers/Golf/GolfPage/children/player/PlayerForm';
+import EditActions from '@golf/components/EditActions';
+import PlayerForm from '@golf/GolfPage/children/player/PlayerForm';
 
 import {
     FieldContainer,

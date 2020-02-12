@@ -12,9 +12,9 @@ import useGames from '@golfhooks/useGames';
 import ClubTypeContext from '@golfutils/clubTypeContext';
 import golf from '@golfutils/golf-namespace';
 
-import Alert from '@containers/Golf/components/Alert';
-import ModuleHeader from '@containers/Golf/components/ModuleHeader';
-import GameForm from '@containers/Golf/GolfPage/children/game/GameForm';
+import Alert from '@golf/components/Alert';
+import ModuleHeader from '@golf/components/ModuleHeader';
+import GameForm from '@golf/GolfPage/children/game/GameForm';
 
 import { PageContainer } from '@golfstyles/page.style';
 

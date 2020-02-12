@@ -25,10 +25,10 @@ import { putClubsInBag } from '@golfutils/putClubsInBag';
 import golf from '@golfutils/golf-namespace';
 import saveResource from '@golfservices/saveResource';
 
-import Alert from '@containers/Golf/components/Alert';
-import CourseForm from '@containers/Golf/GolfPage/children/course/CourseForm';
-import PlayerForm from '@containers/Golf/GolfPage/children/player/PlayerForm';
-import ManageBag from '@containers/Golf/GolfPage/children/bag/ManageBag';
+import Alert from '@golf/components/Alert';
+import CourseForm from '@golf/GolfPage/children/course/CourseForm';
+import PlayerForm from '@golf/GolfPage/children/player/PlayerForm';
+import ManageBag from '@golf/GolfPage/children/bag/ManageBag';
 
 import formStyles from '@golfstyles/form.style';
 

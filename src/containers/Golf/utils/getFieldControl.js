@@ -7,14 +7,14 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 
-import ManageHoles from "@containers/Golf/GolfPage/children/hole/ManageHoles";
-import ClubTypeSelector from '@containers/Golf/GolfPage/children/club/ClubTypeSelector';
-import DateTimeSelector from '@containers/Golf/GolfPage/children/game/DateTimeSelector';
-import BagDetail from '@containers/Golf/GolfPage/children/game/BagDetail';
-import PlayerUpdate from '@containers/Golf/GolfPage/children/game/PlayerUpdate';
-import SelectMarker from '@containers/Golf/GolfPage/children/game/SelectMarker';
-import PlayingHandicapDetail from '@containers/Golf/GolfPage/children/game/PlayingHandicapDetail';
-import SelectCourse from '@containers/Golf/GolfPage/children/game/SelectCourse';
+import ManageHoles from "@golf/GolfPage/children/hole/ManageHoles";
+import ClubTypeSelector from '@golf/GolfPage/children/club/ClubTypeSelector';
+import DateTimeSelector from '@golf/GolfPage/children/game/DateTimeSelector';
+import BagDetail from '@golf/GolfPage/children/game/BagDetail';
+import PlayerUpdate from '@golf/GolfPage/children/game/PlayerUpdate';
+import SelectMarker from '@golf/GolfPage/children/game/SelectMarker';
+import PlayingHandicapDetail from '@golf/GolfPage/children/game/PlayingHandicapDetail';
+import SelectCourse from '@golf/GolfPage/children/game/SelectCourse';
 
 const getFieldControl = ({
     data,

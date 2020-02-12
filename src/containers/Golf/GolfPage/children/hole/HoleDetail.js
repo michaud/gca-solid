@@ -4,8 +4,8 @@ import holeShape from '@golfcontexts/hole-shape.json';
 import getFieldDisplayData from '@golfutils/getFieldDisplayData';
 import displayStates from '@golfutils/displayStates';
 
-import EditActions from '@containers/Golf/components/EditActions';
-import HoleForm from '@containers/Golf/GolfPage/children/hole/HoleForm';
+import EditActions from '@golf/components/EditActions';
+import HoleForm from '@golf/GolfPage/children/hole/HoleForm';
 
 import {
     FieldContainer,

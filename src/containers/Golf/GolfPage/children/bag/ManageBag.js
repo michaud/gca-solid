@@ -21,11 +21,11 @@ import golf from '@golfutils/golf-namespace';
 import { PageContainer } from '@golfstyles/page.style';
 
 import ClubTypeContext from '@golfutils/clubTypeContext';
-import ClubList from '@containers/Golf/GolfPage/children/club/ClubList';
-import ModuleHeader from '@containers/Golf/components/ModuleHeader';
-import BagTransferList from '@containers/Golf/GolfPage/children/bag/BagTransferList';
-import Alert from '@containers/Golf/components/Alert';
-import ClubForm from '@containers/Golf/GolfPage/children/club/ClubForm';
+import ClubList from '@golf/GolfPage/children/club/ClubList';
+import ModuleHeader from '@golf/components/ModuleHeader';
+import BagTransferList from '@golf/GolfPage/children/bag/BagTransferList';
+import Alert from '@golf/components/Alert';
+import ClubForm from '@golf/GolfPage/children/club/ClubForm';
 
 import {
     FlexContainer,

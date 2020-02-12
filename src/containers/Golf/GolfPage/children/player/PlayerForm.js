@@ -7,7 +7,7 @@ import getFieldValue from '@golfutils/getFieldValue';
 import checkCanSave from '@golfutils/checkCanSave';
 import getFieldControl from '@golfutils/getFieldControl';
 import playerShape from '@golfcontexts/player-shape';
-import setupDataObject from '@containers/Golf/utils/setupDataObject';
+import setupDataObject from '@golf/utils/setupDataObject';
 
 import {
     FlexContainer,

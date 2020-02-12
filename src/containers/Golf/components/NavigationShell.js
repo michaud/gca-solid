@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import ButtonBar from '@containers/Golf/components/ButtonBar';
+import ButtonBar from '@golf/components/ButtonBar';
 import { FlexContainer } from '@golfstyles/layout.style';
 
 const Container = styled.div`

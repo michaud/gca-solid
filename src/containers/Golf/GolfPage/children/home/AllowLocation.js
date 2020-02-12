@@ -4,7 +4,7 @@ import { Button, ButtonBase } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import LocationIcon from '@material-ui/icons/LocationOn';
-import IntroPanel from '@containers/Golf/components/IntroPanel';
+import IntroPanel from '@golf/components/IntroPanel';
 
 import { makeStyles } from '@material-ui/core';
 import { FlexContainer, FlexItem } from '@golfstyles/layout.style';
