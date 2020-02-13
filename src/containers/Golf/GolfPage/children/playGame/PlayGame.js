@@ -14,6 +14,7 @@ import ClubActionList from '@golf/GolfPage/children/playGame/ClubActionList';
 
 import { FlexContainer } from '@golfstyles/layout.style';
 import useStyles from './PlayGame.styles';
+import ButtonBar from '@containers/Golf/components/ButtonBar';
 
 const PlayGame = ({
     match
@@ -76,12 +77,17 @@ const PlayGame = ({
     const clubs = gameData && gameData.game.gameBag.value.clubs.value;
 
     return (
-        <div style={{ position: 'relative' }}>
-            <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
-                <HoleNavigator holes={ gameData && gameData.game.gameCourse.value.courseHoles.value } onChangeHole={ onChangeHoleHandler } />
-                { gameListDataIsLoading && <LinearProgress classes={ classes } variant="indeterminate" /> }
-                <HoleHistory hole={ currHole } />
-                <ClubActionList clubs={ clubs } onAction={ onClubActionHandler }/>
+        <>
+            <FlexContainer style={{ position: 'relative' }} vertical alignitems="stretch" flex="1">
+                <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
+                    <HoleNavigator holes={ gameData && gameData.game.gameCourse.value.courseHoles.value } onChangeHole={ onChangeHoleHandler } />
+                    { gameListDataIsLoading && <LinearProgress classes={ classes } variant="indeterminate" /> }
+                    <HoleHistory hole={ currHole } />
+                    <ClubActionList clubs={ clubs } onAction={ onClubActionHandler }/>
+                </FlexContainer>
+                <div className="c-btn-bar__container">
+                    <ButtonBar bare={ true }/>
+                </div>
             </FlexContainer>
             <Snackbar
                 open={ snackOpen }
@@ -92,7 +98,7 @@ const PlayGame = ({
                     Game data did not load
                 </Alert>
             </Snackbar>
-        </div>
+        </>
     );
 };
 
