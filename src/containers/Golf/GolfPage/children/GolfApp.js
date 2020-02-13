@@ -12,13 +12,14 @@ import useDataStructure from '@golfhooks/useDataStructure';
 import NavigationShell from '@golf/components/NavigationShell';
 import Alert from '@golf/components/Alert';
 import SplashScreen from '@golf/GolfPage/children/splash/SplashScreen';
-import NewGame from '@golf/GolfPage/children/newGame/NewGame';
 
+const Home = lazy(() => import('@golf/GolfPage/children/home/Home'));
 const ManageBag = lazy(() => import('@golf/GolfPage/children/bag/ManageBag'));
+const PlayGame = lazy(() => import('@golf/GolfPage/children/playGame/PlayGame'));
 const ManageCourses = lazy(() => import('@golf/GolfPage/children/course/ManageCourses'));
 const ManagePlayers = lazy(() => import('@golf/GolfPage/children/player/ManagePlayers'));
 const ManageGames = lazy(() => import('@golf/GolfPage/children/game/ManageGames'));
-const Home = lazy(() => import('@golf/GolfPage/children/home/Home'));
+const NewGame = lazy(() => import('@golf/GolfPage/children/newGame/NewGame'));
 
 const GolfApp = ({ webId }) => {
 
@@ -53,7 +54,8 @@ const GolfApp = ({ webId }) => {
         setSnackOpen(false);
     };
 
-    return <div id="app-container">
+    return (
+        <div id="app-container">
             <Snackbar
                 open={ snackOpen }
                 autoHideDuration={ 4000 }
@@ -63,46 +65,50 @@ const GolfApp = ({ webId }) => {
                     Data did not load
                 </Alert>
             </Snackbar>
-        <Route render={ (props) => {
+            <Route render={ (props) => {
 
-            return (
-                <Switch location={ props.location }>
-                    <Route exact path="/golf"
-                        render={ routerProps => <SplashScreen completed={ completed }
-                            { ...routerProps }
-                            webId={ webId }/> }/>
-                    <NavigationShell>
-                        <Switch location={ props.location }>
-                            <Route path="/golf/settings/" exact
-                                render={ routerProps => <Home 
-                                    { ...routerProps }
-                                    { ...dataStructure } /> }/>
-                            <Route path="/golf/settings/bag"
-                                render={ routerProps => <ManageBag
-                                    { ...routerProps }
-                                    webId={ webId } /> }/>
-                            <Route path="/golf/settings/courses"
-                                render={ (routerProps) => <ManageCourses
-                                    { ...routerProps }
-                                    webId={ webId }/> }/>
-                            <Route path="/golf/settings/players"
-                                render={ (routerProps) => <ManagePlayers
-                                    { ...routerProps }
-                                    webId={ webId }/> }/>
-                            <Route path="/golf/settings/games/new" exact
-                                render={ (routerProps) => <NewGame
-                                    { ...routerProps }
-                                    webId={ webId }/> }/>
-                            <Route path="/golf/settings/games"
-                                render={ (routerProps) => <ManageGames
-                                    { ...routerProps }
-                                    webId={ webId }/> }/>
-                        </Switch>
-                    </NavigationShell>
-                </Switch>
-            )
-        }} />
-    </div>;
+                return (
+                    <Switch location={ props.location }>
+                        <Route exact path="/golf"
+                            render={ routerProps => <SplashScreen completed={ completed }
+                                { ...routerProps }
+                                webId={ webId }/> }/>
+                        <Route
+                            path="/golf/game/:gameid"
+                            render={ routerProps => <PlayGame { ...routerProps } webId={ webId } /> }/>
+                        <NavigationShell>
+                            <Switch location={ props.location }>
+                                <Route path="/golf/settings/" exact
+                                    render={ routerProps => <Home 
+                                        { ...routerProps }
+                                        { ...dataStructure } /> }/>
+                                <Route path="/golf/settings/bag"
+                                    render={ routerProps => <ManageBag
+                                        { ...routerProps }
+                                        webId={ webId } /> }/>
+                                <Route path="/golf/settings/courses"
+                                    render={ (routerProps) => <ManageCourses
+                                        { ...routerProps }
+                                        webId={ webId }/> }/>
+                                <Route path="/golf/settings/players"
+                                    render={ (routerProps) => <ManagePlayers
+                                        { ...routerProps }
+                                        webId={ webId }/> }/>
+                                <Route path="/golf/settings/games/new" exact
+                                    render={ (routerProps) => <NewGame
+                                        { ...routerProps }
+                                        webId={ webId }/> }/>
+                                <Route path="/golf/settings/games"
+                                    render={ (routerProps) => <ManageGames
+                                        { ...routerProps }
+                                        webId={ webId }/> }/>
+                            </Switch>
+                        </NavigationShell>
+                    </Switch>
+                )
+            }} />
+        </div>
+    );
 };
 
 export default GolfApp;

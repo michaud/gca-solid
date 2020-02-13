@@ -1,8 +1,6 @@
 import React from 'react';
 
-import './../scss/_style.scss';
-
-import { Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import { StylesProvider } from '@material-ui/core/styles';
 
@@ -10,7 +8,8 @@ import ClubTypeContext from '@golfutils/clubTypeContext';
 import useClubDefinitions from '@golfhooks/useClubDefinitions';
 
 import GolfApp from '@golf/GolfPage/children/GolfApp';
-import PlayGame from '@golf/GolfPage/children/playGame/PlayGame';
+
+import './../scss/_style.scss';
 
 const GolfPage = (props) => {
     
@@ -20,15 +19,9 @@ const GolfPage = (props) => {
 
     return (<StylesProvider>
             <ClubTypeContext.Provider value={ clubTypeDefinitions }>
-                <Route>
-                    <Switch>
-                        <Route path="/golf/game/:gameid" render={ routerProps => <PlayGame { ...routerProps } webId={ webId } /> }/>
-                        <Route
-                            path="/golf"
-                            webId={ webId }
-                            render={routerProps => <GolfApp { ...routerProps } webId={ webId } />}/>
-                    </Switch>
-                </Route>
+                <Route
+                    path="/golf"
+                    render={routerProps => <GolfApp { ...routerProps } webId={ webId } />}/>
             </ClubTypeContext.Provider>
         </StylesProvider>
     );
