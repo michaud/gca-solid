@@ -1,7 +1,7 @@
 import saveResource from "@golfservices/saveResource";
 import golf from "@golfutils/golf-namespace";
 
-const saveHoleToGame = ({ hole, doc }) => {
+const saveHoleToGame = async ({ hole, doc }) => {
 
     saveResource({
         element: hole,
@@ -9,7 +9,7 @@ const saveHoleToGame = ({ hole, doc }) => {
         type: golf.classes.GameHole
     });
 
-    doc.save();
+    await doc.save();
 };
 
 export default saveHoleToGame;

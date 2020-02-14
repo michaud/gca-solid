@@ -32,7 +32,14 @@ const HoleForm = ({
     const focusRef = useRef();
     const classes = formStyles();
     const { t } = useTranslation();
-    const holeFields = [];
+
+    useEffect(() => {
+
+        holeData ? setHoleState(holeData) : setHoleState(setupDataObject(holeShape, {
+            holeNumber
+        }));
+
+    }, [holeData, holeNumber]);
 
     const saveHandler = () => {
 
@@ -55,6 +62,8 @@ const HoleForm = ({
         }));
     };
 
+    const holeFields = [];
+
     if(holeState) {
 
         let index = 0;
@@ -73,14 +82,6 @@ const HoleForm = ({
             holeFields.push(fieldControl);
         });
     }
-
-    useEffect(() => {
-
-        holeData ? setHoleState(holeData) : setHoleState(setupDataObject(holeShape, {
-            holeNumber
-        }));
-
-    }, [holeData, holeNumber]);
 
     const canSave = checkCanSave(holeState, holeShape);
 

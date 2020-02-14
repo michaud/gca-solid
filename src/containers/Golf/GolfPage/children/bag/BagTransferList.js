@@ -172,9 +172,9 @@ const BagTransferList = ({
 
             const filteredClubs = clubs.reduce((acc, club) => {
 
-                const ref = club.iri.split('#')[1];
+                const iri = club.iri.split('#')[1];
 
-                const bagClub = bag.find(obj => obj.ref === ref);
+                const bagClub = bag.find(testIri => testIri.ref === iri);
 
                 if(bagClub) {
 

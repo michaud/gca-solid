@@ -15,6 +15,7 @@ import PlayerUpdate from '@golf/GolfPage/children/game/PlayerUpdate';
 import SelectMarker from '@golf/GolfPage/children/game/SelectMarker';
 import PlayingHandicapDetail from '@golf/GolfPage/children/game/PlayingHandicapDetail';
 import SelectCourse from '@golf/GolfPage/children/game/SelectCourse';
+import { FlexContainer } from '../styles/layout.style';
 
 const getFieldControl = ({
     data,
@@ -91,6 +92,35 @@ const getFieldControl = ({
                         }
                     </Select>
                 </FormControl>;
+            }
+
+            if(data.predicate === 'gameMarkerStrokeCount') {
+
+                const strokes = [1,2,3,4,5,6,7,8,9,10]
+
+                return (
+                    <div key={ idx } style={{ padding: '0 1rem 1rem 1rem' }}>
+                        <FlexContainer alignitems="center">
+                            <div style={{ flex: 1, textAlign: 'right', paddingRight: '1rem' }}>{ data.label }</div>
+                            <FormControl required variant="outlined" style={{ margin: 0 }} className={ styles.SIselect } key={ idx }>
+                                <Select
+                                    labelId="holeStrokeIndex"
+                                    label={ data.label }
+                                    value={ parseInt(data.value) > 0 ? parseInt(data.value) : '' }
+                                    onChange={ onChange(data) }>
+                                    {
+                                        strokes
+                                            .map((SI, idx) => <MenuItem
+                                                key={ idx }
+                                                value={ SI }>
+                                                    { SI }
+                                                </MenuItem>)
+                                    }
+                                </Select>
+                            </FormControl>
+                        </FlexContainer>
+                    </div>
+                )
             }
 
             return <TextField key={ idx }

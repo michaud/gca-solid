@@ -94,6 +94,7 @@ const useGames = (clubTypes, clubType, initialReload, gameId) => {
                             }));
 
                             if(!didCancel) setIsLoading(false);
+                            if(!didCancel) setReload(false);
 
                             return;
                         }
@@ -110,13 +111,14 @@ const useGames = (clubTypes, clubType, initialReload, gameId) => {
                         );
 
                         if(!didCancel) setIsLoading(false);
+                        if(!didCancel) setReload(false);
                         if(!didCancel) setGameListData({ list, doc });
                     }
 
                 } catch (error) { if(!didCancel) setIsError(true) }
             }
         };
-    
+
         if(!didCancel) setIsLoading(true);
     
         loadData();

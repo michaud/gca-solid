@@ -2,11 +2,11 @@ import golf from '@golfutils/golf-namespace';
 
 const getBagClubs = async (doc) => {
 
-    const quads = doc.getTriples();
-    const clubRefs = quads.filter(item => item.predicate.value === golf.properties.clubs);
+    const bags = doc.getSubjectsOfType(golf.classes.Bag);
+    const clubRefs = bags[0].getAllRefs(golf.properties.clubs);
 
     const list = clubRefs.map(club => ({
-        ref: club.object.value.split('#')[1]
+        ref: club.split('#')[1]
     }))
     
     return list;

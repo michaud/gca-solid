@@ -60,6 +60,14 @@
         },
         {
             "prefix": "golf",
+            "predicate": "gameMarkerStrokeCount",
+            "type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+            "required": false,
+            "label": "Marker score",
+            "value": 0
+        },
+        {
+            "prefix": "golf",
             "predicate": "gameStrokes",
             "type": "https://michaud.inrupt.net/public/golf/Stroke",
             "required": false,
