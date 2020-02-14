@@ -95,7 +95,7 @@ const ManageGames = () => {
                 onClose={ handleSnackClose }
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
                 <Alert onClose={ handleSnackClose } severity="error">
-                    Game data did not load
+                    Game List data did not load
                 </Alert>
             </Snackbar>
             <PageContainer>

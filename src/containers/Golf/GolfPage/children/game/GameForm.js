@@ -370,7 +370,7 @@ const GameForm = ({
                         onClose={ handleSnackClose }
                         anchorOrigin={{ vertical:'top', horizontal: 'center' }}>
                         <Alert onClose={ handleSnackClose } severity="error">
-                            Game data did not load
+                            Game form data did not load
                         </Alert>
                     </Snackbar>
                     { gameFields }

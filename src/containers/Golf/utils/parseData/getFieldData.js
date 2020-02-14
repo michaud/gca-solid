@@ -96,6 +96,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
             const [parentFieldType, clubTypes = [], clubType = []] = rest;
 
+            //holes of a game course
             if(predicate === golf.properties.courseHoles && parentFieldType === golf.properties.gameCourse) {
 
                 fieldData = getFieldTypeData[type](doc)(data, label, fieldValue, parentFieldType, clubTypes, clubType);

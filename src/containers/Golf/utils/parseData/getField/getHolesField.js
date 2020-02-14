@@ -12,8 +12,9 @@ const getHolesField = doc => (data, label, defaultValue, parentField, clubTypes,
         const shape = parentField && parentField === golf.properties.gameCourse ? gameHoleShape : holeShape;
         const holeIds = data.getAllRefs(golf.properties.courseHoles);
         const holeRefs = holeIds.map(id => doc.getSubject(id));
-        const holes = holeRefs.map(parseFields(shape, doc, clubTypes, clubType))
-            .sort((a,b) => a.holeNumber.value - b.holeNumber.value);
+        const holes = holeRefs.map(
+                parseFields(shape, doc, clubTypes, clubType)
+            ).sort((a,b) => a.holeNumber.value - b.holeNumber.value);
         value = holes;
     }
 
