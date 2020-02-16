@@ -12,13 +12,11 @@ body,
 }
 
 body {
-  color: #666;
-  font-size: 1.25rem;
+  color: rgb(55,51,31)
 }
 
 a {
-  color: #666;
-  text-decoration: none;
+
 }
 
 a svg-inline--fa {
@@ -62,10 +60,6 @@ ul li {
 .link:hover,
 .link-button:hover {
   text-decoration: none;
-}
-
-* {
-  font-family: 'Raleway', sans-serif;
 }
 
 .form-group {

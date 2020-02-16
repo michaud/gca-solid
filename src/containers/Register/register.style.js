@@ -21,7 +21,6 @@ export const PanelHeader = styled.div`
     position: relative;
     padding: 0;
     color: #5361fd;
-    font-family: Raleway;
     font-size: 20px;
     font-weight: bold;
     letter-spacing: 0.75px;

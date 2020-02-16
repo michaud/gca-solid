@@ -14,10 +14,10 @@
     .c-intro-panel__content {
 
         width: 100%;
-        padding-right: .75rem;
+        padding-right: 0;
         p {
             margin: 0 0 0 0;
-            font-size: .9rem;
+            font-size: 1.1rem;
         }
     }
 
@@ -38,7 +38,7 @@
 
 .action-intro {
 
-    margin: 1.2rem 0 1rem 1rem;
+    margin: 1.2rem 1rem 1rem 1rem;
     
     &.MuiSvgIcon-root {
 

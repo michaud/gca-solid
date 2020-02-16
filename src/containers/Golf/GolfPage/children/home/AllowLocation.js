@@ -163,7 +163,7 @@ const AllowLocation = () => {
             </ButtonBase>
             {
                 open ?
-                <div className="c-box">
+                <div className="c-box c-box--belly">
                     <div className="c-box">
                         <p>When playing on the course You can save the location of a stroke. The app needs your consent to retrieve that data from the browser.</p>
                         <p>The data will be saved in your solid pod and not anywhere else!</p>
