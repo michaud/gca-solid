@@ -23,16 +23,16 @@
         },
         {
             "prefix": "golf",
-            "predicate": "gameMarker",
-            "type": "https://michaud.inrupt.net/public/golf/Marker",
-            "label": "Marker",
+            "predicate": "gamePlayer",
+            "type": "https://michaud.inrupt.net/public/golf/Player",
+            "label": "Player",
             "value": ""
         },
         {
             "prefix": "golf",
-            "predicate": "gamePlayer",
-            "type": "https://michaud.inrupt.net/public/golf/Player",
-            "label": "Player",
+            "predicate": "gameMarker",
+            "type": "https://michaud.inrupt.net/public/golf/Marker",
+            "label": "Marker",
             "value": ""
         },
         {
