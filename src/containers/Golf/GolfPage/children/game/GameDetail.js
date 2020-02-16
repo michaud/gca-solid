@@ -72,6 +72,7 @@ const getDisplayField = (data, handlers, idx) => {
 
             return (
                 <PlayerDetail key={ idx }
+                    target="Marker"
                     player={ data.value }/>
             );
         }
@@ -117,13 +118,6 @@ const GameDetail = ({
     const editHoleHandler = index => {
 
     };
-    
-    if(!gameData.game.iri) return <GameForm
-        title={ `Create game` }
-        actionLabel={ `Save game` }
-        onSave={ onSaveHandler }
-        onCancel={ cancelEdit }
-        game={ gameData.game }/>;
 
     if(displayState === displayStates.edit) return <GameForm
         title={ `Edit game` }

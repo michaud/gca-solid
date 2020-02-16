@@ -64,7 +64,7 @@ const PlayerUpdate = ({
     
     return (
         <div className="c-box">
-            <header className="c-header--sec">{ title }</header>
+            <header className="c-header nudge">{ title }</header>
             <div className="c-box">
                 <FlexContainer>
                     <FlexItemLabel>Name</FlexItemLabel>

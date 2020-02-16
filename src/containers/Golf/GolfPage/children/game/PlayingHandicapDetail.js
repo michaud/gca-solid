@@ -83,7 +83,7 @@ const PlayingHandicapDetail = ({ handicap, onChange }) => {
 
     return (
         <div className="c-box">
-            <header className="c-header--sec">Playing handicap</header>
+            <header className="c-header nudge">Playing handicap</header>
             <FieldContainer>
                 <FlexContainer>
                     <FlexItemData>

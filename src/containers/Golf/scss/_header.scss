@@ -1,21 +1,20 @@
 .c-header {
 
     margin: 0 0 1rem 0;
-    font-weight: bold;
-}
+    font-family: "archivo_narrowsemibold";
+    font-size: 1.25rem;
 
-.c-header--sec {
+    &.nudge {
+        margin: 0 0 .5rem 0;
+    }
 
-    margin: 0 0 .5rem 0;
-    font-weight: bold;
-    font-size: 1rem;
-}
+    .push {
+        margin: 0 0 1rem 0;
+    }
 
-.c-header--push {
-
-    margin: 0 0 1.5rem 0;
-    font-weight: bold;
-    font-size: 1rem;
+    .shove {
+        margin: 0 0 1.5rem 0;
+    }
 }
 
 .hole-list--item {
@@ -42,7 +41,7 @@
     font-family: $header-font-stack;
     font-weight: normal;
     color: rgba(255,255,255,.75);
-    font-size: 1.5rem;
+    font-size: 1.55rem;
 }
 
 .header--action__text {

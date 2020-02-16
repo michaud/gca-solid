@@ -39,7 +39,7 @@ const MarkerSelector = ({
 
     return (
         <>
-            <header className="c-header--sec">Select marker</header>
+            <header className="c-header nudge">Select marker</header>
             <Grid container className={ classesmui.root }>
                 <Grid item className={ classesmui.gridItem }>
                     <Paper className={ classes.listContainer }>

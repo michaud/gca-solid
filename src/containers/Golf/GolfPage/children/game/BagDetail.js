@@ -31,7 +31,7 @@ const BagDetail = ({
 
     return (
         <div className="c-box">
-            <header className="c-header--sec">Bag</header>
+            <header className="c-header nudge">Bag</header>
             <div className="c-box">
             <ol className="plain-list bag-summary-list">
             {

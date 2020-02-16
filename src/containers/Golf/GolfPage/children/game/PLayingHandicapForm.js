@@ -61,7 +61,7 @@ const PLayingHandicapForm = ({
 
     return (
         <div className="c-box">
-            <header className="c-header--sec">Playing handicap</header>
+            <header className="c-header push">Playing handicap</header>
             { handicapFields }
         </div>
     );

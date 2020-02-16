@@ -49,8 +49,8 @@ const GameForm = ({
     game,
     onSave,
     onCancel,
-    title ='Add game',
-    actionLabel = 'add game'
+    title = '',
+    actionLabel = 'Save game'
 }) => {
 
     const classes = formStyles();
@@ -363,7 +363,7 @@ const GameForm = ({
             </Dialog>
             {
                 gameState && <div className="f-form-field">
-                    <header className="c-header">{ title }</header>
+                    { title ? <header className="c-header">{ title }</header> : null }
                     <Snackbar
                         open={ snackOpen }
                         autoHideDuration={ 4000 }

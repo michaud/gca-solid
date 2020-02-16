@@ -82,7 +82,7 @@ const PlayerDetail = ({
     
         return (
             <>
-                <header className="c-header--sec">{ target }</header>
+                <header className="c-header nudge">{ target }</header>
                 <FieldContainer>
                     <FlexContainer>
                         <FlexItemData>

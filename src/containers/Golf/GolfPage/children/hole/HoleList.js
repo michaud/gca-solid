@@ -11,7 +11,7 @@ const HoleList = ({
 
     return (
         <>
-            <header className="c-header--sec">{ listTitle }</header>
+            <header className="c-header nudge">{ listTitle }</header>
             {
                 holes.length > 0 ? holes.map((hole, index) => <HoleDetail
                     key={ index }
