@@ -36,3 +36,15 @@ X fix setstate on unmounted components
 X Fix club list display
 X Bag detail
 X implement Change Player Handicap in player update
+
+
+comments
+- solid & inrupt logo hex265 imported in build
+- why 26Kb (15Kb) worth of guids(?) in build
+    - @shexjs shex-loader-browserify.js solid-react-components
+- mimetype list 132Kb (19Kb)
+     -@shexjs shex-loader-browserify.js
+- list of suspect? domain names 122Kb (34Kb)
+    - tough-cookie uses psl
+- moment complete is big 540 Kb (75Kb)
+- fontawesome is big 1.203Kb (370Kb)
