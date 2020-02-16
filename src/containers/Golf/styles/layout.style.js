@@ -27,7 +27,10 @@ export const FlexItem = styled.div`
     flex:${props => props.narrow ? "0" : "1"};
     align-items: ${props => props.alignitems ? props.alignitems : "normal"};
 `;
-export const FlexItemLabel = styled.div`min-width: 10rem;`;
+export const FlexItemLabel = styled.div`
+    min-width: 7rem;
+    padding-right: 1rem;
+`;
 export const FlexItemValue = styled.div`
     flex: 1;
     align-items: ${props => props.alignitems ? props.alignitems : "normal"};
