@@ -23,13 +23,14 @@ const useStyles = makeStyles(theme => ({
 
 const MarkerSelector = ({
     markers = [],
-    onSelect
+    onSelect,
+    selected
 }) => {
 
     const classes = formStyles();
     const classesmui = useStyles();
 
-    const [selectedMarker, setSelectedMarker] = useState();
+    const [selectedMarker, setSelectedMarker] = useState(selected);
 
     const handleListItemClick = marker => () => {
 
@@ -50,12 +51,14 @@ const MarkerSelector = ({
                         {
                             markers && markers.map((marker, idx) => {
 
+                                const isSelected = marker !== undefined && selectedMarker !== undefined && (selectedMarker.iri.split("#")[1] === marker.iri.split("#")[1]);
+
                                 return <ListItem
                                     key={ idx }
                                     className={ classes.listItem }
                                     role="listitem"
                                     button
-                                    selected={ selectedMarker === marker }
+                                    selected={ isSelected }
                                     onClick={ handleListItemClick(marker) }>
                                     <ListItemText
                                         primary={ `${ marker.givenName.value } ${ marker.familyName.value }` }

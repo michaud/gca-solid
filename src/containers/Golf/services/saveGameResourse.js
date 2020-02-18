@@ -5,27 +5,25 @@ import saveResource from "@golfservices/saveResource";
 import paths from "@golfconstants/paths";
 import golf from "@golfutils/golf-namespace";
 import fetchProfile from "@golfservices/fetchProfile";
+import fetchResource from "./fetchResource";
 
-const saveGameResourse = async ({
-    resource,
-    doc: sourceDoc,
-    type
-}) => {
+const getGameDocument = async (resource, list) => {
 
-    let doc = sourceDoc;
-    
-    if(resource.iri === '') doc = await createGameDoc(sourceDoc); 
+    let doc;
 
-    saveResource({
-        resource,
-        doc,
-        type
-    })
+    if(resource.iri === '') {
+        
+        doc = await createGameDoc(list);
+
+    } else {
+
+        doc = await fetchResource(resource.iri);
+    }
+
+    return doc;
 };
 
-export default saveGameResourse;
-
-const createGameDoc = async (doc) => {
+const createGameDoc = async listDoc => {
 
     const profile = await fetchProfile();
     const storage = profile.getRef(space.storage);
@@ -33,10 +31,27 @@ const createGameDoc = async (doc) => {
 
     const gameDoc = await createDocument(url).save();
 
-    const subject = doc.addSubject();
+    const subject = listDoc.addSubject();
     subject.addRef(golf.classes.Game, gameDoc.asRef());
 
-    await doc.save();
+    await listDoc.save();
 
     return gameDoc;
 }
+
+const saveGameResourse = async ({
+    resource,
+    list,
+    type
+}) => {
+
+    const doc = await getGameDocument(resource, list);
+
+    saveResource({
+        resource,
+        doc,
+        type
+    });
+};
+
+export default saveGameResourse;

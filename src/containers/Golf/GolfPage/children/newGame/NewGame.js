@@ -68,7 +68,7 @@ const NewGame = () => {
 
         await saveGameResourse({
             resource: game,
-            doc: gameListData.doc,
+            list: gameListData.doc,
             type: golf.classes.Game
         });
 

@@ -33,7 +33,7 @@ const ManageGames = () => {
         gameListData,
         isLoading: gameListDataIsLoading,
         isError: gameListDataIsError
-    }] = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    }, reloadGameList ] = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload);
 
     useEffect(() => {
 
@@ -67,11 +67,12 @@ const ManageGames = () => {
 
         saveGameResourse({
             resource: game,
-            doc: gameListData.doc,
+            list: gameListData.doc,
             type: golf.classes.Game
         });
 
         setReload(true);
+        reloadGameList(true);
     };
 
     const onDeleteGameHandler = (game) => {

@@ -71,7 +71,12 @@ const useCourses = (initialReload) => {
                         if(!didCancel) setCourseListData({ list, doc });
                     }
 
-                } catch (error) { if(!didCancel) setIsError(true) }
+                } catch (error) {
+                    if(!didCancel) {
+                        setIsError(true)
+                        console.log('error: ', error);
+                    }
+                }
                 
             };
 

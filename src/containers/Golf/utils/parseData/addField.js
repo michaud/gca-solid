@@ -100,11 +100,10 @@ export const addField = ({
 
         case golf.classes.Course : {
 
-            const courseRef = doc.addSubject();
-            courseRef.addRef(rdf.type, golf.classes.Course);
-
             const course = data.value;
-
+            const courseRef = doc.addSubject({ identifier: data.value.iri === '' ? undefined : data.value.iri.split('#')[1] });
+            courseRef.addRef(rdf.type, golf.classes.Course);
+            
             const holeType = field.predicate === "gameCourse" ? golf.classes.GameHole : golf.classes.Hole;
 
             courseShape.shape.forEach(field => {

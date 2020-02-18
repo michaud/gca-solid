@@ -14,10 +14,11 @@ import {
 
 const checkFieldsChanged = (player, state) => {
 
-    const hasData = player !== undefined && state !== undefined;
-    const handicapChanged = player.handicap.value !== state.handicap.value;
 
-    return hasData && handicapChanged;
+    const hasData = player !== undefined && state !== undefined;
+    const handicapChanged = hasData && player.handicap.value !== state.handicap.value;
+
+    return handicapChanged;
 };
 
 const PlayerUpdate = ({
@@ -55,14 +56,14 @@ const PlayerUpdate = ({
 
     const canSave = checkFieldsChanged(player, playerState);
 
-    const handicapField = getFieldControl({
+    const handicapField = playerState && getFieldControl({
         data: playerState.handicap,
         styles: classes,
         onChange: onChangeHandicap,
         idx: 0
     });
     
-    return (
+    return player ? (
         <div className="c-box">
             <header className="c-header nudge">{ title }</header>
             <div className="c-box">
@@ -92,7 +93,7 @@ const PlayerUpdate = ({
                 </FlexItemRight>
             </FlexContainer>
         </div>
-    );
+    ) : null;
 };
 
 export default PlayerUpdate;

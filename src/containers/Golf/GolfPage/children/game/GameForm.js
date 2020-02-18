@@ -95,6 +95,7 @@ const GameForm = ({
         const update = () => {
 
             if(!didCancel) {
+
                 setSnackOpen(
                     playerDataIsError ||
                     bagListDataIsError ||

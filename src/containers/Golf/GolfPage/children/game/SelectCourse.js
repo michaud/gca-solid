@@ -7,6 +7,7 @@ import formStyles from '@golfstyles/form.style';
 
 const SelectCourse = ({
     courses,
+    selected,
     onChange,
     onAdd
 }) => {
@@ -23,10 +24,13 @@ const SelectCourse = ({
 
     if(hasCourses) {
 
-        displayFields.push(<CourseSelector
-            key={ 0 }
-            courses={ courses }
-            onChange={ onChange }/>);
+        displayFields.push(
+            <CourseSelector
+                key={ 0 }
+                courses={ courses }
+                onChange={ onChange }
+                selected={ selected }/>
+        );
     }
 
     displayFields.push(<Button key={ displayFields.length }

@@ -7,6 +7,7 @@ import formStyles from '@golfstyles/form.style';
 
 const SelectMarker = ({
     markers = [],
+    selected,
     onChange,
     onAdd
 }) => {
@@ -26,6 +27,7 @@ const SelectMarker = ({
         displayFields.push(<MarkerSelector
             key={ 0 }
             markers={ markers }
+            selected={ selected }
             onSelect={ onChange }/>)
     }
 

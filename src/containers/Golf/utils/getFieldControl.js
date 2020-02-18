@@ -165,8 +165,9 @@ const getFieldControl = ({
         }
 
         case golf.classes.Course : {
-
+            
             return <SelectCourse key={ idx }
+                selected={ data.value === '' ? undefined : data.value }
                 courses={ dataSource.courses }
                 onChange={ onChange(data) }
                 onAdd={ onAdd }/>
@@ -176,6 +177,7 @@ const getFieldControl = ({
 
             return <SelectMarker key={ idx }
                 markers={ dataSource.markers }
+                selected={ data.value === '' ? undefined : data.value }
                 onSave={ onSave }
                 onAdd={ onAdd }
                 onChange={ onChange(data) }/>

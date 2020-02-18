@@ -13,18 +13,19 @@ import {
 
 const BagDetail = ({
     bag,
-    onEdit
+    onEdit,
+    onCancel
 }) => {
 
     const classes = formStyles();
 
-    const onCancel = () => {
-
-    };
-
     const editHandler = () => {
         onEdit && onEdit();
     };
+
+    const onCancelHandler = () => {
+        onCancel();
+    }
 
     const canSave = false;
     const actionLabel = 'Edit bag';
@@ -64,7 +65,7 @@ const BagDetail = ({
                 { onCancel && <Button
                     variant="contained"
                     disabled={ !canSave }
-                    onClick={ onCancel }
+                    onClick={ onCancelHandler }
                     className={ classes.button }
                     color="primary">Cancel</Button>
                 }

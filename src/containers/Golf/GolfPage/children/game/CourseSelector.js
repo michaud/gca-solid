@@ -21,12 +21,12 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const CourseSelector = ({courses = [], onChange }) => {
+const CourseSelector = ({ courses = [], selected, onChange }) => {
 
+    const [selectedCourse, setSelectedCourse] = useState(selected);
     const classes = formStyles();
     const classesmui = useStyles();
 
-    const [selectedCourse, setSelectedCourse] = useState();
 
     const handleListItemClick = course => () => {
 
@@ -48,11 +48,12 @@ const CourseSelector = ({courses = [], onChange }) => {
                             courses && courses.map((course, idx) => {
 
                                 const secondaryText = `${ course.courseSlope.label }: ${ course.courseSlope.value }, holes: ${ course.courseHoles.value.length }`;
+                                const isSelected = course !== undefined && selectedCourse !== undefined && (selectedCourse.iri.split("#")[1] === course.iri.split("#")[1]); 
 
                                 return <ListItem key={ idx }
                                     className={ classes.listItem }
                                     role="listitem"
-                                    selected={ selectedCourse === course }
+                                    selected={ isSelected }
                                     onClick={ handleListItemClick(course) }
                                     button>
                                     <ListItemText

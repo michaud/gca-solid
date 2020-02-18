@@ -42,29 +42,29 @@ const GameSummary = ({
     };
 
     return (
-        <div className={ showDetail ? 'summary-container u-pad--bum' : 'summary-container' }>
-            <FlexContainer>
-                <FlexItem>
+        <div className={ showDetail ? 'summary-container' : 'summary-container' }>
+            <FlexContainer alignitems="stretch">
+                <FlexItem className="summary__content">
                     <h2 className="c-detail__header">{ title }</h2>
-                    <div className="c-box">{ holeCount }, { marker }</div>
+                    <div>{ holeCount }, { marker }</div>
                 </FlexItem>
-                <FlexItemTools>
+                <FlexContainer narrow alignitems="center">
                     <Button
-                    variant="contained"
-                    onClick={ playGameHandler(game.iri) }
-                    className={ classes.button }
-                    color="primary">Play</Button>
-
+                        variant="contained"
+                        onClick={ playGameHandler(game.iri) }
+                        className={ classes.button }
+                        color="primary">Play</Button>
+                </FlexContainer>
+                <FlexContainer narrow alignitems="center">
                     { onShowDetail && <IconButton
                         color="primary"
                         aria-label="expand"
                         component="div"
-                        className={ classes.expandButton }
                         onClick={ onShowDetailHandler(gameId) }>
                         { !showDetail ? <ExpandMoreIcon fontSize="large"/> : <ExpandLesIcon  fontSize="large"/> }
                     </IconButton>
                     }
-                </FlexItemTools>
+                </FlexContainer>
             </FlexContainer>
         </div>
     );

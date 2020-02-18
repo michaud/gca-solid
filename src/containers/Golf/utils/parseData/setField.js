@@ -1,7 +1,17 @@
 import golf from "@golfutils/golf-namespace";
 import saveResource from "@golfservices/saveResource";
+import { rdf } from 'rdf-namespaces';
+import courseShape from '@golfcontexts/course-shape.json';
+import { addField } from "./addField";
 
 export const setField = ({ field, shape, data, element, ref, doc }) => {
+    console.log('field: ', field);
+    console.log('shape: ', shape);
+    console.log('data: ', data);
+    console.log('element: ', element);
+    console.log('ref: ', ref);
+    console.log('doc: ', doc);
+
 
     const prefix = shape['@context'][field.prefix];
     const predicate = `${prefix}${field.predicate}`;
@@ -41,6 +51,13 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
             const value = data === undefined ? field.value : data.value;
 
             ref.setLiteral(predicate, parseInt(value));
+
+            break;
+        }
+
+        case golf.types.dateTime: {
+
+            console.log('setfield implement golf.types.dateTime');
 
             break;
         }
@@ -116,6 +133,90 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
                 });
             }
 
+            break;
+        }
+
+        case golf.classes.Course: {
+
+            const oldCourse = doc.getSubjectsOfType(golf.classes.Course)[0];
+            const holes = oldCourse.getAllRefs(golf.properties.courseHoles);
+
+            holes.map(hole => doc.removeSubject(hole));
+            doc.removeSubject(oldCourse.asRef());
+
+            const course = data.value;
+            const courseRef = doc.addSubject({ identifier: data.value.iri === '' ? undefined : data.value.iri.split('#')[1] });
+            courseRef.addRef(rdf.type, golf.classes.Course);
+            
+            const holeType = field.predicate === "gameCourse" ? golf.classes.GameHole : golf.classes.Hole;
+
+            courseShape.shape.forEach(field => {
+
+                if(field.predicate === 'courseHoles') {
+
+                    const holes = course.courseHoles.value;
+
+                    holes.forEach(hole => {
+
+                        const elRef = saveResource({
+                            element: hole,
+                            doc,
+                            type: holeType
+                        })
+        
+                        courseRef.addRef(golf.properties.courseHoles, elRef.asRef());
+                    });
+
+                } else {
+                    
+                    addField({
+                        field,
+                        shape: courseShape,
+                        data: course[field.predicate],
+                        ref: courseRef,
+                        doc
+                    });
+                }
+            });
+
+            ref.addRef(golf.properties.gameCourse, courseRef.asRef());
+
+            break;
+        }
+
+        case golf.classes.Player: {
+
+            console.log('setfield implement golf.classes.Player');
+
+            break;
+        }
+
+        case golf.classes.Marker: {
+
+            const oldMarker = ref.getRef(golf.properties.gameMarker);
+            doc.removeSubject(oldMarker);
+
+            const elRef = saveResource({
+                element: data.value,
+                doc,
+                type: field.type
+            })
+
+            ref.setRef(golf.properties.gameMarker, elRef.asRef());
+
+            break;
+        }
+
+        case golf.classes.Bag: {
+
+            console.log('setfield implement golf.classes.Bag');
+
+            break;
+        }
+
+        case golf.classes.GamePlayingHandicap: {
+
+            console.log('setfield implement golf.classes.GamePlayingHandicap');
             break;
         }
 
