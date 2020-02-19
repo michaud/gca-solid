@@ -52,7 +52,7 @@ const CourseDetail = ({
     return (
         <div className="c-detail__container">
             <FlexContainer alignitems="center">
-                <FlexItemData vertical alignitems="center">
+                <FlexItemData className="summary__content" vertical alignitems="center">
                     <div>{ courseDescription }</div>
                 </FlexItemData>
                 <FlexItemTools>

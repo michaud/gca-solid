@@ -56,7 +56,7 @@ const MarkerDetail = ({
     return (
         <div className="c-detail__container">
             <FlexContainer alignitems="center">
-                <FlexItemData vertical alignitems="center">
+                <FlexItemData className="summary__content" vertical alignitems="center">
                     <div>{ markerDescription }</div>
                 </FlexItemData>
                 <FlexItemTools>

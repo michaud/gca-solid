@@ -47,7 +47,7 @@ const ClubDetail = ({
     return (
         <div className="c-detail__container">
             <FlexContainer alignitems="center">
-                <FlexItemData vertical alignitems="center">
+                <FlexItemData className="summary__content" vertical alignitems="center">
                     <div>{ clubDescription }</div>
                 </FlexItemData>
                 <FlexItemTools>
