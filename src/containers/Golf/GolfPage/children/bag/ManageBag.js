@@ -34,11 +34,11 @@ import {
 } from '@golfstyles/layout.style';
 import formStyles from '@golfstyles/form.style';
 
-const ManageBag = ({ onSave, onCancel }) => {
+const ManageBag = ({ onSave, onCancel, bagClubs }) => {
 
     const [reload, setReload] = useState(false);
     const [clubs, setClubs] = useState();
-    const [bagClubs, setBagClubs] = useState();
+    const [bagClubsState, setBagClubsState] = useState(bagClubs);
     const [snackOpen, setSnackOpen] = useState(false);
 
     const classes = formStyles();
@@ -53,7 +53,7 @@ const ManageBag = ({ onSave, onCancel }) => {
         bagListData,
         isLoading: bagListDataIsLoading,
         isError: bagListDataIsError
-    }] = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    }] = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, clubListData, reload);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -66,7 +66,7 @@ const ManageBag = ({ onSave, onCancel }) => {
 
                 setSnackOpen(clubListDataIsError || bagListDataIsError);
                 setClubs(state => clubListData.list);
-                setBagClubs(state => bagListData.list);
+                setBagClubsState(state => bagClubs || bagListData.list);
                 setReload(state => false);
             }
         }
@@ -79,7 +79,7 @@ const ManageBag = ({ onSave, onCancel }) => {
         clubListData.list,
         bagListData.list,
         clubs,
-        bagClubs,
+        bagClubsState,
         clubTypeData.clubTypes,
         clubTypeData.clubType,
         reload
@@ -126,13 +126,14 @@ const ManageBag = ({ onSave, onCancel }) => {
     };
 
     const addToBagHandler = (clubs) => {
-        
+        //TODO which bag central bag or gameBag
         addToBag(clubs, bagListData.doc);
         setReload(true)
     };
     
     const removeFromBagHandler = (clubs) => {
-        
+        //TODO which bag central bag or gameBag
+       
         removeFromBag(clubs, bagListData.doc);
         setReload(true)
     };
@@ -162,7 +163,7 @@ const ManageBag = ({ onSave, onCancel }) => {
              <PageContainerOrNot plain={ onSave !== undefined }>
                 <BagTransferList
                     clubs={ clubs }
-                    bag={ bagClubs }
+                    bag={ bagClubsState }
                     onRemoveFromBag={ removeFromBagHandler }
                     onAddToBag={ addToBagHandler }/>
                 <ClubForm onSave={ addClubHandler } />

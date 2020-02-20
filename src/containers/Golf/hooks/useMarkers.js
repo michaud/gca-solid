@@ -73,7 +73,8 @@ const useMarkers = (initialReload) => {
 
                     if(!didCancel) {
 
-                        setIsError(true);
+                        console.log('error: ', error);
+                        setIsError(true)
                         setIsLoading(false);
                     }
                 }

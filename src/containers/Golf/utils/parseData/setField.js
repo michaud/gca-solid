@@ -209,6 +209,7 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
 
         case golf.classes.Bag: {
 
+            debugger
             console.log('setfield implement golf.classes.Bag');
 
             break;

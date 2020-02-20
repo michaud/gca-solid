@@ -91,8 +91,9 @@ const useClubs = (clubTypes, clubType, initialReload) => {
 
                     if(!didCancel) {
 
-                        setIsLoading(false);
-                        setIsError(true);
+                        console.log('error: ', error);
+                        setIsError(true)
+                        setReload(false);
                     }
                 }
             };

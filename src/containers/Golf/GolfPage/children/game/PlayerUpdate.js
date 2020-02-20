@@ -63,37 +63,42 @@ const PlayerUpdate = ({
         idx: 0
     });
     
-    return player ? (
-        <div className="c-box">
+    return (
+        <div className="c-box" style={{ minHeight: '8rem' }}>
             <header className="c-header nudge">{ title }</header>
-            <div className="c-box">
+            { 
+                player ? <>
+                <div className="c-box">
+                    <FlexContainer>
+                        <FlexItemLabel>Name</FlexItemLabel>
+                        <FlexItemValue>{ `${ player.givenName.value } ${ player.familyName.value }`}</FlexItemValue>
+                    </FlexContainer>
+                </div>
+                { handicapField }
                 <FlexContainer>
-                    <FlexItemLabel>Name</FlexItemLabel>
-                    <FlexItemValue>{ `${ player.givenName.value } ${ player.familyName.value }`}</FlexItemValue>
-                </FlexContainer>
-            </div>
-            { handicapField }
-            <FlexContainer>
-                <FlexItem>
-                    <Button
+                    <FlexItem>
+                        <Button
+                            variant="contained"
+                            disabled={ !canSave }
+                            onClick={ saveHandler }
+                            className={ classes.button }
+                            color="primary">{ actionLabel }</Button>
+                    </FlexItem>
+                    <FlexItemRight>
+                    { onCancel && <Button
                         variant="contained"
                         disabled={ !canSave }
-                        onClick={ saveHandler }
+                        onClick={ onCancel }
                         className={ classes.button }
-                        color="primary">{ actionLabel }</Button>
-                </FlexItem>
-                <FlexItemRight>
-                { onCancel && <Button
-                    variant="contained"
-                    disabled={ !canSave }
-                    onClick={ onCancel }
-                    className={ classes.button }
-                    color="primary">Cancel</Button>
-                }
-                </FlexItemRight>
-            </FlexContainer>
+                        color="primary">Cancel</Button>
+                    }
+                    </FlexItemRight>
+                </FlexContainer>
+                </>
+                : null
+        }
         </div>
-    ) : null;
+    );
 };
 
 export default PlayerUpdate;

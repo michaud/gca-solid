@@ -72,9 +72,12 @@ const useCourses = (initialReload) => {
                     }
 
                 } catch (error) {
+
                     if(!didCancel) {
-                        setIsError(true)
+
                         console.log('error: ', error);
+                        setIsError(true)
+                        setReload(false);
                     }
                 }
                 

@@ -1,18 +1,25 @@
-import clubShape from '@golfcontexts/club-shape.json';
 import golf from '@golfutils/golf-namespace';
-import parseFields from '@golfutils/parseData/parseFields';
 
-const getClubsField = doc => (data, label, clubTypes, clubType) => {
+const getClubsField = doc => (data, label, clubListData) => {
 
     const clubIds = data.getAllRefs(golf.properties.clubs);
     const clubRefs = clubIds.map(id => doc.getSubject(id));
-    const parse = parseFields(clubShape, doc, clubTypes, clubType);
+    const bagClubs = clubRefs.reduce((acc, item) => {
 
-    const value = clubRefs.map(club => parse(club));
+        const club = clubListData.list.find(testItem => {
+            
+            return testItem.iri.split('#')[1] === item.asRef().split('#')[1];
+        })
+
+        if(club) acc.push(club);
+
+        return acc;
+
+    }, [])
 
     return ({
         label,
-        value
+        value: bagClubs
     });
 };
 

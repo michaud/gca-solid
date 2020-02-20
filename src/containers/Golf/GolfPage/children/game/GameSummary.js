@@ -8,8 +8,7 @@ import ExpandLesIcon from '@material-ui/icons/ExpandLess';
 import formStyles from '@golfstyles/form.style';
 import {
     FlexContainer,
-    FlexItem,
-    FlexItemTools
+    FlexItem
 } from '@golfstyles/layout.style';
 
 const GameSummary = ({

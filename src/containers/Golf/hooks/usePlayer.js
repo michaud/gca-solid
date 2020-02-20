@@ -70,6 +70,7 @@ const usePlayer = (initialReload) => {
 
                     if(!didCancel) {
 
+                        console.log('error: ', error);
                         setIsError(true);
                         setIsLoading(false);
                     }

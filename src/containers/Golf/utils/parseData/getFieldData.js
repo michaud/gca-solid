@@ -42,7 +42,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
         case golf.classes.Club: {
 
-            const [clubTypes, clubType] = rest;
+            const [clubTypes, clubType, clubListData] = rest;
 
             if(predicate === golf.properties.strokeClub) {
 
@@ -50,7 +50,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
             } else if(predicate === golf.properties.clubs) {
 
-                fieldData = getFieldTypeData[predicate](doc)(data, label, clubTypes, clubType);
+                fieldData = getFieldTypeData[predicate](doc)(data, label, clubListData);
 
             } else {
 

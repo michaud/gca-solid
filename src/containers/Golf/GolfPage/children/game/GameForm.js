@@ -81,7 +81,7 @@ const GameForm = ({
     const [{
         bagListData,
         isError: bagListDataIsError
-    }, doBagReload] = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+    }, doBagReload] = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, clubListData, reload);
     
     const [{
         courseListData,
@@ -116,6 +116,8 @@ const GameForm = ({
                 playerData['doc'] !== undefined
             ) {
 
+                // console.log('gameState.gameBag.value: ', gameState.gameBag.value);
+                // console.log('bagListData.list: ', bagListData.list);
                 const gameBag = putClubsInBag(clubListData.list, bagListData.list);
                 const newGame = setupDataObject(gameShape, {
                     gameBag,
@@ -308,6 +310,9 @@ const GameForm = ({
 
     const canSave = checkCanSave(gameState, gameShape);
 
+    // console.log('gameState.gameBag: ', gameState.gameBag);
+    // console.log('gameState.gameBag.value: ', gameState.gameBag.value);
+    // console.log('-----------------');
     return (
         <form noValidate autoComplete="off">
             <Dialog fullScreen 
@@ -357,7 +362,8 @@ const GameForm = ({
                         <div className="c-box">
                             <ManageBag
                                 onSave={ onSaveBag }
-                                onCancel={ handleBagModalClose }/>
+                                onCancel={ handleBagModalClose }
+                                bagClubs={ gameState.gameBag.value }/>
                         </div>
                     </PageContent>
                 </DialogContent>

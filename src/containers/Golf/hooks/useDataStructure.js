@@ -135,6 +135,14 @@ const useDataStructure = (initialReload, forData = false) => {
         courseListDataIsError ||
         gameListDataIsError;
 
+    if(hasError) {
+        console.log('playerDataIsError: ', playerDataIsError);
+        console.log('markerListDataIsError: ', markerListDataIsError);
+        console.log('clubListDataIsError: ', clubListDataIsError);
+        console.log('bagListDataIsError: ', bagListDataIsError);
+        console.log('courseListDataIsError: ', courseListDataIsError);
+        console.log('gameListDataIsError: ', gameListDataIsError);
+    }
     return ({ count,
         ...data,
         hasError

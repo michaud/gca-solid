@@ -17,7 +17,7 @@ const setupBag = (document) => {
     return document;
 };
 
-const useBagClubs = (clubTypes, clubType, initialReload) => {
+const useBagClubs = (clubTypes, clubType, clubListData, initialReload) => {
 
     const [reload, setReload] = useState(initialReload);
     const [{ publicTypeIndex }] = usePublicTypeIndex(reload);
@@ -35,9 +35,9 @@ const useBagClubs = (clubTypes, clubType, initialReload) => {
 
                 try {
                     
-                    const clubListIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Bag);
+                    const bagClubListIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Bag);
 
-                    if (!clubListIndex) {
+                    if (!bagClubListIndex) {
 
                         if(!didCancel) setIsLoading(true);
                         // If no clubList document is listed in the public type index, create one:
@@ -68,7 +68,7 @@ const useBagClubs = (clubTypes, clubType, initialReload) => {
                     } else {
 
                         // If the public type index does list a clubList document, fetch it:
-                        const url = clubListIndex.getRef(solid.instance);
+                        const url = bagClubListIndex.getRef(solid.instance);
 
                         if (typeof url !== 'string') return;
                         
@@ -87,31 +87,39 @@ const useBagClubs = (clubTypes, clubType, initialReload) => {
 
                                 setIsLoading(false);
                             }
+
                             return;
                         }
 
-                        const list = await getBagClubs(
-                            doc,
-                            clubType,
-                            clubTypes
-                        );
+                        // console.log('clubListData.doc: ', clubListData.doc);
+                        // console.log('clubType: ', clubType);
+                        // console.log('clubTypes: ', clubTypes);
+                        // console.log('clubTypes.length === 0: ', clubTypes.length === 0);
+                        if(clubListData.doc && clubType && clubTypes.length > 0) {
 
-                        if(!didCancel) {
-                            
-                            setIsLoading(false);
+                            const list = getBagClubs(
+                                doc,
+                                clubTypes,
+                                clubType,
+                                clubListData,
+                                golf.classes.Bag
+                            );
+
+                            if(!didCancel) setIsLoading(false);
+
                             setBagListData({
                                 list,
                                 doc
                             });
-
                         }
                     }
                 } catch (error) {
 
                     if(!didCancel) {
 
-                        setIsLoading(false);
-                        setIsError(true);
+                        console.log('error: ', error);
+                        setIsError(true)
+                        setReload(false);
                     }
                 }
             };
@@ -121,7 +129,7 @@ const useBagClubs = (clubTypes, clubType, initialReload) => {
 
         return () => { didCancel = true; }
 
-    }, [publicTypeIndex, reload]);
+    }, [publicTypeIndex, clubListData, reload]);
 
     return [{ bagListData, isLoading, isError }, setReload];
 };

@@ -115,7 +115,15 @@ const useGames = (clubTypes, clubType, initialReload, gameId) => {
                         if(!didCancel) setGameListData({ list, doc });
                     }
 
-                } catch (error) { if(!didCancel) setIsError(true) }
+                } catch (error) { 
+
+                    if(!didCancel) {
+
+                        console.log('error: ', error);
+                        setIsError(true)
+                        setReload(false);
+                    }
+                }
             }
         };
 

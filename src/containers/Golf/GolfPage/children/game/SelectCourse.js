@@ -40,7 +40,7 @@ const SelectCourse = ({
         color="primary">Add Course</Button>)
 
     return (
-        <div className="c-box">{ displayFields }</div>
+        <div className="c-box" style={{ minHeight: '19.687rem' }}>{ displayFields }</div>
     );
 };
 

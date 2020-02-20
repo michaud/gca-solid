@@ -7,7 +7,6 @@ import displayStates from '@golfutils/displayStates';
 
 import Button from '@material-ui/core/Button';
 
-import EditActions from '@golf/components/EditActions';
 import GameForm from '@golf/GolfPage/children/game/GameForm';
 import HoleTable from '@golf/GolfPage/children/hole/HoleTable';
 import BagDetail from '@golf/GolfPage/children/game/BagDetail';
@@ -161,7 +160,7 @@ const GameDetail = ({
                 <FlexItem>
                     <Button
                         variant="contained"
-                        onClick={ onEditHandler }
+                        onClick={ onDeleteHandler }
                         className={ classes.button }
                         color="primary">Delete</Button>
                 </FlexItem>
@@ -173,7 +172,6 @@ const GameDetail = ({
                         color="primary">Edit</Button>
                 </FlexItemRight>
             </FlexContainer>
-{/* <EditActions onEdit={ onEditHandler } onDelete={ onDeleteHandler } onCancel={ onCancelHandler }/> */}
         </div>
     );
 };

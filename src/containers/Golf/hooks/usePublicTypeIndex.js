@@ -25,9 +25,15 @@ const usePublicTypeIndex = (initialReload) => {
 
                     if(!didCancel) setPublicTypeIndex(result);
 
-                } catch(error) { if(!didCancel) setIsError(true) }
+                } catch(error) {
 
-                if(!didCancel) setIsLoading(false);
+                    if(!didCancel) {
+                        
+                        console.log('error: ', error);
+                        setIsError(true)
+                        setReload(false);
+                    }
+                }
             }
         }
 
