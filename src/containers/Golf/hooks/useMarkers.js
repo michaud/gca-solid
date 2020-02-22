@@ -8,9 +8,9 @@ import getListFromDoc from '@golfservices/getListFromDoc';
 import fetchResource from '@golfservices/fetchResource';
 import paths from '@golfconstants/paths';
 
-const useMarkers = (publicTypeIndex, initialReload) => {
+const useMarkers = (publicTypeIndex) => {
 
-    const [reload, setReload] = useState(initialReload);
+    const [reload, setReload] = useState(false);
     const [markerListData, setMarkerListData] = useState({ list: [], doc: undefined });
     const [isError, setIsError] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -42,8 +42,6 @@ const useMarkers = (publicTypeIndex, initialReload) => {
                             doc
                         }));
 
-                        if(!didCancel) setIsLoading(false);
-
                         return;
 
                     } else {
@@ -61,18 +59,21 @@ const useMarkers = (publicTypeIndex, initialReload) => {
                             markerShape
                         )();
 
-                        if(!didCancel) {
-
-                            setMarkerListData({ list, doc });
-                            setIsLoading(false);
-                        }
+                        if(!didCancel) setMarkerListData({ list, doc });
                     }
+
                 } catch (error) {
 
                     if(!didCancel) {
 
                         console.log('error: ', error);
                         setIsError(error)
+                    }
+
+                } finally {
+
+                    if(!didCancel) {
+
                         setReload(false);                        
                         setIsLoading(false);
                     }
@@ -86,7 +87,7 @@ const useMarkers = (publicTypeIndex, initialReload) => {
 
     }, [publicTypeIndex.doc, reload]);
 
-    return [{ markerListData, isLoading, isError }, setReload];
+    return [{ markerListData, isLoading, isError }, () => { setReload(true) }];
 };
 
 export default useMarkers;

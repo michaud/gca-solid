@@ -1,4 +1,5 @@
 import golf from "@golfutils/golf-namespace";
+import { numberOfAirbags } from "rdf-namespaces/dist/schema";
 
 const hasValue = item => {
 
@@ -16,7 +17,8 @@ const hasValue = item => {
 
         case golf.types.nonNegativeInteger: {
 
-            const can = item.value > 0;
+            const can = typeof(item.value) === 'number' && !isNaN(item.value) && item.value > 0;
+
             return ({
                 can,
                 reason: !can ? `add a ${ item.label}` : ''
@@ -25,7 +27,8 @@ const hasValue = item => {
 
         case golf.types.integer: {
             
-            const can = typeof(item.value) === 'number';
+            const can = typeof(item.value) === 'number' && !isNaN(item.value);
+
             return ({
                 can,
                 reason: !can ? `add a ${ item.label}` : ''

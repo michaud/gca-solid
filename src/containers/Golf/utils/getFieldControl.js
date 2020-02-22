@@ -42,7 +42,7 @@ const getFieldControl = ({
                 required={ required }
                 label={ data.label }
                 className={ styles.textField }
-                value={ data.value }
+                value={ data.value || '' }
                 onChange={ onChange(data) }
                 variant="outlined"/>
         }
@@ -53,7 +53,7 @@ const getFieldControl = ({
                 required={ required }
                 label={ data.label }
                 className={ styles.textField }
-                value={ data.value }
+                value={ data.value || '' }
                 onChange={ onChange(data) }
                 variant="outlined"/>
         }
@@ -64,8 +64,8 @@ const getFieldControl = ({
                 required
                 type="number"
                 label={ data.label }
+                value={ data.value || '' }
                 className={ styles.textField }
-                value={ data.value }
                 onChange={ onChange(data) }
                 variant="outlined"/>
         }

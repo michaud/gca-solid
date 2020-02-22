@@ -10,16 +10,12 @@ import { usePlayerData } from '@containers/Golf/contexts/dataProvider/AppDataPro
 
 const ManageMarkers = () => {
 
-    const [reload, setReload] = useState(false);
+    const [markers, setMarkers] = useState([]);
     const {
-        progress,
-        count,
-        hasError,
         markerListData,
-        markerDataIsLoading
+        reloadMarkers
     } = usePlayerData();
 
-    const [markers, setMarkers] = useState([]);
 
     useEffect(() => {
 
@@ -27,16 +23,14 @@ const ManageMarkers = () => {
 
         const init = () => {
 
-            if(!didCancel) {
-
-                setMarkers(markerListData.list);
-                setReload(false);
-            }
+            if(!didCancel) setMarkers(markerListData.list);
         }
 
         init();
 
-    }, [markerListData.list, reload]);
+        return () => { didCancel = true; }
+
+    }, [markerListData.list]);
 
     const onSaveMarker = (marker) => {
 
@@ -46,13 +40,13 @@ const ManageMarkers = () => {
             type: golf.classes.Marker
         });
 
-        setReload(true);
+        reloadMarkers();
     };
 
     const onDeleteMarker = marker => {
 
         deleteMarker(marker, markerListData.doc);
-        setReload(true);
+        reloadMarkers();
     };
 
     const marker = getPlayer(undefined, golf.classes.Marker);
@@ -60,11 +54,13 @@ const ManageMarkers = () => {
     return (
         <>
             <header className="c-header">Markers</header>
-            <PlayerDetail
-                target="marker"
-                player={ marker }
-                onDelete={ onDeleteMarker }
-                onSave={ onSaveMarker }/>
+            <div className="c-box">
+                <PlayerDetail
+                    target="marker"
+                    player={ marker }
+                    onDelete={ onDeleteMarker }
+                    onSave={ onSaveMarker }/>
+            </div>
             <MarkerList
                 markers={ markers }
                 onDelete={ onDeleteMarker }

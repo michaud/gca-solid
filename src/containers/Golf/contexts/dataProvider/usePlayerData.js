@@ -7,10 +7,15 @@ const usePlayerData = () => {
             progress,
             count,
             hasError,
-            player: { playerData,
-                playerDataIsLoading
+            player: {
+                playerData,
+                playerDataIsLoading,
+                reloadPlayer
             },
-            marker: { markerListData }
+            marker: {
+                markerListData,
+                reloadMarkers
+            }
         }
     } = useAppData();
 
@@ -20,7 +25,9 @@ const usePlayerData = () => {
         hasError,
         playerData,
         playerDataIsLoading,
-        markerListData
+        reloadPlayer,
+        markerListData,
+        reloadMarkers
     };
 };
 

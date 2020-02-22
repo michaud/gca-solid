@@ -64,13 +64,15 @@ const MarkerDetail = ({
                 </FlexItemTools>
             </FlexContainer>
             { displayState === displayStates.edit ? (
-                <PlayerForm
-                    title={ `Edit ${ target }` }
-                    actionLabel={ `Save ${ target }` }
-                    onSave={ onSaveHandler }
-                    onCancel={ cancelEdit }
-                    onDelete={ handleDelete }
-                    player={ player }/>
+                <div className="c-block--akimbo c-box">
+                    <PlayerForm
+                        title={ `Edit ${ target }` }
+                        actionLabel={ `Save ${ target }` }
+                        onSave={ onSaveHandler }
+                        onCancel={ cancelEdit }
+                        onDelete={ handleDelete }
+                        player={ player }/>
+                </div>
                 ) : null
             }
         </div>

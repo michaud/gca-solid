@@ -26,6 +26,16 @@ const PlayerForm = ({
     const [playerState, setPlayerState] = useState(player);
     const classes = formStyles();
 
+    useEffect(() => {
+
+        let currentPlayer = player;
+        
+        if(!currentPlayer) currentPlayer = setupDataObject(playerShape);
+
+        setPlayerState(currentPlayer);
+
+    }, [player]);
+
     const saveHandler = () => onSave(playerState);
     const onDeleteHandler = player => () => onDelete(player);
 
@@ -37,16 +47,6 @@ const PlayerForm = ({
             [fieldDef.predicate]: { value: { $set: value } }
         }));
     };
-
-    useEffect(() => {
-
-        let currentPlayer = player;
-        
-        if(!currentPlayer) currentPlayer = setupDataObject(playerShape);
-
-        setPlayerState(currentPlayer);
-
-    }, [player]);
 
     const playerFields = [];
     
@@ -67,10 +67,12 @@ const PlayerForm = ({
         });
     }
 
-    const canSave = checkCanSave(playerState, playerShape);
     const handleDelete = typeof(onDelete) === 'function' ? onDeleteHandler : undefined;
+
+    const canSave = checkCanSave(playerState, playerShape);
+
     return (
-        <div className="c-box">
+        <div>
             <header className="c-header">{ title }</header>
             { playerFields }
             <FlexContainer>

@@ -8,9 +8,9 @@ import getPlayer from '@golfservices/getPlayer';
 import fetchResource from '@golfservices/fetchResource';
 import paths from '@golfconstants/paths';
 
-const usePlayer = (publicTypeIndex, initialReload) => {
+const usePlayer = (publicTypeIndex) => {
 
-    const [reload, setReload] = useState(initialReload);
+    const [reload, setReload] = useState(false);
     const [playerData, setPlayerData] = useState({ player: undefined, doc: undefined });
     const [isError, setIsError] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -43,8 +43,6 @@ const usePlayer = (publicTypeIndex, initialReload) => {
                             doc
                         }));
 
-                        if(!didCancel) setIsLoading(false);
-
                         return;
 
                     } else {
@@ -59,10 +57,7 @@ const usePlayer = (publicTypeIndex, initialReload) => {
                             golf.classes.Player
                         );
 
-                        if(!didCancel) {
-                            setPlayerData({ player: playerData, doc });
-                            setIsLoading(false);
-                        }
+                        if(!didCancel) setPlayerData({ player: playerData, doc });
                     }
                 } catch (error) { 
 
@@ -70,10 +65,15 @@ const usePlayer = (publicTypeIndex, initialReload) => {
 
                         console.log('error: ', error);
                         setIsError(error);
+                    }
+
+                } finally {
+
+                    if(!didCancel) {
+
                         setIsLoading(false);
                         setReload(false);
                     }
-
                 }
             };
 
@@ -84,7 +84,7 @@ const usePlayer = (publicTypeIndex, initialReload) => {
 
     }, [publicTypeIndex.doc, reload]);
 
-    return [{ playerData, isLoading, isError }, setReload];
+    return [{ playerData, isLoading, isError }, () => { setReload(true) }];
 };
 
 export default usePlayer;

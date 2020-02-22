@@ -54,13 +54,13 @@ const AppDataProvider = ({ children }) => {
         playerData,
         isLoading: playerDataIsLoading,
         isError: playerDataIsError
-    }, doPlayerReload] = usePlayer(publicTypeIndex, reload);
+    }, reloadPlayer] = usePlayer(publicTypeIndex);
 
     const [{
         markerListData,
         isLoading: markerDataIsLoading,
         isError: markerListDataIsError
-    }, doMarkerListDataReload] = useMarkers(publicTypeIndex, reload);
+    }, reloadMarkers] = useMarkers(publicTypeIndex, reload);
 
     const [{
         clubListData,
@@ -154,14 +154,14 @@ const AppDataProvider = ({ children }) => {
                 hasPlayerData: playerData.player !== undefined,
                 playerDataIsError,
                 playerDataIsLoading,
-                doPlayerReload
+                reloadPlayer
             },
             marker: {
                 markerListData,
                 hasMarkerData: markerListData.list.length > 0,
                 markerListDataIsError,
                 markerDataIsLoading,
-                doMarkerListDataReload
+                reloadMarkers
             },
             clubs: {
                 clubListData,
@@ -212,14 +212,14 @@ const AppDataProvider = ({ children }) => {
             hasPlayerData: false,
             playerDataIsError,
             playerDataIsLoading,
-            doPlayerReload
+            reloadPlayer
         },
         marker: {
             markerListData: undefined,
             hasMarkerData: false,
             markerListDataIsError,
             markerDataIsLoading,
-            doMarkerListDataReload
+            reloadMarkers
         },
         clubs: {
             clubListData: undefined,
