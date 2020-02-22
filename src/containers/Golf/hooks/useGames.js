@@ -4,7 +4,6 @@ import { namedNode } from '@rdfjs/data-model';
 import { solid } from 'rdf-namespaces';
 import * as ns from 'rdf-namespaces';
 
-import usePublicTypeIndex from '@golfhooks/usePublicTypeIndex';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import fetchResource from '@golfservices/fetchResource';
 import gameShape from '@golfcontexts/game-shape.json';
@@ -14,7 +13,7 @@ import parseFields from '@golfutils/parseData/parseFields';
 
 const getGameListFromDoc = async (
     doc,  type, shape, ...rest
-) => {
+    ) => {
 
     const gameRefs = doc.getTriples();
 
@@ -37,12 +36,11 @@ const getGameListFromDoc = async (
     return games;
 }
 
-const useGames = (clubTypes, clubType, initialReload, gameId) => {
+const useGames = (publicTypeIndex, clubTypes = [], clubType, clubListData, initialReload, gameId) => {
 
     const [reload, setReload] = useState(initialReload);
-    const [{ publicTypeIndex }] = usePublicTypeIndex(reload);
     const [gameListData, setGameListData] = useState({ list: [], doc: undefined });
-    const [isError, setIsError] = useState(false);
+    const [isError, setIsError] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
@@ -51,10 +49,10 @@ const useGames = (clubTypes, clubType, initialReload, gameId) => {
 
         const loadData = async () => {
 
-            if (publicTypeIndex) {
+            if (publicTypeIndex.doc) {
 
                 try {
-                    const listIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Game);
+                    const listIndex = publicTypeIndex.doc.findSubject(solid.forClass, golf.classes.Game);
 
                     if (!listIndex) {
 
@@ -86,19 +84,19 @@ const useGames = (clubTypes, clubType, initialReload, gameId) => {
 
                         const doc = await fetchResource(url);
 
-                        if(clubType === undefined && clubTypes.length === 0) {
-
+                        if(clubType === undefined && clubTypes.length === 0 && clubListData.doc === undefined ) {
+                            
                             if(!didCancel) setGameListData(state => ({
                                 ...state,
                                 doc
                             }));
-
+                            
                             if(!didCancel) setIsLoading(false);
                             if(!didCancel) setReload(false);
-
+                            
                             return;
                         }
-
+                        
                         if(!didCancel) setIsLoading(true);
 
                         const list = await getGameListFromDoc(
@@ -107,12 +105,15 @@ const useGames = (clubTypes, clubType, initialReload, gameId) => {
                             gameShape,
                             clubTypes,
                             clubType,
+                            clubListData,
                             gameId
                         );
 
-                        if(!didCancel) setIsLoading(false);
-                        if(!didCancel) setReload(false);
-                        if(!didCancel) setGameListData({ list, doc });
+                        if(!didCancel) {
+                            setIsLoading(false);
+                            setReload(false);
+                            setGameListData({ list, doc });
+                        }
                     }
 
                 } catch (error) { 
@@ -120,8 +121,9 @@ const useGames = (clubTypes, clubType, initialReload, gameId) => {
                     if(!didCancel) {
 
                         console.log('error: ', error);
-                        setIsError(true)
+                        setIsError(error)
                         setReload(false);
+                        setIsLoading(false);
                     }
                 }
             }
@@ -133,7 +135,7 @@ const useGames = (clubTypes, clubType, initialReload, gameId) => {
 
         return () => { didCancel = true; }
 
-    }, [publicTypeIndex, clubTypes, clubType, reload]);
+    }, [publicTypeIndex.doc, clubTypes, clubType, reload]);
 
     return [{ gameListData, isLoading, isError }, setReload];
 };

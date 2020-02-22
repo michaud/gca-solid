@@ -46,7 +46,7 @@ const PlayGame = ({
 
             if (!didCancel && gameListData.doc) {
 
-                setSnackOpen(gameListDataIsError);
+                setSnackOpen(gameListDataIsError !== undefined);
                 setGameData(gameListData.list[0]);
                 setReload(false);
             }

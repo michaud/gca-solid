@@ -7,11 +7,10 @@ import React, {
 import { Route, Switch } from 'react-router-dom';
 import { Snackbar } from '@material-ui/core';
 
-import useDataStructure from '@golfhooks/useDataStructure';
-
 import NavigationShell from '@golf/components/NavigationShell';
 import Alert from '@golf/components/Alert';
 import SplashScreen from '@golf/GolfPage/children/splash/SplashScreen';
+import { useMonitorData } from '@containers/Golf/contexts/dataProvider/AppDataProvider';
 
 const Home = lazy(() => import('@golf/GolfPage/children/home/Home'));
 const ManageBag = lazy(() => import('@golf/GolfPage/children/bag/ManageBag'));
@@ -23,27 +22,24 @@ const NewGame = lazy(() => import('@golf/GolfPage/children/newGame/NewGame'));
 
 const GolfApp = ({ webId }) => {
 
-    const [reload] = useState(false);
     const [completed, setCompleted] = useState(0);
     const [snackOpen, setSnackOpen] = useState(false);
+    const { progress, count, hasError } = useMonitorData();
 
-    const dataStructure = useDataStructure(reload, true);
-    
     useEffect(() => {
 
         let didCancel = false;
 
         if(!didCancel) {
 
-            if(dataStructure.hasError) setSnackOpen(true);
+            if(hasError) setSnackOpen(true);
 
-            const { progress, count } = dataStructure;
             setCompleted((100 / count) * progress);
         }
 
         return () => { didCancel = true; }
 
-    }, [dataStructure.progress, dataStructure.count, completed, setCompleted]);
+    }, [progress, count, completed]);
 
     const handleSnackClose = (event, reason) => {
         
@@ -62,7 +58,7 @@ const GolfApp = ({ webId }) => {
                 onClose={ handleSnackClose }
                 anchorOrigin={{ vertical:'bottom', horizontal: 'center' }}>
                 <Alert onClose={ handleSnackClose } severity="error">
-                    Data did not load
+                    plopData did not load
                 </Alert>
             </Snackbar>
             <Route render={ (props) => {
@@ -80,8 +76,7 @@ const GolfApp = ({ webId }) => {
                             <Switch location={ props.location }>
                                 <Route path="/golf/settings/" exact
                                     render={ routerProps => <Home 
-                                        { ...routerProps }
-                                        { ...dataStructure } /> }/>
+                                        { ...routerProps }/> }/>
                                 <Route path="/golf/settings/bag"
                                     render={ routerProps => <ManageBag
                                         { ...routerProps }

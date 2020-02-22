@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import { Snackbar } from '@material-ui/core';
 
-import useCourses from '@golfhooks/useCourses';
-
 import deleteCourse from '@golfservices/deleteCourse';
 import { PageContainer, PageContent } from '@golfstyles/page.style';
 import saveResource from '@golfservices/saveResource';
@@ -15,18 +13,25 @@ import ModuleHeader from '@golf/components/ModuleHeader';
 
 import CourseList from '@golf/GolfPage/children/course/CourseList';
 import CourseForm from '@golf/GolfPage/children/course/CourseForm';
+import { useCourseData } from '@golfcontexts/dataProvider/AppDataProvider';
 
 const ManageCourses = () => {
 
     const [reload, setReload] = useState(false);
     const [courses, setCourses] = useState([]);
     const [snackOpen, setSnackOpen] = useState(false);
-    const [{
-        courseListData,
-        isLoading: courseListDataIsLoading,
-        isError: courseListDataIsError
-    }] = useCourses(reload);
 
+    const {
+        progress,
+        count,
+        hasError,
+        courseListData,
+        hasCourseListData,
+        courseListDataIsError,
+        courseListDataIsLoading,
+        doCourseListDataReload
+    } = useCourseData();
+    
     useEffect(() => {
 
         let didCancel = false;
@@ -35,7 +40,6 @@ const ManageCourses = () => {
 
             if(!didCancel) {
 
-                setSnackOpen(courseListDataIsError);
                 setCourses(courseListData.list);
                 setReload(false);
             }

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 
 import { solid, rdf } from 'rdf-namespaces';
 
-import usePublicTypeIndex from '@golfhooks/usePublicTypeIndex';
 import golf from '@golfutils/golf-namespace';
 import getBagClubs from '@golfservices/getBagClubs';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
@@ -17,25 +16,24 @@ const setupBag = (document) => {
     return document;
 };
 
-const useBagClubs = (clubTypes, clubType, clubListData, initialReload) => {
+const useBagClubs = (publicTypeIndex, clubTypes = [], clubType, clubListData, initialReload) => {
 
     const [reload, setReload] = useState(initialReload);
-    const [{ publicTypeIndex }] = usePublicTypeIndex(reload);
     const [bagListData, setBagListData] = useState({ list: [], doc: undefined });
-    const [isError, setIsError] = useState(false);
+    const [isError, setIsError] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
 
         let didCancel = false;
 
-        if (publicTypeIndex && clubTypes.length > 0 && clubType) {
+        if (publicTypeIndex.doc && clubTypes.length > 0 && clubType) {
 
             const loadData = async () => {
 
                 try {
                     
-                    const bagClubListIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Bag);
+                    const bagClubListIndex = publicTypeIndex.doc.findSubject(solid.forClass, golf.classes.Bag);
 
                     if (!bagClubListIndex) {
 
@@ -91,10 +89,6 @@ const useBagClubs = (clubTypes, clubType, clubListData, initialReload) => {
                             return;
                         }
 
-                        // console.log('clubListData.doc: ', clubListData.doc);
-                        // console.log('clubType: ', clubType);
-                        // console.log('clubTypes: ', clubTypes);
-                        // console.log('clubTypes.length === 0: ', clubTypes.length === 0);
                         if(clubListData.doc && clubType && clubTypes.length > 0) {
 
                             const list = getBagClubs(
@@ -118,8 +112,9 @@ const useBagClubs = (clubTypes, clubType, clubListData, initialReload) => {
                     if(!didCancel) {
 
                         console.log('error: ', error);
-                        setIsError(true)
+                        setIsError(error)
                         setReload(false);
+                        setIsLoading(false);
                     }
                 }
             };
@@ -129,7 +124,7 @@ const useBagClubs = (clubTypes, clubType, clubListData, initialReload) => {
 
         return () => { didCancel = true; }
 
-    }, [publicTypeIndex, clubListData, reload]);
+    }, [publicTypeIndex.doc, clubListData, reload]);
 
     return [{ bagListData, isLoading, isError }, setReload];
 };

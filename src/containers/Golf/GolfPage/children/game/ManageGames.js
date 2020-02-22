@@ -1,7 +1,6 @@
 import React, {
     useEffect,
-    useState,
-    useContext
+    useState
 } from 'react';
 
 import { Redirect } from 'react-router-dom';
@@ -9,8 +8,6 @@ import { Snackbar } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import SportsGolfIcon from '@material-ui/icons/SportsGolf';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import useGames from '@golfhooks/useGames';
-import ClubTypeContext from '@golfutils/clubTypeContext';
 import golf from '@golfutils/golf-namespace';
 import saveGameResourse from '@golfservices/saveGameResourse';
 
@@ -21,6 +18,7 @@ import IntroPanel from '@golf/components/IntroPanel';
 
 import { PageContainer, PageContent } from '@golfstyles/page.style';
 import { FlexContainer, FlexItem } from '@golfstyles/layout.style';
+import { useGameListData } from '@golfcontexts/dataProvider/AppDataProvider';
 
 const ManageGames = () => {
 
@@ -28,12 +26,18 @@ const ManageGames = () => {
     const [games, setGames] = useState([]);
     const [playGame, setPlayGame] = useState(false);
     const [snackOpen, setSnackOpen] = useState(false);
-    const clubTypeData = useContext(ClubTypeContext);
-    const [{
+
+    const {
+        progress,
+        count,
+        hasError,
+        clubDefinitions,
         gameListData,
-        isLoading: gameListDataIsLoading,
-        isError: gameListDataIsError
-    }, reloadGameList ] = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+        hasGameListData,
+        gameListDataIsError,
+        gameListDataIsLoading,
+        doGameListDataReload
+    } = useGameListData()
 
     useEffect(() => {
 
@@ -43,7 +47,7 @@ const ManageGames = () => {
 
             if (!didCancel) {
 
-                setSnackOpen(gameListDataIsError);
+                setSnackOpen(gameListDataIsError !== undefined);
                 setGames(gameListData.list);
                 setReload(false);
             }
@@ -72,7 +76,7 @@ const ManageGames = () => {
         });
 
         setReload(true);
-        reloadGameList(true);
+        doGameListDataReload(true);
     };
 
     const onDeleteGameHandler = (game) => {

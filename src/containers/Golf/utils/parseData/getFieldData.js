@@ -62,15 +62,15 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
         case golf.classes.Bag: {
 
-            const [clubTypes, clubType] = rest;
+            const [clubTypes, clubType, clubListData] = rest;
 
             if(predicate === golf.properties.gameBag) {
 
-                fieldData = getFieldTypeData[type](doc)(data, label, clubTypes, clubType);
+                fieldData = getFieldTypeData[type](doc)(data, label, clubTypes, clubType, clubListData);
 
             } else {
                 
-                fieldData = getFieldTypeData[type](predicate)(data, label, clubTypes, clubType);
+                fieldData = getFieldTypeData[type](predicate)(data, label, clubTypes, clubType, clubListData);
             }
 
             break;

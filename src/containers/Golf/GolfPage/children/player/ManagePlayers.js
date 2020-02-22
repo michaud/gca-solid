@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Snackbar } from '@material-ui/core';
 
-import usePlayer from '@golfhooks/usePlayer';
 import golf from '@golfutils/golf-namespace';
 import saveResource from '@golfservices/saveResource';
 
@@ -12,20 +11,28 @@ import ModuleHeader from '@golf/components/ModuleHeader';
 import ManageMarkers from '@golf/GolfPage/children/player/ManageMarkers';
 import PlayerDetail from '@golf/GolfPage/children/player/PlayerDetail';
 
-import { PageContainer, PageContent } from '@golfstyles/page.style';
+import { usePlayerData } from '@containers/Golf/contexts/dataProvider/AppDataProvider';
 
-const ManagePlayers = ({ webId }) => {
+import {
+    PageContainer,
+    PageContent
+} from '@golfstyles/page.style';
+
+const ManagePlayers = () => {
 
     const [reload, setReload] = useState(false);
     const [player, setPlayer] = useState();
     const [snackOpen, setSnackOpen] = useState(false);
 
-    const [{
+    const {
+        progress,
+        count,
+        hasError,
         playerData,
-        isLoading: playerDataIsLoading,
-        isError: playerDataIsError
-    }] = usePlayer(reload);
-    
+        playerDataIsLoading,
+        markerListData
+    } = usePlayerData();
+
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -35,9 +42,7 @@ const ManagePlayers = ({ webId }) => {
         const init = () => {
 
             if (!didCancel) {
-                setSnackOpen(playerDataIsError);
                 setPlayer(playerData.player);
-                setReload(false)
             }
         }
 
@@ -46,14 +51,14 @@ const ManagePlayers = ({ webId }) => {
         return () => {
             didCancel = true;
         }
-       
+
     }, [playerData, reload]);
 
     const handleSnackClose = (event, reason) => {
         if (reason === 'clickaway') {
-          return;
+            return;
         }
-    
+
         setSnackOpen(false);
     };
 
@@ -64,7 +69,7 @@ const ManagePlayers = ({ webId }) => {
             doc: playerData.doc,
             type: golf.classes.Player
         });
-        
+
         setReload(true);
     };
 
@@ -73,12 +78,12 @@ const ManagePlayers = ({ webId }) => {
             <ModuleHeader
                 label={ t('golf.players') }
                 screenheader={ true }
-                loading={ playerDataIsLoading }/>
+                loading={ playerDataIsLoading } />
             <Snackbar
                 open={ snackOpen }
                 autoHideDuration={ 4000 }
                 onClose={ handleSnackClose }
-                anchorOrigin={{ vertical:'top', horizontal: 'center' }}>
+                anchorOrigin={ { vertical: 'top', horizontal: 'center' } }>
                 <Alert onClose={ handleSnackClose } severity="error">
                     Player did not load
                 </Alert>
@@ -86,15 +91,15 @@ const ManagePlayers = ({ webId }) => {
 
             <PageContainer>
                 <PageContent>
-                { 
-                    player && <PlayerDetail
-                        onSave={ onSavePlayer }
-                        showEdit={ true }
-                        player={ player }/> 
-                }
-                {
-                    player && <ManageMarkers webId={ webId }/>
-                }
+                    {
+                        player && <PlayerDetail
+                            onSave={ onSavePlayer }
+                            showEdit={ true }
+                            player={ player } />
+                    }
+                    {
+                        player && <ManageMarkers />
+                    }
                 </PageContent>
             </PageContainer>
         </>

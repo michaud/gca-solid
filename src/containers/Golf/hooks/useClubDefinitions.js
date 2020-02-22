@@ -4,7 +4,9 @@ import getClubDefinitions from "@golfservices/getClubDefinitions";
 
 const useClubDefinitions = () => {
 
-    const [clubDefinitions, setClubDefinitions] = useState({ clubTypes: [], clubType: undefined });
+    const [clubDefinitions, setClubDefinitions] = useState({ clubTypes: [], clubType: undefined, doc: undefined });
+    const [isError, setIsError] = useState();
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         
@@ -12,19 +14,40 @@ const useClubDefinitions = () => {
 
         if(clubDefinitions.clubTypes.length === 0 && clubDefinitions.clubType === undefined ) {
 
-            (async () => {
+            try {
+                (async () => {
 
-                const clubTypeData = await getClubDefinitions();
+                    if(!didCancel) setIsLoading(true);
 
-                if(!didCancel) setClubDefinitions(clubTypeData);
-            })();
+                    const clubTypeData = await getClubDefinitions();
+
+                    if(!didCancel) {
+
+                        setClubDefinitions(state => ({
+                            ...state,
+                            ...clubTypeData
+                        }));
+                        setIsLoading(false);
+                    }
+
+                })();
+
+            } catch(error) {
+
+                if(!didCancel) {
+
+                    console.log('error: ', error);
+                    setIsError(error);
+                    setIsLoading(false);
+                }
+            }
         }
 
         return () => { didCancel = true }
 
     }, [clubDefinitions.clubTypes, clubDefinitions.clubType])
 
-    return clubDefinitions;
+    return [{ clubDefinitions, isLoading, isError }];
 };
 
 export default useClubDefinitions;

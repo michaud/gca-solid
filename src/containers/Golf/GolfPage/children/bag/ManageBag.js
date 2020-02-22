@@ -1,7 +1,6 @@
 import React, {
     useEffect,
-    useState,
-    useContext
+    useState
 } from 'react';
 
 import { StylesProvider } from '@material-ui/core/styles';
@@ -9,18 +8,18 @@ import { Snackbar } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 
-import useClubs from '@golfhooks/useClubs';
-import useBagClubs from '@golfhooks/useBagClubs';
-
+import { useClubData } from '@containers/Golf/contexts/dataProvider/AppDataProvider';
 import removeFromBag from '@golfservices/removeFromBag';
 import addToBag from '@golfservices/addToBag';
 import deleteClub from '@golfservices/deleteClub';
 import saveResource from '@golfservices/saveResource';
 
 import golf from '@golfutils/golf-namespace';
-import { PageContainer, PageContent } from '@golfstyles/page.style';
+import {
+    PageContainer,
+    PageContent
+} from '@golfstyles/page.style';
 
-import ClubTypeContext from '@golfutils/clubTypeContext';
 import ClubList from '@golf/GolfPage/children/club/ClubList';
 import ModuleHeader from '@golf/components/ModuleHeader';
 import BagTransferList from '@golf/GolfPage/children/bag/BagTransferList';
@@ -43,17 +42,17 @@ const ManageBag = ({ onSave, onCancel, bagClubs }) => {
 
     const classes = formStyles();
 
-    const clubTypeData = useContext(ClubTypeContext);
-    const [{
+    const {
+        progress,
+        count,
+        hasError,
+        clubDefinitions,
         clubListData,
-        isLoading: clubListDataIsLoading,
-        isError: clubListDataIsError
-    }] = useClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
-    const [{
+        clubListDataIsLoading,
         bagListData,
-        isLoading: bagListDataIsLoading,
-        isError: bagListDataIsError
-    }] = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, clubListData, reload);
+        bagListDataIsLoading
+    } = useClubData();
+
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -64,7 +63,6 @@ const ManageBag = ({ onSave, onCancel, bagClubs }) => {
 
             if(!didCancel && (!clubListDataIsLoading && !bagListDataIsLoading)) {
 
-                setSnackOpen(clubListDataIsError || bagListDataIsError);
                 setClubs(state => clubListData.list);
                 setBagClubsState(state => bagClubs || bagListData.list);
                 setReload(state => false);
@@ -80,8 +78,6 @@ const ManageBag = ({ onSave, onCancel, bagClubs }) => {
         bagListData.list,
         clubs,
         bagClubsState,
-        clubTypeData.clubTypes,
-        clubTypeData.clubType,
         reload
     ]);
 
@@ -164,6 +160,7 @@ const ManageBag = ({ onSave, onCancel, bagClubs }) => {
                 <BagTransferList
                     clubs={ clubs }
                     bag={ bagClubsState }
+                    clubDefinitions={ clubDefinitions }
                     onRemoveFromBag={ removeFromBagHandler }
                     onAddToBag={ addToBagHandler }/>
                 <ClubForm onSave={ addClubHandler } />

@@ -37,11 +37,11 @@ const NewGame = () => {
 
         const init = () => {
 
-            if(!didCancel) {
+            if (!didCancel) {
 
-                setSnackOpen(gameListDataIsError);
+                setSnackOpen(gameListDataIsError !== undefined);
 
-                if(reload) {
+                if (reload) {
 
                     setCurrentGame();
                 }
@@ -58,9 +58,9 @@ const NewGame = () => {
 
     const handleSnackClose = (event, reason) => {
         if (reason === 'clickaway') {
-          return;
+            return;
         }
-    
+
         setSnackOpen(false);
     };
 
@@ -77,16 +77,16 @@ const NewGame = () => {
 
     const onCancelHandler = () => { setIsNavigateBack(true) };
 
-    if(isNavigateBack) return <Redirect to="/golf/settings/games"/>;
+    if (isNavigateBack) return <Redirect to="/golf/settings/games" />;
 
     return (
         <>
-            <ModuleHeader label="New game" screenheader={ true } loading={ gameListDataIsLoading }/>
+            <ModuleHeader label="New game" screenheader={ true } loading={ gameListDataIsLoading } />
             <Snackbar
                 open={ snackOpen }
                 autoHideDuration={ 4000 }
                 onClose={ handleSnackClose }
-                anchorOrigin={{ vertical:'top', horizontal: 'center' }}>
+                anchorOrigin={ { vertical: 'top', horizontal: 'center' } }>
                 <Alert onClose={ handleSnackClose } severity="error">
                     New Game List data did not load
                 </Alert>
@@ -96,7 +96,7 @@ const NewGame = () => {
                     <GameForm
                         game={ currentGame }
                         onSave={ onSaveGameHandler }
-                        onCancel={ onCancelHandler }/>
+                        onCancel={ onCancelHandler } />
                 </PageContent>
             </PageContainer>
         </>

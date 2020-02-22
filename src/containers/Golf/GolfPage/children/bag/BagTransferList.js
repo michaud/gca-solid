@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
     FormControlLabel,
@@ -11,8 +11,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-
-import ClubTypeContext from '@golfutils/clubTypeContext';
 
 import bagTransferListStyles from './bagTransferList.style';
 
@@ -29,6 +27,7 @@ const checkDisabled = (left, leftChecked, right, rightChecked) => ({
 const BagTransferList = ({
     clubs,
     bag,
+    clubDefinitions,
     onRemoveFromBag,
     onAddToBag
 }) => {
@@ -36,8 +35,6 @@ const BagTransferList = ({
     const [checked, setChecked] = useState([]);
     const [leftAndRight, setLeftAndRight] = useState({ left: [], right: []})
     const [autoSort, setAutoSort] = useState(true);
-    const clubTypeData = useContext(ClubTypeContext);
-
     const classes = bagTransferListStyles();
     const leftChecked = intersection(checked, leftAndRight.left);
     const rightChecked = intersection(checked, leftAndRight.right);
@@ -60,8 +57,8 @@ const BagTransferList = ({
 
     const sortClubOnType = (a ,b) => {
         
-        const indexOfa = clubTypeData.clubTypes.findIndex(el => el.iri === a.clubType.value.iri);
-        const indexOfb = clubTypeData.clubTypes.findIndex(el => el.iri === b.clubType.value.iri);
+        const indexOfa = clubDefinitions.clubTypes.findIndex(el => el.iri === a.clubType.value.iri);
+        const indexOfb = clubDefinitions.clubTypes.findIndex(el => el.iri === b.clubType.value.iri);
 
         return indexOfa - indexOfb;
     };
@@ -133,7 +130,7 @@ const BagTransferList = ({
                     const clubType = item.clubType.value;
                     const brand = item.clubBrand.value;
                     const name = item.clubName.value;
-                    const label = clubTypeData.clubTypes.find(type => type.iri === clubType.iri).label;
+                    const label = clubDefinitions.clubTypes.find(type => type.iri === clubType.iri).label;
                     const labelId = `transfer-list-item-${index}-label`;
 
                     return (

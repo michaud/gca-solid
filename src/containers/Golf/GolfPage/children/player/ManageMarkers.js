@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
 
-import useMarkers from '@golfhooks/useMarkers';
-
 import getPlayer from '@golfservices/getPlayer';
 import golf from '@golfutils/golf-namespace';
 import MarkerList from './MarkerList';
 import PlayerDetail from './PlayerDetail';
 import deleteMarker from '@golfservices/deleteMarker';
 import saveResource from '@golfservices/saveResource';
+import { usePlayerData } from '@containers/Golf/contexts/dataProvider/AppDataProvider';
 
 const ManageMarkers = () => {
 
     const [reload, setReload] = useState(false);
-    const [{ markerListData }] = useMarkers(reload);
+    const {
+        progress,
+        count,
+        hasError,
+        markerListData,
+        markerDataIsLoading
+    } = usePlayerData();
 
     const [markers, setMarkers] = useState([]);
 

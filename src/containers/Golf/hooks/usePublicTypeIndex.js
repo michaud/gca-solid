@@ -5,8 +5,8 @@ import fetchPublicTypeIndex from '@services/fetchPublicTypeIndex';
 const usePublicTypeIndex = (initialReload) => {
     
     const [reload, setReload] = useState(initialReload);
-    const [publicTypeIndex, setPublicTypeIndex] = useState();
-    const [isError, setIsError] = useState(false);
+    const [publicTypeIndex, setPublicTypeIndex] = useState({ doc: undefined });
+    const [isError, setIsError] = useState();
     const [isLoading, setIsLoading] = useState(false);
     
     useEffect(() => {
@@ -15,23 +15,29 @@ const usePublicTypeIndex = (initialReload) => {
 
         const fetchData = async () => {
 
-            if(!publicTypeIndex || reload) {
+            if(!publicTypeIndex.doc || reload) {
 
                 if(!didCancel) setIsError(false);
                 if(!didCancel) setIsLoading(true);
 
                 try {
-                    const result = await fetchPublicTypeIndex();
+                    const doc = await fetchPublicTypeIndex();
 
-                    if(!didCancel) setPublicTypeIndex(result);
+                    if(!didCancel) setPublicTypeIndex(state => ({
+                        ...state,
+                        doc
+                    }));
+
+                    if(!didCancel) setIsLoading(false);
 
                 } catch(error) {
 
                     if(!didCancel) {
                         
                         console.log('error: ', error);
-                        setIsError(true)
+                        setIsError(error)
                         setReload(false);
+                        setIsLoading(true);
                     }
                 }
             }

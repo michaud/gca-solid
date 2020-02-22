@@ -9,12 +9,8 @@ import { Snackbar, DialogTitle, DialogContent } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 
 import gameShape from '@golfcontexts/game-shape.json';
-import useBagClubs from '@golfhooks/useBagClubs';
-import useClubs from '@golfhooks/useClubs';
-import useCourses from '@golfhooks/useCourses';
-import useMarkers from '@golfhooks/useMarkers';
-import usePlayer from '@golfhooks/usePlayer';
-import useClubDefinitions from '@golfhooks/useClubDefinitions';
+
+import { useGameEditData } from '@golfcontexts/dataProvider/AppDataProvider';
 
 import playingHandicapShape from '@golfcontexts/playing-handicap-shape.json';
 import setupDataObject from '@golfutils/setupDataObject';
@@ -61,33 +57,42 @@ const GameForm = ({
     const [courseModalOpen, setCourseModalOpen] = useState(false)
     const [markerModalOpen, setMarkerModalOpen] = useState(false)
     const [bagModalOpen, setBagModalOpen] = useState(false)
-    const clubTypeData = useClubDefinitions();
-
-    const [{
+    
+    const {
+        progress,
+        count,
+        hasError,
+        clubDefinitions,
+        hasClubTypeData,
+        clubDefinitionsIsError,
+        clubDefinitionsIsLoading,
         playerData,
-        isError: playerDataIsError
-    }, doPlayerReload] = usePlayer(reload);
-    
-    const [{
+        hasPlayerData,
+        playerDataIsError,
+        playerDataIsLoading,
+        doPlayerReload,
         markerListData,
-        isError: markerListDataIsError
-    }, doMarkerReload] = useMarkers(reload);
-    
-    const [{
+        hasMarkerData,
+        markerListDataIsError,
+        markerDataIsLoading,
+        doMarkerListDataReload,
         clubListData,
-        isError: clubListDataIsError
-    }] = useClubs(clubTypeData.clubTypes, clubTypeData.clubType, reload);
-    
-    const [{
+        hasClubListData,
+        clubListDataIsError,
+        clubListDataIsLoading,
+        doClubListDataReload,
         bagListData,
-        isError: bagListDataIsError
-    }, doBagReload] = useBagClubs(clubTypeData.clubTypes, clubTypeData.clubType, clubListData, reload);
-    
-    const [{
+        hasBagListData,
+        bagListDataIsError,
+        bagListDataIsLoading,
+        doBagListDataReload,
         courseListData,
-        courseListDataIsError
-    }, doCourseReload] = useCourses(reload);
-    
+        hasCourseListData,
+        courseListDataIsError,
+        courseListDataIsLoading,
+        doCourseListDataReload
+    } = useGameEditData();
+
     useEffect(() => {
 
         let didCancel = false;
@@ -97,11 +102,11 @@ const GameForm = ({
             if(!didCancel) {
 
                 setSnackOpen(
-                    playerDataIsError ||
-                    bagListDataIsError ||
-                    clubListDataIsError ||
-                    courseListDataIsError ||
-                    markerListDataIsError);
+                    playerDataIsError !== undefined ||
+                    bagListDataIsError !== undefined ||
+                    clubListDataIsError !== undefined ||
+                    courseListDataIsError !== undefined ||
+                    markerListDataIsError !== undefined);
             }
 
             if(game) {
@@ -116,8 +121,6 @@ const GameForm = ({
                 playerData['doc'] !== undefined
             ) {
 
-                // console.log('gameState.gameBag.value: ', gameState.gameBag.value);
-                // console.log('bagListData.list: ', bagListData.list);
                 const gameBag = putClubsInBag(clubListData.list, bagListData.list);
                 const newGame = setupDataObject(gameShape, {
                     gameBag,
@@ -164,7 +167,7 @@ const GameForm = ({
         });
 
         setCourseModalOpen(false);
-        doCourseReload(true);
+        doCourseListDataReload(true);
         setReload(true);
     };
 
@@ -172,7 +175,7 @@ const GameForm = ({
     const onSaveBag = () => {
 
         setBagModalOpen(false);
-        doBagReload(true);
+        doBagListDataReload(true);
         setReload(true);
     };
 
@@ -205,7 +208,7 @@ const GameForm = ({
         });
 
         setMarkerModalOpen(false);
-        doMarkerReload(true);
+        doMarkerListDataReload(true);
         setReload(true);
     };
 
@@ -310,9 +313,6 @@ const GameForm = ({
 
     const canSave = checkCanSave(gameState, gameShape);
 
-    // console.log('gameState.gameBag: ', gameState.gameBag);
-    // console.log('gameState.gameBag.value: ', gameState.gameBag.value);
-    // console.log('-----------------');
     return (
         <form noValidate autoComplete="off">
             <Dialog fullScreen 

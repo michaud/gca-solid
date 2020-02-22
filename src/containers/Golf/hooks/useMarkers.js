@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
 import { solid } from 'rdf-namespaces';
-import usePublicTypeIndex from '@golfhooks/usePublicTypeIndex';
 import markerShape from '@golfcontexts/marker-shape.json';
 import golf from '@golfutils/golf-namespace';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
@@ -9,24 +8,23 @@ import getListFromDoc from '@golfservices/getListFromDoc';
 import fetchResource from '@golfservices/fetchResource';
 import paths from '@golfconstants/paths';
 
-const useMarkers = (initialReload) => {
+const useMarkers = (publicTypeIndex, initialReload) => {
 
     const [reload, setReload] = useState(initialReload);
-    const [{ publicTypeIndex }] = usePublicTypeIndex(reload);
     const [markerListData, setMarkerListData] = useState({ list: [], doc: undefined });
-    const [isError, setIsError] = useState(false);
+    const [isError, setIsError] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
 
         let didCancel = false;
 
-        if (publicTypeIndex) {
+        if (publicTypeIndex.doc) {
 
             const fetchData = async () => {
 
                 try {
-                    const markersIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Marker);
+                    const markersIndex = publicTypeIndex.doc.findSubject(solid.forClass, golf.classes.Marker);
 
                     if (!markersIndex) {
 
@@ -74,7 +72,8 @@ const useMarkers = (initialReload) => {
                     if(!didCancel) {
 
                         console.log('error: ', error);
-                        setIsError(true)
+                        setIsError(error)
+                        setReload(false);                        
                         setIsLoading(false);
                     }
                 }
@@ -85,7 +84,7 @@ const useMarkers = (initialReload) => {
 
         return () => { didCancel = true; }
 
-    }, [publicTypeIndex, reload]);
+    }, [publicTypeIndex.doc, reload]);
 
     return [{ markerListData, isLoading, isError }, setReload];
 };

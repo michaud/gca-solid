@@ -2,19 +2,17 @@ import { useState, useEffect } from 'react';
 
 import { solid } from 'rdf-namespaces';
 
-import usePublicTypeIndex from '@golfhooks/usePublicTypeIndex';
 import golf from '@golfutils/golf-namespace';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import getPlayer from '@golfservices/getPlayer';
 import fetchResource from '@golfservices/fetchResource';
 import paths from '@golfconstants/paths';
 
-const usePlayer = (initialReload) => {
+const usePlayer = (publicTypeIndex, initialReload) => {
 
     const [reload, setReload] = useState(initialReload);
-    const [{ publicTypeIndex }] = usePublicTypeIndex(reload);
     const [playerData, setPlayerData] = useState({ player: undefined, doc: undefined });
-    const [isError, setIsError] = useState(false);
+    const [isError, setIsError] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
@@ -23,12 +21,12 @@ const usePlayer = (initialReload) => {
 
         if(!didCancel) setIsLoading(true);
 
-        if (publicTypeIndex) {
+        if (publicTypeIndex.doc) {
 
             const loadData = async () => {
 
                 try {
-                    const playerIndex = publicTypeIndex.findSubject(solid.forClass, golf.classes.Player);
+                    const playerIndex = publicTypeIndex.doc.findSubject(solid.forClass, golf.classes.Player);
 
                     if (!playerIndex) {
 
@@ -71,8 +69,9 @@ const usePlayer = (initialReload) => {
                     if(!didCancel) {
 
                         console.log('error: ', error);
-                        setIsError(true);
+                        setIsError(error);
                         setIsLoading(false);
+                        setReload(false);
                     }
 
                 }
@@ -83,7 +82,7 @@ const usePlayer = (initialReload) => {
 
         return () => { didCancel = true; }
 
-    }, [publicTypeIndex, reload]);
+    }, [publicTypeIndex.doc, reload]);
 
     return [{ playerData, isLoading, isError }, setReload];
 };

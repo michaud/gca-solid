@@ -45,7 +45,7 @@ const getClubDefinitions = async () => {
         iri: ''
     }
 
-    return { clubTypes, clubType };
+    return { clubTypes, clubType, doc: golfVocabulary };
 };
 
 export default getClubDefinitions;
