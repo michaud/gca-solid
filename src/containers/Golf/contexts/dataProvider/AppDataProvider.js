@@ -66,13 +66,13 @@ const AppDataProvider = ({ children }) => {
         clubListData,
         isLoading: clubListDataIsLoading,
         isError: clubListDataIsError
-    }, doClubListDataReload] = useClubs(publicTypeIndex, clubDefinitions.clubTypes, clubDefinitions.clubType, reload);
+    }, reloadClubs] = useClubs(publicTypeIndex, clubDefinitions.clubTypes, clubDefinitions.clubType, reload);
 
     const [{
         bagListData,
         isLoading: bagListDataIsLoading,
         isError: bagListDataIsError
-    }, doBagListDataReload] = useBagClubs(publicTypeIndex, clubDefinitions.clubTypes, clubDefinitions.clubType, clubListData, reload);
+    }, reloadBag] = useBagClubs(publicTypeIndex, clubDefinitions.clubTypes, clubDefinitions.clubType, clubListData, reload);
 
     const [{
         courseListData,
@@ -168,14 +168,14 @@ const AppDataProvider = ({ children }) => {
                 hasClubListData: clubListData.list.length > 0,
                 clubListDataIsError,
                 clubListDataIsLoading,
-                doClubListDataReload
+                reloadClubs
             },
             bag: {
                 bagListData,
                 hasBagListData: bagListData.list.length > 0,
                 bagListDataIsError,
                 bagListDataIsLoading,
-                doBagListDataReload
+                reloadBag
             },
             course: {
                 courseListData,
@@ -226,14 +226,14 @@ const AppDataProvider = ({ children }) => {
             hasClubListData: false,
             clubListDataIsError,
             clubListDataIsLoading,
-            doClubListDataReload
+            reloadClubs
         },
         bag: {
             bagListData: undefined,
             hasBagListData: false,
             bagListDataIsError,
             bagListDataIsLoading,
-            doBagListDataReload
+            reloadBag
         },
         course: {
             courseListData: undefined,

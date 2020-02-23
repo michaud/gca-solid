@@ -16,7 +16,6 @@ const ManageMarkers = () => {
         reloadMarkers
     } = usePlayerData();
 
-
     useEffect(() => {
 
         let didCancel = false;

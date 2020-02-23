@@ -4,7 +4,6 @@ import React, {
 } from 'react';
 
 import { StylesProvider } from '@material-ui/core/styles';
-import { Snackbar } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 
@@ -23,7 +22,6 @@ import {
 import ClubList from '@golf/GolfPage/children/club/ClubList';
 import ModuleHeader from '@golf/components/ModuleHeader';
 import BagTransferList from '@golf/GolfPage/children/bag/BagTransferList';
-import Alert from '@golf/components/Alert';
 import ClubForm from '@golf/GolfPage/children/club/ClubForm';
 
 import {
@@ -35,23 +33,20 @@ import formStyles from '@golfstyles/form.style';
 
 const ManageBag = ({ onSave, onCancel, bagClubs }) => {
 
-    const [reload, setReload] = useState(false);
     const [clubs, setClubs] = useState();
     const [bagClubsState, setBagClubsState] = useState(bagClubs);
-    const [snackOpen, setSnackOpen] = useState(false);
-
-    const classes = formStyles();
 
     const {
-        progress,
-        count,
-        hasError,
         clubDefinitions,
         clubListData,
         clubListDataIsLoading,
+        reloadClubs,
         bagListData,
+        reloadBag,
         bagListDataIsLoading
     } = useClubData();
+
+    const classes = formStyles();
 
     const { t } = useTranslation();
 
@@ -63,9 +58,8 @@ const ManageBag = ({ onSave, onCancel, bagClubs }) => {
 
             if(!didCancel && (!clubListDataIsLoading && !bagListDataIsLoading)) {
 
-                setClubs(state => clubListData.list);
-                setBagClubsState(state => bagClubs || bagListData.list);
-                setReload(state => false);
+                setClubs(clubListData.list);
+                setBagClubsState(bagClubs || bagListData.list);
             }
         }
 
@@ -77,17 +71,8 @@ const ManageBag = ({ onSave, onCancel, bagClubs }) => {
         clubListData.list,
         bagListData.list,
         clubs,
-        bagClubsState,
-        reload
+        bagClubsState
     ]);
-
-    const handleSnackClose = (event, reason) => {
-        if (reason === 'clickaway') {
-          return;
-        }
-    
-        setSnackOpen(false);
-    };
 
     const addClubHandler = async (club) => {
 
@@ -98,7 +83,8 @@ const ManageBag = ({ onSave, onCancel, bagClubs }) => {
             doc: clubListData.doc,
             type: golf.classes.Club
         });
-        setReload(true);
+
+        reloadClubs();
     };
 
     const saveClubHandler = async (club) => {
@@ -108,30 +94,34 @@ const ManageBag = ({ onSave, onCancel, bagClubs }) => {
             doc: clubListData.doc,
             type: golf.classes.Club
         });
-        setReload(true);
+
+        reloadClubs();
     };
 
     const deleteClubHandler = club => {
 
-        const isClubInBag = bagListData.list.find(testClub => testClub.iri === club.iri);
+        const isClubInBag = bagListData.list.clubs.value.find(testClub => testClub.iri === club.iri);
 
         if(isClubInBag) removeFromBag([club], bagListData.doc);
 
         deleteClub(club, clubListData.doc);
-        setReload(true);
+        reloadClubs();
+        reloadBag();
     };
 
     const addToBagHandler = (clubs) => {
         //TODO which bag central bag or gameBag
         addToBag(clubs, bagListData.doc);
-        setReload(true)
+        reloadClubs();
+        reloadBag();
     };
     
     const removeFromBagHandler = (clubs) => {
         //TODO which bag central bag or gameBag
        
         removeFromBag(clubs, bagListData.doc);
-        setReload(true)
+        reloadClubs();
+        reloadBag();
     };
 
     const PageContainerOrNot = ({ plain, children }) => {
@@ -146,16 +136,10 @@ const ManageBag = ({ onSave, onCancel, bagClubs }) => {
 
     return (
         <StylesProvider>
-            { !onSave  ? <ModuleHeader label={ t('golf.whatsInTheBag') } screenheader={ true } loading={ clubListDataIsLoading === true || bagListDataIsLoading === true }/> : null }
-            <Snackbar
-                open={ snackOpen }
-                autoHideDuration={ 4000 }
-                onClose={ handleSnackClose }
-                anchorOrigin={{ vertical:'top', horizontal: 'center' }}>
-                <Alert onClose={ handleSnackClose } severity="error">
-                    Courses did not load
-                </Alert>
-            </Snackbar>
+            { !onSave  ? <ModuleHeader
+                label={ t('golf.whatsInTheBag') }
+                screenheader={ true }
+                loading={ clubListDataIsLoading === true || bagListDataIsLoading === true }/> : null }
              <PageContainerOrNot plain={ onSave !== undefined }>
                 <BagTransferList
                     clubs={ clubs }
@@ -163,7 +147,11 @@ const ManageBag = ({ onSave, onCancel, bagClubs }) => {
                     clubDefinitions={ clubDefinitions }
                     onRemoveFromBag={ removeFromBagHandler }
                     onAddToBag={ addToBagHandler }/>
-                <ClubForm onSave={ addClubHandler } />
+                <div className="c-box">
+                    <ClubForm
+                        onSave={ addClubHandler }
+                        clubDefinitions={ clubDefinitions }/>
+                </div>
                 { clubs && <ClubList
                     onSave={ saveClubHandler }
                     onDelete={ deleteClubHandler }

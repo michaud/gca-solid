@@ -12,11 +12,13 @@ const useClubData = () => {
             },
             clubs: {
                 clubListData,
-                clubListDataIsLoading
+                clubListDataIsLoading,
+                reloadClubs
             },
             bag: {
                 bagListData,
-                bagListDataIsLoading
+                bagListDataIsLoading,
+                reloadBag
             }
         }
     } = useAppData();
@@ -27,8 +29,10 @@ const useClubData = () => {
         hasError,
         clubDefinitions,
         clubListData,
+        reloadClubs,
         clubListDataIsLoading,
         bagListData,
+        reloadBag,
         bagListDataIsLoading
     };
 };

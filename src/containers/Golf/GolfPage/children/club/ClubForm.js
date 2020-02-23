@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import update from 'immutability-helper';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 
+import { useClubData } from '@golfcontexts/dataProvider/AppDataProvider';
+
 import clubShape from '@golfcontexts/club-shape.json';
 import getFieldValue from '@golfutils/getFieldValue';
 import checkCanSave from '@golfutils/checkCanSave';
 import getFieldControl from '@golfutils/getFieldControl';
-import ClubTypeContext from '@golfutils/clubTypeContext';
 import formStyles from '@golfstyles/form.style';
 import {
     FlexContainer,
@@ -26,22 +27,23 @@ const ClubForm = ({
 }) => {
 
     const [clubState, setClubState] = useState(club);
-    const clubTypeData = useContext(ClubTypeContext);
 
+    const { clubDefinitions } = useClubData();
+    
     const { t } = useTranslation();
     const classes = formStyles();
 
     const saveHandler = () => {
 
         onSave(clubState);
-        setClubState(clubTypeData.clubType);
+        setClubState(clubDefinitions.clubType);
     };
 
     const onDeleteHandler = player => () => onDelete(player);
 
     const onChangeClubField = fieldDef => (...args)  => {
 
-        const value = getFieldValue(fieldDef, [...args, clubTypeData.clubTypes]);
+        const value = getFieldValue(fieldDef, [...args, clubDefinitions.clubTypes]);
 
         setClubState(state => update(state, {
             [fieldDef.predicate]: { value: { $set: value } }
@@ -56,10 +58,10 @@ const ClubForm = ({
     
         } else {
             
-            if(clubTypeData.clubType) setClubState(clubTypeData.clubType);
+            if(clubDefinitions.clubType) setClubState(clubDefinitions.clubType);
         }
 
-    }, [club, clubTypeData.clubType]);
+    }, [club, clubDefinitions]);
 
     const clubFields = [];
     
@@ -88,38 +90,36 @@ const ClubForm = ({
         <form noValidate autoComplete="off">
             <header className="c-header">{ title }</header>
             { clubFields }
-            <div className="c-box">
-                <FlexContainer>
-                    <FlexItem>
-                        <Button
-                            variant="contained"
-                            disabled={ !canSave.can }
-                            onClick={ saveHandler }
-                            className={ classes.button }
-                            color="primary">{ actionLabel }</Button>
-                    </FlexItem>
-                    {
-                        handleDelete ? (
-                            <FlexItem>
-                                <Button
-                                    variant="contained"
-                                    disabled={ !canSave.can }
-                                    onClick={ handleDelete(club) }
-                                    className={ classes.button }
-                                    color="primary">Delete</Button>
-                            </FlexItem>
-                        ) : null
-                    }
-                    <FlexItemRight>
-                    { onCancel && <Button
+            <FlexContainer>
+                <FlexItem>
+                    <Button
                         variant="contained"
-                        onClick={ onCancel }
+                        disabled={ !canSave.can }
+                        onClick={ saveHandler }
                         className={ classes.button }
-                        color="primary">Cancel</Button>
-                    }
-                    </FlexItemRight>
-                </FlexContainer>
-            </div>
+                        color="primary">{ actionLabel }</Button>
+                </FlexItem>
+                {
+                    handleDelete ? (
+                        <FlexItem>
+                            <Button
+                                variant="contained"
+                                disabled={ !canSave.can }
+                                onClick={ handleDelete(club) }
+                                className={ classes.button }
+                                color="primary">Delete</Button>
+                        </FlexItem>
+                    ) : null
+                }
+                <FlexItemRight>
+                { onCancel && <Button
+                    variant="contained"
+                    onClick={ onCancel }
+                    className={ classes.button }
+                    color="primary">Cancel</Button>
+                }
+                </FlexItemRight>
+            </FlexContainer>
         </form>
     );
 };

@@ -55,14 +55,15 @@ const ClubDetail = ({
                 </FlexItemTools>
             </FlexContainer>
             { displayState === displayStates.edit && (
-
-                <ClubForm
-                    club={ club }
-                    title=""
-                    actionLabel="Save club"
-                    onSave={ onSaveHandler }
-                    onDelete={ onDeleteHandler }
-                    onCancel={ cancelEdit }/>
+                <div className="c-block--akimbo c-box">
+                    <ClubForm
+                        club={ club }
+                        title=""
+                        actionLabel="Save club"
+                        onSave={ onSaveHandler }
+                        onDelete={ onDeleteHandler }
+                        onCancel={ cancelEdit }/>
+                </div>
             )}
         </div>
     );

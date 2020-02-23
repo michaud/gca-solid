@@ -9,9 +9,9 @@ import getListFromDoc from '@golfservices/getListFromDoc';
 import fetchResource from '@golfservices/fetchResource';
 import paths from '@golfconstants/paths';
 
-const useClubs = (publicTypeIndex, clubTypes = [], clubType, initialReload) => {
+const useClubs = (publicTypeIndex, clubTypes = [], clubType) => {
 
-    const [reload, setReload] = useState(initialReload);
+    const [reload, setReload] = useState(false);
     const [clubListData, setClubListData] = useState({ list: [], doc: undefined });
     const [isError, setIsError] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -19,8 +19,6 @@ const useClubs = (publicTypeIndex, clubTypes = [], clubType, initialReload) => {
     useEffect(() => {
 
         let didCancel = false;
-
-        if(!didCancel) setIsLoading(true);
 
         if (publicTypeIndex.doc && clubTypes.length > 0 && clubType) {
 
@@ -44,8 +42,6 @@ const useClubs = (publicTypeIndex, clubTypes = [], clubType, initialReload) => {
                             doc
                         }));
 
-                        if(!didCancel) setIsLoading(false);
-
                         return;
 
                     } else {
@@ -65,8 +61,6 @@ const useClubs = (publicTypeIndex, clubTypes = [], clubType, initialReload) => {
                                     ...state,
                                     doc
                                 }));
-
-                                setIsLoading(false);
                             }
 
                             return;
@@ -80,23 +74,26 @@ const useClubs = (publicTypeIndex, clubTypes = [], clubType, initialReload) => {
                             clubType
                         )();
                             
-                        if(!didCancel) {
-
-                            setClubListData({ list, doc });
-                            setIsLoading(false);
-                        }
+                        if(!didCancel) setClubListData({ list, doc });
                     }
+
                 } catch (error) { 
 
                     if(!didCancel) {
 
                         console.log('error: ', error);
                         setIsError(error)
-                        setReload(false);
+                    }
+                } finally {
+
+                    if(!didCancel) {
                         setIsLoading(false);
+                        setReload(false);
                     }
                 }
             };
+
+            if(!didCancel) setIsLoading(true);
 
             loadData();
         }
@@ -105,7 +102,7 @@ const useClubs = (publicTypeIndex, clubTypes = [], clubType, initialReload) => {
 
     }, [publicTypeIndex.doc, reload]);
 
-    return [{ clubListData, isLoading, isError }, setReload];
+    return [{ clubListData, isLoading, isError }, () => { setReload(true) }];
 };
 
 export default useClubs;
