@@ -60,16 +60,16 @@ const CourseDetail = ({
                 </FlexItemTools>
             </FlexContainer>
             { displayState === displayStates.edit && (
-
-                <CourseForm
-                    title={ `Edit Course` }
-                    actionLabel={ `Save Course` }
-                    onSave={ onSaveHandler }
-                    onCancel={ cancelEdit }
-                    onDelete={ onDeleteHandler(course) }
-                    course={ course }/>
-                )
-            }
+                <div className="c-block--akimbo c-box">
+                    <CourseForm
+                        title={ `Edit Course` }
+                        actionLabel={ `Save Course` }
+                        onSave={ onSaveHandler }
+                        onCancel={ cancelEdit }
+                        onDelete={ onDeleteHandler(course) }
+                        course={ course }/>
+                </div>
+            )}
         </div>
     );
 };

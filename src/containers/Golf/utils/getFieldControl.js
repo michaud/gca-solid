@@ -128,7 +128,7 @@ const getFieldControl = ({
                 type="number"
                 label={ data.label }
                 className={ styles.textFieldNumber }
-                value={ data.value }
+                value={ data.value || '' }
                 onChange={ onChange(data) }
                 variant="outlined"/>
         }

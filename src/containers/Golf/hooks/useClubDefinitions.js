@@ -27,7 +27,6 @@ const useClubDefinitions = () => {
                             ...state,
                             ...clubTypeData
                         }));
-                        setIsLoading(false);
                     }
 
                 })();
@@ -38,8 +37,11 @@ const useClubDefinitions = () => {
 
                     console.log('error: ', error);
                     setIsError(error);
-                    setIsLoading(false);
                 }
+
+            } finally {
+
+                if(!didCancel) setIsLoading(false);
             }
         }
 

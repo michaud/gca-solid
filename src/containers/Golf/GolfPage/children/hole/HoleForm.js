@@ -35,9 +35,25 @@ const HoleForm = ({
 
     useEffect(() => {
 
-        holeData ? setHoleState(holeData) : setHoleState(setupDataObject(holeShape, {
-            holeNumber
-        }));
+        let didCancel = false;
+
+        const update = () => {
+
+            if(holeData) {
+                
+                if(!didCancel) setHoleState(holeData);
+
+            } else {
+
+                if(!didCancel) setHoleState(setupDataObject(holeShape, {
+                    holeNumber
+                }));
+            }
+        }
+
+        update();
+
+        return () => { didCancel = true; }
 
     }, [holeData, holeNumber]);
 
@@ -50,6 +66,7 @@ const HoleForm = ({
         } else {
             
             onSave(holeState);
+            focusRef.current.focus();
         }            
     };
 

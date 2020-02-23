@@ -22,6 +22,10 @@
 
         border: 1px solid green;
 
+        &.hole-table__cell--empty {
+
+            border-color: rgb(218, 208, 169);
+        }
         &.invalid {
             border: 2px solid red;
         }
@@ -48,4 +52,16 @@
 
         background: linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%);
     }
+}
+
+.hole-table__header--empty {
+
+    background: linear-gradient(171deg, rgb(241, 234, 208) 0%, rgb(218, 208, 169) 100%);
+    border: 1px solid rgb(218, 208, 169);
+    border-radius: 3px;
+}
+
+.hole-table__cell--empty {
+
+    border-color: rgb(218, 208, 169);
 }

@@ -60,25 +60,25 @@ const AppDataProvider = ({ children }) => {
         markerListData,
         isLoading: markerDataIsLoading,
         isError: markerListDataIsError
-    }, reloadMarkers] = useMarkers(publicTypeIndex, reload);
+    }, reloadMarkers] = useMarkers(publicTypeIndex);
 
     const [{
         clubListData,
         isLoading: clubListDataIsLoading,
         isError: clubListDataIsError
-    }, reloadClubs] = useClubs(publicTypeIndex, clubDefinitions.clubTypes, clubDefinitions.clubType, reload);
+    }, reloadClubs] = useClubs(publicTypeIndex, clubDefinitions.clubTypes, clubDefinitions.clubType);
 
     const [{
         bagListData,
         isLoading: bagListDataIsLoading,
         isError: bagListDataIsError
-    }, reloadBag] = useBagClubs(publicTypeIndex, clubDefinitions.clubTypes, clubDefinitions.clubType, clubListData, reload);
+    }, reloadBag] = useBagClubs(publicTypeIndex, clubDefinitions.clubTypes, clubDefinitions.clubType, clubListData);
 
     const [{
         courseListData,
         isLoading: courseListDataIsLoading,
         courseListDataIsError
-    }, doCourseListDataReload] = useCourses(publicTypeIndex, reload);
+    }, reloadCourses] = useCourses(publicTypeIndex);
 
     const [{
         gameListData,
@@ -182,7 +182,7 @@ const AppDataProvider = ({ children }) => {
                 hasCourseListData: courseListData.list.length > 0,
                 courseListDataIsError,
                 courseListDataIsLoading,
-                doCourseListDataReload
+                reloadCourses
             },
             game: {
                 gameListData,
@@ -240,7 +240,7 @@ const AppDataProvider = ({ children }) => {
             hasCourseListData: false,
             courseListDataIsError,
             courseListDataIsLoading,
-            doCourseListDataReload
+            reloadCourses
         },
         game: {
             gameListData: undefined,

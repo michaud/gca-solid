@@ -19,6 +19,7 @@ import {
     FlexItem,
     FlexItemRight,
 } from '@golfstyles/layout.style';
+import { initReactI18next } from 'react-i18next';
 
 const CourseForm = ({
     course,
@@ -90,16 +91,25 @@ const CourseForm = ({
 
     useEffect(() => {
 
-        if(course) {
-            
-            setCourseState(course);
-            
-        } else {
-            
-            const newCourse = setupDataObject(courseShape);
+        let didCancel = false;
 
-            setCourseState(newCourse);
+        const init = () => {
+            
+            if(course) {
+            
+                if(!didCancel) setCourseState(course);
+                
+            } else {
+                
+                const newCourse = setupDataObject(courseShape);
+
+                if(!didCancel) setCourseState(newCourse);
+            }
         }
+
+        init();
+
+        return () => { didCancel = true; }
 
     }, [course]);
 
@@ -138,28 +148,26 @@ const CourseForm = ({
     return (
         <form noValidate autoComplete="off">
             <header className="c-header">{ title }</header>
-            <div className="c-box">
-                { courseFields }
-                { !canSave.can && <div className="c-box">{ canSave.reasons.map(item => item) }</div> }
-                <FlexContainer>
-                    <FlexItem>
-                        <Button
-                            variant="contained"
-                            disabled={ !canSave.can }
-                            onClick={ saveHandler }
-                            className={ classes.button }
-                            color="primary">{ actionLabel }</Button>
-                    </FlexItem>
-                    <FlexItemRight>
-                    { onCancel && <Button
+            { courseFields }
+            { !canSave.can && <div className="c-box">{ canSave.reasons.map(item => item) }</div> }
+            <FlexContainer>
+                <FlexItem>
+                    <Button
                         variant="contained"
-                        onClick={ onCancel }
+                        disabled={ !canSave.can }
+                        onClick={ saveHandler }
                         className={ classes.button }
-                        color="primary">Cancel</Button>
-                    }
-                    </FlexItemRight>
-                </FlexContainer>
-            </div>
+                        color="primary">{ actionLabel }</Button>
+                </FlexItem>
+                <FlexItemRight>
+                { onCancel && <Button
+                    variant="contained"
+                    onClick={ onCancel }
+                    className={ classes.button }
+                    color="primary">Cancel</Button>
+                }
+                </FlexItemRight>
+            </FlexContainer>
         </form>
     );
 };

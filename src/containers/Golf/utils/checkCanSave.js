@@ -1,5 +1,4 @@
 import golf from "@golfutils/golf-namespace";
-import { numberOfAirbags } from "rdf-namespaces/dist/schema";
 
 const hasValue = item => {
 

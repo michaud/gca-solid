@@ -16,9 +16,9 @@ const setupBag = (document) => {
     return document;
 };
 
-const useBagClubs = (publicTypeIndex, clubTypes = [], clubType, clubListData, initialReload) => {
+const useBagClubs = (publicTypeIndex, clubTypes = [], clubType, clubListData) => {
 
-    const [reload, setReload] = useState(initialReload);
+    const [reload, setReload] = useState(false);
     const [bagListData, setBagListData] = useState({ list: [], doc: undefined });
     const [isError, setIsError] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -37,7 +37,6 @@ const useBagClubs = (publicTypeIndex, clubTypes = [], clubType, clubListData, in
 
                     if (!bagClubListIndex) {
 
-                        if(!didCancel) setIsLoading(true);
                         // If no clubList document is listed in the public type index, create one:
                         const doc = await initialiseTypeDocument(
                             golf.classes.Bag,
@@ -45,20 +44,14 @@ const useBagClubs = (publicTypeIndex, clubTypes = [], clubType, clubListData, in
                             setupBag
                         );
 
-                        if (doc === null) {
-
-                            if(!didCancel) setIsLoading(false);
-
-                            return;
-                        }
+                        if (doc === null) return;
                         
                         if(!didCancel) {
+
                             setBagListData(state => ({
                                 ...state,
                                 doc
                             }));
-
-                            setIsLoading(false);
                         }
 
                         return;
@@ -70,8 +63,6 @@ const useBagClubs = (publicTypeIndex, clubTypes = [], clubType, clubListData, in
 
                         if (typeof url !== 'string') return;
                         
-                        if(!didCancel) setIsLoading(true);                        
-                        
                         const doc = await fetchResource(url);
 
                         if(!clubType && clubTypes.length === 0) {
@@ -82,8 +73,6 @@ const useBagClubs = (publicTypeIndex, clubTypes = [], clubType, clubListData, in
                                     ...state,
                                     doc
                                 }));
-
-                                setIsLoading(false);
                             }
 
                             return;
@@ -99,9 +88,7 @@ const useBagClubs = (publicTypeIndex, clubTypes = [], clubType, clubListData, in
                                 golf.classes.Bag
                             );
 
-                            if(!didCancel) setIsLoading(false);
-
-                            setBagListData({
+                            if(!didCancel) setBagListData({
                                 list,
                                 doc
                             });
@@ -113,11 +100,18 @@ const useBagClubs = (publicTypeIndex, clubTypes = [], clubType, clubListData, in
 
                         console.log('error: ', error);
                         setIsError(error)
+                    }
+
+                } finally {
+
+                    if(!didCancel) {
                         setReload(false);
                         setIsLoading(false);
                     }
                 }
             };
+
+            if(!didCancel) setIsLoading(true);
 
             loadData();
         }
@@ -126,7 +120,7 @@ const useBagClubs = (publicTypeIndex, clubTypes = [], clubType, clubListData, in
 
     }, [publicTypeIndex.doc, clubListData, reload]);
 
-    return [{ bagListData, isLoading, isError }, setReload];
+    return [{ bagListData, isLoading, isError }, () => { setReload(true) }];
 };
 
 export default useBagClubs;

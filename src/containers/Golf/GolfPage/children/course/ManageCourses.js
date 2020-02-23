@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import { Snackbar } from '@material-ui/core';
-
 import deleteCourse from '@golfservices/deleteCourse';
 import { PageContainer, PageContent } from '@golfstyles/page.style';
 import saveResource from '@golfservices/saveResource';
 
 import golf from '@golfutils/golf-namespace';
 
-import Alert from '@golf/components/Alert';
 import ModuleHeader from '@golf/components/ModuleHeader';
 
 import CourseList from '@golf/GolfPage/children/course/CourseList';
@@ -17,19 +14,13 @@ import { useCourseData } from '@golfcontexts/dataProvider/AppDataProvider';
 
 const ManageCourses = () => {
 
-    const [reload, setReload] = useState(false);
     const [courses, setCourses] = useState([]);
-    const [snackOpen, setSnackOpen] = useState(false);
 
     const {
-        progress,
-        count,
-        hasError,
         courseListData,
-        hasCourseListData,
         courseListDataIsError,
         courseListDataIsLoading,
-        doCourseListDataReload
+        reloadCourses
     } = useCourseData();
     
     useEffect(() => {
@@ -38,28 +29,14 @@ const ManageCourses = () => {
 
         const init = () => {
 
-            if(!didCancel) {
-
-                setCourses(courseListData.list);
-                setReload(false);
-            }
+            if(!didCancel) setCourses(courseListData.list);
         }
 
         init();
 
-        return () => {
-            didCancel = true;
-        }
+        return () => { didCancel = true; }
 
-    }, [courseListData, courseListDataIsError, reload]);
-
-    const handleSnackClose = (event, reason) => {
-        if (reason === 'clickaway') {
-          return;
-        }
-    
-        setSnackOpen(false);
-    };
+    }, [courseListData, courseListDataIsError]);
 
     const onSaveCourse = (course) => {
 
@@ -68,30 +45,24 @@ const ManageCourses = () => {
             doc: courseListData.doc,
             type: golf.classes.Course
         });
-        setReload(true);
+        
+        reloadCourses()
     };
 
     const onDeleteCourseHandler = (course) => {
 
         deleteCourse(course, courseListData.doc);
-        setReload(true);
+        reloadCourses();
     };
 
     return (
         <>
             <ModuleHeader label="Courses" screenheader={ true } loading={ courseListDataIsLoading }/>
-            <Snackbar
-                open={ snackOpen }
-                autoHideDuration={ 4000 }
-                onClose={ handleSnackClose }
-                anchorOrigin={{ vertical:'top', horizontal: 'center' }}>
-                <Alert onClose={ handleSnackClose } severity="error">
-                    Courses did not load
-                </Alert>
-            </Snackbar>
             <PageContainer>
                 <PageContent>
-                    <CourseForm onSave={ onSaveCourse }/>
+                    <div className="c-box">
+                        <CourseForm onSave={ onSaveCourse }/>
+                    </div>
                     <CourseList
                         courses={ courses }
                         onSaveCourse={ onSaveCourse }

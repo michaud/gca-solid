@@ -12,7 +12,7 @@ const useCourseData = () => {
                 hasCourseListData,
                 courseListDataIsError,
                 courseListDataIsLoading,
-                doCourseListDataReload
+                reloadCourses
             }
         }
     } = useAppData();
@@ -25,7 +25,7 @@ const useCourseData = () => {
         hasCourseListData,
         courseListDataIsError,
         courseListDataIsLoading,
-        doCourseListDataReload
+        reloadCourses
     };
 };
 

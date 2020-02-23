@@ -9,9 +9,9 @@ import courseShape from '@golfcontexts/course-shape.json';
 import fetchResource from '@golfservices/fetchResource';
 import paths from '@golfconstants/paths';
 
-const useCourses = (publicTypeIndex, initialReload) => {
+const useCourses = (publicTypeIndex) => {
     
-    const [reload, setReload] = useState(initialReload);
+    const [reload, setReload] = useState(false);
     const [courseListData, setCourseListData] = useState({ list: [], doc: undefined });
     const [isError, setIsError] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +29,6 @@ const useCourses = (publicTypeIndex, initialReload) => {
 
                     if (!courseListIndex) {
 
-                        if(!didCancel) setIsLoading(true);
                         // If no clubList document is listed in the public type index, create one:
                         const doc = await initialiseTypeDocument(
                             golf.classes.Course,
@@ -43,8 +42,6 @@ const useCourses = (publicTypeIndex, initialReload) => {
                             doc
                         }));
 
-                        if(!didCancel)  setIsLoading(false);
-
                         return;
 
                     } else {
@@ -54,8 +51,6 @@ const useCourses = (publicTypeIndex, initialReload) => {
 
                         if (typeof url !== 'string') return;
 
-                        if(!didCancel) setIsLoading(true);
-
                         const doc = await fetchResource(url);
 
                         const list = getListFromDoc(
@@ -63,8 +58,6 @@ const useCourses = (publicTypeIndex, initialReload) => {
                             golf.classes.Course,
                             courseShape
                         )();
-
-                        if(!didCancel) setIsLoading(false);
 
                         if(!didCancel) setCourseListData({ list, doc });
                     }
@@ -75,12 +68,19 @@ const useCourses = (publicTypeIndex, initialReload) => {
 
                         console.log('error: ', error);
                         setIsError(error)
+                    }
+
+                } finally {
+
+                    if(!didCancel) {
+
                         setReload(false);
                         setIsLoading(false);
                     }
                 }
-                
             };
+
+            if(!didCancel) setIsLoading(true);
 
             loadData();
         }
@@ -89,7 +89,7 @@ const useCourses = (publicTypeIndex, initialReload) => {
 
     }, [publicTypeIndex.doc, reload]);
 
-    return [{ courseListData, isLoading, isError }, setReload];
+    return [{ courseListData, isLoading, isError }, () => { setReload(true) }];
 };
 
 export default useCourses;
