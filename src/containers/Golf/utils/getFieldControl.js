@@ -22,14 +22,8 @@ const getFieldControl = ({
     label,
     styles,
     onChange,
-    onSave,
-    onAdd,
-    onSaveEdit,
-    onEdit,
-    inputRef,
     idx,
-    dataSource,
-    availableStrokeIndices
+    ...rest
 }) => {
 
     const required = data.hasOwnProperty('required') ? data.required : true;
@@ -74,6 +68,11 @@ const getFieldControl = ({
 
             if(data.predicate === 'holeStrokeIndex') {
 
+                const {
+                    inputRef,
+                    availableStrokeIndices
+                } = rest;
+            
                 return <FormControl required variant="outlined" className={ styles.SIselect } key={ idx }>
                     <InputLabel shrink id="holeStrokeIndexLabel">{ data.label }</InputLabel>
                     <Select
@@ -141,6 +140,11 @@ const getFieldControl = ({
 
         case golf.classes.Player : {
 
+            const {
+                onSave,
+                dataSource
+            } = rest;
+
             return <PlayerUpdate key={ idx }
                 onSave={ onSave }
                 player={ dataSource.player }/>
@@ -157,6 +161,11 @@ const getFieldControl = ({
 
         case golf.classes.Hole : {
 
+            const {
+                onSave,
+                onSaveEdit
+            } = rest;
+
             return <ManageHoles
                 onSave={ onSave }
                 onSaveEdit={ onSaveEdit }
@@ -165,7 +174,12 @@ const getFieldControl = ({
         }
 
         case golf.classes.Course : {
-            
+
+            const {
+                onAdd,
+                dataSource
+            } = rest;
+
             return <SelectCourse key={ idx }
                 selected={ data.value === '' ? undefined : data.value }
                 courses={ dataSource.courses }
@@ -174,6 +188,12 @@ const getFieldControl = ({
         }
 
         case golf.classes.Marker : {
+
+            const {
+                onSave,
+                onAdd,
+                dataSource
+            } = rest;
 
             return <SelectMarker key={ idx }
                 markers={ dataSource.markers }
@@ -184,6 +204,8 @@ const getFieldControl = ({
         }
             
         case golf.classes.Bag : {
+
+            const { onEdit } = rest;
 
             return <BagDetail key={ idx }
                 bag={ data.value }

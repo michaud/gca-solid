@@ -15,7 +15,7 @@ const useGameListData = () => {
                 hasGameListData,
                 gameListDataIsError,
                 gameListDataIsLoading,
-                doGameListDataReload
+                reloadGames
             }
         }
     } = useAppData();
@@ -29,7 +29,7 @@ const useGameListData = () => {
         hasGameListData,
         gameListDataIsError,
         gameListDataIsLoading,
-        doGameListDataReload
+        reloadGames
     };
 };
 

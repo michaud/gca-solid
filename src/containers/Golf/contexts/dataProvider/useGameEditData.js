@@ -35,11 +35,11 @@ const useGameEditData = () => {
                 doClubListDataReload
             },
             bag: {
-                bagListData,
-                hasBagListData,
-                bagListDataIsError,
-                bagListDataIsLoading,
-                doBagListDataReload
+                bagData,
+                hasBagData,
+                bagDataIsError,
+                bagDataIsLoading,
+                dobagDataReload
             },
             course: {
                 courseListData,
@@ -74,11 +74,11 @@ const useGameEditData = () => {
         clubListDataIsError,
         clubListDataIsLoading,
         doClubListDataReload,
-        bagListData,
-        hasBagListData,
-        bagListDataIsError,
-        bagListDataIsLoading,
-        doBagListDataReload,
+        bagData,
+        hasBagData,
+        bagDataIsError,
+        bagDataIsLoading,
+        dobagDataReload,
         courseListData,
         hasCourseListData,
         courseListDataIsError,

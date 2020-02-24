@@ -16,8 +16,8 @@ const useClubData = () => {
                 reloadClubs
             },
             bag: {
-                bagListData,
-                bagListDataIsLoading,
+                bagData,
+                bagDataIsLoading,
                 reloadBag
             }
         }
@@ -31,9 +31,9 @@ const useClubData = () => {
         clubListData,
         reloadClubs,
         clubListDataIsLoading,
-        bagListData,
+        bagData,
         reloadBag,
-        bagListDataIsLoading
+        bagDataIsLoading
     };
 };
 

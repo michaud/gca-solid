@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 
 import fetchPublicTypeIndex from '@services/fetchPublicTypeIndex';
 
-const usePublicTypeIndex = (initialReload) => {
+const usePublicTypeIndex = () => {
     
-    const [reload, setReload] = useState(initialReload);
+    const [reload, setReload] = useState(false);
     const [publicTypeIndex, setPublicTypeIndex] = useState({ doc: undefined });
     const [isError, setIsError] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -14,11 +14,8 @@ const usePublicTypeIndex = (initialReload) => {
         let didCancel = false;
 
         const fetchData = async () => {
-
+            
             if(!publicTypeIndex.doc || reload) {
-
-                if(!didCancel) setIsError(false);
-                if(!didCancel) setIsLoading(true);
 
                 try {
                     const doc = await fetchPublicTypeIndex();
@@ -28,20 +25,26 @@ const usePublicTypeIndex = (initialReload) => {
                         doc
                     }));
 
-                    if(!didCancel) setIsLoading(false);
-
                 } catch(error) {
 
                     if(!didCancel) {
                         
                         console.log('error: ', error);
                         setIsError(error)
+                    }
+
+                } finally {
+
+                    if(!didCancel) {
+
                         setReload(false);
-                        setIsLoading(true);
+                        setIsLoading(false);
                     }
                 }
             }
         }
+
+        if(!didCancel) setIsLoading(true);
 
         fetchData();
 
@@ -49,7 +52,7 @@ const usePublicTypeIndex = (initialReload) => {
 
     }, [reload]);
 
-    return [{ publicTypeIndex, isLoading, isError }, setReload];
+    return [{ publicTypeIndex, isLoading, isError }, () => { setReload(true) }];
 };
 
 export default usePublicTypeIndex;

@@ -209,15 +209,46 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
 
         case golf.classes.Bag: {
 
-            debugger
-            console.log('setfield implement golf.classes.Bag');
+            const oldBagRef = ref.getRef(golf.properties.gameBag);
+            const oldClubs = doc.getSubject(oldBagRef).getAllRefs(golf.properties.clubs);
+            
+            oldClubs.map(item => doc.removeSubject(item));
+            doc.removeSubject(oldBagRef);
+
+            const bagRef = doc.addSubject();
+            bagRef.addRef(rdf.type, golf.classes.Bag);
+
+            const bag = data.value;
+
+            bag.clubs.value.forEach(club => {
+                
+                const elRef = saveResource({
+                    element: club,
+                    doc,
+                    type: golf.classes.Club
+                })
+            
+                bagRef.addRef(golf.properties.clubs, elRef.asRef());
+            });
+
+            ref.setRef(golf.properties.gameBag, bagRef.asRef());
 
             break;
         }
 
         case golf.classes.GamePlayingHandicap: {
 
-            console.log('setfield implement golf.classes.GamePlayingHandicap');
+            const oldGamePlayingHandicapRef = ref.getRef(golf.properties.gamePlayingHandicap);
+            doc.removeSubject(oldGamePlayingHandicapRef);
+
+            const gamePlayingHandicapRef = saveResource({
+                element: data.value,
+                doc,
+                type: golf.classes.GamePlayingHandicap
+            })
+
+            ref.addRef(golf.properties.gameBag, gamePlayingHandicapRef.asRef());
+
             break;
         }
 

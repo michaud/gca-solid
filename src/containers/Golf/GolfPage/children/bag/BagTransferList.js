@@ -164,14 +164,13 @@ const BagTransferList = ({
     useEffect(() => {
 
         let didCancel = false;
-
         if (!didCancel && clubs && bag) {
 
             const filteredClubs = clubs.reduce((acc, club) => {
 
                 const iri = club.iri.split('#')[1];
 
-                const bagClub = bag.clubs.value.find(testIri => {
+                const bagClub = bag.find(testIri => {
                     
                     return testIri.iri.split('#')[1] === iri;
                 });

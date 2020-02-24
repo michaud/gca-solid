@@ -81,11 +81,11 @@ const GameForm = ({
         clubListDataIsError,
         clubListDataIsLoading,
         doClubListDataReload,
-        bagListData,
-        hasBagListData,
-        bagListDataIsError,
-        bagListDataIsLoading,
-        doBagListDataReload,
+        bagData,
+        hasBagData,
+        bagDataIsError,
+        bagDataIsLoading,
+        dobagDataReload,
         courseListData,
         hasCourseListData,
         courseListDataIsError,
@@ -103,7 +103,7 @@ const GameForm = ({
 
                 setSnackOpen(
                     playerDataIsError !== undefined ||
-                    bagListDataIsError !== undefined ||
+                    bagDataIsError !== undefined ||
                     clubListDataIsError !== undefined ||
                     courseListDataIsError !== undefined ||
                     markerListDataIsError !== undefined);
@@ -114,14 +114,14 @@ const GameForm = ({
                 if(!didCancel) setGameState(game);
                 
             } else if(
-                bagListData['doc'] !== undefined &&
+                bagData['doc'] !== undefined &&
                 clubListData['doc'] !== undefined &&
                 courseListData['doc'] !== undefined &&
                 markerListData['doc'] !== undefined &&
                 playerData['doc'] !== undefined
             ) {
 
-                const gameBag = putClubsInBag(clubListData.list, bagListData.list);
+                const gameBag = putClubsInBag(clubListData.list, bagData.list);
                 const newGame = setupDataObject(gameShape, {
                     gameBag,
                     gamePlayer: playerData.player,
@@ -141,7 +141,7 @@ const GameForm = ({
 
         return () => { didCancel = true; }
 
-    }, [game, reload, bagListData, clubListData, courseListData, markerListData]);
+    }, [game, reload, bagData, clubListData, courseListData, markerListData]);
 
     const handleCourseModalClose = () => {
 
@@ -175,7 +175,7 @@ const GameForm = ({
     const onSaveBag = () => {
 
         setBagModalOpen(false);
-        doBagListDataReload(true);
+        dobagDataReload(true);
         setReload(true);
     };
 

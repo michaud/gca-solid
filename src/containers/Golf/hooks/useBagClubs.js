@@ -19,7 +19,7 @@ const setupBag = (document) => {
 const useBagClubs = (publicTypeIndex, clubTypes = [], clubType, clubListData) => {
 
     const [reload, setReload] = useState(false);
-    const [bagListData, setBagListData] = useState({ list: [], doc: undefined });
+    const [bagData, setbagData] = useState({ bag: undefined, doc: undefined });
     const [isError, setIsError] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -48,7 +48,7 @@ const useBagClubs = (publicTypeIndex, clubTypes = [], clubType, clubListData) =>
                         
                         if(!didCancel) {
 
-                            setBagListData(state => ({
+                            setbagData(state => ({
                                 ...state,
                                 doc
                             }));
@@ -69,7 +69,7 @@ const useBagClubs = (publicTypeIndex, clubTypes = [], clubType, clubListData) =>
 
                             if(!didCancel) {
 
-                                setBagListData(state => ({
+                                setbagData(state => ({
                                     ...state,
                                     doc
                                 }));
@@ -80,20 +80,21 @@ const useBagClubs = (publicTypeIndex, clubTypes = [], clubType, clubListData) =>
 
                         if(clubListData.doc && clubType && clubTypes.length > 0) {
 
-                            const list = getBagClubs(
+                            const bag = getBagClubs(
                                 doc,
                                 clubTypes,
                                 clubType,
-                                clubListData,
-                                golf.classes.Bag
+                                golf.classes.Bag,
+                                clubListData
                             );
 
-                            if(!didCancel) setBagListData({
-                                list,
-                                doc
+                            if(!didCancel) setbagData({
+                                doc,
+                                bag
                             });
                         }
                     }
+
                 } catch (error) {
 
                     if(!didCancel) {
@@ -120,7 +121,7 @@ const useBagClubs = (publicTypeIndex, clubTypes = [], clubType, clubListData) =>
 
     }, [publicTypeIndex.doc, clubListData, reload]);
 
-    return [{ bagListData, isLoading, isError }, () => { setReload(true) }];
+    return [{ bagData, isLoading, isError }, () => { setReload(true) }];
 };
 
 export default useBagClubs;

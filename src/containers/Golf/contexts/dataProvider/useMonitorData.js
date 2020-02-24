@@ -7,12 +7,12 @@ const useMonitorData = () => {
             progress,
             count,
             hasError,
-            player: { hasPlayerData },
-            marker: { hasMarkerData },
-            clubs: { hasClubListData },
-            bag: { hasBagListData },
-            course: { hasCourseListData },
-            game: { hasGameListData }
+            player: { hasPlayerDetails },
+            marker: { hasMarkers },
+            clubs: { hasClubs },
+            bag: { hasBagClubs },
+            course: { hasCourses },
+            game: { hasGames }
         }
     } = useAppData();
 
@@ -20,12 +20,12 @@ const useMonitorData = () => {
         progress,
         count,
         hasError,
-        hasPlayerData,
-        hasMarkerData,
-        hasClubListData,
-        hasBagListData,
-        hasCourseListData,
-        hasGameListData
+        hasPlayerDetails,
+        hasMarkers,
+        hasClubs,
+        hasBagClubs,
+        hasCourses,
+        hasGames
     };
 };
 

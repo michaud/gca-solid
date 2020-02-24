@@ -36,13 +36,11 @@ const useAppData = () => {
 
 const AppDataProvider = ({ children }) => {
 
-    const [reload] = useState(false);
-
     const [{
         publicTypeIndex,
-        publicTypeIndexIsLoading,
-        publicTypeIndexIsError
-    }, doPublicTypeIndexReload] = usePublicTypeIndex(reload);
+        isLoading: publicTypeIndexIsLoading,
+        isError: publicTypeIndexIsError
+    }, reloadPublicTypeIndex] = usePublicTypeIndex();
 
     const [{
         clubDefinitions,
@@ -69,9 +67,9 @@ const AppDataProvider = ({ children }) => {
     }, reloadClubs] = useClubs(publicTypeIndex, clubDefinitions.clubTypes, clubDefinitions.clubType);
 
     const [{
-        bagListData,
-        isLoading: bagListDataIsLoading,
-        isError: bagListDataIsError
+        bagData,
+        isLoading: bagDataIsLoading,
+        isError: bagDataIsError
     }, reloadBag] = useBagClubs(publicTypeIndex, clubDefinitions.clubTypes, clubDefinitions.clubType, clubListData);
 
     const [{
@@ -84,7 +82,7 @@ const AppDataProvider = ({ children }) => {
         gameListData,
         isLoading: gameListDataIsLoading,
         isError: gameListDataIsError
-    }, doGameListDataReload] = useGames(publicTypeIndex, clubDefinitions.clubTypes, clubDefinitions.clubType, clubListData, reload);
+    }, reloadGames] = useGames(publicTypeIndex, clubDefinitions.clubTypes, clubDefinitions.clubType, clubListData);
 
     const [dataFiles, setDataFiles] = useState([
         publicTypeIndex,
@@ -92,7 +90,7 @@ const AppDataProvider = ({ children }) => {
         playerData,
         markerListData,
         clubListData,
-        bagListData,
+        bagData,
         courseListData,
         gameListData
     ]);
@@ -109,7 +107,7 @@ const AppDataProvider = ({ children }) => {
                 playerData,
                 markerListData,
                 clubListData,
-                bagListData,
+                bagData,
                 courseListData,
                 gameListData
             ]);
@@ -123,7 +121,7 @@ const AppDataProvider = ({ children }) => {
         playerData,
         markerListData,
         clubListData,
-        bagListData,
+        bagData,
         courseListData,
         gameListData
     ]);
@@ -141,7 +139,7 @@ const AppDataProvider = ({ children }) => {
                 hasPublicTypeIndexData: publicTypeIndex !== undefined,
                 publicTypeIndexIsLoading,
                 publicTypeIndexIsError,
-                doPublicTypeIndexReload
+                reloadPublicTypeIndex
             },
             clubTypes: {
                 clubDefinitions,
@@ -151,45 +149,51 @@ const AppDataProvider = ({ children }) => {
             },
             player: {
                 playerData,
-                hasPlayerData: playerData.player !== undefined,
+                hasPlayerData: playerData.doc !== undefined,
+                hasPlayerDetails: playerData.player !== undefined,
                 playerDataIsError,
                 playerDataIsLoading,
                 reloadPlayer
             },
             marker: {
                 markerListData,
-                hasMarkerData: markerListData.list.length > 0,
+                hasMarkerData: markerListData.doc  !== undefined,
+                hasMarkers: markerListData.list.length > 0,
                 markerListDataIsError,
                 markerDataIsLoading,
                 reloadMarkers
             },
             clubs: {
                 clubListData,
-                hasClubListData: clubListData.list.length > 0,
+                hasClubListData: clubListData.doc !== undefined,
+                hasClubs: clubListData.list.length > 0,
                 clubListDataIsError,
                 clubListDataIsLoading,
                 reloadClubs
             },
             bag: {
-                bagListData,
-                hasBagListData: bagListData.list.length > 0,
-                bagListDataIsError,
-                bagListDataIsLoading,
+                bagData,
+                hasBagData: bagData.doc !== undefined,
+                hasBagClubs: bagData && bagData.clubs && bagData.clubs.value.length > 0,
+                bagDataIsError,
+                bagDataIsLoading,
                 reloadBag
             },
             course: {
                 courseListData,
-                hasCourseListData: courseListData.list.length > 0,
+                hasCourseListData: courseListData.doc !== undefined,
+                hasCourses: courseListData.list.length > 0,
                 courseListDataIsError,
                 courseListDataIsLoading,
                 reloadCourses
             },
             game: {
                 gameListData,
-                hasGameListData: gameListData.list.length > 0,
+                hasGameListData: gameListData.doc !== undefined,
+                hasGames: gameListData.list.length > 0,
                 gameListDataIsError,
                 gameListDataIsLoading,
-                doGameListDataReload
+                reloadGames
             },
         })
 
@@ -210,6 +214,7 @@ const AppDataProvider = ({ children }) => {
         player: {
             playerData: undefined,
             hasPlayerData: false,
+            hasPlayerDetails: false,
             playerDataIsError,
             playerDataIsLoading,
             reloadPlayer
@@ -217,6 +222,7 @@ const AppDataProvider = ({ children }) => {
         marker: {
             markerListData: undefined,
             hasMarkerData: false,
+            hasMarkers: false,
             markerListDataIsError,
             markerDataIsLoading,
             reloadMarkers
@@ -224,20 +230,23 @@ const AppDataProvider = ({ children }) => {
         clubs: {
             clubListData: undefined,
             hasClubListData: false,
+            hasClubs: false,
             clubListDataIsError,
             clubListDataIsLoading,
             reloadClubs
         },
         bag: {
-            bagListData: undefined,
-            hasBagListData: false,
-            bagListDataIsError,
-            bagListDataIsLoading,
+            bagData: undefined,
+            hasBagData: false,
+            hasBagClubs: false,
+            bagDataIsError,
+            bagDataIsLoading,
             reloadBag
         },
         course: {
             courseListData: undefined,
             hasCourseListData: false,
+            hasCourses: false,
             courseListDataIsError,
             courseListDataIsLoading,
             reloadCourses
@@ -245,9 +254,10 @@ const AppDataProvider = ({ children }) => {
         game: {
             gameListData: undefined,
             hasGameListData: false,
+            hasGames: false,
             gameListDataIsError,
             gameListDataIsLoading,
-            doGameListDataReload
+            reloadGames
         }
     });
 
@@ -256,7 +266,7 @@ const AppDataProvider = ({ children }) => {
         playerDataIsError !== undefined ||
         markerListDataIsError !== undefined ||
         clubListDataIsError !== undefined ||
-        bagListDataIsError !== undefined ||
+        bagDataIsError !== undefined ||
         courseListDataIsError !== undefined ||
         gameListDataIsError !== undefined;
 
@@ -267,7 +277,7 @@ const AppDataProvider = ({ children }) => {
         console.log('playerDataIsError: ', playerDataIsError);
         console.log('markerListDataIsError: ', markerListDataIsError);
         console.log('clubListDataIsError: ', clubListDataIsError);
-        console.log('bagListDataIsError: ', bagListDataIsError);
+        console.log('bagDataIsError: ', bagDataIsError);
         console.log('courseListDataIsError: ', courseListDataIsError);
         console.log('gameListDataIsError: ', gameListDataIsError);
     }

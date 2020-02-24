@@ -7,7 +7,7 @@ import { StylesProvider } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 
-import { useClubData } from '@containers/Golf/contexts/dataProvider/AppDataProvider';
+import { useClubData } from '@golfcontexts/dataProvider/AppDataProvider';
 import removeFromBag from '@golfservices/removeFromBag';
 import addToBag from '@golfservices/addToBag';
 import deleteClub from '@golfservices/deleteClub';
@@ -31,35 +31,36 @@ import {
 } from '@golfstyles/layout.style';
 import formStyles from '@golfstyles/form.style';
 
-const ManageBag = ({ onSave, onCancel, bagClubs }) => {
+const ManageBag = ({ onSave, onCancel }) => {
 
     const [clubs, setClubs] = useState();
-    const [bagClubsState, setBagClubsState] = useState(bagClubs);
+    const [bagClubsState, setBagClubsState] = useState();
 
     const {
         clubDefinitions,
         clubListData,
         clubListDataIsLoading,
         reloadClubs,
-        bagListData,
+        bagData,
         reloadBag,
-        bagListDataIsLoading
+        bagDataIsLoading
     } = useClubData();
-
+    
     const classes = formStyles();
-
+    
     const { t } = useTranslation();
-
+    
     useEffect(() => {
-
+        
         let didCancel = false;
 
         const init = () => {
 
-            if(!didCancel && (!clubListDataIsLoading && !bagListDataIsLoading)) {
+            if(!didCancel && clubListData.doc && bagData.doc) {
 
                 setClubs(clubListData.list);
-                setBagClubsState(bagClubs || bagListData.list);
+
+                setBagClubsState(bagData.bag.clubs.value);
             }
         }
 
@@ -69,7 +70,7 @@ const ManageBag = ({ onSave, onCancel, bagClubs }) => {
 
     }, [
         clubListData.list,
-        bagListData.list,
+        bagData.bag,
         clubs,
         bagClubsState
     ]);
@@ -100,9 +101,9 @@ const ManageBag = ({ onSave, onCancel, bagClubs }) => {
 
     const deleteClubHandler = club => {
 
-        const isClubInBag = bagListData.list.clubs.value.find(testClub => testClub.iri === club.iri);
+        const isClubInBag = bagData.list.clubs.value.find(testClub => testClub.iri === club.iri);
 
-        if(isClubInBag) removeFromBag([club], bagListData.doc);
+        if(isClubInBag) removeFromBag([club], bagData.doc);
 
         deleteClub(club, clubListData.doc);
         reloadClubs();
@@ -111,15 +112,14 @@ const ManageBag = ({ onSave, onCancel, bagClubs }) => {
 
     const addToBagHandler = (clubs) => {
         //TODO which bag central bag or gameBag
-        addToBag(clubs, bagListData.doc);
+        addToBag(clubs, bagData.doc);
         reloadClubs();
         reloadBag();
     };
     
     const removeFromBagHandler = (clubs) => {
         //TODO which bag central bag or gameBag
-       
-        removeFromBag(clubs, bagListData.doc);
+        removeFromBag(clubs, bagData.doc);
         reloadClubs();
         reloadBag();
     };
@@ -139,7 +139,7 @@ const ManageBag = ({ onSave, onCancel, bagClubs }) => {
             { !onSave  ? <ModuleHeader
                 label={ t('golf.whatsInTheBag') }
                 screenheader={ true }
-                loading={ clubListDataIsLoading === true || bagListDataIsLoading === true }/> : null }
+                loading={ clubListDataIsLoading === true || bagDataIsLoading === true }/> : null }
              <PageContainerOrNot plain={ onSave !== undefined }>
                 <BagTransferList
                     clubs={ clubs }
