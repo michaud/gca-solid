@@ -1,18 +1,15 @@
 import React, {
     useState,
-    useContext,
     useEffect
 } from 'react';
 
 import { Redirect } from 'react-router-dom';
-import { Snackbar } from '@material-ui/core';
 
 import saveGameResourse from '@golfservices/saveGameResourse';
-import useGames from '@golfhooks/useGames';
-import ClubTypeContext from '@golfutils/clubTypeContext';
 import golf from '@golfutils/golf-namespace';
 
-import Alert from '@golf/components/Alert';
+import { useGameListData } from '@golfcontexts/dataProvider/AppDataProvider';
+
 import ModuleHeader from '@golf/components/ModuleHeader';
 import GameForm from '@golf/GolfPage/children/game/GameForm';
 
@@ -21,15 +18,12 @@ import { PageContainer, PageContent } from '@golfstyles/page.style';
 const NewGame = () => {
 
     const [currentGame, setCurrentGame] = useState();
-    const [reload, setReload] = useState(false);
-    const clubTypeData = useContext(ClubTypeContext);
-    const [snackOpen, setSnackOpen] = useState(false);
     const [isNavigateBack, setIsNavigateBack] = useState(false);
-    const [{
+
+    const {
         gameListData,
-        isLoading: gameListDataIsLoading,
-        isError: gameListDataIsError
-    }] = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload);
+        gameListDataIsLoading
+    } = useGameListData()
 
     useEffect(() => {
 
@@ -39,14 +33,7 @@ const NewGame = () => {
 
             if (!didCancel) {
 
-                setSnackOpen(gameListDataIsError !== undefined);
-
-                if (reload) {
-
-                    setCurrentGame();
-                }
-
-                setReload(false);
+                setCurrentGame();
             }
         }
 
@@ -54,15 +41,7 @@ const NewGame = () => {
 
         return () => { didCancel = true }
 
-    }, [gameListData, reload]);
-
-    const handleSnackClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        setSnackOpen(false);
-    };
+    }, [gameListData]);
 
     const onSaveGameHandler = async (game) => {
 
@@ -82,15 +61,6 @@ const NewGame = () => {
     return (
         <>
             <ModuleHeader label="New game" screenheader={ true } loading={ gameListDataIsLoading } />
-            <Snackbar
-                open={ snackOpen }
-                autoHideDuration={ 4000 }
-                onClose={ handleSnackClose }
-                anchorOrigin={ { vertical: 'top', horizontal: 'center' } }>
-                <Alert onClose={ handleSnackClose } severity="error">
-                    New Game List data did not load
-                </Alert>
-            </Snackbar>
             <PageContainer>
                 <PageContent>
                     <GameForm

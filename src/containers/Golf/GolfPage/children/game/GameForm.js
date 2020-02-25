@@ -5,7 +5,6 @@ import { format } from 'date-fns'
 import { makeStyles } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
-import { Snackbar, DialogTitle, DialogContent } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 
 import gameShape from '@golfcontexts/game-shape.json';
@@ -17,11 +16,9 @@ import setupDataObject from '@golfutils/setupDataObject';
 import getFieldValue from '@golfutils/getFieldValue';
 import checkCanSave from '@golfutils/checkCanSave';
 import getFieldControl from '@golfutils/getFieldControl';
-import { putClubsInBag } from '@golfutils/putClubsInBag';
 import golf from '@golfutils/golf-namespace';
 import saveResource from '@golfservices/saveResource';
 
-import Alert from '@golf/components/Alert';
 import CourseForm from '@golf/GolfPage/children/course/CourseForm';
 import PlayerForm from '@golf/GolfPage/children/player/PlayerForm';
 import ManageBag from '@golf/GolfPage/children/bag/ManageBag';
@@ -34,6 +31,7 @@ import {
     FlexItemRight,
 } from '@golfstyles/layout.style';
 import { PageContent } from '@containers/Golf/styles/page.style';
+import { DialogTitle, DialogContent } from '@material-ui/core';
 
 const dialogStyles = makeStyles(theme => ({
     root: {
@@ -51,46 +49,21 @@ const GameForm = ({
 
     const classes = formStyles();
     const dclasses = dialogStyles();
-    const [reload, setReload] = useState(false);
     const [gameState, setGameState] = useState(game);
-    const [snackOpen, setSnackOpen] = useState(false);
     const [courseModalOpen, setCourseModalOpen] = useState(false)
     const [markerModalOpen, setMarkerModalOpen] = useState(false)
     const [bagModalOpen, setBagModalOpen] = useState(false)
-    
+
     const {
-        progress,
-        count,
-        hasError,
-        clubDefinitions,
-        hasClubTypeData,
-        clubDefinitionsIsError,
-        clubDefinitionsIsLoading,
         playerData,
-        hasPlayerData,
-        playerDataIsError,
-        playerDataIsLoading,
-        doPlayerReload,
+        reloadPlayer,
         markerListData,
-        hasMarkerData,
-        markerListDataIsError,
-        markerDataIsLoading,
-        doMarkerListDataReload,
+        reloadMarkers,
         clubListData,
-        hasClubListData,
-        clubListDataIsError,
-        clubListDataIsLoading,
-        doClubListDataReload,
         bagData,
-        hasBagData,
-        bagDataIsError,
-        bagDataIsLoading,
-        dobagDataReload,
+        reloadBag,
         courseListData,
-        hasCourseListData,
-        courseListDataIsError,
-        courseListDataIsLoading,
-        doCourseListDataReload
+        reloadCourses
     } = useGameEditData();
 
     useEffect(() => {
@@ -99,21 +72,11 @@ const GameForm = ({
 
         const update = () => {
 
-            if(!didCancel) {
-
-                setSnackOpen(
-                    playerDataIsError !== undefined ||
-                    bagDataIsError !== undefined ||
-                    clubListDataIsError !== undefined ||
-                    courseListDataIsError !== undefined ||
-                    markerListDataIsError !== undefined);
-            }
-
             if(game) {
                 
                 if(!didCancel) setGameState(game);
-                
-            } else if(
+
+            } else if(!gameState &&
                 bagData['doc'] !== undefined &&
                 clubListData['doc'] !== undefined &&
                 courseListData['doc'] !== undefined &&
@@ -121,19 +84,14 @@ const GameForm = ({
                 playerData['doc'] !== undefined
             ) {
 
-                const gameBag = putClubsInBag(clubListData.list, bagData.list);
                 const newGame = setupDataObject(gameShape, {
-                    gameBag,
+                    gameBag: bagData.bag,
                     gamePlayer: playerData.player,
                     gamePlayingHandicap: setupDataObject(playingHandicapShape),
                     gameDate: new Date(Date.now())
                 });
 
-                if(!didCancel) {
-
-                    setGameState(newGame);
-                    setReload(false);
-                }
+                if(!didCancel) setGameState(newGame);
             }
         }
 
@@ -141,7 +99,7 @@ const GameForm = ({
 
         return () => { didCancel = true; }
 
-    }, [game, reload, bagData, clubListData, courseListData, markerListData]);
+    }, [game, bagData.doc, clubListData.doc, courseListData.doc, markerListData.doc]);
 
     const handleCourseModalClose = () => {
 
@@ -167,24 +125,14 @@ const GameForm = ({
         });
 
         setCourseModalOpen(false);
-        doCourseListDataReload(true);
-        setReload(true);
-    };
 
+        reloadCourses();
+    };
     
     const onSaveBag = () => {
 
         setBagModalOpen(false);
-        dobagDataReload(true);
-        setReload(true);
-    };
-
-    const handleSnackClose = (event, reason) => {
-        if (reason === 'clickaway') {
-          return;
-        }
-    
-        setSnackOpen(false);
+        reloadBag();
     };
 
     const saveGamePlayer = doc => async (player) => {
@@ -195,8 +143,7 @@ const GameForm = ({
             type: golf.classes.Player
         });
 
-        doPlayerReload(true);
-        setReload(true);
+        reloadPlayer();
     };
 
     const onSaveMarker = marker => {
@@ -208,8 +155,8 @@ const GameForm = ({
         });
 
         setMarkerModalOpen(false);
-        doMarkerListDataReload(true);
-        setReload(true);
+
+        reloadMarkers();
     };
 
     const addGameCourse = doc => () => {
@@ -229,7 +176,6 @@ const GameForm = ({
     const saveGameHandler = () => {
 
         onSave(gameState);
-        setReload(true);
     };
 
     const onChangeField = fieldDef => (...args)  => {
@@ -362,8 +308,7 @@ const GameForm = ({
                         <div className="c-box">
                             <ManageBag
                                 onSave={ onSaveBag }
-                                onCancel={ handleBagModalClose }
-                                bagClubs={ gameState.gameBag.value }/>
+                                onCancel={ handleBagModalClose }/>
                         </div>
                     </PageContent>
                 </DialogContent>
@@ -371,18 +316,10 @@ const GameForm = ({
             {
                 gameState && <div className="f-form-field">
                     { title ? <header className="c-header">{ title }</header> : null }
-                    <Snackbar
-                        open={ snackOpen }
-                        autoHideDuration={ 4000 }
-                        onClose={ handleSnackClose }
-                        anchorOrigin={{ vertical:'top', horizontal: 'center' }}>
-                        <Alert onClose={ handleSnackClose } severity="error">
-                            Game form data did not load
-                        </Alert>
-                    </Snackbar>
                     { gameFields }
                     <FlexContainer>
                         <FlexItem>
+                            { !canSave.can ? <div>{ canSave.reasons }</div> : null }
                             <Button
                                 variant="contained"
                                 disabled={ !canSave.can }

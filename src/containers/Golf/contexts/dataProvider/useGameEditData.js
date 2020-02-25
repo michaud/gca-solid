@@ -18,35 +18,35 @@ const useGameEditData = () => {
                 hasPlayerData,
                 playerDataIsError,
                 playerDataIsLoading,
-                doPlayerReload
+                reloadPlayer
             },
             marker: {
                 markerListData,
                 hasMarkerData,
                 markerListDataIsError,
                 markerDataIsLoading,
-                doMarkerListDataReload
+                reloadMarkers
             },
             clubs: {
                 clubListData,
                 hasClubListData,
                 clubListDataIsError,
                 clubListDataIsLoading,
-                doClubListDataReload
+                reloadClubs
             },
             bag: {
                 bagData,
                 hasBagData,
                 bagDataIsError,
                 bagDataIsLoading,
-                dobagDataReload
+                reloadBag
             },
             course: {
                 courseListData,
                 hasCourseListData,
                 courseListDataIsError,
                 courseListDataIsLoading,
-                doCourseListDataReload
+                reloadCourses
             }
         }
     } = useAppData();
@@ -63,27 +63,27 @@ const useGameEditData = () => {
         hasPlayerData,
         playerDataIsError,
         playerDataIsLoading,
-        doPlayerReload,
+        reloadPlayer,
         markerListData,
         hasMarkerData,
         markerListDataIsError,
         markerDataIsLoading,
-        doMarkerListDataReload,
+        reloadMarkers,
         clubListData,
         hasClubListData,
         clubListDataIsError,
         clubListDataIsLoading,
-        doClubListDataReload,
+        reloadClubs,
         bagData,
         hasBagData,
         bagDataIsError,
         bagDataIsLoading,
-        dobagDataReload,
+        reloadBag,
         courseListData,
         hasCourseListData,
         courseListDataIsError,
         courseListDataIsLoading,
-        doCourseListDataReload
+        reloadCourses
     };
 };
 

@@ -19,7 +19,6 @@ import {
     FlexItem,
     FlexItemRight,
 } from '@golfstyles/layout.style';
-import { initReactI18next } from 'react-i18next';
 
 const CourseForm = ({
     course,
