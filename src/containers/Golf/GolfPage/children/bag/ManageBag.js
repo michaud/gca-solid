@@ -45,7 +45,7 @@ const ManageBag = ({ onSave, onCancel }) => {
         reloadBag,
         bagDataIsLoading
     } = useClubData();
-    
+
     const classes = formStyles();
     
     const { t } = useTranslation();

@@ -3,6 +3,7 @@ import saveResource from "@golfservices/saveResource";
 import { rdf } from 'rdf-namespaces';
 import courseShape from '@golfcontexts/course-shape.json';
 import { addField } from "./addField";
+import { namedNode } from "@rdfjs/data-model";
 
 export const setField = ({ field, shape, data, element, ref, doc }) => {
     console.log('field: ', field);
@@ -231,7 +232,8 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
                 bagRef.addRef(golf.properties.clubs, elRef.asRef());
             });
 
-            ref.setRef(golf.properties.gameBag, bagRef.asRef());
+            const newBagRef = bagRef.asRef();
+            ref.setRef(golf.properties.gameBag, namedNode(newBagRef));
 
             break;
         }

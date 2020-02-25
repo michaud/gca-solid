@@ -54,6 +54,7 @@ const CourseSelector = ({ courses = [], selected, onChange }) => {
                                     className={ classes.listItem }
                                     role="listitem"
                                     selected={ isSelected }
+                                    autoFocus={ true }
                                     onClick={ handleListItemClick(course) }
                                     button>
                                     <ListItemText

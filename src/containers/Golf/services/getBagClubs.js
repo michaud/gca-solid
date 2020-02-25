@@ -13,16 +13,5 @@ const getBagClubs = (doc, clubTypes, clubType, type, clubListData) => {
 
     return bagData;
 };
-// (doc) => {
-
-//     const bag = doc.getSubjectsOfType(golf.classes.Bag)[0];
-//     const clubRefs = bag.getAllRefs(golf.properties.clubs);
-
-//     const list = clubRefs.map(club => ({
-//         ref: club.split('#')[1]
-//     }))
-    
-//     return list;
-// };
 
 export default getBagClubs;

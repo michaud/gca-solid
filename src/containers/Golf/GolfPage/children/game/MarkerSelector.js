@@ -58,6 +58,7 @@ const MarkerSelector = ({
                                     className={ classes.listItem }
                                     role="listitem"
                                     button
+                                    autoFocus={ true }
                                     selected={ isSelected }
                                     onClick={ handleListItemClick(marker) }>
                                     <ListItemText
