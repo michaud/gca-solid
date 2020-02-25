@@ -34,7 +34,7 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
         }
 
         case golf.types.double : {
-            //TODO flesh out the complete shape of the geocoordinate fields in setupobject i think
+
             ref.setLiteral(predicate, data);
 
             break;
