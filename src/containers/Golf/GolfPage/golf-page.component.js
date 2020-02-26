@@ -9,9 +9,9 @@ import GolfApp from '@golf/GolfPage/children/GolfApp';
 import './../scss/_style.scss';
 import { AppDataProvider } from '../contexts/dataProvider/AppDataProvider';
 
-const GolfPage = (props) => {
-
-    const { webId } = props;
+const GolfPage = ({
+    webId
+}) => {
 
     return (
         <StylesProvider>

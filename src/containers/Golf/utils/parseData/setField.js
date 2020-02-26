@@ -6,13 +6,6 @@ import { addField } from "./addField";
 import { namedNode } from "@rdfjs/data-model";
 
 export const setField = ({ field, shape, data, element, ref, doc }) => {
-    console.log('field: ', field);
-    console.log('shape: ', shape);
-    console.log('data: ', data);
-    console.log('element: ', element);
-    console.log('ref: ', ref);
-    console.log('doc: ', doc);
-
 
     const prefix = shape['@context'][field.prefix];
     const predicate = `${prefix}${field.predicate}`;
