@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 
+import ulog from 'ulog';
+
 import fetchPublicTypeIndex from '@services/fetchPublicTypeIndex';
+
+const log = ulog('usePublicTypeIndex');
 
 const usePublicTypeIndex = () => {
     
@@ -29,7 +33,7 @@ const usePublicTypeIndex = () => {
 
                     if(!didCancel) {
                         
-                        console.log('error: ', error);
+                        log.error('error: ', error);
                         setIsError(error)
                     }
 

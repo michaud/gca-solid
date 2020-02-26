@@ -34,7 +34,7 @@ const MarkerHoleDisplay = ({ hole, onChange }) => {
                 [fieldDef.predicate]: { value: { $set: value } }
             });
 
-            onChange(changedState);
+            onChange(value);
             return changedState;
         });
     };

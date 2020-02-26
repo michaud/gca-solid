@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-import { Snackbar } from '@material-ui/core';
 import { LinearProgress } from '@material-ui/core';
 
-import useGames from '@golfhooks/useGames';
 import addStrokeToHole from '@golfutils/addStrokeToHole';
-import useClubDefinitions from '@golfhooks/useClubDefinitions';
-import saveHoleToGame from '@containers/Golf/utils/saveHoleToGame';
+import update from 'immutability-helper';
 
-import Alert from '@golf/components/Alert';
 import HoleNavigator from '@golf/GolfPage/children/playGame/HoleNavigator';
 import HoleHistory from '@golf/GolfPage/children/playGame/HoleHistory';
 import ClubActionList from '@golf/GolfPage/children/playGame/ClubActionList';
@@ -18,25 +14,19 @@ import useStyles from './PlayGame.styles';
 import ButtonBar from '@containers/Golf/components/ButtonBar';
 import MarkerHoleDisplay from './MarkerHoleDisplay';
 
-const PlayGame = ({
-    match
-}) => {
+import useGameListData from '@golfcontexts/dataProvider/useGameListData';
+import saveMarkerScoreToHole from '@containers/Golf/utils/saveMarkerScoreToHole';
 
-    const { params: { gameid } } = match;
-   
-    const [reload, setReload] = useState(false);
-    const [gameData, setGameData] = useState();
+const PlayGame = () => {
+  
+    const [gameState, setGameState] = useState();
     const [currHole, setCurrHole] = useState();
-    const [snackOpen, setSnackOpen] = useState(false);
-    const classes = useStyles();
-   
-    const clubTypeData = useClubDefinitions();
-
-    const [{
+    const {
         gameListData,
-        isLoading: gameListDataIsLoading,
-        isError: gameListDataIsError
-    }, doGameReload] = useGames(clubTypeData.clubTypes, clubTypeData.clubType, reload, gameid);
+        gameListDataIsLoading
+    } = useGameListData();
+
+    const classes = useStyles();
 
     useEffect(() => {
 
@@ -44,11 +34,9 @@ const PlayGame = ({
 
         const update = () => {
 
-            if (!didCancel && gameListData.doc) {
+            if (!didCancel && gameListData && gameListData.doc) {
 
-                setSnackOpen(gameListDataIsError !== undefined);
-                setGameData(gameListData.list[0]);
-                setReload(false);
+                setGameState(gameListData.list[0]);
             }
         }
 
@@ -58,42 +46,38 @@ const PlayGame = ({
 
     }, [gameListData]);
 
-    const handleSnackClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        setSnackOpen(false);
-    };
-
     const onClubActionHandler = club => {
 
-        addStrokeToHole(club, currHole.iri, gameData.game, gameData.doc, setGameData);
+        addStrokeToHole(club, currHole.iri, gameState.game, gameState.doc, setGameState);
     };
 
     const onChangeHoleHandler = (holeIndex) => {
 
-        gameData && setCurrHole(gameData.game.gameCourse.value.courseHoles.value[holeIndex]);
+        gameState && setCurrHole(gameState.game.gameCourse.value.courseHoles.value[holeIndex]);
     };
 
-    const onMarkerScoreChangeHandler = (hole) => {
+    const onMarkerScoreChangeHandler = (score) => {
 
-        setCurrHole(state => ({
-            ...state,
-            ...hole
-        }));
+        setCurrHole(state => {
+            const newState = update(state, {
+                gameMarkerStrokeCount: {
+                    value: { $set: score }
+                }
+            })
 
-        saveHoleToGame({hole, doc: gameData.doc });
-        doGameReload(true);
-    }
+            return newState;
+        });
 
-    const clubs = gameData && gameData.game.gameBag.value.clubs.value;
+        saveMarkerScoreToHole({ currHole, doc: gameState.doc, score });
+    };
+
+    const clubs = gameState && gameState.game.gameBag.value.clubs.value;
 
     return (
         <>
             <FlexContainer style={{ position: 'relative' }} vertical alignitems="stretch" flex="1">
                 <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
-                    <HoleNavigator holes={ gameData && gameData.game.gameCourse.value.courseHoles.value } onChangeHole={ onChangeHoleHandler } />
+                    <HoleNavigator holes={ gameState && gameState.game.gameCourse.value.courseHoles.value } onChangeHole={ onChangeHoleHandler } />
                     { gameListDataIsLoading && <LinearProgress classes={ classes } variant="indeterminate" /> }
                     <ClubActionList clubs={ clubs } onAction={ onClubActionHandler }/>
                     <HoleHistory hole={ currHole } />
@@ -103,15 +87,6 @@ const PlayGame = ({
                     <ButtonBar bare={ true }/>
                 </div>
             </FlexContainer>
-            <Snackbar
-                open={ snackOpen }
-                autoHideDuration={ 4000 }
-                onClose={ handleSnackClose }
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-                <Alert onClose={ handleSnackClose } severity="error">
-                    Play Game data did not load
-                </Alert>
-            </Snackbar>
         </>
     );
 };

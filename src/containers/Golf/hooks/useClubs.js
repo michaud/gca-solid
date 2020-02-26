@@ -2,12 +2,16 @@ import { useState, useEffect } from 'react';
 
 import { solid } from 'rdf-namespaces';
 
+import ulog from 'ulog';
+
 import clubShape from '@golfcontexts/club-shape.json';
 import golf from '@golfutils/golf-namespace';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import getListFromDoc from '@golfservices/getListFromDoc';
 import fetchResource from '@golfservices/fetchResource';
 import paths from '@golfconstants/paths';
+
+const log = ulog('useClubs');
 
 const useClubs = (publicTypeIndex, clubTypes = [], clubType) => {
 
@@ -81,7 +85,7 @@ const useClubs = (publicTypeIndex, clubTypes = [], clubType) => {
 
                     if(!didCancel) {
 
-                        console.log('error: ', error);
+                        log.error('error: ', error);
                         setIsError(error)
                     }
                 } finally {

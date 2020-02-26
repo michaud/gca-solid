@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
 
 import { solid } from 'rdf-namespaces';
+import ulog from 'ulog';
+
 import markerShape from '@golfcontexts/marker-shape.json';
 import golf from '@golfutils/golf-namespace';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import getListFromDoc from '@golfservices/getListFromDoc';
 import fetchResource from '@golfservices/fetchResource';
 import paths from '@golfconstants/paths';
+
+const log = ulog('useMarkers');
 
 const useMarkers = (publicTypeIndex) => {
 
@@ -66,7 +70,7 @@ const useMarkers = (publicTypeIndex) => {
 
                     if(!didCancel) {
 
-                        console.log('error: ', error);
+                        log.error('error: ', error);
                         setIsError(error)
                     }
 

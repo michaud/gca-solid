@@ -34,6 +34,7 @@ const golf = {
         gameStrokes: `${ namespace }gameStrokes`,
         strokeClub: `${ namespace }strokeClub`,
         courseName: `${ namespace }courseName`,
+        gameMarkerStrokeCount: `${ namespace }gameMarkerStrokeCount`,
     },
     types: {
         string: 'http://www.w3.org/2001/XMLSchema#string',

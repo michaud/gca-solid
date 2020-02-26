@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 
+import ulog from 'ulog';
+
 import getClubDefinitions from "@golfservices/getClubDefinitions";
+
+const log = ulog('useClubDefinitions');
 
 const useClubDefinitions = () => {
 
@@ -35,7 +39,7 @@ const useClubDefinitions = () => {
 
                 if(!didCancel) {
 
-                    console.log('error: ', error);
+                    log.error('error: ', error);
                     setIsError(error);
                 }
 

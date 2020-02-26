@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 
 import { solid, rdf } from 'rdf-namespaces';
+import ulog from 'ulog';
 
 import golf from '@golfutils/golf-namespace';
 import getBagClubs from '@golfservices/getBagClubs';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import fetchResource from '@golfservices/fetchResource';
 import paths from '@golfconstants/paths';
+
+const log = ulog('useBagClubs');
 
 const setupBag = (document) => {
 
@@ -99,7 +102,7 @@ const useBagClubs = (publicTypeIndex, clubTypes = [], clubType, clubListData) =>
 
                     if(!didCancel) {
 
-                        console.log('error: ', error);
+                        log.error('error: ', error);
                         setIsError(error)
                     }
 

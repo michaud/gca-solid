@@ -85,14 +85,6 @@
         border-right: 1px solid rgb(210, 199, 157);
         border-bottom: 1px solid rgb(210, 199, 157);
     }
-
-    &:focus {
-        color:  rgba(0, 0, 0, 0.9);
-        background: linear-gradient(171deg, rgb(220, 210, 173) 0%, rgb(245, 240, 214) 100%);
-        border-right: 1px solid rgb(210, 199, 157);
-        border-bottom: 1px solid rgb(210, 199, 157);
-    }
-
 }
 
 .btn--club__name {

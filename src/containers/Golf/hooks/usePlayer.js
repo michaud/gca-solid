@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 
 import { solid } from 'rdf-namespaces';
+import ulog from 'ulog';
 
 import golf from '@golfutils/golf-namespace';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import getPlayer from '@golfservices/getPlayer';
 import fetchResource from '@golfservices/fetchResource';
 import paths from '@golfconstants/paths';
+
+const log = ulog('usePlayer');
 
 const usePlayer = (publicTypeIndex) => {
 
@@ -63,7 +66,7 @@ const usePlayer = (publicTypeIndex) => {
 
                     if(!didCancel) {
 
-                        console.log('error: ', error);
+                        log.error('error: ', error);
                         setIsError(error);
                     }
 

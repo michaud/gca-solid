@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { solid } from 'rdf-namespaces';
+import ulog from 'ulog';
 
 import golf from '@golfutils/golf-namespace';
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
@@ -8,6 +9,8 @@ import getListFromDoc from '@golfservices/getListFromDoc';
 import courseShape from '@golfcontexts/course-shape.json';
 import fetchResource from '@golfservices/fetchResource';
 import paths from '@golfconstants/paths';
+
+const log = ulog('useCourses');
 
 const useCourses = (publicTypeIndex) => {
     
@@ -66,7 +69,7 @@ const useCourses = (publicTypeIndex) => {
 
                     if(!didCancel) {
 
-                        console.log('error: ', error);
+                        log.error('error: ', error);
                         setIsError(error)
                     }
 

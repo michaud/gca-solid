@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { namedNode } from '@rdfjs/data-model';
 import { solid } from 'rdf-namespaces';
 import * as ns from 'rdf-namespaces';
+import ulog from 'ulog';
 
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import fetchResource from '@golfservices/fetchResource';
@@ -10,6 +11,8 @@ import gameShape from '@golfcontexts/game-shape.json';
 import paths from '@golfconstants/paths';
 import golf from '@golfutils/golf-namespace';
 import parseFields from '@golfutils/parseData/parseFields';
+
+const log = ulog('useGames');
 
 const getGameListFromDoc = async (
     doc,
@@ -37,9 +40,9 @@ const getGameListFromDoc = async (
     });
 
     return games;
-}
+};
 
-const useGames = (publicTypeIndex, clubTypes = [], clubType, clubListData, gameId) => {
+const useGames = (publicTypeIndex, clubTypes = [], clubType, clubListData) => {
 
     const [reload, setReload] = useState(false);
     const [gameListData, setGameListData] = useState({ list: [], doc: undefined });
@@ -55,7 +58,11 @@ const useGames = (publicTypeIndex, clubTypes = [], clubType, clubListData, gameI
             if (publicTypeIndex.doc) {
 
                 try {
-                    const listIndex = publicTypeIndex.doc.findSubject(solid.forClass, golf.classes.Game);
+
+                    const listIndex = publicTypeIndex.doc.findSubject(
+                        solid.forClass,
+                        golf.classes.Game
+                    );
 
                     if (!listIndex) {
 
@@ -83,7 +90,20 @@ const useGames = (publicTypeIndex, clubTypes = [], clubType, clubListData, gameI
 
                         const doc = await fetchResource(url);
 
-                        if(clubType === undefined && clubTypes.length === 0 && clubListData.doc === undefined ) {
+                        if(publicTypeIndex.doc && clubTypes.length > 0 && clubType && clubListData.doc) {
+
+                            const list = await getGameListFromDoc(
+                                doc,
+                                golf.classes.Game,
+                                gameShape,
+                                clubTypes,
+                                clubType,
+                                clubListData
+                            );
+
+                            if(!didCancel) setGameListData({ list, doc });
+
+                        } else {
                             
                             if(!didCancel) setGameListData(state => ({
                                 ...state,
@@ -92,25 +112,12 @@ const useGames = (publicTypeIndex, clubTypes = [], clubType, clubListData, gameI
                             
                             return;
                         }
-                        
-                        const list = await getGameListFromDoc(
-                            doc,
-                            golf.classes.Game,
-                            gameShape,
-                            clubTypes,
-                            clubType,
-                            clubListData,
-                            gameId
-                        );
-
-                        if(!didCancel) setGameListData({ list, doc });
                     }
-
                 } catch (error) { 
 
                     if(!didCancel) {
 
-                        console.log('error: ', error);
+                        log.error('error: ', error);
                         setIsError(error)
                     }
 
@@ -136,4 +143,3 @@ const useGames = (publicTypeIndex, clubTypes = [], clubType, clubListData, gameI
 };
 
 export default useGames;
-

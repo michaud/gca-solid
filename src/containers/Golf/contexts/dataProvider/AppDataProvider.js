@@ -5,6 +5,7 @@ import React, {
     useContext
 } from 'react'
 
+import ulog from 'ulog';
 import usePlayer from '@golfhooks/usePlayer';
 import useMarkers from '@golfhooks/useMarkers';
 import useClubs from '@golfhooks/useClubs';
@@ -20,18 +21,20 @@ import useCourseData from '@golfcontexts/dataProvider/useCourseData';
 import useGameListData from '@golfcontexts/dataProvider/useGameListData';
 import useGameEditData from '@golfcontexts/dataProvider/useGameEditData';
 
+const log = ulog('AppDataProvider');
+
 const AppDataContext = createContext();
 
 const useAppData = () => {
 
-    const context = useContext(AppDataContext)
+    const context = useContext(AppDataContext);
 
     if (context === undefined) {
 
         throw new Error('useCountState must be used within a CountProvider')
     }
 
-    return context
+    return context;
 };
 
 const AppDataProvider = ({ children }) => {
@@ -64,13 +67,22 @@ const AppDataProvider = ({ children }) => {
         clubListData,
         isLoading: clubListDataIsLoading,
         isError: clubListDataIsError
-    }, reloadClubs] = useClubs(publicTypeIndex, clubDefinitions.clubTypes, clubDefinitions.clubType);
+    }, reloadClubs] = useClubs(
+        publicTypeIndex,
+        clubDefinitions.clubTypes,
+        clubDefinitions.clubType
+    );
 
     const [{
         bagData,
         isLoading: bagDataIsLoading,
         isError: bagDataIsError
-    }, reloadBag] = useBagClubs(publicTypeIndex, clubDefinitions.clubTypes, clubDefinitions.clubType, clubListData);
+    }, reloadBag] = useBagClubs(
+        publicTypeIndex,
+        clubDefinitions.clubTypes,
+        clubDefinitions.clubType,
+        clubListData
+    );
 
     const [{
         courseListData,
@@ -82,7 +94,12 @@ const AppDataProvider = ({ children }) => {
         gameListData,
         isLoading: gameListDataIsLoading,
         isError: gameListDataIsError
-    }, reloadGames] = useGames(publicTypeIndex, clubDefinitions.clubTypes, clubDefinitions.clubType, clubListData);
+    }, reloadGames] = useGames(
+        publicTypeIndex,
+        clubDefinitions.clubTypes,
+        clubDefinitions.clubType,
+        clubListData
+    );
 
     const [dataFiles, setDataFiles] = useState([
         publicTypeIndex,
@@ -272,14 +289,14 @@ const AppDataProvider = ({ children }) => {
 
     if (hasError) {
 
-        console.log('publicTypeIndexIsError: ', publicTypeIndexIsError);
-        console.log('clubDefinitionsIsError: ', clubDefinitionsIsError);
-        console.log('playerDataIsError: ', playerDataIsError);
-        console.log('markerListDataIsError: ', markerListDataIsError);
-        console.log('clubListDataIsError: ', clubListDataIsError);
-        console.log('bagDataIsError: ', bagDataIsError);
-        console.log('courseListDataIsError: ', courseListDataIsError);
-        console.log('gameListDataIsError: ', gameListDataIsError);
+        log.error('publicTypeIndexIsError: ', publicTypeIndexIsError);
+        log.error('clubDefinitionsIsError: ', clubDefinitionsIsError);
+        log.error('playerDataIsError: ', playerDataIsError);
+        log.error('markerListDataIsError: ', markerListDataIsError);
+        log.error('clubListDataIsError: ', clubListDataIsError);
+        log.error('bagDataIsError: ', bagDataIsError);
+        log.error('courseListDataIsError: ', courseListDataIsError);
+        log.error('gameListDataIsError: ', gameListDataIsError);
     }
 
     const value = {
