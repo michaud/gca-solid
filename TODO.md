@@ -1,5 +1,4 @@
-- fix add hole in course form with async 
-- implement Edit course
+- implement delete game
 - implement Delete course
 - implement delete hole in edit course
 - parse club data club type is not done
@@ -7,12 +6,6 @@
 - clubtype should be filled with data from club? or remove fields? 
 - check iri s in data
 - use fieldLabel for labels
-- add game start time filled should be put in gamestate?  
-- game detail view
-- implement delete game
-- implement Bag detail edit
-- sorting of clubs for display in game hole
-- implement Add marker in Select Marker or GameForm
 
 X implement Owner on Club
 X handle card#me references
@@ -36,15 +29,10 @@ X fix setstate on unmounted components
 X Fix club list display
 X Bag detail
 X implement Change Player Handicap in player update
-
-
-comments
-- solid & inrupt logo hex265 imported in build
-- why 26Kb (15Kb) worth of guids(?) in build
-    - @shexjs shex-loader-browserify.js solid-react-components
-- mimetype list 132Kb (19Kb)
-     -@shexjs shex-loader-browserify.js
-- list of suspect? domain names 122Kb (34Kb)
-    - tough-cookie uses psl
-- moment complete is big 540 Kb (75Kb)
-- fontawesome is big 1.203Kb (370Kb)
+X implement Bag detail edit
+X sorting of clubs for display in game hole
+X implement Add marker in Select Marker or GameForm
+X implement Edit course
+X add game start time filled should be put in gamestate?  
+X game detail view
+X fix add hole in course form with async 
