@@ -101,7 +101,7 @@ const ManageBag = ({ onSave, onCancel }) => {
 
     const deleteClubHandler = club => {
 
-        const isClubInBag = bagData.list.clubs.value.find(testClub => testClub.iri === club.iri);
+        const isClubInBag = bagData.bag.clubs.value.find(testClub => testClub.iri === club.iri);
 
         if(isClubInBag) removeClubsFromBag([club], bagData.doc);
 
@@ -111,14 +111,14 @@ const ManageBag = ({ onSave, onCancel }) => {
     };
 
     const addToBagHandler = (clubs) => {
-        //TODO which bag central bag or gameBag
+
         addToBag(clubs, bagData.doc);
         reloadClubs();
         reloadBag();
     };
     
     const removeClubsFromBagHandler = (clubs) => {
-        //TODO which bag central bag or gameBag
+
         removeClubsFromBag(clubs, bagData.doc);
         reloadClubs();
         reloadBag();
