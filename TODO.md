@@ -1,6 +1,5 @@
-- implement delete game
-- implement Delete course
 - implement delete hole in edit course
+- implement delete game
 - parse club data club type is not done
 - parsing bag data misses fields like iri & label
 - clubtype should be filled with data from club? or remove fields? 
@@ -36,3 +35,4 @@ X implement Edit course
 X add game start time filled should be put in gamestate?  
 X game detail view
 X fix add hole in course form with async 
+X implement Delete course

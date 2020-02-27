@@ -168,12 +168,14 @@ const getFieldControl = ({
 
             const {
                 onSave,
-                onSaveEdit
+                onSaveEdit,
+                onDeleteHole,
             } = rest;
 
             return <ManageHoles
                 onSave={ onSave }
                 onSaveEdit={ onSaveEdit }
+                onDelete={ onDeleteHole }
                 key={ idx }
                 holes={ data.value }/>
         }

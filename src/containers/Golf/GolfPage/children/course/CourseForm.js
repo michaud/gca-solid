@@ -33,6 +33,30 @@ const CourseForm = ({
 
     const classes = formStyles();
 
+    useEffect(() => {
+
+        let didCancel = false;
+
+        const init = () => {
+            
+            if(course) {
+            
+                if(!didCancel) setCourseState(course);
+                
+            } else {
+                
+                const newCourse = setupDataObject(courseShape);
+
+                if(!didCancel) setCourseState(newCourse);
+            }
+        }
+
+        init();
+
+        return () => { didCancel = true; }
+
+    }, [course]);
+
     const saveHandler = () => {
 
         onSave({ ...courseState });
@@ -91,30 +115,6 @@ const CourseForm = ({
         });
     };
 
-    useEffect(() => {
-
-        let didCancel = false;
-
-        const init = () => {
-            
-            if(course) {
-            
-                if(!didCancel) setCourseState(course);
-                
-            } else {
-                
-                const newCourse = setupDataObject(courseShape);
-
-                if(!didCancel) setCourseState(newCourse);
-            }
-        }
-
-        init();
-
-        return () => { didCancel = true; }
-
-    }, [course]);
-
     const onChangeCourseField = fieldDef => (...args)  => {
 
         const value = getFieldValue(fieldDef, args);
@@ -122,6 +122,18 @@ const CourseForm = ({
         setCourseState(state => update(state, {
             [fieldDef.predicate]: { value: { $set: value } }
         }));
+    };
+
+    const onDeleteHoleHandler = hole => {
+
+        if(hole.iri === '') {
+
+            const index = courseState.courseHoles.value.indexOf(hole);
+
+            setCourseState(state => update(state, {
+                courseHoles: { value: { $splice: [[index, 1]] }  }
+            }));
+        }
     };
 
     const courseFields = [];
@@ -138,7 +150,8 @@ const CourseForm = ({
                 onChange: onChangeCourseField,
                 onSave: onAddHole,
                 onSaveEdit: onSaveHole,
-                idx: index++
+                onDeleteHole: onDeleteHoleHandler,
+                idx: `${ field.predicate }${ index++ }`
             });
 
             courseFields.push(fieldControl);

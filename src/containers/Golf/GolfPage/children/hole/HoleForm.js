@@ -23,12 +23,14 @@ const HoleForm = ({
     onSave,
     onEdit,
     onCancel,
+    onDelete,
     title = 'Add hole',
     actionLabel = 'add hole',
     availableStrokeIndices
 }) => {
 
     const [holeState, setHoleState] = useState();
+    const [canDelete, setCanDelete] = useState(false);
     const focusRef = useRef();
     const classes = formStyles();
     const { t } = useTranslation();
@@ -41,13 +43,20 @@ const HoleForm = ({
 
             if(holeData) {
                 
-                if(!didCancel) setHoleState(holeData);
+                if(!didCancel) {
+                    setHoleState(holeData);
+                    setCanDelete(true);
+                }
 
             } else {
 
-                if(!didCancel) setHoleState(setupDataObject(holeShape, {
-                    holeNumber
-                }));
+                if(!didCancel) {
+                    setHoleState(setupDataObject(holeShape, {
+                        holeNumber
+                    }));
+
+                    setCanDelete(false);
+                }
             }
         }
 
@@ -62,7 +71,7 @@ const HoleForm = ({
         if(holeData) {
 
             onEdit(holeState);
-
+            setCanDelete(true);
         } else {
             
             onSave(holeState);
@@ -78,6 +87,8 @@ const HoleForm = ({
             [fieldDef.predicate]: { value: { $set: value } }
         }));
     };
+
+    const onDeleteHandler = hole => () => onDelete(hole);
 
     const holeFields = [];
 
@@ -101,6 +112,7 @@ const HoleForm = ({
     }
 
     const canSave = checkCanSave(holeState, holeShape);
+    const handleDelete = typeof(onDelete) === 'function' ? onDeleteHandler : undefined;
 
     return (
         <div className="c-box">
@@ -115,6 +127,18 @@ const HoleForm = ({
                         className={ classes.button }
                         color="primary">{ actionLabel }</Button>
                 </FlexItem>
+                {
+                    handleDelete ? (
+                        <FlexItem>
+                            <Button
+                                variant="contained"
+                                disabled={ !canDelete }
+                                onClick={ handleDelete(holeState) }
+                                className={ classes.button }
+                                color="primary">Delete</Button>
+                        </FlexItem>
+                    ) : null
+                }
                 <FlexItemRight>
                 { onCancel && <Button
                     variant="contained"

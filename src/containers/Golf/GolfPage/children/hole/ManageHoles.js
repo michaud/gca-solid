@@ -9,6 +9,7 @@ const ManageHoles = ({
     holes = [],
     onSave,
     onSaveEdit,
+    onDelete,
     listTitle = 'Holes'
 }) => {
 
@@ -67,12 +68,18 @@ const ManageHoles = ({
         setEditHole(holes[idx]);
     };
 
+    const onDeleteHoleHandler = (hole) => {
+        onDelete(hole);
+        setEditHole();
+    };
+
     return (
         <>
             <HoleForm
                 hole={ editHole }
                 onSave={ onSaveHoleHandler }
                 onEdit={ onSaveEditHoleHandler }
+                onDelete={ onDeleteHoleHandler }
                 holeNumber={ holeNumber }
                 availableStrokeIndices={ availableStrokeIndices }
                 actionLabel={ editHole ? 'save hole' : 'add hole' }/>
