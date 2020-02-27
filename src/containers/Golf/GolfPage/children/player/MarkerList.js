@@ -11,7 +11,7 @@ const MarkerList = ({
     return markers.map((marker, idx) => {
 
         return <MarkerDetail
-            key={ idx }
+            key={ marker.iri }
             player={ marker }
             target="marker"
             onDelete={ onDelete }
