@@ -101,7 +101,12 @@ const getFieldControl = ({
                     <div key={ idx } style={{ padding: '0 1rem 1rem 1rem' }}>
                         <FlexContainer alignitems="center">
                             <div style={{ flex: 1, textAlign: 'right', paddingRight: '1rem' }}>{ data.label }</div>
-                            <FormControl required variant="outlined" style={{ margin: 0 }} className={ styles.SIselect } key={ idx }>
+                            <FormControl
+                                required
+                                variant="outlined"
+                                style={{ margin: 0 }}
+                                className={ styles.markerScoreSelect }
+                                key={ idx }>
                                 <Select
                                     labelId="holeStrokeIndex"
                                     label={ data.label }

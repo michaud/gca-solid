@@ -74,13 +74,26 @@ const formStyles = makeStyles(theme => ({
         },
         '& .MuiOutlinedInput-notchedOutline legend': {
             width: '5rem !important',
+            backgroundColor: 'rgb(247, 241, 217) !important',
+            maxWidth: '5rem !important'
+        },
+        '&:nth-child(5)': {
+            marginRight: '-9%'
+        }
+    },
+    markerScoreSelect: {
+        '&.MuiFormControl-root': {
+            margin: '0 0 1.5rem 0',
+            width: '22.7%',
+            marginRight:'3%'
+        },
+        '& .MuiOutlinedInput-notchedOutline legend': {
             display: 'none'
         },
         '&:nth-child(5)': {
             marginRight: '-9%'
         }
     },
-
     button: {
         background: 'linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%)',
         '& .MuiButton-label': {
