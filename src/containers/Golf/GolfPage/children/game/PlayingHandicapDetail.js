@@ -88,7 +88,7 @@ const PlayingHandicapDetail = ({ handicap, onChange }) => {
                 <FlexContainer>
                     <FlexItemData>
                     {
-                        displayFields.map((field, index) => <FlexContainer key={ index }>
+                        displayFields.map((field, index) => <FlexContainer key={ `${ field.predicate }${ index }` }>
                             <FlexItemLabel>{ field.label }</FlexItemLabel>
                             <FlexItemValue>{ field.value }</FlexItemValue>
                         </FlexContainer>)

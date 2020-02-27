@@ -13,8 +13,8 @@ const HoleList = ({
         <>
             <header className="c-header nudge">{ listTitle }</header>
             {
-                holes.length > 0 ? holes.map((hole, index) => <HoleDetail
-                    key={ index }
+                holes.length > 0 ? holes.map(hole => <HoleDetail
+                    key={ hole.iri }
                     onSave={ onSave }
                     onDelete={ onDelete }
                     hole={ hole }/>

@@ -93,7 +93,7 @@ const HoleForm = ({
                 onChange: onChangeHoleField,
                 inputRef: focusRef,
                 availableStrokeIndices,
-                idx: index++
+                idx: `${ field.predicate }${ index++ }`
             });
 
             holeFields.push(fieldControl);

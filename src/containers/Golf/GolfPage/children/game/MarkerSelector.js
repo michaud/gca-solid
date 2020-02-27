@@ -49,12 +49,12 @@ const MarkerSelector = ({
                             component="div"
                             role="list">
                         {
-                            markers && markers.map((marker, idx) => {
+                            markers && markers.map(marker => {
 
                                 const isSelected = marker !== undefined && selectedMarker !== undefined && (selectedMarker.iri.split("#")[1] === marker.iri.split("#")[1]);
 
                                 return <ListItem
-                                    key={ idx }
+                                    key={ marker.iri }
                                     className={ classes.listItem }
                                     role="listitem"
                                     button

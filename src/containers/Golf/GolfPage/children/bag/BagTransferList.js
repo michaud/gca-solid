@@ -134,7 +134,7 @@ const BagTransferList = ({
                     const labelId = `transfer-list-item-${index}-label`;
 
                     return (
-                        <ListItem key={ index }
+                        <ListItem key={ item.iri }
                             className={ classes.listItem }
                             role="listitem"
                             button onClick={ handleToggle(item) }>

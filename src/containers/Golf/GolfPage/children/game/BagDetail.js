@@ -36,12 +36,12 @@ const BagDetail = ({
             <div className="c-box">
             <ol className="plain-list bag-summary-list">
             {
-                bag && bag.clubs.value.map((club, idx) => {
+                bag && bag.clubs.value.map(club => {
 
                     const iri = club.clubType.value.iri;
                     const span = iri === golf.classes.Driver || iri === golf.classes.Putter;
 
-                    return <li key={ idx } className={ `bag-summary-list__club${ span ? ' bag-summary-list__club--span' : '' }` }>
+                    return <li key={ club.iri } className={ `bag-summary-list__club${ span ? ' bag-summary-list__club--span' : '' }` }>
                         <button className="club__btn">
                             <div className="club__name">{ club.clubBrand.value } { club.clubName.value }</div>
                             <div className="club__type">{ club.clubType.value.label }</div>

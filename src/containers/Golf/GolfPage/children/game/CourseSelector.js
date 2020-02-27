@@ -45,12 +45,12 @@ const CourseSelector = ({ courses = [], selected, onChange }) => {
                             component="div"
                             role="list">
                         {
-                            courses && courses.map((course, idx) => {
+                            courses && courses.map(course => {
 
                                 const secondaryText = `${ course.courseSlope.label }: ${ course.courseSlope.value }, holes: ${ course.courseHoles.value.length }`;
                                 const isSelected = course !== undefined && selectedCourse !== undefined && (selectedCourse.iri.split("#")[1] === course.iri.split("#")[1]); 
 
-                                return <ListItem key={ idx }
+                                return <ListItem key={ course.iri }
                                     className={ classes.listItem }
                                     role="listitem"
                                     selected={ isSelected }

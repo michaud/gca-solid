@@ -52,7 +52,7 @@ const PLayingHandicapForm = ({
                 data: handicapState[field.predicate],
                 styles: classes,
                 onChange: onChangeField,
-                idx: index++
+                idx: `${ field.predicate }${ index++ }`
             });
 
             handicapFields.push(fieldControl);

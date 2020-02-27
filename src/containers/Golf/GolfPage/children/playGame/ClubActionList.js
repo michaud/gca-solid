@@ -29,11 +29,11 @@ const ClubActionList = ({ clubs, onAction }) => {
     return (
         <ol className="plain-list play-bag-club-list">
         {
-            clubs && clubs.map((club, idx) => {
+            clubs && clubs.map(club => {
 
                 const classString = getClassNameFromClubType(club);
                 
-                return <ClubAction key={ idx }
+                return <ClubAction key={ club.iri }
                     club={ club }
                     classString={ classString }
                     onStrokeWithClub={ onStrokeWithClub }/>

@@ -22,10 +22,10 @@ const CourseList = ({
         <>
             <header className="c-header">Course list</header>
             {
-                courses.length > 0 && courses.map((course, index) => <CourseDetail
+                courses.length > 0 && courses.map(course => <CourseDetail
                     onSave={ onSaveCourseHandler }
                     onDelete={ onDeleteCourse }
-                    key={ index }
+                    key={ course.iri }
                     course={ course } />)
             }
         </>

@@ -32,7 +32,7 @@ const GameList = ({
     return (
         <div>
             {
-                games && games.length > 0 && games.map((gameData, index) => <div className="c-detail__container" key={ index }>
+                games && games.length > 0 && games.map(gameData => <div className="c-detail__container" key={ gameData.game.iri }>
                     <GameSummary
                         game={ gameData.game }
                         onPlay={ onPlayGameHandler }

@@ -60,7 +60,7 @@ const PlayerForm = ({
                 data: playerState[field.predicate],
                 styles: classes,
                 onChange: onChangeField,
-                idx: index++
+                idx: `${ field.predicate }${ index++ }`
             });
 
             playerFields.push(fieldControl);

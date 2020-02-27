@@ -148,7 +148,7 @@ const GameDetail = ({
         
         displayFields.push(getDisplayField(gameData.game[field.predicate], {
             editHoleHandler
-        }, count++));
+        }, `${ field.predicate }${ count++ }`));
     });
 
     return (
