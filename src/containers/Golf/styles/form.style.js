@@ -73,7 +73,8 @@ const formStyles = makeStyles(theme => ({
             marginRight:'3%'
         },
         '& .MuiOutlinedInput-notchedOutline legend': {
-            width: '5rem !important'
+            width: '5rem !important',
+            display: 'none'
         },
         '&:nth-child(5)': {
             marginRight: '-9%'
