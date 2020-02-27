@@ -24,6 +24,7 @@ const CourseForm = ({
     course,
     onSave,
     onCancel,
+    onDelete,
     title ='Add course',
     actionLabel = 'add course'
 }) => {
@@ -38,6 +39,8 @@ const CourseForm = ({
         const newCourse = setupDataObject(courseShape);
         setCourseState(newCourse);
     };
+
+    const onDeleteHandler = course => () => onDelete(course);
 
     const onAddHole = (hole) => {
         
@@ -143,6 +146,7 @@ const CourseForm = ({
     }
 
     const canSave = checkCanSave(courseState, courseShape);
+    const handleDelete = typeof(onDelete) === 'function' ? onDeleteHandler : undefined;
 
     return (
         <form noValidate autoComplete="off">
@@ -158,6 +162,18 @@ const CourseForm = ({
                         className={ classes.button }
                         color="primary">{ actionLabel }</Button>
                 </FlexItem>
+                {
+                    handleDelete ? (
+                        <FlexItem>
+                            <Button
+                                variant="contained"
+                                disabled={ !canSave.can }
+                                onClick={ handleDelete(course) }
+                                className={ classes.button }
+                                color="primary">Delete</Button>
+                        </FlexItem>
+                    ) : null
+                }
                 <FlexItemRight>
                 { onCancel && <Button
                     variant="contained"
