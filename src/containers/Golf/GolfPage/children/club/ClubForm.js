@@ -39,7 +39,7 @@ const ClubForm = ({
         setClubState(clubDefinitions.clubType);
     };
 
-    const onDeleteHandler = player => () => onDelete(player);
+    const onDeleteHandler = club => () => onDelete(club);
 
     const onChangeClubField = fieldDef => (...args)  => {
 
