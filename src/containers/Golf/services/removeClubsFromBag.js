@@ -1,6 +1,6 @@
 import golf from "@golfutils/golf-namespace";
 
-const removeFromBag = (clubs, doc) => {
+const removeClubsFromBag = (clubs, doc) => {
 
     clubs.forEach(club => {
         const ref = `${ golf.properties.clubs }#${ club.iri.split('#')[1]}`;
@@ -11,4 +11,4 @@ const removeFromBag = (clubs, doc) => {
     return doc.save();
 };
 
-export default removeFromBag;
+export default removeClubsFromBag;

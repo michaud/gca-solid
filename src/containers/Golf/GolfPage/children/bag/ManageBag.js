@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 
 import { useClubData } from '@golfcontexts/dataProvider/AppDataProvider';
-import removeFromBag from '@golfservices/removeFromBag';
+import removeClubsFromBag from '@golfservices/removeClubsFromBag';
 import addToBag from '@golfservices/addToBag';
 import deleteClub from '@golfservices/deleteClub';
 import saveResource from '@golfservices/saveResource';
@@ -103,7 +103,7 @@ const ManageBag = ({ onSave, onCancel }) => {
 
         const isClubInBag = bagData.list.clubs.value.find(testClub => testClub.iri === club.iri);
 
-        if(isClubInBag) removeFromBag([club], bagData.doc);
+        if(isClubInBag) removeClubsFromBag([club], bagData.doc);
 
         deleteClub(club, clubListData.doc);
         reloadClubs();
@@ -117,9 +117,9 @@ const ManageBag = ({ onSave, onCancel }) => {
         reloadBag();
     };
     
-    const removeFromBagHandler = (clubs) => {
+    const removeClubsFromBagHandler = (clubs) => {
         //TODO which bag central bag or gameBag
-        removeFromBag(clubs, bagData.doc);
+        removeClubsFromBag(clubs, bagData.doc);
         reloadClubs();
         reloadBag();
     };
@@ -145,7 +145,7 @@ const ManageBag = ({ onSave, onCancel }) => {
                     clubs={ clubs }
                     bag={ bagClubsState }
                     clubDefinitions={ clubDefinitions }
-                    onRemoveFromBag={ removeFromBagHandler }
+                    onRemoveClubsFromBag={ removeClubsFromBagHandler }
                     onAddToBag={ addToBagHandler }/>
                 <div className="c-box">
                     <ClubForm

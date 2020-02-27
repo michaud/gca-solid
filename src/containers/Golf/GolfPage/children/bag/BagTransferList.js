@@ -28,7 +28,7 @@ const BagTransferList = ({
     clubs,
     bag,
     clubDefinitions,
-    onRemoveFromBag,
+    onRemoveClubsFromBag,
     onAddToBag
 }) => {
 
@@ -105,7 +105,7 @@ const BagTransferList = ({
             right
         });
 
-        onRemoveFromBag(rightChecked)
+        onRemoveClubsFromBag(rightChecked)
 
         setChecked(not(checked, rightChecked));
     };
@@ -118,7 +118,7 @@ const BagTransferList = ({
             right: []
         }));
 
-        onRemoveFromBag(leftAndRight.right);
+        onRemoveClubsFromBag(leftAndRight.right);
     };
 
     const customList = items => (

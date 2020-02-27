@@ -9,7 +9,7 @@ import getListFromDoc from './getListFromDoc';
 import getPlayer from './getPlayer';
 import initialiseTypeDocument from './initialiseTypeDocument';
 import Provider from './provider';
-import removeFromBag from './removeFromBag';
+import removeClubsFromBag from './removeClubsFromBag';
 
 export {
     addToBag,
@@ -23,5 +23,5 @@ export {
     getPlayer,
     initialiseTypeDocument,
     Provider,
-    removeFromBag
+    removeClubsFromBag
 };
