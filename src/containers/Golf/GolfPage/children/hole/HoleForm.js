@@ -26,7 +26,8 @@ const HoleForm = ({
     onDelete,
     title = 'Add hole',
     actionLabel = 'add hole',
-    availableStrokeIndices
+    availableStrokeIndices,
+    availableHoleNumbers
 }) => {
 
     const [holeState, setHoleState] = useState();
@@ -104,6 +105,7 @@ const HoleForm = ({
                 onChange: onChangeHoleField,
                 inputRef: focusRef,
                 availableStrokeIndices,
+                availableHoleNumbers,
                 idx: `${ field.predicate }${ index++ }`
             });
 

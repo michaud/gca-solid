@@ -20,6 +20,8 @@ import {
     FlexItemRight,
 } from '@golfstyles/layout.style';
 
+const sortByHolesByNumber = (a ,b) => parseInt(a.holeNumber.value) - parseInt(b.holeNumber.value);
+
 const CourseForm = ({
     course,
     onSave,
@@ -68,9 +70,16 @@ const CourseForm = ({
 
     const onAddHole = (hole) => {
         
-        setCourseState(state => update(state, {
-            courseHoles: { value: { $push: [hole] } }
-        }));
+        setCourseState(state => {
+            
+            const holes = state.courseHoles.value;
+            holes.push(hole);
+            const sortedHoles = holes.sort(sortByHolesByNumber);
+
+            return update(state, {
+                courseHoles: { value: { $set: sortedHoles } }
+            });
+        });
     };
 
     const onSaveHole = (hole) => {
@@ -107,8 +116,10 @@ const CourseForm = ({
 
             const newHoles = [...startHoles, hole, ...endHoles];
 
+            const sortedHoles = newHoles.sort(sortByHolesByNumber);
+
             const newCourse = update(state, {
-                courseHoles: { value: { $set: newHoles } }
+                courseHoles: { value: { $set: sortedHoles } }
             });
 
             return newCourse;
@@ -130,9 +141,12 @@ const CourseForm = ({
 
             const index = courseState.courseHoles.value.indexOf(hole);
 
-            setCourseState(state => update(state, {
-                courseHoles: { value: { $splice: [[index, 1]] }  }
-            }));
+            setCourseState(state => {
+                
+                return update(state, {
+                    courseHoles: { value: { $splice: [[index, 1]] }  }
+                });
+            });
         }
     };
 

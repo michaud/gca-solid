@@ -93,6 +93,31 @@ const getFieldControl = ({
                 </FormControl>;
             }
 
+            if(data.predicate === 'holeNumber') {
+
+                const {
+                    availableHoleNumbers
+                } = rest;
+            
+                return <FormControl required variant="outlined" className={ styles.SIselect } key={ idx }>
+                    <InputLabel shrink id="holeNumberLabel">{ data.label }</InputLabel>
+                    <Select
+                        labelId="holeStrokeIndex"
+                        label={ data.label }
+                        value={ parseInt(data.value) > 0 ? parseInt(data.value) : '' }
+                        onChange={ onChange(data) }>
+                        {
+                            availableHoleNumbers
+                                .map((holeNumber, idx) => <MenuItem
+                                    key={ idx }
+                                    value={ holeNumber }>
+                                        { holeNumber }
+                                    </MenuItem>)
+                        }
+                    </Select>
+                </FormControl>;
+            }
+
             if(data.predicate === 'gameMarkerStrokeCount') {
 
                 const strokes = [1,2,3,4,5,6,7,8,9,10]
