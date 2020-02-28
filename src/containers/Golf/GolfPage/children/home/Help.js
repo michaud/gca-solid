@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
-import { ButtonBase, Switch } from '@material-ui/core';
+import { ButtonBase } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
-import { withStyles } from '@material-ui/core/styles';
 
 import IntroPanel from '@golf/components/IntroPanel';
 
@@ -52,7 +51,7 @@ const Help = () => {
                 </FlexContainer>
             </ButtonBase>
             {
-                true ?
+                open ?
                     <div className="c-box c-box--belly">
                         <div className="c-box content">
                             <h1>Golf Course Assistant</h1>
