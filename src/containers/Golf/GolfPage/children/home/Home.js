@@ -15,6 +15,7 @@ import { FlexContainer, FlexItem } from '@golfstyles/layout.style';
 import { PageContainer, PageContent } from '@golfstyles/page.style';
 import AllowLocation from './AllowLocation';
 import { useMonitorData } from '@containers/Golf/contexts/dataProvider/AppDataProvider';
+import Help from './Help';
 
 const Home = () => {
 
@@ -39,7 +40,7 @@ const Home = () => {
                             <IntroPanel
                                 icon={ <CapIcon className="c-content-icon" /> }>
                                 <FlexContainer flex="1">
-                                    <FlexItem>
+                                    <FlexItem className="intro-summary">
                                         <NavLink className="a-intro-link" to="/golf/settings/players">
                                             <FlexContainer flex="1" alignitems="center">
                                                 <FlexItem>
@@ -54,7 +55,7 @@ const Home = () => {
                                     { !hasMarkers ? (
                                         <FlexItem>
                                             <NavLink className="a-intro-link" to="/golf/settings/player">
-                                                <FlexContainer flex="1" alignitems="center">
+                                                <FlexContainer className="intro-summary" flex="1" alignitems="center">
                                                     <FlexItem>
                                                         <h3 className="h-intro">Add a Marker</h3>
                                                         <p>Your pals</p>
@@ -75,7 +76,7 @@ const Home = () => {
                                 <FlexContainer flex="1">
                                     <FlexItem>
                                         <NavLink className="a-intro-link" to="/golf/settings/bag">
-                                            <FlexContainer flex="1" alignitems="center">
+                                            <FlexContainer className="intro-summary" flex="1" alignitems="center">
                                                 <FlexItem>
                                                     <h3 className="h-intro">Add Clubs</h3>
                                                     <p>Your arsenal</p>
@@ -89,7 +90,7 @@ const Home = () => {
                                     { !hasBagClubs ? (
                                         <FlexItem>
                                             <NavLink className="a-intro-link" to="/golf/settings/bag">
-                                                <FlexContainer flex="1" alignitems="center">
+                                                <FlexContainer className="intro-summary" flex="1" alignitems="center">
                                                     <FlexItem>
                                                         <h3 className="h-intro">Fill your bag</h3>
                                                         <p>What's i/t bag?</p>
@@ -108,7 +109,7 @@ const Home = () => {
                             <IntroPanel
                                 icon={ <GolfCourseIcon className="c-content-icon" /> }>
                                 <NavLink className="a-intro-link" to="/golf/settings/courses">
-                                    <FlexContainer alignitems="center">
+                                    <FlexContainer className="intro-summary" alignitems="center">
                                         <FlexItem>
                                             <h3 className="h-intro">Add a Course</h3>
                                             <p>Where do you play?</p>
@@ -124,7 +125,7 @@ const Home = () => {
                             <IntroPanel
                                 icon={ <SportsGolfIcon className="c-content-icon" /> }>
                                 <NavLink className="a-intro-link" to="/golf/settings/games/new">
-                                    <FlexContainer alignitems="center">
+                                    <FlexContainer className="intro-summary" alignitems="center">
                                         <FlexItem>
                                             <h3 className="h-intro">Add a Game</h3>
                                             <p>Do you feel lucky, punk?</p>
@@ -141,7 +142,7 @@ const Home = () => {
                                 icon={ <CapIcon className="c-content-icon plain" /> }>
                                 <NavLink className="a-intro-link" to="/golf/settings/games">
                                     <FlexContainer alignitems="center">
-                                        <FlexItem>
+                                        <FlexItem className="intro-summary">
                                             <h3 className="h-intro">Start a game</h3>
                                             <p>Do you feel lucky, punk?</p>
                                         </FlexItem>
@@ -154,8 +155,8 @@ const Home = () => {
                         ) : (
                                 <IntroPanel className="disabled"
                                     icon={ <CapIcon className="c-content-icon plain" /> }>
-                                    <FlexContainer alignitems="center">
-                                        <FlexItem>
+                                    <FlexContainer className="intro-summary" alignitems="center">
+                                        <FlexItem >
                                             <h3 className="h-intro">Start a game</h3>
                                             <p>First add your info</p>
                                         </FlexItem>
@@ -166,7 +167,7 @@ const Home = () => {
                                 </IntroPanel>
                             ) }
                         <AllowLocation />
-
+                        <Help/>
                     </PageContainer>
                 }
             </PageContent>

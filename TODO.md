@@ -1,3 +1,7 @@
+- fix adding discontinuous holes
+  - sort holes every time
+  - get available SI needs to be updated when deleting and adding holes 
+- fix cancel button display in Create marker
 - implement delete hole in edit course
 - implement delete game
 - parse club data club type is not done

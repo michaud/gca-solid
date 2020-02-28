@@ -15,10 +15,6 @@
 
         width: 100%;
         padding-right: 0;
-        p {
-            margin: 0 0 0 0;
-            font-size: 1.1rem;
-        }
     }
 
     &.disabled {
@@ -33,6 +29,10 @@
                 color: rgb(212, 201, 155);
             }
         }
+    }
+
+    .h-intro {
+        color: rgb(55, 116, 0);
     }
 }
 
@@ -62,5 +62,13 @@
     .MuiSvgIcon-root {
 
         fill: rgb(212, 201, 155);
+    }
+}
+
+.intro-summary {
+
+    p {
+        margin: 0 0 0 0;
+        font-size: 1.1rem;
     }
 }

@@ -147,7 +147,7 @@ const AllowLocation = () => {
         <IntroPanel onClick={ clickHandler }
             icon={ canUseLocation ? <LocationOnIcon className="c-content-icon plain"/> : <LocationOffIcon htmlColor="rgb(238, 124, 43)" className="c-content-icon"/> }>
             <ButtonBase onClick={ clickHandler } disableRipple focusRipple={ false} className={ btnClasses.root }>
-                <FlexContainer alignitems="center" flex="1">
+                <FlexContainer className="intro-summary" alignitems="center" flex="1">
                     <FlexItem>
                         <h3 className="h-intro">Use location</h3>
                         <p>Where?</p>
