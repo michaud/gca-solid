@@ -21,6 +21,7 @@ const PlayerDetail = ({
     player,
     onSave,
     onDelete,
+    onCancel,
     target = 'Player',
     showEdit = false
 }) => {
@@ -41,6 +42,7 @@ const PlayerDetail = ({
     const cancelEdit = () => {
 
         setDisplayState(displayStates.detail);
+        onCancel();
     };
 
     const onDeleteHandler = () => {

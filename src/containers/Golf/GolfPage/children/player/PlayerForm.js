@@ -24,6 +24,7 @@ const PlayerForm = ({
 }) => {
 
     const [playerState, setPlayerState] = useState(player);
+    const [canCancel, setCanCancel] = useState(false);
     const classes = formStyles();
 
     useEffect(() => {
@@ -33,11 +34,21 @@ const PlayerForm = ({
         if(!currentPlayer) currentPlayer = setupDataObject(playerShape);
 
         setPlayerState(currentPlayer);
+        setCanCancel(false);
 
     }, [player]);
 
-    const saveHandler = () => onSave(playerState);
-    const onDeleteHandler = player => () => onDelete(player);
+    const saveHandler = () => { 
+        
+        onSave(playerState);
+        setPlayerState(setupDataObject(playerShape));
+        setCanCancel(false);
+    };
+    const onDeleteHandler = player => () => {
+
+        onDelete(player);
+        setCanCancel(false);
+    };
 
     const onChangeField = fieldDef => (...args)  => {
 
@@ -46,6 +57,8 @@ const PlayerForm = ({
         setPlayerState(state => update(state, {
             [fieldDef.predicate]: { value: { $set: value } }
         }));
+
+        setCanCancel(true);
     };
 
     const playerFields = [];
@@ -100,7 +113,7 @@ const PlayerForm = ({
                 { onCancel ? (
                     <Button
                         variant="contained"
-                        disabled={ !canSave }
+                        disabled={ !canCancel }
                         onClick={ onCancel }
                         className={ classes.button }
                         color="primary">Cancel</Button>

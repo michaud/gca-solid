@@ -11,6 +11,7 @@ import { usePlayerData } from '@containers/Golf/contexts/dataProvider/AppDataPro
 const ManageMarkers = () => {
 
     const [markers, setMarkers] = useState([]);
+    const [newMarker, setNewMarker] = useState(getPlayer(undefined, golf.classes.Marker));
     const {
         markerListData,
         reloadMarkers
@@ -47,8 +48,10 @@ const ManageMarkers = () => {
         deleteMarker(marker, markerListData.doc);
         reloadMarkers();
     };
+    const handleCancelAdd = () => {
 
-    const marker = getPlayer(undefined, golf.classes.Marker);
+        setNewMarker(getPlayer(undefined, golf.classes.Marker));
+    };
 
     return (
         <>
@@ -56,9 +59,10 @@ const ManageMarkers = () => {
             <div className="c-box">
                 <PlayerDetail
                     target="marker"
-                    player={ marker }
+                    player={ newMarker }
                     onDelete={ onDeleteMarker }
-                    onSave={ onSaveMarker }/>
+                    onSave={ onSaveMarker }
+                    onCancel={ handleCancelAdd }/>
             </div>
             <MarkerList
                 markers={ markers }

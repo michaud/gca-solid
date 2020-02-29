@@ -1,6 +1,3 @@
-- fix adding discontinuous holes
-  - sort holes every time
-  - get available SI needs to be updated when deleting and adding holes 
 - fix cancel button display in Create marker
 - implement delete hole in edit course
 - implement delete game
@@ -40,3 +37,6 @@ X add game start time filled should be put in gamestate?
 X game detail view
 X fix add hole in course form with async 
 X implement Delete course
+X fix adding discontinuous holes
+  x sort holes every time
+  x get available SI needs to be updated when deleting and adding holes 
