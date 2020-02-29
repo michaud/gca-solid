@@ -173,6 +173,14 @@ const formStyles = makeStyles(theme => ({
         right: 0,
         top: 0,
         bottom: 0
+    },
+    editIconButton: {
+        '&.MuiIconButton-root:hover': {
+            color: 'rgb(55, 116, 0)',
+            '& .MuiTouchRipple-root': {
+                border: '1px solid rgba(55, 116, 0,.2)'
+            }
+        }
     }
 }));
 
