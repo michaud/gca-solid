@@ -72,14 +72,14 @@ const getFieldControl = ({
                     inputRef,
                     availableStrokeIndices
                 } = rest;
-            
+
                 return <FormControl required variant="outlined" className={ styles.SIselect } key={ idx }>
                     <InputLabel shrink id="holeStrokeIndexLabel">{ data.label }</InputLabel>
                     <Select
                         labelId="holeStrokeIndex"
                         label={ data.label }
                         inputRef={ inputRef }
-                        value={ parseInt(data.value) > 0 ? parseInt(data.value) : '' }
+                        value={ availableStrokeIndices.includes(data.value) ? data.value.toString() : '' }
                         onChange={ onChange(data) }>
                         {
                             availableStrokeIndices
@@ -98,13 +98,13 @@ const getFieldControl = ({
                 const {
                     availableHoleNumbers
                 } = rest;
-            
+
                 return <FormControl required variant="outlined" className={ styles.SIselect } key={ idx }>
                     <InputLabel shrink id="holeNumberLabel">{ data.label }</InputLabel>
                     <Select
                         labelId="holeStrokeIndex"
                         label={ data.label }
-                        value={ parseInt(data.value) > 0 ? parseInt(data.value) : '' }
+                        value={ availableHoleNumbers.includes(data.value) ? data.value.toString() : '' }
                         onChange={ onChange(data) }>
                         {
                             availableHoleNumbers
