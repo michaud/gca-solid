@@ -29,8 +29,89 @@
         &.invalid {
             border: 2px solid red;
         }
+        &.hole-table__cell--score {
+            font-weight: bold;
+        }
+    }
+    .t-row--player-score {
+
+        td:first-child {
+
+            position: relative;
+
+            &:after {
+
+                content: "player";
+                display: block;
+                font-size: .7rem;
+                margin: 0 -.5rem -.25rem -.5rem;
+            }
+        }
     }
 
+    .t-row--marker-score {
+
+        td:first-child {
+
+            position: relative;
+
+            &:after {
+
+                content: "marker";
+                display: block;
+                font-size: .7rem;
+                margin: 0 -.5rem -.25rem -.5rem;
+            }
+        }
+    }
+
+    .t-row--par {
+
+        td:first-child {
+
+            position: relative;
+
+            &:after {
+
+                content: "par";
+                display: block;
+                font-size: .7rem;
+                margin: 0 -.5rem -.25rem -.5rem;
+            }
+        }
+    }
+
+    .t-row--si {
+
+        td:first-child {
+
+            position: relative;
+
+            &:after {
+
+                content: "S.I.";
+                display: block;
+                font-size: .7rem;
+                margin: 0 -.5rem -.25rem -.5rem;
+            }
+        }
+    }
+
+    .t-row--length {
+
+        td:first-child {
+
+            position: relative;
+
+            &:after {
+
+                content: "length";
+                display: block;
+                font-size: .7rem;
+                margin: 0 -.5rem -.25rem -.5rem;
+            }
+        }
+    }
 }
 
 .hole-table__header--button {
