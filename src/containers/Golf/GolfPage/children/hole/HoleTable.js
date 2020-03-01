@@ -17,7 +17,7 @@ const HoleTable = ({
     const outLengths = outHoles.map(hole => hole.holeLength.value);
     const outStrokeIndices = outHoles.map(hole => hole.holeStrokeIndex.value);
     const outGameStrokes = outHoles.map(hole => hole.gameStrokes ? hole.gameStrokes.value.length > 0 ? hole.gameStrokes.value.length : '' : '');
-    const outGameMarkerStrokes = outHoles.map(hole => hole.gameMarkerStrokeCount.value);
+    const outGameMarkerStrokes = outHoles.map(hole => hole.gameMarkerStrokeCount ? hole.gameMarkerStrokeCount.value : '');
     const inHoleNumbers = inHoles.map(hole => hole.holeNumber.value);
     const inPars = inHoles.map(hole => hole.holePar.value);
     const inLengths = inHoles.map(hole => hole.holeLength.value);
