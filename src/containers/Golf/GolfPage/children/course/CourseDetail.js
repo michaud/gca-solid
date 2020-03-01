@@ -10,15 +10,17 @@ import displayStates from '@golfutils/displayStates';
 
 import CourseForm from '@golf/GolfPage/children/course/CourseForm';
 import EditActions from '@golf/components/EditActions';
+import { useCourseData } from '@golfcontexts/dataProvider/AppDataProvider';
+import deleteHoleFromCourse from '@containers/Golf/utils/deleteHoleFromCourse';
 
 const CourseDetail = ({
     course,
     onSave,
-    onDelete,
-    showEdit = false
+    onDelete
 }) => {
 
     const [displayState, setDisplayState] = useState(displayStates.detail);
+    const { courseListData, reloadCourses } = useCourseData();
 
     const onEdit = () => {
 
@@ -39,6 +41,12 @@ const CourseDetail = ({
     const onDeleteHandler = course => () => {
 
         onDelete(course);
+    };
+
+    const onDeleteHoleHandler = hole => {
+
+        deleteHoleFromCourse(hole, course, courseListData);
+        reloadCourses();
     };
 
     const courseDescription = `${
@@ -67,6 +75,7 @@ const CourseDetail = ({
                         onSave={ onSaveHandler }
                         onCancel={ cancelEdit }
                         onDelete={ onDeleteHandler(course) }
+                        onDeleteHole={ onDeleteHoleHandler }
                         course={ course }/>
                 </div>
             )}

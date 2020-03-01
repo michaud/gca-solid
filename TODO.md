@@ -1,5 +1,3 @@
-- fix cancel button display in Create marker
-- implement delete hole in edit course
 - implement delete game
 - parse club data club type is not done
 - parsing bag data misses fields like iri & label
@@ -40,3 +38,5 @@ X implement Delete course
 X fix adding discontinuous holes
   x sort holes every time
   x get available SI needs to be updated when deleting and adding holes 
+X fix cancel button display in Create marker
+X implement delete hole in edit course

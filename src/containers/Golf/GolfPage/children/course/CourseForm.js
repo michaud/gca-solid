@@ -27,6 +27,7 @@ const CourseForm = ({
     onSave,
     onCancel,
     onDelete,
+    onDeleteHole,
     title ='Add course',
     actionLabel = 'add course'
 }) => {
@@ -147,6 +148,10 @@ const CourseForm = ({
                     courseHoles: { value: { $splice: [[index, 1]] }  }
                 });
             });
+
+        } else {
+
+            onDeleteHole(hole);
         }
     };
 
