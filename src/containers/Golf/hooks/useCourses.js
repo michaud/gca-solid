@@ -60,7 +60,7 @@ const useCourses = (publicTypeIndex) => {
                             doc,
                             golf.classes.Course,
                             courseShape
-                        )();
+                        );
 
                         if(!didCancel) setCourseListData({ list, doc });
                     }

@@ -76,7 +76,7 @@ const useClubs = (publicTypeIndex, clubTypes = [], clubType) => {
                             clubShape,
                             clubTypes,
                             clubType
-                        )();
+                        );
                             
                         if(!didCancel) setClubListData({ list, doc });
                     }

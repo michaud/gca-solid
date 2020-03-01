@@ -1,4 +1,3 @@
-- implement delete game
 - parse club data club type is not done
 - parsing bag data misses fields like iri & label
 - clubtype should be filled with data from club? or remove fields? 
@@ -40,3 +39,4 @@ X fix adding discontinuous holes
   x get available SI needs to be updated when deleting and adding holes 
 X fix cancel button display in Create marker
 X implement delete hole in edit course
+X implement delete game

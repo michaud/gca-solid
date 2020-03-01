@@ -61,7 +61,7 @@ const useMarkers = (publicTypeIndex) => {
                             doc,
                             golf.classes.Marker,
                             markerShape
-                        )();
+                        );
 
                         if(!didCancel) setMarkerListData({ list, doc });
                     }

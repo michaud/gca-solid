@@ -49,7 +49,7 @@ const ManageBag = ({ onSave, onCancel }) => {
     const classes = formStyles();
     
     const { t } = useTranslation();
-    
+
     useEffect(() => {
         
         let didCancel = false;
