@@ -31,7 +31,7 @@ const HoleTable = ({
             <table className="hole-table u-wide">
                 <tbody>
                     <tr>
-                        { outHoleNumbers.map((nr, index) => <th className="hole-table__header--button" onClick={ editHoleHandler(index) } key={ index }><span>{ nr }</span></th>) }
+                        { outHoleNumbers.map((nr, index) => <th className={ `${ onEditHole ? 'hole-table__header--button' : 'hole-table__header--empty' }` } onClick={ editHoleHandler(index) } key={ index }><span>{ nr }</span></th>) }
                         { outHolesEmpty.map((nr, index) => <th className="hole-table__header--empty" key={ index }><span></span></th>) }
                     </tr>
                     <tr className="t-row--par">
