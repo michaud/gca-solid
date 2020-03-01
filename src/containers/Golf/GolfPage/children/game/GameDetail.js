@@ -23,7 +23,7 @@ import {
     FlexItemRight,
 } from '@golfstyles/layout.style';
 
-const getDisplayField = (data, handlers, idx) => {
+const getDisplayField = (data, idx) => {
     
     switch (data.type) {
         
@@ -41,10 +41,8 @@ const getDisplayField = (data, handlers, idx) => {
 
         case golf.classes.Hole : {
 
-            const { editHoleHandler } = handlers;
-
             return (
-                <HoleTable onEdit={ editHoleHandler }  key={ idx } holes={ data.value }/>
+                <HoleTable key={ idx } holes={ data.value }/>
             );
         }
 
@@ -127,10 +125,6 @@ const GameDetail = ({
         setDisplayState(displayStates.detail);
     };
 
-    const editHoleHandler = index => {
-
-    };
-
     if(displayState === displayStates.edit) return <div className="c-block">
         <GameForm
             title={ `Edit game` }
@@ -146,9 +140,12 @@ const GameDetail = ({
 
     gameShape.shape.forEach(field => {
         
-        displayFields.push(getDisplayField(gameData.game[field.predicate], {
-            editHoleHandler
-        }, `${ field.predicate }${ count++ }`));
+        displayFields.push(
+            getDisplayField(
+                gameData.game[field.predicate],
+                `${ field.predicate }${ count++ }`
+            )
+        );
     });
 
     return (
