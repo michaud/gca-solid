@@ -141,8 +141,8 @@ const Home = () => {
                             <IntroPanel
                                 icon={ <CapIcon className="c-content-icon plain" /> }>
                                 <NavLink className="a-intro-link" to="/golf/settings/games">
-                                    <FlexContainer alignitems="center">
-                                        <FlexItem className="intro-summary">
+                                    <FlexContainer className="intro-summary" alignitems="center">
+                                        <FlexItem>
                                             <h3 className="h-intro">Start a game</h3>
                                             <p>Do you feel lucky, punk?</p>
                                         </FlexItem>

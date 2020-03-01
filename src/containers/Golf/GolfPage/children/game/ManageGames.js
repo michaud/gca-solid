@@ -77,7 +77,7 @@ const ManageGames = () => {
                         <IntroPanel
                             icon={ <SportsGolfIcon className="c-content-icon plain" /> }>
                             <NavLink className="a-intro-link" to="/golf/settings/games/new">
-                                <FlexContainer alignitems="center">
+                                <FlexContainer className="intro-summary" alignitems="center">
                                     <FlexItem>
                                         <h3 className="h-intro">Add a Game</h3>
                                         <p>Do you feel lucky, punk?</p>
