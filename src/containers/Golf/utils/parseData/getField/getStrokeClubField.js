@@ -9,7 +9,7 @@ const getStrokeClubField = doc => (data, label, clubTypes, clubType) => {
     const strokeClubIds = data.getAllRefs(golf.properties.strokeClub);
     const strokeClubRef = doc.getSubject(strokeClubIds[0]);
 
-    if(strokeClubRef.getTriples().length > 0) {
+    if(strokeClubRef.getAllRefs().length > 0) {
         
         value = parseFields(clubShape, doc, clubTypes, clubType)(strokeClubRef);
     }
