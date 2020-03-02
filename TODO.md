@@ -1,5 +1,3 @@
-- handle stablefort calculation
-
 X implement Owner on Club
 X handle card#me references
 X saveMarker as savePlayer
@@ -43,3 +41,4 @@ X check iri s in data
 X use fieldLabel for labels
   x decided not to cause field labels are defined in the shape
 X fix playing handicap in new game
+X handle stablefort calculation
