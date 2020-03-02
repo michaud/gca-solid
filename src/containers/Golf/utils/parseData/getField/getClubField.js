@@ -1,13 +1,11 @@
+import golf from "../../golf-namespace";
+
 const getClubField = predicate => (data, fieldPredicate, clubTypes, clubType) => {
 
     const label = clubType[fieldPredicate].label;
-    const clubQuads = data.getTriples();
-    const displayField = clubQuads.find(quad => {
-        
-        return quad.predicate.value === predicate;
-    });
+    const clubTypeRef = data.getRef(golf.properties.clubType);
 
-    const value = clubTypes.find(item => item.iri === displayField.object.value);
+    const value = clubTypes.find(item => item.iri === clubTypeRef);
     
     return ({
         label,
