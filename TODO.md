@@ -1,9 +1,3 @@
-- parse club data club type is not done
-- parsing bag data misses fields like iri & label
-- clubtype should be filled with data from club? or remove fields? 
-- check iri s in data
-- use fieldLabel for labels
-
 X implement Owner on Club
 X handle card#me references
 X saveMarker as savePlayer
@@ -40,3 +34,9 @@ X fix adding discontinuous holes
 X fix cancel button display in Create marker
 X implement delete hole in edit course
 X implement delete game
+X parse club data club type is not done
+X parsing bag data misses fields like iri & label
+X clubtype should be filled with data from club? or remove fields? 
+X check iri s in data
+X use fieldLabel for labels
+  x decided not to cause field labels are defined in the shape
