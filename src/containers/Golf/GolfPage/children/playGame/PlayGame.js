@@ -72,12 +72,17 @@ const PlayGame = () => {
     };
 
     const clubs = gameState && gameState.game.gameBag.value.clubs.value;
+    
+    const playingHandicap = gameState && gameState.game.gamePlayingHandicap.value;
 
     return (
         <>
             <FlexContainer style={{ position: 'relative' }} vertical alignitems="stretch" flex="1">
                 <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
-                    <HoleNavigator holes={ gameState && gameState.game.gameCourse.value.courseHoles.value } onChangeHole={ onChangeHoleHandler } />
+                    <HoleNavigator
+                        holes={ gameState && gameState.game.gameCourse.value.courseHoles.value }
+                        onChangeHole={ onChangeHoleHandler }
+                        playingHandicap={ playingHandicap }/>
                     { gameListDataIsLoading && <LinearProgress classes={ classes } variant="indeterminate" /> }
                     <ClubActionList clubs={ clubs } onAction={ onClubActionHandler }/>
                     <HoleHistory hole={ currHole } />

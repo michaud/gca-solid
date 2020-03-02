@@ -13,7 +13,7 @@ import {
     FlexToolRight
 } from '@golfstyles/layout.style';
 
-const HoleNavigator = ({ holes, onChangeHole }) => {
+const HoleNavigator = ({ holes, onChangeHole, playingHandicap }) => {
 
     const classes = formStyles();
     const [currHoleIndex, setCurrHoleIndex] = useState(0);
@@ -47,14 +47,41 @@ const HoleNavigator = ({ holes, onChangeHole }) => {
     const canPrevious = currHoleIndex > 0;
     const canNext = holes ? currHoleIndex < holes.length - 1 : false;
 
+    const si = currHole && currHole.holeStrokeIndex.value;
+    const par = currHole && currHole.holePar.value;
+    const score = currHole && currHole.gameStrokes.value.length;
+
+    const getStablefordScore = ({ handicap, si, par, score }) => { 
+
+        let result = 0;
+
+        if(handicap !== undefined && si !== undefined && par !== undefined && score !== undefined) {
+            
+            const baseScore = handicap < 0 ? (par + handicap) + 1 - score : par + 1 - score;
+            const lowHoles = handicap % 18;
+            const difficultyCorrection = lowHoles >= si ? (handicap - lowHoles) / 18 : (handicap + (18 - lowHoles)) / 18;
+            const calculatedScore = baseScore + difficultyCorrection;
+            result = calculatedScore > -1 ? calculatedScore : 0;
+        }
+
+        return result;
+    }
+
+    const playerStablefordScore = getStablefordScore({
+        handicap: playingHandicap && playingHandicap.playerPlayingHandicap.value,
+        si,
+        par,
+        score
+    });
+
     return (
         <HoleNavigatorContainer alignitems="stretch">
             <FlexToolLeft>
                 <Button
                     variant="contained"
-                    className={classes.toolButton}
-                    onClick={onPreviousHole}
-                    disabled={!canPrevious}
+                    className={ classes.toolButton }
+                    onClick={ onPreviousHole }
+                    disabled={ !canPrevious }
                     color="primary"><ArrowBackIosRoundedIcon /></Button>
             </FlexToolLeft>
             <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
@@ -72,15 +99,14 @@ const HoleNavigator = ({ holes, onChangeHole }) => {
                                     <td className="hole-info__par">{ currHole.holePar.label }</td>
                                     <td className="hole-info__par-value">{ currHole.holePar.value }</td>
                                     <td className="score__strokes">strokes</td>
-                                    <td className="score__strokes-value">6</td>
+                                    <td className="score__strokes-value">{ currHole.gameStrokes.value.length }</td>
                                 </tr>
                                 <tr>
                                     <td className="hole-info__si">SI</td>
                                     <td className="hole-info__si-value">{ currHole.holeStrokeIndex.value }</td>
                                     <td className="score__points">points</td>
-                                    <td className="score__points-value">3</td>
+                                    <td className="score__points-value">{ playerStablefordScore }</td>
                                 </tr>
-
                             </tbody>
                         </table>
                         }
