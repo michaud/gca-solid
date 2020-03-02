@@ -10,12 +10,12 @@ const getClubDefinitions = async () => {
 
     const clubFields = golfVocabulary
         .findSubjects(ns.rdfs.domain, namedNode(golf.classes.Club))
-        .reduce((acc, quad) => {
+        .reduce((acc, ref) => {
 
-            const predicate = quad.getLiteral(ns.rdfs.label);
-            const type = quad.getRef(ns.rdfs.range);
-            const iri = quad.asRef();
-            const label = quad.getLiteral(golf.properties.fieldLabel);
+            const predicate = ref.getLiteral(ns.rdfs.label);
+            const type = ref.getRef(ns.rdfs.range);
+            const iri = ref.asRef();
+            const label = ref.getLiteral(golf.properties.fieldLabel);
 
             const value = '';
 
