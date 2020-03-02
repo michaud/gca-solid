@@ -1,7 +1,6 @@
 import addStrokeToHole from './addStrokeToHole';
 import catchGeoConnectErrors from './catchGeoConnectErrors';
 import checkCanSave from './checkCanSave';
-import clubTypeContext from './clubTypeContext';
 import createStroke from './createStroke';
 import displayStates from './displayStates';
 import getFieldControl from './getFieldControl';
@@ -17,7 +16,6 @@ export {
   addStrokeToHole,
   catchGeoConnectErrors,
   checkCanSave,
-  clubTypeContext,
   createStroke,
   displayStates,
   getFieldControl,
