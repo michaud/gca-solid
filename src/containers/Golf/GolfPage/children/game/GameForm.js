@@ -317,9 +317,9 @@ const GameForm = ({
                 gameState && <div className="f-form-field">
                     { title ? <header className="c-header">{ title }</header> : null }
                     { gameFields }
+                    { !canSave.can ? <div className="c-box">You need to { canSave.reasons }</div> : null }
                     <FlexContainer>
                         <FlexItem>
-                            { !canSave.can ? <div>{ canSave.reasons }</div> : null }
                             <Button
                                 variant="contained"
                                 disabled={ !canSave.can }

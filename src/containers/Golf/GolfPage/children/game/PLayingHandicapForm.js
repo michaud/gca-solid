@@ -18,6 +18,12 @@ const PLayingHandicapForm = ({
     const [handicapState, setHandicapState] = useState();
     const classes = formStyles();
 
+    useEffect(() => {
+
+        if (handicap) setHandicapState(handicap);
+
+    }, [handicap]);
+
     const handicapFields = [];
     
     let index = 0;
@@ -37,12 +43,6 @@ const PLayingHandicapForm = ({
             return state
         });
     };
-
-    useEffect(() => {
-
-        if (handicap) setHandicapState(handicap);
-
-    }, [handicap]);
 
     if(handicapState) {
         

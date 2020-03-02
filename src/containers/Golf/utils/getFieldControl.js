@@ -53,12 +53,14 @@ const getFieldControl = ({
         }
 
         case golf.types.integer : {
-            
+
+            const value = typeof(data.value) !== 'number' || isNaN(data.value)  ? '' : data.value;
+
             return <TextField key={ idx }
                 required
                 type="number"
                 label={ data.label }
-                value={ data.value || '' }
+                value={ value }
                 className={ styles.textField }
                 onChange={ onChange(data) }
                 variant="outlined"/>
