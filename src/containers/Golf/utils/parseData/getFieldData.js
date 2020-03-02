@@ -94,8 +94,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
         case golf.classes.Hole: {
 
-            //TODO: clubtype is not array
-            const [parentFieldType, clubTypes = [], clubType = []] = rest;
+            const [parentFieldType, clubTypes = [], clubType] = rest;
 
             //holes of a game course
             if(predicate === golf.properties.courseHoles && parentFieldType === golf.properties.gameCourse) {

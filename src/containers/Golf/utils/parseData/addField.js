@@ -41,7 +41,6 @@ export const addField = ({
 
         case golf.types.double : {
 
-            //TODO check for undefined?
             ref.addLiteral(predicate, data.value || 0);
 
             break;
