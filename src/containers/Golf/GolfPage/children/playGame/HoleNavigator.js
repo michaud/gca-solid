@@ -12,8 +12,14 @@ import {
     FlexItem,
     FlexToolRight
 } from '@golfstyles/layout.style';
+import calculateHoleStablefordScore from '@containers/Golf/utils/calculateHoleStablefordScore';
 
-const HoleNavigator = ({ holes, onChangeHole, playingHandicap }) => {
+const HoleNavigator = ({
+    holes,
+    onChangeHole,
+    playingHandicap,
+    onClick
+}) => {
 
     const classes = formStyles();
     const [currHoleIndex, setCurrHoleIndex] = useState(0);
@@ -51,23 +57,7 @@ const HoleNavigator = ({ holes, onChangeHole, playingHandicap }) => {
     const par = currHole && currHole.holePar.value;
     const score = currHole && currHole.gameStrokes.value.length;
 
-    const getStablefordScore = ({ handicap, si, par, score }) => { 
-
-        let result = 0;
-
-        if(handicap !== undefined && si !== undefined && par !== undefined && score !== undefined) {
-            
-            const baseScore = handicap < 0 ? (par + handicap) + 1 - score : par + 1 - score;
-            const lowHoles = handicap % 18;
-            const difficultyCorrection = lowHoles >= si ? (handicap - lowHoles) / 18 : (handicap + (18 - lowHoles)) / 18;
-            const calculatedScore = baseScore + difficultyCorrection;
-            result = calculatedScore > -1 ? calculatedScore : 0;
-        }
-
-        return result;
-    }
-
-    const playerStablefordScore = getStablefordScore({
+    const playerStablefordScore = calculateHoleStablefordScore({
         handicap: playingHandicap && playingHandicap.playerPlayingHandicap.value,
         si,
         par,
@@ -84,7 +74,7 @@ const HoleNavigator = ({ holes, onChangeHole, playingHandicap }) => {
                     disabled={ !canPrevious }
                     color="primary"><ArrowBackIosRoundedIcon /></Button>
             </FlexToolLeft>
-            <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
+            <FlexContainer vertical flex="1 0 auto" alignitems="stretch" onClick={ onClick }>
                 <FlexContainer center flex="1 0 auto" alignitems="stretch">
                     <FlexContainer flex="1 0 auto" center>
                         <div className="hole-info u-pad--airy">

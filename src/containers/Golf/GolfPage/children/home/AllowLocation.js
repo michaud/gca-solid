@@ -16,7 +16,6 @@ import { FlexContainer, FlexItem } from '@golfstyles/layout.style';
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
-        minWidth: 300,
         width: '100%',
         alignItems: 'stretch',
         textAlign: 'unset',

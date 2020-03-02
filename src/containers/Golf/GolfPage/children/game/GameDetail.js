@@ -42,7 +42,10 @@ const getDisplayField = (data, idx) => {
         case golf.classes.Hole : {
 
             return (
-                <HoleTable key={ idx } holes={ data.value }/>
+                <div className="c-box">
+                    <label className="f-label--plain">holes</label>
+                    <HoleTable key={ idx } holes={ data.value }/>
+                </div>
             );
         }
 

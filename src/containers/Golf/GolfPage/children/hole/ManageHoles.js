@@ -139,10 +139,13 @@ const ManageHoles = ({
                 availableStrokeIndices={ availableStrokeIndices }
                 availableHoleNumbers={ availableHoleNumbers }
                 actionLabel={ editHole ? 'save hole' : 'add hole' }/>
-            <HoleTable
-                holes={ holes }
-                onEditHole={ editHoleHandler }
-                listTitle={ listTitle }/>
+            <div className="c-box">
+                <label className="f-label--plain">holes</label>
+                <HoleTable
+                    holes={ holes }
+                    onEditHole={ editHoleHandler }
+                    listTitle={ listTitle }/>
+            </div>
         </>
     );
 };

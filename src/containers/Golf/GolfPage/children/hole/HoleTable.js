@@ -1,7 +1,7 @@
 import React from 'react';
 
 const HoleTable = ({
-    holes,
+    holes = [],
     onEditHole
 }) => {
 
@@ -26,8 +26,7 @@ const HoleTable = ({
     const inGameMarkerStrokes = inHoles.map(hole => hole.gameMarkerStrokeCount.value);
 
     return (
-        <div className="c-box">
-            <label className="f-label--plain">holes</label>
+        <>
             <table className="hole-table u-wide">
                 <tbody>
                     <tr>
@@ -84,7 +83,7 @@ const HoleTable = ({
                     </tr>
                 </tbody>
             </table> : null }
-        </div>
+        </>
     );
 };
 

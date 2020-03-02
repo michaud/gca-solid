@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { LinearProgress } from '@material-ui/core';
+import Popover from '@material-ui/core/Popover';
 
 import addStrokeToHole from '@golfutils/addStrokeToHole';
 import update from 'immutability-helper';
@@ -11,16 +12,19 @@ import ClubActionList from '@golf/GolfPage/children/playGame/ClubActionList';
 
 import { FlexContainer } from '@golfstyles/layout.style';
 import useStyles from './PlayGame.styles';
-import ButtonBar from '@containers/Golf/components/ButtonBar';
-import MarkerHoleDisplay from './MarkerHoleDisplay';
+import ButtonBar from '@golf/components/ButtonBar';
+import MarkerHoleDisplay from '@golf/GolfPage/children/playGame/MarkerHoleDisplay';
 
 import useGameListData from '@golfcontexts/dataProvider/useGameListData';
-import saveMarkerScoreToHole from '@containers/Golf/utils/saveMarkerScoreToHole';
+import saveMarkerScoreToHole from '@golfutils/saveMarkerScoreToHole';
+import GamePlayDetail from '@golf/GolfPage/children/playGame/GamePlayDetail';
 
-const PlayGame = () => {
-  
+const PlayGame = ({ match: { params: { gameid } } }) => {
+
     const [gameState, setGameState] = useState();
     const [currHole, setCurrHole] = useState();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
     const {
         gameListData,
         gameListDataIsLoading
@@ -34,9 +38,13 @@ const PlayGame = () => {
 
         const update = () => {
 
-            if (!didCancel && gameListData && gameListData.doc) {
+            if (!didCancel && gameListData && gameListData.doc && gameid) {
 
-                setGameState(gameListData.list[0]);
+                const game = gameListData.list.find(gameData => {
+
+                    return gameData.game.iri.includes(gameid);
+                })
+                setGameState(game);
             }
         }
 
@@ -45,6 +53,10 @@ const PlayGame = () => {
         return () => { didCancel = true }
 
     }, [gameListData]);
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     const onClubActionHandler = club => {
 
@@ -71,25 +83,50 @@ const PlayGame = () => {
         saveMarkerScoreToHole({ currHole, doc: gameState.doc, score });
     };
 
+    const showGamePlayDetailHandler = event => {
+        setAnchorEl(event.currentTarget);
+    };
+
     const clubs = gameState && gameState.game.gameBag.value.clubs.value;
-    
+
     const playingHandicap = gameState && gameState.game.gamePlayingHandicap.value;
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
 
     return (
         <>
-            <FlexContainer style={{ position: 'relative' }} vertical alignitems="stretch" flex="1">
+            <FlexContainer style={ { position: 'relative' } } vertical alignitems="stretch" flex="1">
                 <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
                     <HoleNavigator
                         holes={ gameState && gameState.game.gameCourse.value.courseHoles.value }
                         onChangeHole={ onChangeHoleHandler }
-                        playingHandicap={ playingHandicap }/>
+                        playingHandicap={ playingHandicap }
+                        onClick={ showGamePlayDetailHandler } />
                     { gameListDataIsLoading && <LinearProgress classes={ classes } variant="indeterminate" /> }
-                    <ClubActionList clubs={ clubs } onAction={ onClubActionHandler }/>
+                    <ClubActionList clubs={ clubs } onAction={ onClubActionHandler } />
                     <HoleHistory hole={ currHole } />
+                    <Popover
+                        id={ id }
+                        open={ open }
+                        anchorEl={ anchorEl }
+                        onClose={ handleClose }
+                        marginThreshold={ 0 }
+                        anchorOrigin={ {
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        } }
+                        transformOrigin={ {
+                            vertical: 'top',
+                            horizontal: 'center',
+                        } }>
+                        <GamePlayDetail
+                            gameData={ gameState } />
+                    </Popover>
                 </FlexContainer>
-                <MarkerHoleDisplay hole={ currHole } onChange={ onMarkerScoreChangeHandler }/>
+                <MarkerHoleDisplay hole={ currHole } onChange={ onMarkerScoreChangeHandler } />
                 <div className="c-btn-bar__container">
-                    <ButtonBar bare={ true }/>
+                    <ButtonBar bare={ true } />
                 </div>
             </FlexContainer>
         </>

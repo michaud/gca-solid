@@ -22,7 +22,10 @@ const CourseSummary = ({ course }) => {
                     <FlexItemValue>{ `${ course.courseSlope.value }`}</FlexItemValue>
                 </FlexContainer>
             </div>
-            <HoleTable holes={ course.courseHoles.value }/>
+            <div className="c-box">
+                <label className="f-label--plain">holes</label>
+                <HoleTable holes={ course.courseHoles.value }/>
+            </div>
         </div>
     );
 };
