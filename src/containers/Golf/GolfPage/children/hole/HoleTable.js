@@ -1,7 +1,26 @@
 import React from 'react';
+import calculateHoleStablefordScore from '@golfutils/calculateHoleStablefordScore';
+
+const getStrokeDisplayText = (playingHandicap, strokeField) => hole => {
+    
+    const strokeData = hole[strokeField] ? hole[strokeField].value : '';
+
+    const strokeValue = Array.isArray(strokeData) ?
+        strokeData.length : strokeData;
+
+    const playerStablefordScore = calculateHoleStablefordScore({
+        handicap: playingHandicap && playingHandicap.value,
+        si: hole.holeStrokeIndex.value,
+        par: hole.holePar.value,
+        score: strokeValue
+    });
+
+    return strokeValue !== '' && strokeValue !== 0 ? `${ strokeValue }/${ playerStablefordScore }` : '';
+};
 
 const HoleTable = ({
     holes = [],
+    playingHandicap,
     onEditHole
 }) => {
 
@@ -16,13 +35,24 @@ const HoleTable = ({
     const outPars = outHoles.map(hole => hole.holePar.value);
     const outLengths = outHoles.map(hole => hole.holeLength.value);
     const outStrokeIndices = outHoles.map(hole => hole.holeStrokeIndex.value);
-    const outGameStrokes = outHoles.map(hole => hole.gameStrokes ? hole.gameStrokes.value.length > 0 ? hole.gameStrokes.value.length : '' : '');
-    const outGameMarkerStrokes = outHoles.map(hole => hole.gameMarkerStrokeCount ? hole.gameMarkerStrokeCount.value : '');
+    const outGameStrokes = outHoles.map(getStrokeDisplayText(playingHandicap && playingHandicap.playerPlayingHandicap, 'gameStrokes'));
+    const outGameMarkerStrokes = outHoles.map(getStrokeDisplayText(playingHandicap && playingHandicap.playerPlayingHandicap, 'gameMarkerStrokeCount'));
     const inHoleNumbers = inHoles.map(hole => hole.holeNumber.value);
     const inPars = inHoles.map(hole => hole.holePar.value);
     const inLengths = inHoles.map(hole => hole.holeLength.value);
     const inStrokeIndices = inHoles.map(hole => hole.holeStrokeIndex.value);
-    const inGameStrokes = inHoles.map(hole => hole.gameStrokes ? hole.gameStrokes.value.length > 0 ? hole.gameStrokes.value.length : '' : '');
+    const inGameStrokes = inHoles.map(hole => {
+    
+        const playerStablefordScore = calculateHoleStablefordScore({
+            handicap: playingHandicap && playingHandicap.playerPlayingHandicap.value,
+            si: hole.holeStrokeIndex.value,
+            par: hole.holePar.value,
+            score: hole.gameStrokes.value.length
+        });
+    
+        const strokes = hole.gameStrokes ? hole.gameStrokes.value.length > 0 ? hole.gameStrokes.value.length : '' : '';
+        return strokes !== '' ? `${ strokes }/${ playerStablefordScore }` : '';
+    });
     const inGameMarkerStrokes = inHoles.map(hole => hole.gameMarkerStrokeCount.value);
 
     return (

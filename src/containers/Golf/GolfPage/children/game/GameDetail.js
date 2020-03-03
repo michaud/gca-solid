@@ -23,17 +23,17 @@ import {
     FlexItemRight,
 } from '@golfstyles/layout.style';
 
-const getDisplayField = (data, idx) => {
-    
-    switch (data.type) {
+const getDisplayField = (fieldData, idx, data) => {
+
+    switch (fieldData.type) {
         
         case golf.types.dateTime : {
 
-            const value = data.value instanceof Date ? format(new Date(data.value), 'dd-MM-yy HH:mm') : ''
+            const value = fieldData.value instanceof Date ? format(new Date(fieldData.value), 'dd-MM-yy HH:mm') : ''
 
             return (
                 <FlexContainer key={ idx }>
-                    <FlexItemLabel>{ data.label }</FlexItemLabel>
+                    <FlexItemLabel>{ fieldData.label }</FlexItemLabel>
                     <FlexItemValue>{ value }</FlexItemValue>
                 </FlexContainer>
             );
@@ -41,19 +41,22 @@ const getDisplayField = (data, idx) => {
 
         case golf.classes.Hole : {
 
+            const { playingHandicap } = data;
             return (
                 <div className="c-box">
                     <label className="f-label--plain">holes</label>
-                    <HoleTable key={ idx } holes={ data.value }/>
+                    <HoleTable key={ idx } playingHandicap={ playingHandicap } holes={ fieldData.value }/>
                 </div>
             );
         }
 
         case golf.classes.Course : {
 
+            const { playingHandicap } = data;
+
             return (
                 <div className="u-pad--coppertop"  key={ idx }>
-                    <CourseSummary course={ data.value }/>
+                    <CourseSummary course={ fieldData.value } playingHandicap={ playingHandicap }/>
                 </div>
             );
         }
@@ -62,7 +65,7 @@ const getDisplayField = (data, idx) => {
 
             return (
                 <BagDetail key={ idx }
-                    bag={ data.value }/>
+                    bag={ fieldData.value }/>
             );
         }
 
@@ -70,7 +73,7 @@ const getDisplayField = (data, idx) => {
 
             return (
                 <PlayerDetail key={ idx }
-                    player={ data.value }/>
+                    player={ fieldData.value }/>
             );
         }
 
@@ -79,14 +82,14 @@ const getDisplayField = (data, idx) => {
             return (
                 <PlayerDetail key={ idx }
                     target="Marker"
-                    player={ data.value }/>
+                    player={ fieldData.value }/>
             );
         }
 
         case golf.classes.GamePlayingHandicap: {
 
             return (
-                <PlayingHandicapDetail handicap={ data.value } key={ idx }/>
+                <PlayingHandicapDetail handicap={ fieldData.value } key={ idx }/>
             )
         }
 
@@ -94,8 +97,8 @@ const getDisplayField = (data, idx) => {
 
             return (
                 <FlexContainer key={ idx }>
-                    <FlexItemLabel>{ data.label }</FlexItemLabel>
-                    <FlexItemValue>{ data.value }</FlexItemValue>
+                    <FlexItemLabel>{ fieldData.label }</FlexItemLabel>
+                    <FlexItemValue>{ fieldData.value }</FlexItemValue>
                 </FlexContainer>
             );
         }
@@ -146,7 +149,8 @@ const GameDetail = ({
         displayFields.push(
             getDisplayField(
                 gameData.game[field.predicate],
-                `${ field.predicate }${ count++ }`
+                `${ field.predicate }${ count++ }`,
+                { playingHandicap: gameData.game.gamePlayingHandicap.value }
             )
         );
     });

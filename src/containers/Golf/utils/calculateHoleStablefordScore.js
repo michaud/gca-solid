@@ -2,7 +2,7 @@ const calculateHoleStablefordScore = ({ handicap, si, par, score }) => {
 
         let result = 0;
 
-        if(handicap !== undefined && si !== undefined && par !== undefined && score !== undefined) {
+        if(handicap !== undefined && si !== undefined && par !== undefined && score !== undefined && score !== '') {
             
             const baseScore = handicap < 0 ? (par + handicap) + 1 - score : par + 1 - score;
             const lowHoles = handicap % 18;
@@ -11,7 +11,7 @@ const calculateHoleStablefordScore = ({ handicap, si, par, score }) => {
             result = calculatedScore > -1 ? calculatedScore : 0;
         }
 
-        return result;
+        return score === '' || score === 0 ? '' : result;
 };
 
 export default calculateHoleStablefordScore;

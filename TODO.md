@@ -1,3 +1,5 @@
+- show marker Stableford score in play game
+- delete stroke in play game
 X implement Owner on Club
 X handle card#me references
 X saveMarker as savePlayer

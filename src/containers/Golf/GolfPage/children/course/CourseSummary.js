@@ -7,7 +7,7 @@ import {
     FlexItemValue
 } from '@containers/Golf/styles/layout.style';
 
-const CourseSummary = ({ course }) => {
+const CourseSummary = ({ course, playingHandicap }) => {
 
     return (
         <div>
@@ -24,7 +24,7 @@ const CourseSummary = ({ course }) => {
             </div>
             <div className="c-box">
                 <label className="f-label--plain">holes</label>
-                <HoleTable holes={ course.courseHoles.value }/>
+                <HoleTable holes={ course.courseHoles.value } playingHandicap={ playingHandicap }/>
             </div>
         </div>
     );
