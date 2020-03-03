@@ -62,14 +62,42 @@ const SplashScreen = ({ completed }) => {
                         <path d="m0,0l800,473l0,4000l-800,0l0,0z" fillOpacity="0.6" fill="url(#svg_1)" />
                         <path d="m1600,0l0,4000l-800,0l0,-3527l0,0z" fillOpacity="0.6" fill="url(#svg_3)" />
                     </g>
-                    <g style={{ transform: 'translate(0,-20%)' }}>
-                        <text x="-20px" textAnchor="middle" alignmentBaseline="central" fill="rgba(255, 255, 255, 0.9)" style={{ fontSize: '7rem', filter: 'url(#shadow)', fontWeight: 'bold', color: 'white', transform: 'translate(50%,0)' }}>
-                            Golf</text>
-                        <text x="-20px" y="6rem" textAnchor="middle" alignmentBaseline="central" fill="rgba(255, 255, 255, 0.9)" style={{ fontSize: '7rem', filter: 'url(#shadow)', fontWeight: 'bold', color: 'white', transform: 'translate(50%,0)' }}>
-                            Course</text>
-                        <text x="-20px" y="13rem" textAnchor="middle" alignmentBaseline="central" fill="rgba(255, 255, 255, 0.9)" style={{ fontSize: '7rem', filter: 'url(#shadow)', fontWeight: 'bold', color: 'white', transform: 'translate(50%,0)' }}>
-                            Assistant
-                        </text>
+                    <g>
+                        <text
+                            textAnchor="middle"
+                            alignmentBaseline="central"
+                            fill="rgba(255, 255, 255, 0.7)"
+                            style={{
+                                fontSize: '7rem',
+                                filter: 'url(#shadow)',
+                                fontWeight: 'bold',
+                                color: 'white',
+                                transform: 'translate(50%,0)'
+                            }}>Golf</text>
+                        <text
+                            y="6rem"
+                            textAnchor="middle"
+                            alignmentBaseline="central"
+                            fill="rgba(255, 255, 255, 0.9)"
+                            style={{
+                                fontSize: '7rem',
+                                filter: 'url(#shadow)',
+                                fontWeight: 'bold',
+                                color: 'white',
+                                transform: 'translate(50%,0)'
+                            }}>Course</text>
+                        <text
+                            y="13rem"
+                            textAnchor="middle"
+                            alignmentBaseline="central"
+                            fill="rgba(255, 255, 255, 0.9)"
+                            style={{
+                                fontSize: '7rem',
+                                filter: 'url(#shadow)',
+                                fontWeight: 'bold',
+                                color: 'white',
+                                transform: 'translate(50%,0)'
+                            }}>Assistant</text>
                     </g>
                 </g>
             </svg>
