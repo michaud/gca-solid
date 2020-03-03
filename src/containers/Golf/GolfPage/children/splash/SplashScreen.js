@@ -64,8 +64,9 @@ const SplashScreen = ({ completed }) => {
                     </g>
                     <g>
                         <text
-                            x="50%"
-                            fill="rgba(255, 255, 255, 0.7)"
+                            x="700px"
+                            y="-120px"
+                            fill="rgba(255, 255, 255, 0.8)"
                             style={{
                                 fontSize: '7rem',
                                 filter: 'url(#shadow)',
@@ -73,9 +74,9 @@ const SplashScreen = ({ completed }) => {
                                 color: 'white'
                             }}>Golf</text>
                         <text
-                            y="6rem"
-                            x="50%"
-                            fill="rgba(255, 255, 255, 0.9)"
+                            y="-24px"
+                            x="610px"
+                            fill="rgba(255, 255, 255, 0.8)"
                             style={{
                                 fontSize: '7rem',
                                 filter: 'url(#shadow)',
@@ -83,9 +84,9 @@ const SplashScreen = ({ completed }) => {
                                 color: 'white'
                             }}>Course</text>
                         <text
-                            y="13rem"
-                            x="50%"
-                            fill="rgba(255, 255, 255, 0.9)"
+                            y="88px"
+                            x="550px"
+                            fill="rgba(255, 255, 255, 0.8)"
                             style={{
                                 fontSize: '7rem',
                                 filter: 'url(#shadow)',
