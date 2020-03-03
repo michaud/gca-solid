@@ -64,46 +64,40 @@ const SplashScreen = ({ completed }) => {
                     </g>
                     <g>
                         <text
-                            textAnchor="middle"
-                            alignmentBaseline="central"
+                            x="50%"
                             fill="rgba(255, 255, 255, 0.7)"
                             style={{
                                 fontSize: '7rem',
                                 filter: 'url(#shadow)',
                                 fontWeight: 'bold',
-                                color: 'white',
-                                transform: 'translate(50%,0)'
+                                color: 'white'
                             }}>Golf</text>
                         <text
                             y="6rem"
-                            textAnchor="middle"
-                            alignmentBaseline="central"
+                            x="50%"
                             fill="rgba(255, 255, 255, 0.9)"
                             style={{
                                 fontSize: '7rem',
                                 filter: 'url(#shadow)',
                                 fontWeight: 'bold',
-                                color: 'white',
-                                transform: 'translate(50%,0)'
+                                color: 'white'
                             }}>Course</text>
                         <text
                             y="13rem"
-                            textAnchor="middle"
-                            alignmentBaseline="central"
+                            x="50%"
                             fill="rgba(255, 255, 255, 0.9)"
                             style={{
                                 fontSize: '7rem',
                                 filter: 'url(#shadow)',
                                 fontWeight: 'bold',
-                                color: 'white',
-                                transform: 'translate(50%,0)'
+                                color: 'white'
                             }}>Assistant</text>
                     </g>
                 </g>
             </svg>
             <div>
                 {
-                    completed === 100 ? <Redirect to="/golf/settings" /> :
+                    completed === 101 ? <Redirect to="/golf/settings" /> :
                         <LinearProgress classes={classes} variant="determinate" value={ completed } />
                 }
             </div>
