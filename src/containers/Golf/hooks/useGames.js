@@ -21,13 +21,20 @@ const getGameListFromDoc = async (
     ...rest
     ) => {
 
-    const [,,,gameId] = rest;
+    const [,,,gameId, url] = rest;
 
     const gameRefs = doc.findSubjects(golf.classes.Game);
 
-    const promises = !gameId
-        ? gameRefs.map(item => fetchResource(item.getRef()))
-        : [fetchResource(doc.getSubject(golf.classes.Game).getRef())];
+    const promises = [];
+
+    if(!gameId) {
+
+        gameRefs.map(item => promises.push(fetchResource(item.getRef())));
+
+    } else {
+
+        promises.push(fetchResource(doc.getSubject(`${ url }#${ gameId }`).getRef()));
+    }
 
     const gameDocs = await Promise.all(promises);
 
@@ -44,6 +51,21 @@ const getGameListFromDoc = async (
     });
 
     return games;
+};
+
+const updateGameInList = (gameList, gameDataList) => {
+
+    const updatedGameRef = gameList[0].game.iri;
+
+    const oldGameIndex = gameDataList.list.findIndex(gameData => { 
+        return gameData.game.iri === updatedGameRef;
+    });
+
+    const startGames = gameDataList.list.slice(0, oldGameIndex);
+    const endGames = gameDataList.list.slice(oldGameIndex + 1, gameDataList.length);
+
+    
+    return [...startGames, gameList[0], ...endGames];
 };
 
 const useGames = (publicTypeIndex, clubTypes = [], clubType, clubListData) => {
@@ -97,15 +119,18 @@ const useGames = (publicTypeIndex, clubTypes = [], clubType, clubListData) => {
 
                         if(publicTypeIndex.doc && clubTypes.length > 0 && clubType && clubListData.doc) {
 
-                            const list = await getGameListFromDoc(
+                            let list = await getGameListFromDoc(
                                 doc,
                                 golf.classes.Game,
                                 gameShape,
                                 clubTypes,
                                 clubType,
                                 clubListData,
-                                gameId
+                                gameId,
+                                url
                             );
+
+                            if(gameId) list = updateGameInList(list, gameListData);
 
                             if(!didCancel) setGameListData({ list, doc });
 
