@@ -93,7 +93,7 @@ const PlayGame = ({ match: { params: { gameid } } }) => {
     const onDeleteStrokeHandler = async (stroke, hole) => {
 
         await deleteStrokeFromGameHole(gameState.doc, stroke, hole);
-        reloadGames();
+        reloadGames(gameid);
     };
 
     const clubs = gameState && gameState.game.gameBag.value.clubs.value;

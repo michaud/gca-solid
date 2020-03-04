@@ -19,11 +19,15 @@ const getGameListFromDoc = async (
     type,
     shape,
     ...rest
-) => {
+    ) => {
+
+    const [,,,gameId] = rest;
 
     const gameRefs = doc.findSubjects(golf.classes.Game);
 
-    const promises = gameRefs.map(item => fetchResource(item.getRef()));
+    const promises = !gameId
+        ? gameRefs.map(item => fetchResource(item.getRef()))
+        : [fetchResource(doc.getSubject(golf.classes.Game).getRef())];
 
     const gameDocs = await Promise.all(promises);
 
@@ -46,6 +50,7 @@ const useGames = (publicTypeIndex, clubTypes = [], clubType, clubListData) => {
 
     const [reload, setReload] = useState(false);
     const [gameListData, setGameListData] = useState({ list: [], doc: undefined });
+    const [gameId, setGameId] = useState();
     const [isError, setIsError] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -98,7 +103,8 @@ const useGames = (publicTypeIndex, clubTypes = [], clubType, clubListData) => {
                                 gameShape,
                                 clubTypes,
                                 clubType,
-                                clubListData
+                                clubListData,
+                                gameId
                             );
 
                             if(!didCancel) setGameListData({ list, doc });
@@ -139,7 +145,10 @@ const useGames = (publicTypeIndex, clubTypes = [], clubType, clubListData) => {
 
     }, [publicTypeIndex.doc, clubTypes, clubType, clubListData.doc, reload]);
 
-    return [{ gameListData, isLoading, isError }, () => { setReload(true) }];
+    return [{ gameListData, isLoading, isError }, (gameid) => {
+        setGameId(gameid);
+        setReload(true);
+    }];
 };
 
 export default useGames;

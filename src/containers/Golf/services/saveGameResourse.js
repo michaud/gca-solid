@@ -23,18 +23,13 @@ const getGameDocument = async (resource, list) => {
     return doc;
 };
 
-const createGameDoc = async listDoc => {
+const createGameDoc = async () => {
 
     const profile = await fetchProfile();
     const storage = profile.getRef(space.storage);
     const url = `${ storage }${ paths.REACT_APP_GOLF_DATA_GAMES_PATH }/${ Date.now() }.ttl`;
 
     const gameDoc = await createDocument(url).save();
-
-    const subject = listDoc.addSubject();
-    subject.addRef(golf.classes.Game, gameDoc.asRef());
-
-    await listDoc.save();
 
     return gameDoc;
 }
@@ -47,11 +42,19 @@ const saveGameResourse = async ({
 
     const doc = await getGameDocument(resource, list);
 
-    saveResource({
+    const gameDoc = saveResource({
         resource,
         doc,
         type
     });
+
+    //add game to list with same identifier as game itself
+    const ref = gameDoc.asRef();
+    const subject = list.addSubject({ identifier: ref.split('#')[1] });
+    const fileName = ref.substring(ref.indexOf('games/'),ref.indexOf('#'))
+    subject.setRef(golf.classes.Game, fileName);
+
+    await list.save();
 };
 
 export default saveGameResourse;
