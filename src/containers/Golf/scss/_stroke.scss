@@ -12,9 +12,21 @@
     border-radius: 5px;
     font-size: .8rem;
     font-weight: bold;
-    color: rgb(120, 120, 120);
+    color: rgba(0, 0, 0, 0.9);
     background-color: rgb(247, 241, 217);
     text-align: center;
+
+    &:active {
+        background: linear-gradient(180deg, rgb(220, 210, 173) 0%, rgb(245, 240, 214) 100%);
+        border: 1px solid rgb(210, 199, 157);
+        color: green;
+    }
+
+    &:hover {
+        background: linear-gradient(180deg, rgb(220, 210, 173) 0%, rgb(245, 240, 214) 100%);
+        border: 1px solid rgb(210, 199, 157);
+        color: green;
+    }
 
     &.selected {
 
@@ -60,6 +72,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 100%;
 
     .selected & {
 
