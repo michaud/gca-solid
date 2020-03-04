@@ -6,8 +6,8 @@ const getGeoCoordinatesField = doc => (data, label, defaultValue) => {
 
     let value = defaultValue;
 
-    const coorIds = data.getAllRefs(golf.types.GeoCoordinates);
-    const coorRef = doc.getSubject(coorIds[0]);
+    const coorId = data.getRef(golf.properties.strokeLocation);
+    const coorRef = doc.getSubject(coorId);
 
     value = parseFields(geoCoorShape, doc)(coorRef);
 

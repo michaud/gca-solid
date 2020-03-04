@@ -18,6 +18,7 @@ import MarkerHoleDisplay from '@golf/GolfPage/children/playGame/MarkerHoleDispla
 import useGameListData from '@golfcontexts/dataProvider/useGameListData';
 import saveMarkerScoreToHole from '@golfutils/saveMarkerScoreToHole';
 import GamePlayDetail from '@golf/GolfPage/children/playGame/GamePlayDetail';
+import deleteStrokeFromGameHole from '@golfutils/deleteStrokeFromGameHole';
 
 const PlayGame = ({ match: { params: { gameid } } }) => {
 
@@ -27,7 +28,8 @@ const PlayGame = ({ match: { params: { gameid } } }) => {
 
     const {
         gameListData,
-        gameListDataIsLoading
+        gameListDataIsLoading,
+        reloadGames
     } = useGameListData();
 
     const classes = useStyles();
@@ -43,7 +45,8 @@ const PlayGame = ({ match: { params: { gameid } } }) => {
                 const game = gameListData.list.find(gameData => {
 
                     return gameData.game.iri.includes(gameid);
-                })
+                });
+
                 setGameState(game);
             }
         }
@@ -87,6 +90,12 @@ const PlayGame = ({ match: { params: { gameid } } }) => {
         setAnchorEl(event.currentTarget);
     };
 
+    const onDeleteStrokeHandler = async (stroke, hole) => {
+
+        await deleteStrokeFromGameHole(gameState.doc, stroke, hole);
+        reloadGames();
+    };
+
     const clubs = gameState && gameState.game.gameBag.value.clubs.value;
 
     const playingHandicap = gameState && gameState.game.gamePlayingHandicap.value;
@@ -105,7 +114,7 @@ const PlayGame = ({ match: { params: { gameid } } }) => {
                         onClick={ showGamePlayDetailHandler } />
                     { gameListDataIsLoading && <LinearProgress classes={ classes } variant="indeterminate" /> }
                     <ClubActionList clubs={ clubs } onAction={ onClubActionHandler } />
-                    <HoleHistory hole={ currHole } />
+                    <HoleHistory hole={ currHole } onDeleteStroke={ onDeleteStrokeHandler} />
                     <Popover
                         id={ id }
                         open={ open }

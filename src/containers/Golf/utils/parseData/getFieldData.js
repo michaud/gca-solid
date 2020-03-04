@@ -121,6 +121,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
         case golf.types.GeoCoordinates : {
 
             fieldData = getFieldTypeData[type](doc)(data, label, fieldValue);
+
             break;
         }
 
