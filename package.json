@@ -173,6 +173,9 @@
             },
             {
               "@golfstyles": "./src/containers/Golf/styles"
+            },
+            {
+              "@golfcssstyles": "./src/containers/Golf/scss"
             }
           ]
         }

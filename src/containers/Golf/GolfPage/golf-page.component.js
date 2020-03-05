@@ -6,8 +6,8 @@ import { StylesProvider } from '@material-ui/core/styles';
 
 import GolfApp from '@golf/GolfPage/children/GolfApp';
 
-import './../scss/_style.scss';
-import { AppDataProvider } from '../contexts/dataProvider/AppDataProvider';
+import '@golfcssstyles/_style.scss';
+import { AppDataProvider } from '@golfcontexts/dataProvider/AppDataProvider';
 
 const GolfPage = ({
     webId
