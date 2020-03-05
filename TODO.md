@@ -1,5 +1,7 @@
-- show marker Stableford score in play game
-- delete stroke in play game
+
+- fix border colors inputs (holeform courseform)
+- fix delete hole saves course?
+
 X implement Owner on Club
 X handle card#me references
 X saveMarker as savePlayer
@@ -44,3 +46,7 @@ X use fieldLabel for labels
   x decided not to cause field labels are defined in the shape
 X fix playing handicap in new game
 X handle stablefort calculation
+X show marker Stableford score in play game
+X delete stroke in play game
+X fix key issue in getFieldControl ManageHoles Holeform?
+X save button text courseform

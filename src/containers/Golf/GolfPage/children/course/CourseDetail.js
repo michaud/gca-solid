@@ -71,7 +71,7 @@ const CourseDetail = ({
                 <div className="c-block--akimbo c-box">
                     <CourseForm
                         title={ `Edit Course` }
-                        actionLabel={ `Save Course` }
+                        actionLabel={ `Save` }
                         onSave={ onSaveHandler }
                         onCancel={ cancelEdit }
                         onDelete={ onDeleteHandler(course) }
