@@ -58,12 +58,22 @@ const formStyles = makeStyles(theme => ({
     },
     textFieldNumber: {
         '&.MuiFormControl-root': {
-            display: 'block'
+            display: 'block',
+            '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: 'rgba(210, 199, 157)'
+            }
         },
+        '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'rgb(80, 166, 0)'
+        }
     },
     SIselect: {
         '&.MuiFormControl-root': {
-            width: '100%'
+            width: '100%',
+            borderColor: 'rgba(210, 199, 157)',
+            '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: 'rgba(210, 199, 157)'
+            }
         },
         '& .MuiOutlinedInput-notchedOutline legend': {
             width: '3rem !important',

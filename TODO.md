@@ -1,5 +1,3 @@
-
-- fix border colors inputs (holeform courseform)
 - fix delete hole saves course?
 
 X implement Owner on Club
@@ -50,3 +48,4 @@ X show marker Stableford score in play game
 X delete stroke in play game
 X fix key issue in getFieldControl ManageHoles Holeform?
 X save button text courseform
+X fix border colors inputs (holeform courseform)
