@@ -27,7 +27,7 @@ const GamePlayDetail = ({ gameData }) => {
         
         return (
             <div className="gameplay-detail">
-                <div className="c-box--sixpack gameplay-detail__field">{ course.courseName.value }, par { coursePar }, stblfrd: { totalStablefordScore }</div>
+                <div className="c-box--sixpack gameplay-detail__field">{ course.courseName.value }, par { coursePar }, stableford: { totalStablefordScore }</div>
                 <HoleTable holes={ course.courseHoles.value }/>
             </div>
         );

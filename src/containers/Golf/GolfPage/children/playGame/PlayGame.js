@@ -120,7 +120,7 @@ const PlayGame = ({ match: { params: { gameid } } }) => {
                         open={ open }
                         anchorEl={ anchorEl }
                         onClose={ handleClose }
-                        marginThreshold={ 0 }
+                        marginThreshold={ 1 }
                         anchorOrigin={ {
                             vertical: 'bottom',
                             horizontal: 'center',
