@@ -17,7 +17,6 @@ export const PageContainer = styled.div`
 
 export const PageContent = styled.div`
 
-    min-width: 25.875‬rem;
     max-width: 40rem;
     margin: 0 auto;
 `;

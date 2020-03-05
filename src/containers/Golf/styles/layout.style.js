@@ -8,7 +8,7 @@ export const FlexContainer = styled.div`
 `;
 
 export const HoleNavigatorContainer =  styled(FlexContainer)`
-    height: 5.15rem;
+    height: 4rem;
     border-radius: 0;
     border-top: 1px solid rgb(210, 199, 157);
     border-bottom: 1px solid rgb(210, 199, 157);

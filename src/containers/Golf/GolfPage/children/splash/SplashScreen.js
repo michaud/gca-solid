@@ -7,6 +7,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 const useStyles = makeStyles({
     root: {
         width: '80%',
+        maxWidth: '40rem',
         position: 'absolute',
         top: '80%',
         left: '50%',
@@ -99,7 +100,7 @@ const SplashScreen = ({ completed }) => {
             <div>
                 {
                     completed === 100 ? <Redirect to="/golf/settings" /> :
-                        <LinearProgress classes={classes} variant="determinate" value={ completed } />
+                        <LinearProgress classes={ classes } variant="determinate" value={ completed } />
                 }
             </div>
         </div>

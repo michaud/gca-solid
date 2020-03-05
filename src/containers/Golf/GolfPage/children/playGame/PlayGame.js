@@ -18,6 +18,7 @@ import useStyles from '@golfpagectrl/playGame/PlayGame.styles';
 import MarkerHoleDisplay from '@golfpagectrl/playGame/MarkerHoleDisplay';
 
 import { FlexContainer } from '@golfstyles/layout.style';
+import { PageContent } from '@golfstyles/page.style';
 
 const PlayGame = ({ match: { params: { gameid } } }) => {
 
@@ -104,16 +105,18 @@ const PlayGame = ({ match: { params: { gameid } } }) => {
 
     return (
         <>
-            <FlexContainer style={ { position: 'relative' } } vertical alignitems="stretch" flex="1">
+            <FlexContainer className="u-wide u-ctx" vertical alignitems="stretch" flex="1">
                 <FlexContainer vertical flex="1 0 auto" alignitems="stretch">
-                    <HoleNavigator
-                        holes={ gameState && gameState.game.gameCourse.value.courseHoles.value }
-                        onChangeHole={ onChangeHoleHandler }
-                        playingHandicap={ playingHandicap }
-                        onClick={ showGamePlayDetailHandler } />
-                    { gameListDataIsLoading && <LinearProgress classes={ classes } variant="indeterminate" /> }
-                    <ClubActionList clubs={ clubs } onAction={ onClubActionHandler } />
-                    <HoleHistory hole={ currHole } onDeleteStroke={ onDeleteStrokeHandler} />
+                    <PageContent className="u-wide u-ctx">
+                        <HoleNavigator
+                            holes={ gameState && gameState.game.gameCourse.value.courseHoles.value }
+                            onChangeHole={ onChangeHoleHandler }
+                            playingHandicap={ playingHandicap }
+                            onClick={ showGamePlayDetailHandler } />
+                        { gameListDataIsLoading && <LinearProgress classes={ classes } variant="indeterminate" /> }
+                        <ClubActionList clubs={ clubs } onAction={ onClubActionHandler } />
+                        <HoleHistory hole={ currHole } onDeleteStroke={ onDeleteStrokeHandler} />
+                    </PageContent>
                     <Popover
                         id={ id }
                         open={ open }
@@ -132,7 +135,7 @@ const PlayGame = ({ match: { params: { gameid } } }) => {
                             gameData={ gameState } />
                     </Popover>
                 </FlexContainer>
-                { gameState ? <MarkerHoleDisplay hole={ currHole } playingHandicap={ playingHandicap } onChange={ onMarkerScoreChangeHandler } /> : null }
+                <PageContent className="u-wide">{ gameState ? <MarkerHoleDisplay hole={ currHole } playingHandicap={ playingHandicap } onChange={ onMarkerScoreChangeHandler } /> : null }</PageContent>
                 <div className="c-btn-bar__container">
                     <ButtonBar bare={ true } />
                 </div>
