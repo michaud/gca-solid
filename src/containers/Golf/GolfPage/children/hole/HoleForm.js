@@ -25,7 +25,7 @@ const HoleForm = ({
     onCancel,
     onDelete,
     title = 'Add hole',
-    actionLabel = 'add hole',
+    actionLabel = 'add',
     availableStrokeIndices,
     availableHoleNumbers
 }) => {
