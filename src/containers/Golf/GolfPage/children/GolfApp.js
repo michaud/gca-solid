@@ -72,7 +72,9 @@ const GolfApp = ({ webId }) => {
                                 webId={ webId }/> }/>
                         <Route
                             path="/golf/game/:gameid"
-                            render={ routerProps => <PlayGame { ...routerProps } webId={ webId } /> }/>
+                            render={ routerProps => <PlayGame
+                                { ...routerProps }
+                                webId={ webId } /> }/>
                         <NavigationShell>
                             <Switch location={ props.location }>
                                 <Route path="/golf/settings/" exact
