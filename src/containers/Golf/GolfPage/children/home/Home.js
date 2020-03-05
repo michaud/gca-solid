@@ -32,15 +32,18 @@ const Home = () => {
         hasGames
      } = useMonitorData();
 
+    const showHelpFirst = !hasPlayerDetails && !hasMarkers && !hasClubs && !hasBagClubs && !hasCourses && !hasGames;
+
     return (
         <div>
             <ModuleHeader label="Golf Course assistant" screenheader={ true } loading={ count !== progress } />
             <PageContent>
                 {
                     count === progress && <PageContainer>
+                        { showHelpFirst ? <Help/> : null }
                         { !hasPlayerDetails ? (
                             <IntroPanel
-                                icon={ <CapIcon className="c-content-icon" /> }>
+                                icon={ <CapIcon className="c-content-icon plain" /> }>
                                 <FlexContainer flex="1">
                                     <FlexItem className="intro-summary">
                                         <NavLink className="a-intro-link" to="/golf/settings/players">
@@ -59,8 +62,7 @@ const Home = () => {
                                             <NavLink className="a-intro-link" to="/golf/settings/player">
                                                 <FlexContainer className="intro-summary" flex="1" alignitems="center">
                                                     <FlexItem>
-                                                        <h3 className="h-intro">Add a Marker</h3>
-                                                        <p>Your pals</p>
+                                                        <h3 className="h-intro">Add Markers</h3>
                                                     </FlexItem>
                                                     <FlexItem narrow>
                                                         <ArrowForwardIosIcon className="action-intro" />
@@ -74,14 +76,13 @@ const Home = () => {
                         ) : null }
                         { !hasClubs ? (
                             <IntroPanel
-                                icon={ <BagIcon className="c-content-icon" /> }>
+                                icon={ <BagIcon className="c-content-icon plain" /> }>
                                 <FlexContainer flex="1">
                                     <FlexItem>
                                         <NavLink className="a-intro-link" to="/golf/settings/bag">
                                             <FlexContainer className="intro-summary" flex="1" alignitems="center">
                                                 <FlexItem>
                                                     <h3 className="h-intro">Add Clubs</h3>
-                                                    <p>Your arsenal</p>
                                                 </FlexItem>
                                                 <FlexItem narrow>
                                                     <ArrowForwardIosIcon className="action-intro--inside" />
@@ -94,8 +95,7 @@ const Home = () => {
                                             <NavLink className="a-intro-link" to="/golf/settings/bag">
                                                 <FlexContainer className="intro-summary" flex="1" alignitems="center">
                                                     <FlexItem>
-                                                        <h3 className="h-intro">Fill your bag</h3>
-                                                        <p>What's i/t bag?</p>
+                                                        <h3 className="h-intro">Fill the Bag</h3>
                                                     </FlexItem>
                                                     <FlexItem narrow>
                                                         <ArrowForwardIosIcon className="action-intro" />
@@ -109,7 +109,7 @@ const Home = () => {
                         ) : null }
                         { !hasCourses ? (
                             <IntroPanel
-                                icon={ <GolfCourseIcon className="c-content-icon" /> }>
+                                icon={ <GolfCourseIcon className="c-content-icon plain" /> }>
                                 <NavLink className="a-intro-link" to="/golf/settings/courses">
                                     <FlexContainer className="intro-summary" alignitems="center">
                                         <FlexItem>
@@ -125,7 +125,7 @@ const Home = () => {
                         ) : null }
                         { !hasGames ? (
                             <IntroPanel
-                                icon={ <SportsGolfIcon className="c-content-icon" /> }>
+                                icon={ <SportsGolfIcon className="c-content-icon plain" /> }>
                                 <NavLink className="a-intro-link" to="/golf/settings/games/new">
                                     <FlexContainer className="intro-summary" alignitems="center">
                                         <FlexItem>
@@ -159,17 +159,17 @@ const Home = () => {
                                     icon={ <CapIcon className="c-content-icon plain" /> }>
                                     <FlexContainer className="intro-summary" alignitems="center">
                                         <FlexItem >
-                                            <h3 className="h-intro">Start a game</h3>
-                                            <p>First add your info</p>
+                                            <h3 className="h-intro">Start a Game</h3>
+                                            <p>First add a game</p>
                                         </FlexItem>
                                         <FlexItem narrow>
-                                            <ArrowForwardIosIcon className="action-intro--disabled" />
+                                            <ArrowForwardIosIcon className="action-intro" />
                                         </FlexItem>
                                     </FlexContainer>
                                 </IntroPanel>
                             ) }
                         <AllowLocation />
-                        <Help/>
+                        { !showHelpFirst ? <Help/> : null }
                     </PageContainer>
                 }
             </PageContent>

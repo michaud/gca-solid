@@ -25,8 +25,12 @@
 
         .c-intro-panel__content {
 
-            .h-intro, p {
+            .h-intro {
                 color: rgb(212, 201, 155);
+            }
+
+            p {
+                color: rgba(132, 120, 73, 0.7);
             }
         }
     }
@@ -38,7 +42,7 @@
 
 .action-intro {
 
-    margin: 1.2rem 1rem 1rem 1rem;
+    margin: 1.2rem .75rem 1rem .25rem;
     
     &.MuiSvgIcon-root {
 
@@ -49,7 +53,7 @@
 
 .action-intro--inside {
 
-    margin: 1.2rem 1rem 1rem 1rem;
+    margin: 1.2rem .75rem 1rem .25rem;
 
     &.MuiSvgIcon-root {
 
@@ -69,6 +73,8 @@
 
     p {
         margin: 0 0 0 0;
-        font-size: 1.1rem;
+        font-size: .9rem;
+        font-weight: bold;
+        color: rgba(132, 120, 73, 0.7);
     }
 }
