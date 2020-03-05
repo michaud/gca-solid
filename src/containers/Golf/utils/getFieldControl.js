@@ -75,7 +75,7 @@ const getFieldControl = ({
                     availableStrokeIndices
                 } = rest;
 
-                return <FormControl required variant="outlined" className={ styles.SIselect } key={ idx }>
+                return <div style={{ position: 'relative'}}><FormControl required variant="outlined" className={ styles.SIselect } key={ idx }>
                     <InputLabel shrink id="holeStrokeIndexLabel">{ data.label }</InputLabel>
                     <Select
                         labelId="holeStrokeIndex"
@@ -92,7 +92,7 @@ const getFieldControl = ({
                                     </MenuItem>)
                         }
                     </Select>
-                </FormControl>;
+                </FormControl></div>;
             }
 
             if(data.predicate === 'holeNumber') {

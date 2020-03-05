@@ -133,7 +133,7 @@ const PlayGame = ({ match: { params: { gameid } } }) => {
                             gameData={ gameState } />
                     </Popover>
                 </FlexContainer>
-                <MarkerHoleDisplay hole={ currHole } playingHandicap={ playingHandicap } onChange={ onMarkerScoreChangeHandler } />
+                { gameState ? <MarkerHoleDisplay hole={ currHole } playingHandicap={ playingHandicap } onChange={ onMarkerScoreChangeHandler } /> : null }
                 <div className="c-btn-bar__container">
                     <ButtonBar bare={ true } />
                 </div>

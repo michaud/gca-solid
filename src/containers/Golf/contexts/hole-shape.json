@@ -18,14 +18,14 @@
             "prefix": "golf",
             "predicate": "holeNumber",
             "type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
-            "label": "Hole number",
+            "label": "Nr",
             "value": 0
         },
         {
             "prefix": "golf",
             "predicate": "holeStrokeIndex",
             "type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
-            "label": "Stroke index",
+            "label": "S.I.",
             "value": 0
         },
         {

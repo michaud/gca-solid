@@ -1,0 +1,11 @@
+.hole-form-layout {
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 1.5rem;
+    column-gap: .5rem;
+
+    div:nth-child(5) {
+        grid-column: 1 / span 4;
+    }
+}

@@ -117,9 +117,11 @@ const HoleForm = ({
     const handleDelete = typeof(onDelete) === 'function' ? onDeleteHandler : undefined;
 
     return (
-        <div className="c-box">
+        <div style={{ marginTop: '1rem' }} className="c-box">
             <header className="c-header">{ title }</header>
+            <div className="hole-form-layout">
             { holeFields }
+            </div>
             <FlexContainer>
                 <FlexItem>
                     <Button

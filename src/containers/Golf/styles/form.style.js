@@ -58,24 +58,17 @@ const formStyles = makeStyles(theme => ({
     },
     textFieldNumber: {
         '&.MuiFormControl-root': {
-            margin: '0 0 1.5rem 0',
-            width: '22.7%',
-            marginRight:'3%'
+            display: 'block'
         },
-        '&:nth-child(5)': {
-            marginRight: '-9%'
-        }
     },
     SIselect: {
         '&.MuiFormControl-root': {
-            margin: '0 0 1.5rem 0',
-            width: '22.7%',
-            marginRight:'3%'
+            width: '100%'
         },
         '& .MuiOutlinedInput-notchedOutline legend': {
-            width: '5rem !important',
+            width: '3rem !important',
             backgroundColor: 'rgb(247, 241, 217) !important',
-            maxWidth: '5rem !important'
+            maxWidth: '3rem !important'
         },
         '&:nth-child(5)': {
             marginRight: '-9%'
