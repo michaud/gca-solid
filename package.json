@@ -176,6 +176,9 @@
             },
             {
               "@golfcssstyles": "./src/containers/Golf/scss"
+            },
+            {
+              "@golfpagectrl": "./src/containers/Golf/GolfPage/children"
             }
           ]
         }

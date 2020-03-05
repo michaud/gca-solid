@@ -2,7 +2,7 @@ import { namedNode } from '@rdfjs/data-model';
 import * as ns from 'rdf-namespaces';
 import { fetchDocument } from 'tripledoc';
 
-import golf from '@golfutils/golf-namespace';
+import golf from '@golfconstants/golf-namespace';
 
 const getClubDefinitions = async () => {
 

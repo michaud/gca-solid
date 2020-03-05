@@ -5,10 +5,10 @@ import React, {
 
 import playingHandicapShape from '@golfcontexts/playing-handicap-shape.json';
 import displayStates from '@golfutils/displayStates';
-import golf from '@golfutils/golf-namespace';
+import golf from '@golfconstants/golf-namespace';
 
 import EditActions from '@golf/components/EditActions';
-import PLayingHandicapForm from '@golf/GolfPage/children/game/PLayingHandicapForm';
+import PLayingHandicapForm from '@golfpagectrl/game/PLayingHandicapForm';
 
 import {
     FieldContainer,

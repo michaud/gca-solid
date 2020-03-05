@@ -6,12 +6,12 @@ import React, {
 import { Redirect } from 'react-router-dom';
 
 import saveGameResourse from '@golfservices/saveGameResourse';
-import golf from '@golfutils/golf-namespace';
+import golf from '@golfconstants/golf-namespace';
 
 import { useGameListData } from '@golfcontexts/dataProvider/AppDataProvider';
 
 import ModuleHeader from '@golf/components/ModuleHeader';
-import GameForm from '@golf/GolfPage/children/game/GameForm';
+import GameForm from '@golfpagectrl/game/GameForm';
 
 import { PageContainer, PageContent } from '@golfstyles/page.style';
 

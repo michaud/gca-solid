@@ -1,5 +1,4 @@
 import update from 'immutability-helper';
-
 import Cookies from 'js-cookie'
 
 import createStroke from '@golfutils/createStroke';

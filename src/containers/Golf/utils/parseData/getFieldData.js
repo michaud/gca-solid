@@ -1,4 +1,4 @@
-import golf from '@golfutils/golf-namespace';
+import golf from '@golfconstants/golf-namespace';
 import getFieldTypeData from '@golfutils/parseData/getFieldTypeData';
 
 const getFieldData = (shape, doc, data, ...rest) => field => {

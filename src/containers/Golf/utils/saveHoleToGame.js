@@ -1,5 +1,5 @@
 import saveResource from "@golfservices/saveResource";
-import golf from "@golfutils/golf-namespace";
+import golf from "@golfconstants/golf-namespace";
 
 const saveHoleToGame = async ({ hole, doc }) => {
 

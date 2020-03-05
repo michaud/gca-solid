@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from '@material-ui/core/Button';
-import MarkerSelector from '@golf/GolfPage/children/game/MarkerSelector';
+import MarkerSelector from '@golfpagectrl/game/MarkerSelector';
 
 import formStyles from '@golfstyles/form.style';
 

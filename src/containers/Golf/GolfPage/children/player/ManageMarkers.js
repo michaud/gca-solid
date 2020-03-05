@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
+import golf from '@golfconstants/golf-namespace';
 import getPlayer from '@golfservices/getPlayer';
-import golf from '@golfutils/golf-namespace';
-import MarkerList from './MarkerList';
-import PlayerDetail from './PlayerDetail';
 import deleteMarker from '@golfservices/deleteMarker';
 import saveResource from '@golfservices/saveResource';
-import { usePlayerData } from '@containers/Golf/contexts/dataProvider/AppDataProvider';
+import { usePlayerData } from '@golfcontexts/dataProvider/AppDataProvider';
+import MarkerList from '@golfpagectrl/player/MarkerList';
+import PlayerDetail from '@golfpagectrl/player/PlayerDetail';
 
 const ManageMarkers = () => {
 

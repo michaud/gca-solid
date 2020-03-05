@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { FlexContainer, FlexItem } from '@golfstyles/layout.style';
 
 const ClubAction = ({ club, classString, onStrokeWithClub }) => {

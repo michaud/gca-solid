@@ -1,4 +1,4 @@
-import golf from '@golfutils/golf-namespace';
+import golf from '@golfconstants/golf-namespace';
 
 import bagShape from '@golfcontexts/bag-shape.json';
 import parseFields from '@golfutils/parseData/parseFields';

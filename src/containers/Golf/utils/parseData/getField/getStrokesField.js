@@ -1,5 +1,5 @@
 import strokeShape from '@golfcontexts/stroke-shape.json';
-import golf from '@golfutils/golf-namespace';
+import golf from '@golfconstants/golf-namespace';
 import parseFields from '@golfutils/parseData/parseFields';
 
 const getStrokesField = doc => (data, label, defaultValue, clubTypes, clubType) => {

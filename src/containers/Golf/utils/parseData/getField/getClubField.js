@@ -1,4 +1,3 @@
-
 const getClubField = predicate => (data, fieldPredicate, clubTypes, clubType) => {
 
     const label = clubType[fieldPredicate].label;

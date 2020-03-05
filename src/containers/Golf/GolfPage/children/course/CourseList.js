@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CourseDetail from '@golf/GolfPage/children/course/CourseDetail';
+import CourseDetail from '@golfpagectrl/course/CourseDetail';
 
 const CourseList = ({
     courses,

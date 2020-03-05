@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import calculateStrokeDistance from '@golfutils/calculateStrokeDistance';
 
-import StrokeDetail from '@golf/GolfPage/children/playGame/StrokeDetail';
+import StrokeDetail from '@golfpagectrl/playGame/StrokeDetail';
 
 const HoleHistory = ({ hole, onSelect, onDeleteStroke }) => {
 

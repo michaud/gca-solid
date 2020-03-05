@@ -1,4 +1,4 @@
-import golf from './golf-namespace';
+import golf from '@golfconstants/golf-namespace';
 
 const deleteStrokeFromGameHole = async (doc, stroke, hole) => {
 

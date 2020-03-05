@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { solid } from 'rdf-namespaces';
 import ulog from 'ulog';
 
-import golf from '@golfutils/golf-namespace';
-import initialiseTypeDocument from '@services/initialiseTypeDocument';
+import golf from '@golfconstants/golf-namespace';
+import initialiseTypeDocument from '@golfservices/initialiseTypeDocument';
 import getPlayer from '@golfservices/getPlayer';
 import fetchResource from '@golfservices/fetchResource';
 import paths from '@golfconstants/paths';

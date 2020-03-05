@@ -5,7 +5,7 @@ import displayStates from '@golfutils/displayStates';
 
 import getFieldDisplayData from '@golfutils/getFieldDisplayData';
 import EditActions from '@golf/components/EditActions';
-import PlayerForm from '@golf/GolfPage/children/player/PlayerForm';
+import PlayerForm from '@golfpagectrl/player/PlayerForm';
 
 import {
     FieldContainer,

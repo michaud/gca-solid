@@ -1,11 +1,11 @@
 import React from 'react';
 
-import HoleTable from '@golf/GolfPage/children/hole/HoleTable';
+import HoleTable from '@golfpagectrl/hole/HoleTable';
 import {
     FlexContainer,
     FlexItemLabel,
     FlexItemValue
-} from '@containers/Golf/styles/layout.style';
+} from '@golfstyles/layout.style';
 
 const CourseSummary = ({ course, playingHandicap }) => {
 

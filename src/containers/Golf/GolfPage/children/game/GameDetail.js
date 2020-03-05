@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 
 import { format } from 'date-fns'
-import golf from '@golfutils/golf-namespace';
+import golf from '@golfconstants/golf-namespace';
 import gameShape from '@golfcontexts/game-shape.json';
 import displayStates from '@golfutils/displayStates';
 
 import Button from '@material-ui/core/Button';
 
-import GameForm from '@golf/GolfPage/children/game/GameForm';
-import HoleTable from '@golf/GolfPage/children/hole/HoleTable';
-import BagDetail from '@golf/GolfPage/children/game/BagDetail';
-import PlayerDetail from '@golf/GolfPage/children/player/PlayerDetail';
-import PlayingHandicapDetail from '@golf/GolfPage/children/game/PlayingHandicapDetail';
-import CourseSummary from '@golf/GolfPage/children/course/CourseSummary';
+import GameForm from '@golfpagectrl/game/GameForm';
+import HoleTable from '@golfpagectrl/hole/HoleTable';
+import BagDetail from '@golfpagectrl/game/BagDetail';
+import PlayerDetail from '@golfpagectrl/player/PlayerDetail';
+import PlayingHandicapDetail from '@golfpagectrl/game/PlayingHandicapDetail';
+import CourseSummary from '@golfpagectrl/course/CourseSummary';
 
 import formStyles from '@golfstyles/form.style';
 import {

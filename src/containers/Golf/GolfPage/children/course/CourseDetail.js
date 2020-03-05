@@ -8,10 +8,10 @@ import {
 
 import displayStates from '@golfutils/displayStates';
 
-import CourseForm from '@golf/GolfPage/children/course/CourseForm';
+import CourseForm from '@golfpagectrl/course/CourseForm';
 import EditActions from '@golf/components/EditActions';
 import { useCourseData } from '@golfcontexts/dataProvider/AppDataProvider';
-import deleteHoleFromCourse from '@containers/Golf/utils/deleteHoleFromCourse';
+import deleteHoleFromCourse from '@golfutils/deleteHoleFromCourse';
 
 const CourseDetail = ({
     course,

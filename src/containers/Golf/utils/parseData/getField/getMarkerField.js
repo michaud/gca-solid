@@ -1,5 +1,5 @@
 import markerShape from '@golfcontexts/marker-shape.json';
-import golf from '@golfutils/golf-namespace';
+import golf from '@golfconstants/golf-namespace';
 import parseFields from '@golfutils/parseData/parseFields';
 
 const getMarkerField = doc => (data, label, defaultValue) => {

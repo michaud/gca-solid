@@ -19,7 +19,8 @@
       "@golfservices/*": ["./src/containers/Golf/services/*"],
       "@golfconstants/*": ["./src/containers/Golf/constants/*"],
       "@golfstyles/*": ["./src/containers/Golf/styles/*"],
-      "@golfcssstyles/*": ["./src/containers/Golf/scss/*"]
+      "@golfcssstyles/*": ["./src/containers/Golf/scss/*"],
+      "@golfpagectrl/*": ["./src/containers/Golf/GolfPage/children/*"]
     }
   }
 }

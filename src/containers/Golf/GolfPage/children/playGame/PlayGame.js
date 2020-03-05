@@ -2,23 +2,22 @@ import React, { useState, useEffect } from 'react';
 
 import { LinearProgress } from '@material-ui/core';
 import Popover from '@material-ui/core/Popover';
-
-import addStrokeToHole from '@golfutils/addStrokeToHole';
 import update from 'immutability-helper';
 
-import HoleNavigator from '@golf/GolfPage/children/playGame/HoleNavigator';
-import HoleHistory from '@golf/GolfPage/children/playGame/HoleHistory';
-import ClubActionList from '@golf/GolfPage/children/playGame/ClubActionList';
-
-import { FlexContainer } from '@golfstyles/layout.style';
-import useStyles from './PlayGame.styles';
-import ButtonBar from '@golf/components/ButtonBar';
-import MarkerHoleDisplay from '@golf/GolfPage/children/playGame/MarkerHoleDisplay';
-
+import addStrokeToHole from '@golfutils/addStrokeToHole';
 import useGameListData from '@golfcontexts/dataProvider/useGameListData';
 import saveMarkerScoreToHole from '@golfutils/saveMarkerScoreToHole';
-import GamePlayDetail from '@golf/GolfPage/children/playGame/GamePlayDetail';
 import deleteStrokeFromGameHole from '@golfutils/deleteStrokeFromGameHole';
+
+import ButtonBar from '@golf/components/ButtonBar';
+import GamePlayDetail from '@golfpagectrl/playGame/GamePlayDetail';
+import HoleNavigator from '@golfpagectrl/playGame/HoleNavigator';
+import HoleHistory from '@golfpagectrl/playGame/HoleHistory';
+import ClubActionList from '@golfpagectrl/playGame/ClubActionList';
+import useStyles from '@golfpagectrl/playGame/PlayGame.styles';
+import MarkerHoleDisplay from '@golfpagectrl/playGame/MarkerHoleDisplay';
+
+import { FlexContainer } from '@golfstyles/layout.style';
 
 const PlayGame = ({ match: { params: { gameid } } }) => {
 

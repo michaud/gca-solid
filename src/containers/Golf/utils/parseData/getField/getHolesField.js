@@ -1,6 +1,6 @@
 import gameHoleShape from '@golfcontexts/game-hole-shape.json';
 import holeShape from '@golfcontexts/hole-shape.json';
-import golf from '@golfutils/golf-namespace';
+import golf from '@golfconstants/golf-namespace';
 import parseFields from '@golfutils/parseData/parseFields';
 
 const getHolesField = doc => (data, label, defaultValue, parentField, clubTypes, clubType) => {

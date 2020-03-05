@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import golf from '@golfutils/golf-namespace';
+import { usePlayerData } from '@golfcontexts/dataProvider/AppDataProvider';
+
+import golf from '@golfconstants/golf-namespace';
 import saveResource from '@golfservices/saveResource';
 
 import ModuleHeader from '@golf/components/ModuleHeader';
-import ManageMarkers from '@golf/GolfPage/children/player/ManageMarkers';
-import PlayerDetail from '@golf/GolfPage/children/player/PlayerDetail';
+import ManageMarkers from '@golfpagectrl/player/ManageMarkers';
+import PlayerDetail from '@golfpagectrl/player/PlayerDetail';
 
-import { usePlayerData } from '@containers/Golf/contexts/dataProvider/AppDataProvider';
 
 import {
     PageContainer,

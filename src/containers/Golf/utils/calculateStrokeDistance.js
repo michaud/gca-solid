@@ -1,6 +1,4 @@
-const degToRad = ( deg ) => {
-    return Math.PI * deg / 180;
-};
+const degToRad = ( deg ) => Math.PI * deg / 180;
 
 const getDistance = (lat1, lon1, lat2, lon2, unit) => {
 
@@ -52,10 +50,7 @@ const calculateStrokeDistance = (stroke, hole) => {
                 nextStroke.strokeLocation.value.longitude.value
             ));
 
-    } else {
-
-        return 0;
-    }
+    } else { return 0; }
 };
 
 export default calculateStrokeDistance;

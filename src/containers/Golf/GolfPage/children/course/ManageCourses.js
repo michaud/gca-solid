@@ -4,12 +4,12 @@ import deleteCourse from '@golfservices/deleteCourse';
 import { PageContainer, PageContent } from '@golfstyles/page.style';
 import saveResource from '@golfservices/saveResource';
 
-import golf from '@golfutils/golf-namespace';
+import golf from '@golfconstants/golf-namespace';
 
 import ModuleHeader from '@golf/components/ModuleHeader';
 
-import CourseList from '@golf/GolfPage/children/course/CourseList';
-import CourseForm from '@golf/GolfPage/children/course/CourseForm';
+import CourseList from '@golfpagectrl/course/CourseList';
+import CourseForm from '@golfpagectrl/course/CourseForm';
 import { useCourseData } from '@golfcontexts/dataProvider/AppDataProvider';
 
 const ManageCourses = () => {

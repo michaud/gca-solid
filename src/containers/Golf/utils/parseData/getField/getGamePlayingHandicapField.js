@@ -1,4 +1,4 @@
-import golf from "@golfutils/golf-namespace";
+import golf from "@golfconstants/golf-namespace";
 import parseFields from "@golfutils/parseData/parseFields";
 import playingHandicapShape from '@golfcontexts/playing-handicap-shape.json';
 

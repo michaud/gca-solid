@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import ulog from 'ulog';
 
-import fetchPublicTypeIndex from '@services/fetchPublicTypeIndex';
+import fetchPublicTypeIndex from '@golfservices/fetchPublicTypeIndex';
 
 const log = ulog('usePublicTypeIndex');
 

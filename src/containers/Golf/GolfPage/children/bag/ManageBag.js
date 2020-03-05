@@ -13,16 +13,16 @@ import addToBag from '@golfservices/addToBag';
 import deleteClub from '@golfservices/deleteClub';
 import saveResource from '@golfservices/saveResource';
 
-import golf from '@golfutils/golf-namespace';
+import golf from '@golfconstants/golf-namespace';
 import {
     PageContainer,
     PageContent
 } from '@golfstyles/page.style';
 
-import ClubList from '@golf/GolfPage/children/club/ClubList';
+import ClubList from '@golfpagectrl/club/ClubList';
 import ModuleHeader from '@golf/components/ModuleHeader';
-import BagTransferList from '@golf/GolfPage/children/bag/BagTransferList';
-import ClubForm from '@golf/GolfPage/children/club/ClubForm';
+import BagTransferList from '@golfpagectrl/bag/BagTransferList';
+import ClubForm from '@golfpagectrl/club/ClubForm';
 
 import {
     FlexContainer,

@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 
 import Button from '@material-ui/core/Button';
 import update from 'immutability-helper';
-import formStyles from '@golfstyles/form.style';
+
+import playerShape from '@golfcontexts/player-shape';
 import getFieldValue from '@golfutils/getFieldValue';
 import checkCanSave from '@golfutils/checkCanSave';
 import getFieldControl from '@golfutils/getFieldControl';
-import playerShape from '@golfcontexts/player-shape';
-import setupDataObject from '@golf/utils/setupDataObject';
+import setupDataObject from '@golfutils/setupDataObject';
 
+import formStyles from '@golfstyles/form.style';
 import {
     FlexContainer,
     FlexItem,

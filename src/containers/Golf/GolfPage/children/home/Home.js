@@ -6,16 +6,18 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import GolfCourseIcon from '@material-ui/icons/GolfCourse';
 import SportsGolfIcon from '@material-ui/icons/SportsGolf';
 
+import { useMonitorData } from '@golfcontexts/dataProvider/AppDataProvider';
+
 import IntroPanel from '@golf/components/IntroPanel';
 import CapIcon from '@golf/components/CapIcon';
 import BagIcon from '@golf/components/BagIcon';
 import ModuleHeader from '@golf/components/ModuleHeader';
 
+import AllowLocation from '@golfpagectrl/home/AllowLocation';
+import Help from '@golfpagectrl/home/Help';
+
 import { FlexContainer, FlexItem } from '@golfstyles/layout.style';
 import { PageContainer, PageContent } from '@golfstyles/page.style';
-import AllowLocation from './AllowLocation';
-import { useMonitorData } from '@containers/Golf/contexts/dataProvider/AppDataProvider';
-import Help from './Help';
 
 const Home = () => {
 

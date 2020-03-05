@@ -1,9 +1,10 @@
-import golf from "@golfutils/golf-namespace";
-import saveResource from "@golfservices/saveResource";
+import { namedNode } from "@rdfjs/data-model";
 import { rdf } from 'rdf-namespaces';
+
+import golf from "@golfconstants/golf-namespace";
+import saveResource from "@golfservices/saveResource";
 import courseShape from '@golfcontexts/course-shape.json';
 import { addField } from "./addField";
-import { namedNode } from "@rdfjs/data-model";
 
 export const setField = ({ field, shape, data, element, ref, doc }) => {
 

@@ -16,12 +16,12 @@ import setupDataObject from '@golfutils/setupDataObject';
 import getFieldValue from '@golfutils/getFieldValue';
 import checkCanSave from '@golfutils/checkCanSave';
 import getFieldControl from '@golfutils/getFieldControl';
-import golf from '@golfutils/golf-namespace';
+import golf from '@golfconstants/golf-namespace';
 import saveResource from '@golfservices/saveResource';
 
-import CourseForm from '@golf/GolfPage/children/course/CourseForm';
-import PlayerForm from '@golf/GolfPage/children/player/PlayerForm';
-import ManageBag from '@golf/GolfPage/children/bag/ManageBag';
+import CourseForm from '@golfpagectrl/course/CourseForm';
+import PlayerForm from '@golfpagectrl/player/PlayerForm';
+import ManageBag from '@golfpagectrl/bag/ManageBag';
 
 import formStyles from '@golfstyles/form.style';
 

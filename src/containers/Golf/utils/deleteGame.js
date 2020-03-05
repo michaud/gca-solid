@@ -1,5 +1,5 @@
-import golf from "./golf-namespace";
-import { deleteFile } from "@utils/ldflex-helper";
+import golf from "@golfconstants/golf-namespace";
+import { deleteFile } from "@golfutils/ldflex-helper";
 
 const deleteGame = async (game, gameListData) => {
 

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-import formStyles from '@golfstyles/form.style';
 import Button from '@material-ui/core/Button';
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
 import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
+
+import calculateHoleStablefordScore from '@golfutils/calculateHoleStablefordScore';
 
 import {
     HoleNavigatorContainer,
@@ -12,7 +13,7 @@ import {
     FlexItem,
     FlexToolRight
 } from '@golfstyles/layout.style';
-import calculateHoleStablefordScore from '@golfutils/calculateHoleStablefordScore';
+import formStyles from '@golfstyles/form.style';
 
 const HoleNavigator = ({
     holes,

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import HoleTable from '@golf/GolfPage/children/hole/HoleTable';
-import calculateHoleStablefordScore from '@containers/Golf/utils/calculateHoleStablefordScore';
+import HoleTable from '@golfpagectrl/hole/HoleTable';
+import calculateHoleStablefordScore from '@golfutils/calculateHoleStablefordScore';
 
 const GamePlayDetail = ({ gameData }) => {
 

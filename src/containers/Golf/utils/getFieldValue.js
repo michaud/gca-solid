@@ -1,4 +1,4 @@
-import golf from "@golfutils/golf-namespace";
+import golf from "@golfconstants/golf-namespace";
 
 const getFieldValue = (field, args) => {
 

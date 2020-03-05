@@ -7,18 +7,19 @@ import React, {
 import { Route, Switch } from 'react-router-dom';
 import { Snackbar } from '@material-ui/core';
 
+import { useMonitorData } from '@golfcontexts/dataProvider/AppDataProvider';
+
 import NavigationShell from '@golf/components/NavigationShell';
 import Alert from '@golf/components/Alert';
-import SplashScreen from '@golf/GolfPage/children/splash/SplashScreen';
-import { useMonitorData } from '@containers/Golf/contexts/dataProvider/AppDataProvider';
+import SplashScreen from '@golfpagectrl/splash/SplashScreen';
 
-const Home = lazy(() => import('@golf/GolfPage/children/home/Home'));
-const ManageBag = lazy(() => import('@golf/GolfPage/children/bag/ManageBag'));
-const PlayGame = lazy(() => import('@golf/GolfPage/children/playGame/PlayGame'));
-const ManageCourses = lazy(() => import('@golf/GolfPage/children/course/ManageCourses'));
-const ManagePlayers = lazy(() => import('@golf/GolfPage/children/player/ManagePlayers'));
-const ManageGames = lazy(() => import('@golf/GolfPage/children/game/ManageGames'));
-const NewGame = lazy(() => import('@golf/GolfPage/children/newGame/NewGame'));
+const Home = lazy(() => import('@golfpagectrl/home/Home'));
+const ManageBag = lazy(() => import('@golfpagectrl/bag/ManageBag'));
+const PlayGame = lazy(() => import('@golfpagectrl/playGame/PlayGame'));
+const ManageCourses = lazy(() => import('@golfpagectrl/course/ManageCourses'));
+const ManagePlayers = lazy(() => import('@golfpagectrl/player/ManagePlayers'));
+const ManageGames = lazy(() => import('@golfpagectrl/game/ManageGames'));
+const NewGame = lazy(() => import('@golfpagectrl/newGame/NewGame'));
 
 const GolfApp = ({ webId }) => {
 

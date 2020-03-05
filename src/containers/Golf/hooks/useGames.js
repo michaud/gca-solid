@@ -5,11 +5,11 @@ import { solid } from 'rdf-namespaces';
 import * as ns from 'rdf-namespaces';
 import ulog from 'ulog';
 
-import initialiseTypeDocument from '@services/initialiseTypeDocument';
+import initialiseTypeDocument from '@golfservices/initialiseTypeDocument';
 import fetchResource from '@golfservices/fetchResource';
 import gameShape from '@golfcontexts/game-shape.json';
 import paths from '@golfconstants/paths';
-import golf from '@golfutils/golf-namespace';
+import golf from '@golfconstants/golf-namespace';
 import parseFields from '@golfutils/parseData/parseFields';
 
 const log = ulog('useGames');

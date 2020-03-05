@@ -1,5 +1,5 @@
 import playerShape from '@golfcontexts/player-shape.json';
-import golf from '@golfutils/golf-namespace';
+import golf from '@golfconstants/golf-namespace';
 import parseFields from '@golfutils/parseData/parseFields';
 
 const getPlayerField = doc => (data, label, defaultValue) => {

@@ -1,5 +1,4 @@
-import golf from '@golfutils/golf-namespace';
-
+import golf from '@golfconstants/golf-namespace';
 import courseShape from '@golfcontexts/course-shape.json';
 import playerShape from '@golfcontexts/player-shape.json';
 import markerShape from '@golfcontexts/marker-shape.json';

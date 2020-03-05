@@ -1,10 +1,9 @@
 import React from 'react';
 
 import IconButton from '@material-ui/core/IconButton';
-
-import { FlexContainer, FlexItem } from '@golfstyles/layout.style';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
+import { FlexContainer, FlexItem } from '@golfstyles/layout.style';
 import formStyles from '@golfstyles/form.style';
 
 const StrokeDetail = ({ stroke, distance, onDelete }) => {

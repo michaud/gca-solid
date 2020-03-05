@@ -1,5 +1,4 @@
 import React from 'react';
-import golf from "@golfutils/golf-namespace";
 
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
@@ -7,15 +6,18 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 
-import ManageHoles from "@golf/GolfPage/children/hole/ManageHoles";
-import ClubTypeSelector from '@golf/GolfPage/children/club/ClubTypeSelector';
-import DateTimeSelector from '@golf/GolfPage/children/game/DateTimeSelector';
-import BagDetail from '@golf/GolfPage/children/game/BagDetail';
-import PlayerUpdate from '@golf/GolfPage/children/game/PlayerUpdate';
-import SelectMarker from '@golf/GolfPage/children/game/SelectMarker';
-import PlayingHandicapDetail from '@golf/GolfPage/children/game/PlayingHandicapDetail';
-import SelectCourse from '@golf/GolfPage/children/game/SelectCourse';
-import { FlexContainer } from '../styles/layout.style';
+import golf from "@golfconstants/golf-namespace";
+
+import ManageHoles from "@golfpagectrl/hole/ManageHoles";
+import ClubTypeSelector from '@golfpagectrl/club/ClubTypeSelector';
+import DateTimeSelector from '@golfpagectrl/game/DateTimeSelector';
+import BagDetail from '@golfpagectrl/game/BagDetail';
+import PlayerUpdate from '@golfpagectrl/game/PlayerUpdate';
+import SelectMarker from '@golfpagectrl/game/SelectMarker';
+import PlayingHandicapDetail from '@golfpagectrl/game/PlayingHandicapDetail';
+import SelectCourse from '@golfpagectrl/game/SelectCourse';
+
+import { FlexContainer } from '@golfstyles/layout.style';
 
 const getFieldControl = ({
     data,

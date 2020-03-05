@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import displayStates from "@golfutils/displayStates";
 
 import EditActions from "@golf/components/EditActions";
-import ClubForm  from '@golf/GolfPage/children/club/ClubForm';
+import ClubForm  from '@golfpagectrl/club/ClubForm';
 
 import {
     FlexContainer,

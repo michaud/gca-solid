@@ -1,5 +1,5 @@
 import geoCoorShape from '@golfcontexts/geocoordinates-shape.json';
-import golf from '@golfutils/golf-namespace';
+import golf from '@golfconstants/golf-namespace';
 import parseFields from '@golfutils/parseData/parseFields';
 
 const getGeoCoordinatesField = doc => (data, label, defaultValue) => {

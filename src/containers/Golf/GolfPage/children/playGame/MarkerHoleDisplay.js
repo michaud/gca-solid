@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 import update from 'immutability-helper';
 
-import getFieldControl from '@containers/Golf/utils/getFieldControl';
+import getFieldControl from '@golfutils/getFieldControl';
 import calculateHoleStablefordScore from '@golfutils/calculateHoleStablefordScore';
+import getFieldValue from '@containers/Golf/utils/getFieldValue';
 
 import formStyles from '@golfstyles/form.style';
-import getFieldValue from '@containers/Golf/utils/getFieldValue';
 import { FlexContainer, FlexItem } from '@golfstyles/layout.style';
 
 const MarkerHoleDisplay = ({ hole, playingHandicap, onChange }) => {

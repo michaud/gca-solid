@@ -3,9 +3,9 @@ import { space } from "rdf-namespaces";
 
 import saveResource from "@golfservices/saveResource";
 import paths from "@golfconstants/paths";
-import golf from "@golfutils/golf-namespace";
+import golf from "@golfconstants/golf-namespace";
 import fetchProfile from "@golfservices/fetchProfile";
-import fetchResource from "./fetchResource";
+import fetchResource from "@golfservices/fetchResource";
 
 const getGameDocument = async (resource, list) => {
 

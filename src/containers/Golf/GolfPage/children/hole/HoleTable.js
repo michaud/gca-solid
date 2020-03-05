@@ -1,4 +1,5 @@
 import React from 'react';
+
 import calculateHoleStablefordScore from '@golfutils/calculateHoleStablefordScore';
 
 const getStrokeDisplayText = (playingHandicap, strokeField) => hole => {

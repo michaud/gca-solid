@@ -1,7 +1,7 @@
 import { rdf } from 'rdf-namespaces';
 
 import courseShape from '@golfcontexts/course-shape.json';
-import golf from "@golfutils/golf-namespace";
+import golf from "@golfconstants/golf-namespace";
 import saveResource from '@golfservices/saveResource';
 
 export const addField = ({

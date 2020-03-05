@@ -15,12 +15,12 @@ import {
     DialogActions
 } from '@material-ui/core';
 
-import golf from '@golfutils/golf-namespace';
+import golf from '@golfconstants/golf-namespace';
 import saveGameResourse from '@golfservices/saveGameResourse';
 import { useGameListData } from '@golfcontexts/dataProvider/AppDataProvider';
 
 import ModuleHeader from '@golf/components/ModuleHeader';
-import GameList from '@golf/GolfPage/children/game/GameList';
+import GameList from '@golfpagectrl/game/GameList';
 import IntroPanel from '@golf/components/IntroPanel';
 
 import {
