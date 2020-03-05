@@ -10,16 +10,14 @@ import GolfApp from '@golfpagectrl/GolfApp';
 
 import '@golfcssstyles/_style.scss';
 
-const GolfPage = ({
-    webId
-}) => {
+const GolfPage = (props) => {
 
     return (
         <StylesProvider>
             <AppDataProvider>
                 <Route
                     path="/golf"
-                    render={ routerProps => <GolfApp { ...routerProps } webId={ webId } /> } />
+                    render={ routerProps => <GolfApp { ...routerProps }/> } />
             </AppDataProvider>
         </StylesProvider>
     );
