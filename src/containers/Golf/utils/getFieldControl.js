@@ -81,7 +81,8 @@ const getFieldControl = ({
                     availableStrokeIndices
                 } = rest;
 
-                return <div style={{ position: 'relative'}}><FormControl required variant="outlined" className={ styles.SIselect } key={ idx }>
+                return <div key={ `siSelect${ idx }` } style={{ position: 'relative'}}>
+                    <FormControl required variant="outlined" className={ styles.SIselect }>
                     <InputLabel shrink id="holeStrokeIndexLabel">{ data.label }</InputLabel>
                     <Select
                         labelId="holeStrokeIndex"
@@ -92,7 +93,7 @@ const getFieldControl = ({
                         {
                             availableStrokeIndices
                                 .map((SI, idx) => <MenuItem
-                                    key={ idx }
+                                    key={ `availableStrokeIndices${ idx }` }
                                     value={ SI }>
                                         { SI }
                                     </MenuItem>)
@@ -107,7 +108,7 @@ const getFieldControl = ({
                     availableHoleNumbers
                 } = rest;
 
-                return <FormControl required variant="outlined" className={ styles.SIselect } key={ idx }>
+                return <FormControl required variant="outlined" className={ styles.SIselect } key={ `holeNumber${ idx }` }>
                     <InputLabel shrink id="holeNumberLabel">{ data.label }</InputLabel>
                     <Select
                         labelId="holeStrokeIndex"
@@ -117,7 +118,7 @@ const getFieldControl = ({
                         {
                             availableHoleNumbers
                                 .map((holeNumber, idx) => <MenuItem
-                                    key={ idx }
+                                    key={ `holeNumber${ idx }` }
                                     value={ holeNumber }>
                                         { holeNumber }
                                     </MenuItem>)
