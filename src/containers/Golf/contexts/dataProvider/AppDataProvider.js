@@ -167,7 +167,7 @@ const AppDataProvider = ({ children }) => {
             player: {
                 playerData,
                 hasPlayerData: playerData.doc !== undefined,
-                hasPlayerDetails: playerData.player !== undefined,
+                hasPlayerDetails: playerData.player !== undefined && playerData.player.iri !== '',
                 playerDataIsError,
                 playerDataIsLoading,
                 reloadPlayer
