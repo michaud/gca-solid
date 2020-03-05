@@ -41,19 +41,8 @@ const HoleTable = ({
     const inPars = inHoles.map(hole => hole.holePar.value);
     const inLengths = inHoles.map(hole => hole.holeLength.value);
     const inStrokeIndices = inHoles.map(hole => hole.holeStrokeIndex.value);
-    const inGameStrokes = inHoles.map(hole => {
-    
-        const playerStablefordScore = calculateHoleStablefordScore({
-            handicap: playingHandicap && playingHandicap.playerPlayingHandicap.value,
-            si: hole.holeStrokeIndex.value,
-            par: hole.holePar.value,
-            score: hole.gameStrokes.value.length
-        });
-    
-        const strokes = hole.gameStrokes ? hole.gameStrokes.value.length > 0 ? hole.gameStrokes.value.length : '' : '';
-        return strokes !== '' ? `${ strokes }/${ playerStablefordScore }` : '';
-    });
-    const inGameMarkerStrokes = inHoles.map(hole => hole.gameMarkerStrokeCount.value);
+    const inGameStrokes = inHoles.map(getStrokeDisplayText(playingHandicap && playingHandicap.playerPlayingHandicap, 'gameStrokes'));
+    const inGameMarkerStrokes = inHoles.map(getStrokeDisplayText(playingHandicap && playingHandicap.playerPlayingHandicap, 'gameMarkerStrokeCount'));
 
     return (
         <>
@@ -99,7 +88,7 @@ const HoleTable = ({
                         { inGameStrokes.map((s, index) => <td className="hole-table__cell--score" key={ index }>{ s }</td>) }
                         { inHolesEmpty.map((nr, index) => <td className="hole-table__cell--empty" key={ index }><span></span></td>) }
                     </tr>
-                    <tr>
+                    <tr className="t-row--marker-score">
                         { inGameMarkerStrokes.map((s, index) => <td className="hole-table__cell--score" key={ index }>{ s }</td>) }
                         { inHolesEmpty.map((nr, index) => <td className="hole-table__cell--empty" key={ index }><span></span></td>) }
                     </tr>
