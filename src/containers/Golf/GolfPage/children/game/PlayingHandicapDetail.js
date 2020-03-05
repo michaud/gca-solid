@@ -3,6 +3,8 @@ import React, {
     useEffect
 } from 'react';
 
+import ulog from 'ulog';
+
 import playingHandicapShape from '@golfcontexts/playing-handicap-shape.json';
 import displayStates from '@golfutils/displayStates';
 import golf from '@golfconstants/golf-namespace';
@@ -18,6 +20,8 @@ import {
     FlexItemValue,
     FlexItemTools
 } from '@golfstyles/layout.style';
+
+const log = ulog('usePublicTypeIndex');
 
 const getFieldData = (field, handicap) => {
 
@@ -42,7 +46,8 @@ const getFieldData = (field, handicap) => {
         default: {
 
             value = 'error';
-            console.error('no field type', field)
+
+            log.error('error: ','no field type', field);
         }
     }
     

@@ -1,4 +1,8 @@
+import ulog from 'ulog';
+
 import golf from "@golfconstants/golf-namespace";
+
+const log = ulog('getFieldDisplayData');
 
 const getValue = (type, data, predicate) => {
 
@@ -8,7 +12,7 @@ const getValue = (type, data, predicate) => {
         case golf.types.string:
         case golf.types.integer:
         case golf.types.nonNegativeInteger: return data[predicate].value;
-        default: console.error('no field type', data[predicate])
+        default: log.error('can not find type for this field', data[predicate])
     }
 };
 

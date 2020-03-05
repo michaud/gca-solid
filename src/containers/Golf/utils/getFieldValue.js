@@ -1,4 +1,8 @@
+import ulog from 'ulog';
+
 import golf from "@golfconstants/golf-namespace";
+
+const log = ulog('getFieldValue');
 
 const getFieldValue = (field, args) => {
 
@@ -17,7 +21,8 @@ const getFieldValue = (field, args) => {
 
         default: {
             
-            console.error('no field type', field, data)
+            log.error('do not know this field type', field, data);
+
             return '';
         }
     }

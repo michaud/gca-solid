@@ -1,5 +1,9 @@
+import ulog from 'ulog';
+
 import golf from '@golfconstants/golf-namespace';
 import getFieldTypeData from '@golfutils/parseData/getFieldTypeData';
+
+const log = ulog('getFieldData');
 
 const getFieldData = (shape, doc, data, ...rest) => field => {
 
@@ -128,7 +132,8 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
         default: {
 
             fieldData = 'error';
-            console.error('no field type', field)
+            
+            log.error('do not know how to parse this field', field)
         }
     }
 

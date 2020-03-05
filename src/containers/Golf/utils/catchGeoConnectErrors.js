@@ -1,3 +1,7 @@
+import ulog from 'ulog';
+
+const log = ulog('catchGeoConnectErrors');
+
 const catchGeoConnectErrors = (error) => {
 
     let msg = null;
@@ -29,7 +33,7 @@ const catchGeoConnectErrors = (error) => {
             break;
     }
 
-    console.error(error.message, msg);
+    log.error(error.message, msg);
 };
 
 export default catchGeoConnectErrors;

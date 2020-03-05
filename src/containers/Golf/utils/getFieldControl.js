@@ -6,6 +6,8 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 
+import ulog from 'ulog';
+
 import golf from "@golfconstants/golf-namespace";
 
 import ManageHoles from "@golfpagectrl/hole/ManageHoles";
@@ -18,6 +20,8 @@ import PlayingHandicapDetail from '@golfpagectrl/game/PlayingHandicapDetail';
 import SelectCourse from '@golfpagectrl/game/SelectCourse';
 
 import { FlexContainer } from '@golfstyles/layout.style';
+
+const log = ulog('usePublicTypeIndex');
 
 const getFieldControl = ({
     data,
@@ -257,7 +261,7 @@ const getFieldControl = ({
 
         default: {
 
-            console.error('data:', data);
+            log.error('can not find a control:', data);
 
             return null;
         }

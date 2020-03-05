@@ -1,10 +1,13 @@
 import { namedNode } from "@rdfjs/data-model";
 import { rdf } from 'rdf-namespaces';
+import ulog from 'ulog';
 
 import golf from "@golfconstants/golf-namespace";
 import saveResource from "@golfservices/saveResource";
 import courseShape from '@golfcontexts/course-shape.json';
 import { addField } from "./addField";
+
+const log = ulog('setField');
 
 export const setField = ({ field, shape, data, element, ref, doc }) => {
 
@@ -250,7 +253,7 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
 
         default : {
 
-            console.error('setField: no field defined', field);
+            log.error('setField: do not know this field', field);
 
             break;
         }
