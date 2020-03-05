@@ -148,7 +148,7 @@ const AllowLocation = () => {
             <ButtonBase onClick={ clickHandler } disableRipple focusRipple={ false} className={ btnClasses.root }>
                 <FlexContainer className="intro-summary" alignitems="center" flex="1">
                     <FlexItem>
-                        <h3 className="h-intro">Use location</h3>
+                        <h3 className="h-intro">Use Location</h3>
                         <p>Where?</p>
                     </FlexItem>
                     <FlexItem narrow>

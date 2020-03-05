@@ -37,7 +37,7 @@ const Help = () => {
             <ButtonBase onClick={ clickHandler } disableRipple focusRipple={ false } className={ btnClasses.root }>
                 <FlexContainer alignitems="center" flex="1">
                     <FlexItem className="intro-summary">
-                        <h3 className="h-intro">How does this work?</h3>
+                        <h3 className="h-intro">How does this Work?</h3>
                         <p>Wat?</p>
                     </FlexItem>
                     <FlexItem narrow>
@@ -59,13 +59,13 @@ const Help = () => {
                                 <li>Keep score while you are playing</li>
                                 <li>Register the location of a stroke</li>
                                 <li>What club you use for the stroke</li>
-                                <li>Store your data on your own POD</li>
+                                <li>Store your data on your POD</li>
                             </ul>
                             <h2>Why the POD</h2>
-                            <p>You want to own your data right?
+                            <p>You own your data right?
                                 This app is only the interpreter and editor of your data.
                             No data is save anywhere else than on your POD.</p>
-                            <h2>Players</h2>
+                            <h2>Players &amp; Markers</h2>
                             <p>Save your own info and register the people you play with.</p>
                             <h2>Bag</h2>
                             <p>List your clubs and fill your bag.</p>
@@ -91,11 +91,14 @@ const Help = () => {
                             <p>If you allow the app to use the location technology of your device, we can save the location 
                                 where you registered your stroke. So after you hit the ball you select the club you hit the 
                                 stroke with and we will save the location with the stroke.</p>
-                            <p>To enable the location technology, open the 'Use location' panel and switch to allow location. 
+                            <p>To enable the location technology, open the 'Use Location' panel and switch to allow location. 
                                 In most cases the browser will ask you to consent to use the location services: Click Allow. 
                                 We will use a cookie to register your consent. If you disable location services in the browser, 
                                 this information will be out of sync with your choice. If you want to re-enable location 
                                 services reset the consent in your browser settings and flip the switch in the app.</p>
+                            <p>Of course, the accuracy of the location data is based on what your device reports to the app, how 
+                                close you were to the location of your stroke when you selected the club in the app. The browser 
+                                location data is sometimes wildly inacurate.</p>
                         </div>
                     </div> :
                     null
