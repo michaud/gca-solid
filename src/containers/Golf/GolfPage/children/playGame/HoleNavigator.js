@@ -12,7 +12,7 @@ import {
     FlexItem,
     FlexToolRight
 } from '@golfstyles/layout.style';
-import calculateHoleStablefordScore from '@containers/Golf/utils/calculateHoleStablefordScore';
+import calculateHoleStablefordScore from '@golfutils/calculateHoleStablefordScore';
 
 const HoleNavigator = ({
     holes,
@@ -25,10 +25,14 @@ const HoleNavigator = ({
     const [currHoleIndex, setCurrHoleIndex] = useState(0);
 
     const onNextHole = () => {
+
         const lastIndex = holes.length - 1;
+
         setCurrHoleIndex(state => {
+
             const newState = state < lastIndex ? state + 1 : lastIndex;
             onChangeHole && onChangeHole(newState);
+
             return newState;
         });
     };
@@ -36,8 +40,10 @@ const HoleNavigator = ({
     const onPreviousHole = () => {
 
         setCurrHoleIndex(state => {
+
             const newState = state > 0 ? state - 1 : 0;
             onChangeHole && onChangeHole(newState);
+
             return newState;
         });
     };

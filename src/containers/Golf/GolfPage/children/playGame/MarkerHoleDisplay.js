@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react';
 import update from 'immutability-helper';
 
 import getFieldControl from '@containers/Golf/utils/getFieldControl';
+import calculateHoleStablefordScore from '@golfutils/calculateHoleStablefordScore';
 
 import formStyles from '@golfstyles/form.style';
 import getFieldValue from '@containers/Golf/utils/getFieldValue';
+import { FlexContainer, FlexItem } from '@golfstyles/layout.style';
 
-const MarkerHoleDisplay = ({ hole, onChange }) => {
+const MarkerHoleDisplay = ({ hole, playingHandicap, onChange }) => {
 
     const [holeState, setHoleState] = useState();
 
@@ -54,10 +56,28 @@ const MarkerHoleDisplay = ({ hole, onChange }) => {
         }));
     }
 
+    const si = holeState && holeState.holeStrokeIndex.value;
+    const par = holeState && holeState.holePar.value;
+    const score = holeState && holeState.gameMarkerStrokeCount.value;
+
+    const playerStablefordScore = calculateHoleStablefordScore({
+        handicap: playingHandicap && playingHandicap.markerPlayingHandicap.value,
+        si,
+        par,
+        score
+    });
+
     return (
-        <div>
+        <FlexContainer>
+            <FlexItem>
             { displayFields }
-        </div>
+            </FlexItem>
+            <FlexItem narrow className="marker-stableford-score">
+                <div>
+                { playerStablefordScore }
+                </div>
+            </FlexItem>
+        </FlexContainer>
     );
 };
 
