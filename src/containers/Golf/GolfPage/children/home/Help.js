@@ -61,6 +61,18 @@ const Help = () => {
                                 <li>What club you use for the stroke</li>
                                 <li>Store your data on your POD</li>
                             </ul>
+                            <h2>The works</h2>
+                            <p>Golf Course Assistant is an application without a database. 
+                                It is a front-end application that you point to your <a href="https://solid.community/" title="solid.community POD provider">Solid Pod</a> where 
+                                it saves the data you generate.<br/>
+                                The app uses an <a href="https://en.wikipedia.org/wiki/RDF_Schema" title="wikipedia r.d.f. schema description">rdf schema / vocabulary</a> to 
+                                describe the data and the <a href="https://github.com/solid/solid-spec" title="Solid specification on Github">Solid application/data protocol</a> to
+                                 read &amp; write the data to a Solid POD.</p>
+                            <p>
+                                It is tested on an Inrupt Solid POD and a solid.community POD and the application works fine on those two. 
+                                The idea is that it should work on any POD provider that conforms to the <a 
+                                href="https://github.com/solid/solid-spec" title="Solid specification on Github">Solid specification</a>
+                            </p>
                             <h2>Why the POD</h2>
                             <p>You own your data right?
                                 This app is only the interpreter and editor of your data.

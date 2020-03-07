@@ -20,8 +20,17 @@
         color: rgb(232, 246, 218);
     }
 
+    &:link, &:active, &:visited {
+        color: rgba(255, 255,255,.7);
+    }
+
+    &:hover, &:visited:hover {
+        color: rgb(169, 236, 161);
+    }
+
     &:focus {
         outline: none;
+        color: white;
     } 
 
     &.active:after {

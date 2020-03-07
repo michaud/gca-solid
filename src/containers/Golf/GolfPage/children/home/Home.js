@@ -18,6 +18,7 @@ import Help from '@golfpagectrl/home/Help';
 
 import { FlexContainer, FlexItem } from '@golfstyles/layout.style';
 import { PageContainer, PageContent } from '@golfstyles/page.style';
+import About from '@golfpagectrl/home/About';
 
 const Home = () => {
 
@@ -170,6 +171,7 @@ const Home = () => {
                             ) }
                         <AllowLocation />
                         { !showHelpFirst ? <Help/> : null }
+                        <About/>
                     </PageContainer>
                 }
             </PageContent>
