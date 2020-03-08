@@ -134,12 +134,12 @@ const formStyles = makeStyles(theme => ({
             minHeight: '5rem'
         },
         '& .MuiButton-label': {
-            color: 'white'
+            color: 'rgba(255, 255,255, .625)'
         },
         '&:disabled': {
             opacity: 1,
             '& .MuiButton-label': {
-                color: 'rgba(0,0,0,.5)'
+                color: 'rgba(0,0,0,.125)'
             }
         },
         '& .MuiSvgIcon-root': {
