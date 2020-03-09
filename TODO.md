@@ -1,5 +1,3 @@
-- fix delete hole saves course?
-
 X implement Owner on Club
 X handle card#me references
 X saveMarker as savePlayer
@@ -49,3 +47,4 @@ X delete stroke in play game
 X fix key issue in getFieldControl ManageHoles Holeform?
 X save button text courseform
 X fix border colors inputs (holeform courseform)
+X fix delete hole saves course?
