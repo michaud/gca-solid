@@ -1,15 +1,13 @@
 import saveResource from "@golfservices/saveResource";
 import golf from "@golfconstants/golf-namespace";
 
-const saveHoleToGame = async ({ hole, doc }) => {
+const saveHoleToGame = ({ hole, doc }) => {
 
-    saveResource({
-        element: hole,
+    return saveResource({
+        resource: hole,
         doc,
         type: golf.classes.GameHole
     });
-
-    await doc.save();
 };
 
 export default saveHoleToGame;

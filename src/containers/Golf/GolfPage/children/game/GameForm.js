@@ -122,11 +122,11 @@ const GameForm = ({
             resource: course,
             doc: courseListData.doc,
             type: golf.classes.Course
+        }).then(() => {
+
+            setCourseModalOpen(false);
+            reloadCourses();
         });
-
-        setCourseModalOpen(false);
-
-        reloadCourses();
     };
     
     const onSaveBag = () => {
@@ -135,15 +135,13 @@ const GameForm = ({
         reloadBag();
     };
 
-    const saveGamePlayer = doc => async (player) => {
+    const saveGamePlayer = doc => player => {
         
-        await saveResource({
+        saveResource({
             resource: player,
             doc: playerData.doc,
             type: golf.classes.Player
-        });
-
-        reloadPlayer();
+        }).then(() => reloadPlayer());
     };
 
     const onSaveMarker = marker => {
@@ -152,11 +150,11 @@ const GameForm = ({
             resource: marker,
             doc: markerListData.doc,
             type: golf.classes.Marker
+        }).then(() => {
+
+            setMarkerModalOpen(false);
+            reloadMarkers();
         });
-
-        setMarkerModalOpen(false);
-
-        reloadMarkers();
     };
 
     const addGameCourse = doc => () => {

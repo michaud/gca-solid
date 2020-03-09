@@ -3,7 +3,7 @@ import { rdf } from 'rdf-namespaces';
 import ulog from 'ulog';
 
 import golf from "@golfconstants/golf-namespace";
-import saveResource from "@golfservices/saveResource";
+import saveElement from "@golfservices/saveElement";
 import courseShape from '@golfcontexts/course-shape.json';
 import { addField } from "./addField";
 
@@ -77,7 +77,7 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
 
                     if(stroke.iri === '') {
 
-                        const elRef = saveResource({
+                        const elRef = saveElement({
                             element: stroke,
                             doc,
                             type: field.type
@@ -107,7 +107,7 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
 
                     if(hole.iri === '') {
 
-                        const elRef = saveResource({
+                        const elRef = saveElement({
                             element: hole,
                             doc,
                             type: field.type
@@ -122,7 +122,7 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
 
                     } else {
 
-                        saveResource({
+                        saveElement({
                             element: hole,
                             doc,
                             type: field.type
@@ -156,7 +156,7 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
 
                     holes.forEach(hole => {
 
-                        const elRef = saveResource({
+                        const elRef = saveElement({
                             element: hole,
                             doc,
                             type: holeType
@@ -194,7 +194,7 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
             const oldMarker = ref.getRef(golf.properties.gameMarker);
             doc.removeSubject(oldMarker);
 
-            const elRef = saveResource({
+            const elRef = saveElement({
                 element: data.value,
                 doc,
                 type: field.type
@@ -220,7 +220,7 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
 
             bag.clubs.value.forEach(club => {
                 
-                const elRef = saveResource({
+                const elRef = saveElement({
                     element: club,
                     doc,
                     type: golf.classes.Club
@@ -240,7 +240,7 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
             const oldGamePlayingHandicapRef = ref.getRef(golf.properties.gamePlayingHandicap);
             doc.removeSubject(oldGamePlayingHandicapRef);
 
-            const gamePlayingHandicapRef = saveResource({
+            const gamePlayingHandicapRef = saveElement({
                 element: data.value,
                 doc,
                 type: golf.classes.GamePlayingHandicap

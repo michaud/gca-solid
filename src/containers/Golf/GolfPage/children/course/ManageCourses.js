@@ -44,9 +44,7 @@ const ManageCourses = () => {
             resource: course,
             doc: courseListData.doc,
             type: golf.classes.Course
-        });
-        
-        reloadCourses()
+        }).then(() => reloadCourses());
     };
 
     const onDeleteCourseHandler = (course) => {

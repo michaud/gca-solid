@@ -31,7 +31,7 @@ const useAppData = () => {
 
     if (context === undefined) {
 
-        throw new Error('useCountState must be used within a CountProvider')
+        throw new Error('useAppData must be used within a AppDataProvider')
     }
 
     return context;
@@ -288,15 +288,15 @@ const AppDataProvider = ({ children }) => {
         gameListDataIsError !== undefined;
 
     if (hasError) {
-
-        log.error('publicTypeIndexIsError: ', publicTypeIndexIsError);
-        log.error('clubDefinitionsIsError: ', clubDefinitionsIsError);
-        log.error('playerDataIsError: ', playerDataIsError);
-        log.error('markerListDataIsError: ', markerListDataIsError);
-        log.error('clubListDataIsError: ', clubListDataIsError);
-        log.error('bagDataIsError: ', bagDataIsError);
-        log.error('courseListDataIsError: ', courseListDataIsError);
-        log.error('gameListDataIsError: ', gameListDataIsError);
+    
+        publicTypeIndexIsError && log.error('publicTypeIndexIsError', publicTypeIndexIsError);
+        clubDefinitionsIsError && log.error('clubDefinitionsIsError: ', clubDefinitionsIsError);
+        playerDataIsError && log.error('playerDataIsError: ', playerDataIsError);
+        markerListDataIsError && log.error('markerListDataIsError: ', markerListDataIsError);
+        clubListDataIsError && log.error('clubListDataIsError: ', clubListDataIsError);
+        bagDataIsError && log.error('bagDataIsError: ', bagDataIsError);
+        courseListDataIsError && log.error('courseListDataIsError: ', courseListDataIsError);
+        gameListDataIsError && log.error('gameListDataIsError: ', gameListDataIsError);
     }
 
     const value = {

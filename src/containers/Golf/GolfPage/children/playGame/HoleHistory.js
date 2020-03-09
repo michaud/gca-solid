@@ -11,12 +11,15 @@ const HoleHistory = ({ hole, onSelect, onDeleteStroke }) => {
     const onSelectHandler = (stroke) => () => {
 
         onSelect && onSelect(stroke);
+
         if(selectedStroke && selectedStroke.iri === stroke.iri) {
+
             setSelectedStroke();
+
         } else {
+
             setSelectedStroke(stroke);
         }
-        
     };
 
     const onDeleteStrokeHandler = (stroke) => {

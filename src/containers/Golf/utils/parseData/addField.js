@@ -3,7 +3,7 @@ import ulog from 'ulog';
 
 import courseShape from '@golfcontexts/course-shape.json';
 import golf from "@golfconstants/golf-namespace";
-import saveResource from '@golfservices/saveResource';
+import saveElement from '@golfservices/saveElement';
 
 const log = ulog('addField');
 
@@ -86,7 +86,7 @@ export const addField = ({
 
             bag.clubs.value.forEach(club => {
                 
-                const elRef = saveResource({
+                const elRef = saveElement({
                     element: club,
                     doc,
                     type: golf.classes.Club
@@ -116,7 +116,7 @@ export const addField = ({
 
                     holes.forEach(hole => {
 
-                        const elRef = saveResource({
+                        const elRef = saveElement({
                             element: hole,
                             doc,
                             type: holeType
@@ -144,7 +144,7 @@ export const addField = ({
 
         case golf.classes.Marker : {
 
-            const elRef = saveResource({
+            const elRef = saveElement({
                 element: data.value,
                 doc,
                 type: field.type
@@ -157,7 +157,7 @@ export const addField = ({
 
         case golf.classes.Player : {
 
-            const elRef = saveResource({
+            const elRef = saveElement({
                 element: data.value,
                 doc,
                 type: golf.classes.Player
@@ -176,7 +176,7 @@ export const addField = ({
                     
                 holes.forEach(hole => {
 
-                    const elRef = saveResource({
+                    const elRef = saveElement({
                         element: hole,
                         doc,
                         type: field.type
@@ -191,7 +191,7 @@ export const addField = ({
 
         case golf.classes.GamePlayingHandicap : {
 
-            const elRef = saveResource({
+            const elRef = saveElement({
                 element: data.value,
                 doc,
                 type: field.type
@@ -204,7 +204,7 @@ export const addField = ({
 
         case golf.types.GeoCoordinates: {
 
-            const elRef = saveResource({
+            const elRef = saveElement({
                 element: data.value,
                 doc,
                 type: field.type

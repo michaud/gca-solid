@@ -63,7 +63,8 @@ const PlayGame = ({ match: { params: { gameid } } }) => {
 
     const onClubActionHandler = club => {
 
-        addStrokeToHole(club, currHole.iri, gameState.game, gameState.doc, setGameState);
+        addStrokeToHole(club, currHole.iri, gameState.game, gameState.doc, setGameState)
+            .then(() => reloadGames(gameid));
     };
 
     const onChangeHoleHandler = (holeIndex) => {
@@ -92,12 +93,11 @@ const PlayGame = ({ match: { params: { gameid } } }) => {
 
     const onDeleteStrokeHandler = async (stroke, hole) => {
 
-        await deleteStrokeFromGameHole(gameState.doc, stroke, hole);
-        reloadGames(gameid);
+        deleteStrokeFromGameHole(gameState.doc, stroke, hole)
+            .then(() => reloadGames(gameid));
     };
 
     const clubs = gameState && gameState.game.gameBag.value.clubs.value;
-
     const playingHandicap = gameState && gameState.game.gamePlayingHandicap.value;
 
     const open = Boolean(anchorEl);
@@ -115,7 +115,7 @@ const PlayGame = ({ match: { params: { gameid } } }) => {
                             onClick={ showGamePlayDetailHandler } />
                         { gameListDataIsLoading && <LinearProgress classes={ classes } variant="indeterminate" /> }
                         <ClubActionList clubs={ clubs } onAction={ onClubActionHandler } />
-                        <HoleHistory hole={ currHole } onDeleteStroke={ onDeleteStrokeHandler} />
+                        <HoleHistory hole={ currHole } onDeleteStroke={ onDeleteStrokeHandler } />
                     </PageContent>
                     <Popover
                         id={ id }

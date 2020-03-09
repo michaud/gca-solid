@@ -75,7 +75,7 @@ const ManageBag = ({ onSave, onCancel }) => {
         bagClubsState
     ]);
 
-    const addClubHandler = async (club) => {
+    const addClubHandler = club => {
 
         if (!clubListData) return;
 
@@ -83,20 +83,16 @@ const ManageBag = ({ onSave, onCancel }) => {
             resource: club,
             doc: clubListData.doc,
             type: golf.classes.Club
-        });
-
-        reloadClubs();
+        }).then(() => reloadClubs());
     };
 
-    const saveClubHandler = async (club) => {
+    const saveClubHandler = club => {
         
         saveResource({
             resource: club,
             doc: clubListData.doc,
             type: golf.classes.Club
-        });
-
-        reloadClubs();
+        }).then(() => reloadClubs());
     };
 
     const deleteClubHandler = club => {

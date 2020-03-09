@@ -33,6 +33,10 @@ const CourseForm = ({
 }) => {
 
     const [courseState, setCourseState] = useState(course);
+    const [canSaveCourse, setCanSaveCourse] = useState({
+        can: false,
+        reasons: []
+    });
 
     const classes = formStyles();
 
@@ -44,13 +48,19 @@ const CourseForm = ({
             
             if(course) {
             
-                if(!didCancel) setCourseState(course);
-                
+                if(!didCancel) {
+                    setCourseState(course);
+                    setCanSaveCourse(checkCanSave(courseState, courseShape));
+                }
+
             } else {
                 
                 const newCourse = setupDataObject(courseShape);
 
-                if(!didCancel) setCourseState(newCourse);
+                if(!didCancel) {
+                    setCourseState(newCourse);
+                    setCanSaveCourse(checkCanSave(courseState, courseShape));
+                }
             }
         }
 
@@ -81,6 +91,7 @@ const CourseForm = ({
                 courseHoles: { value: { $set: sortedHoles } }
             });
         });
+        setCanSaveCourse(checkCanSave(courseState, courseShape));
     };
 
     const onSaveHole = (hole) => {
@@ -125,6 +136,8 @@ const CourseForm = ({
 
             return newCourse;
         });
+
+        setCanSaveCourse(checkCanSave(courseState, courseShape));
     };
 
     const onChangeCourseField = fieldDef => (...args)  => {
@@ -134,6 +147,8 @@ const CourseForm = ({
         setCourseState(state => update(state, {
             [fieldDef.predicate]: { value: { $set: value } }
         }));
+
+        setCanSaveCourse(checkCanSave(courseState, courseShape));
     };
 
     const onDeleteHoleHandler = hole => {
@@ -153,6 +168,8 @@ const CourseForm = ({
 
             onDeleteHole(hole);
         }
+
+        setCanSaveCourse(checkCanSave(courseState, courseShape));
     };
 
     const courseFields = [];
@@ -177,19 +194,18 @@ const CourseForm = ({
         })
     }
 
-    const canSave = checkCanSave(courseState, courseShape);
     const handleDelete = typeof(onDelete) === 'function' ? onDeleteHandler : undefined;
 
     return (
         <form noValidate autoComplete="off">
             <header className="c-header">{ title }</header>
             { courseFields }
-            { !canSave.can && <div className="c-box">{ canSave.reasons.map(item => item) }</div> }
+            { !canSaveCourse.can && <div className="c-box">{ canSaveCourse.reasons.map(item => item) }</div> }
             <FlexContainer>
                 <FlexItem>
                     <Button
                         variant="contained"
-                        disabled={ !canSave.can }
+                        disabled={ !canSaveCourse.can }
                         onClick={ saveHandler }
                         className={ classes.button }
                         color="primary">{ actionLabel }</Button>
@@ -199,7 +215,7 @@ const CourseForm = ({
                         <FlexItem>
                             <Button
                                 variant="contained"
-                                disabled={ !canSave.can }
+                                disabled={ !canSaveCourse.can }
                                 onClick={ handleDelete(course) }
                                 className={ classes.button }
                                 color="primary">Delete</Button>

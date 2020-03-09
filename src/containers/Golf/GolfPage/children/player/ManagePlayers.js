@@ -50,9 +50,7 @@ const ManagePlayers = () => {
             resource: player,
             doc: playerData.doc,
             type: golf.classes.Player
-        });
-
-        reloadPlayer();
+        }).then(() => reloadPlayer());
     };
 
     return (

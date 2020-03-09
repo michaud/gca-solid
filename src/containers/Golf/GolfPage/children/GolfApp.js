@@ -25,22 +25,25 @@ const GolfApp = () => {
 
     const [completed, setCompleted] = useState(0);
     const [snackOpen, setSnackOpen] = useState(false);
-    const { progress, count, hasError } = useMonitorData();
-
+    const { progress, count, hasError, errors } = useMonitorData();
+    
     useEffect(() => {
-
+        
         let didCancel = false;
-
+        
         if(!didCancel) {
 
-            if(hasError) setSnackOpen(true);
+            if(hasError) {
+
+                setSnackOpen(true);
+            }
 
             setCompleted((100 / count) * progress);
         }
 
         return () => { didCancel = true; }
 
-    }, [progress, count, completed]);
+    }, [progress, count, completed, hasError]);
 
     const handleSnackClose = (event, reason) => {
         
@@ -59,7 +62,9 @@ const GolfApp = () => {
                 onClose={ handleSnackClose }
                 anchorOrigin={{ vertical:'bottom', horizontal: 'center' }}>
                 <Alert onClose={ handleSnackClose } severity="error">
-                    plopData did not load
+                {
+                    errors.map((err, idx) => <div key={ idx }>{ err ? err.message : '' }</div>)
+                }
                 </Alert>
             </Snackbar>
             <Route render={ (props) => {

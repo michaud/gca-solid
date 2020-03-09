@@ -38,9 +38,7 @@ const ManageMarkers = () => {
             resource: marker,
             doc: markerListData.doc,
             type: golf.classes.Marker
-        });
-
-        reloadMarkers();
+        }).then(() => reloadMarkers());
     };
 
     const onDeleteMarker = marker => {

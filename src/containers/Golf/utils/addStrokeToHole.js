@@ -57,7 +57,7 @@ const persistData = (
     };
 };
 
-const addStrokeToHole = async (club, holeIri, game, doc, setState) => {
+const addStrokeToHole = (club, holeIri, game, doc, setState) => {
 
     const persist = persistData(club,  game, doc, holeIri, setState);
     const geo = {
@@ -82,12 +82,11 @@ const addStrokeToHole = async (club, holeIri, game, doc, setState) => {
             geo.coords.longitude = result.coords.longitude;
             geo.coords.altitude = result.coords.altitude;
 
-            saveHoleToGame(persist(geo));
+            return saveHoleToGame(persist(geo));
 
         }, catchGeoConnectErrors, options);
     
-    } else { saveHoleToGame(persist(geo)); }
-
+    } else { return saveHoleToGame(persist(geo)); }
 };
 
 export default addStrokeToHole;

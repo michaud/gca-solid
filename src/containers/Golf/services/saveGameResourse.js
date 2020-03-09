@@ -1,11 +1,11 @@
 import { createDocument } from "tripledoc";
 import { space } from "rdf-namespaces";
 
-import saveResource from "@golfservices/saveResource";
 import paths from "@golfconstants/paths";
 import golf from "@golfconstants/golf-namespace";
 import fetchProfile from "@golfservices/fetchProfile";
 import fetchResource from "@golfservices/fetchResource";
+import saveElement from "@golfservices/saveElement";
 
 const getGameDocument = async (resource, list) => {
 
@@ -42,11 +42,13 @@ const saveGameResourse = async ({
 
     const doc = await getGameDocument(resource, list);
 
-    const gameDoc = saveResource({
-        resource,
+    const gameDoc = saveElement({
+        element: resource,
         doc,
         type
     });
+
+    await gameDoc.getDocument().save();
 
     //add game to list with same identifier as game itself
     const ref = gameDoc.asRef();
