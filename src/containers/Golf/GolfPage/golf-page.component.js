@@ -10,7 +10,7 @@ import GolfApp from '@golfpagectrl/GolfApp';
 
 import '@golfcssstyles/_style.scss';
 
-const GolfPage = (props) => {
+const GolfPage = () => {
 
     return (
         <StylesProvider>
