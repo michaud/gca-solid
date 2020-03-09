@@ -3,8 +3,11 @@ import React, {
     useState
 } from 'react';
 
-import { Redirect } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import {
+    Redirect,
+    NavLink
+} from 'react-router-dom';
+
 import SportsGolfIcon from '@material-ui/icons/SportsGolf';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import {

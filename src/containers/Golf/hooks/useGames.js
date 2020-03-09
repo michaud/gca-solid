@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { namedNode } from '@rdfjs/data-model';
-import { solid } from 'rdf-namespaces';
-import * as ns from 'rdf-namespaces';
+import { solid, rdf } from 'rdf-namespaces';
 import ulog from 'ulog';
 
 import initialiseTypeDocument from '@golfservices/initialiseTypeDocument';
@@ -40,7 +39,7 @@ const getGameListFromDoc = async (
 
     const games = gameDocs.map(doc => {
 
-        const gameRef = doc.findSubject(ns.rdf.type, namedNode(type));
+        const gameRef = doc.findSubject(rdf.type, namedNode(type));
 
         const game = parseFields(shape, doc, ...rest)(gameRef);
 

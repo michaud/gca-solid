@@ -1,5 +1,5 @@
 import { namedNode } from '@rdfjs/data-model';
-import * as ns from 'rdf-namespaces';
+import { rdf } from 'rdf-namespaces';
 
 import playerShape from '@golfcontexts/player-shape.json';
 import parseFields from '@golfutils/parseData/parseFields';
@@ -7,7 +7,7 @@ import parseFields from '@golfutils/parseData/parseFields';
 const getPlayer = (doc, type) => {
 
     const player = doc ? doc
-        .findSubject(ns.rdf.type, namedNode(type))
+        .findSubject(rdf.type, namedNode(type))
         : undefined;
 
     const newPlayer = parseFields(playerShape, doc)(player);

@@ -1,5 +1,5 @@
 import { namedNode } from '@rdfjs/data-model';
-import * as ns from 'rdf-namespaces';
+import { rdfs } from 'rdf-namespaces';
 import { fetchDocument } from 'tripledoc';
 
 import golf from '@golfconstants/golf-namespace';
@@ -9,11 +9,11 @@ const getClubDefinitions = async () => {
     const golfVocabulary = await fetchDocument(`${ golf.root }golf.ttl`);
 
     const clubFields = golfVocabulary
-        .findSubjects(ns.rdfs.domain, namedNode(golf.classes.Club))
+        .findSubjects(rdfs.domain, namedNode(golf.classes.Club))
         .reduce((acc, ref) => {
 
-            const predicate = ref.getLiteral(ns.rdfs.label);
-            const type = ref.getRef(ns.rdfs.range);
+            const predicate = ref.getLiteral(rdfs.label);
+            const type = ref.getRef(rdfs.range);
             const iri = ref.asRef();
             const label = ref.getLiteral(golf.properties.fieldLabel);
 
@@ -32,7 +32,7 @@ const getClubDefinitions = async () => {
         }, {});
 
     const clubTypes = await golfVocabulary
-        .findSubjects(ns.rdfs.subClassOf, namedNode(golf.classes.Club))
+        .findSubjects(rdfs.subClassOf, namedNode(golf.classes.Club))
         .map(value => ({
             label: value.getLiteral(golf.properties.fieldLabel),
             iri: value.asNodeRef()
