@@ -8,7 +8,6 @@ import getClubDefinitions from './getClubDefinitions';
 import getListFromDoc from './getListFromDoc';
 import getPlayer from './getPlayer';
 import initialiseTypeDocument from './initialiseTypeDocument';
-import Provider from './provider';
 import removeClubsFromBag from './removeClubsFromBag';
 
 export {
@@ -22,6 +21,5 @@ export {
     getListFromDoc,
     getPlayer,
     initialiseTypeDocument,
-    Provider,
     removeClubsFromBag
 };
