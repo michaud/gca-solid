@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { NavBar, Notification } from '@components';
+import React from 'react'; //, { useState, useEffect, useCallback }
+import { NavBar } from '@components'; //, Notification
 import { useTranslation } from 'react-i18next';
 import { NavBarContainer } from './children';
 import { LanguageDropdown } from '@util-components';
-import { ldflexHelper, errorToaster, storageHelper } from '@utils';
+// import { ldflexHelper, errorToaster, storageHelper } from '@utils';
 import { NavigationItems } from '@constants';
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 };
 
 const AuthNavBar = React.memo((props: Props) => {
-  const [inboxes, setInbox] = useState([]);
+  // const [inboxes, setInbox] = useState([]);
   const { t, i18n } = useTranslation();
   const navigation = NavigationItems.map(item => ({ ...item, label: t(item.label) }));
 
@@ -92,10 +92,10 @@ const AuthNavBar = React.memo((props: Props) => {
           component: () => <LanguageDropdown {...{ t, i18n }} />,
           id: 'language'
         },
-        {
-          component: () => <Notification {...{ webId, inbox: inboxes }} />,
-          id: 'notifications'
-        },
+        // {
+        //   component: () => <Notification {...{ webId, inbox: inboxes }} />,
+        //   id: 'notifications'
+        // },
         {
           component: props => <NavBarContainer {...{ t, i18n, webId, history, ...props }} />,
           id: 'profile'
