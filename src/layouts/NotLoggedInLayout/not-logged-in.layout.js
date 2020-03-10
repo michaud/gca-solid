@@ -7,8 +7,11 @@ import { LanguageDropdown } from '@util-components';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  height: 100%;
-  position: relative;
+  position: absolute;
+  top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 `;
 
 const NotLoggedInLayout = props => {
@@ -17,7 +20,7 @@ const NotLoggedInLayout = props => {
   const ComponentWrapper = styled(Component)`
     padding-bottom: 60px;
     height: 100%;
-    padding-top: 60px;
+    padding-top: 45px;
   `;
   return !webId ? (
     <Route
