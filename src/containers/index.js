@@ -3,7 +3,6 @@ import Register, { RegistrationSuccess } from './Register';
 import PageNotFound from './PageNotFound';
 import Welcome from './Welcome';
 import Profile from './Profile';
-import { GamePage, GameList } from './TicTacToe';
 import GolfPage from './Golf/GolfPage/golf-page.component';
 
 export {
@@ -13,7 +12,5 @@ export {
     PageNotFound,
     Welcome,
     Profile,
-    GamePage,
-    GameList,
     GolfPage
 };

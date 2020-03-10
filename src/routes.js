@@ -16,8 +16,6 @@ import {
   Welcome,
   RegistrationSuccess,
   Profile,
-  GameList,
-  GamePage,
   GolfPage
 } from './containers';
 
@@ -71,16 +69,6 @@ const privateRoutes = [
     id: 'golf',
     path: '/golf/settings/games/new',
     component: GolfPage
-  },
-  {
-    id: 'tictactoe',
-    path: '/tictactoe',
-    component: GameList
-  },
-  {
-    id: 'tictactoegame',
-    path: '/tictactoe/:gameId',
-    component: GamePage
   }
 ];
 
