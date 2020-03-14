@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-import { useTranslation } from 'react-i18next';
-
 import { usePlayerData } from '@golfcontexts/dataProvider/AppDataProvider';
 
 import golf from '@golfconstants/golf-namespace';
@@ -26,8 +24,6 @@ const ManagePlayers = () => {
         playerDataIsLoading,
         reloadPlayer
     } = usePlayerData();
-
-    const { t } = useTranslation();
 
     useEffect(() => {
 
@@ -56,7 +52,7 @@ const ManagePlayers = () => {
     return (
         <>
             <ModuleHeader
-                label={ t('golf.players') }
+                label="Players"
                 screenheader={ true }
                 loading={ playerDataIsLoading } />
             <PageContainer>

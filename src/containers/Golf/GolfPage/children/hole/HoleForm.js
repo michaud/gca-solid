@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import update from 'immutability-helper';
-import { useTranslation } from 'react-i18next';
 
 import Button from '@material-ui/core/Button';
 import holeShape from '@golfcontexts/hole-shape.json';
@@ -34,7 +33,6 @@ const HoleForm = ({
     const [canDelete, setCanDelete] = useState(false);
     const focusRef = useRef();
     const classes = formStyles();
-    const { t } = useTranslation();
 
     useEffect(() => {
 
@@ -149,7 +147,7 @@ const HoleForm = ({
                     disabled={ !canSave.can }
                     onClick={ onCancel }
                     className={ classes.button }
-                    color="primary">{ t('golf.cancel') }</Button>
+                    color="primary">Cancel</Button>
                 }
                 </FlexItemRight>
             </FlexContainer>

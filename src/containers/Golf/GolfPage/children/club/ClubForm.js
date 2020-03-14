@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import update from 'immutability-helper';
-import { useTranslation } from 'react-i18next';
+
 import Button from '@material-ui/core/Button';
 
 import { useClubData } from '@golfcontexts/dataProvider/AppDataProvider';
@@ -30,7 +30,6 @@ const ClubForm = ({
 
     const { clubDefinitions } = useClubData();
     
-    const { t } = useTranslation();
     const classes = formStyles();
 
     const saveHandler = () => {
@@ -73,7 +72,7 @@ const ClubForm = ({
 
             const fieldControl = getFieldControl({
                 data: clubState[field.predicate],
-                label: t('golf.selectClubType'),
+                label: 'Select Club type',
                 styles: classes,
                 onChange: onChangeClubField,
                 idx: index++

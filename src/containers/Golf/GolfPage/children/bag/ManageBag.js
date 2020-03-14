@@ -4,7 +4,6 @@ import React, {
 } from 'react';
 
 import { StylesProvider } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 
 import { useClubData } from '@golfcontexts/dataProvider/AppDataProvider';
@@ -48,8 +47,6 @@ const ManageBag = ({ onSave, onCancel }) => {
 
     const classes = formStyles();
     
-    const { t } = useTranslation();
-
     useEffect(() => {
         
         let didCancel = false;
@@ -133,7 +130,7 @@ const ManageBag = ({ onSave, onCancel }) => {
     return (
         <StylesProvider>
             { !onSave  ? <ModuleHeader
-                label={ t('golf.whatsInTheBag') }
+                label={ `What's in the bag` }
                 screenheader={ true }
                 loading={ clubListDataIsLoading === true || bagDataIsLoading === true }/> : null }
              <PageContainerOrNot plain={ onSave !== undefined }>
