@@ -29,6 +29,7 @@ const usePlayer = (publicTypeIndex) => {
             const loadData = async () => {
 
                 try {
+
                     const playerIndex = publicTypeIndex.doc.findSubject(solid.forClass, golf.classes.Player);
 
                     if (!playerIndex) {
