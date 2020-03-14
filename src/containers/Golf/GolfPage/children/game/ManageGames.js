@@ -15,7 +15,8 @@ import {
     DialogTitle,
     DialogContent,
     DialogContentText,
-    DialogActions
+    DialogActions,
+    Button
 } from '@material-ui/core';
 
 import golf from '@golfconstants/golf-namespace';
@@ -34,10 +35,10 @@ import {
     FlexContainer,
     FlexItem
 } from '@golfstyles/layout.style';
-import deleteGame from '@containers/Golf/utils/deleteGame';
-import { Button } from '@containers/Profile/profile.style';
+import deleteGame from '@golfutils/deleteGame';
 
 import { makeStyles } from '@material-ui/core/styles';
+
 
 const dialogStyles = makeStyles(theme => ({
     root: {
