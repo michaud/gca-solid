@@ -15,18 +15,20 @@ const checkCanSave = (state, stateShape) => {
     
     if(!state) return ({
         can: false,
-        reasons: ['nothing to save']
+        reasons: []
     }) ;
     
     const tester = test(state);
 
     const reasons = [];
+
     const can = stateShape.shape.every(item => {
 
-        const tested = tester(item);
-        if(!tested.can) reasons.push(tested.reason);
+        const { can, reason } = tester(item);
 
-        return tester(item).can;
+        if(!can && reason !== '') reasons.push(reason);
+
+        return can;
     });
 
     return ({
