@@ -56,6 +56,7 @@ const About = () => {
                             <p><a href="https://michaud.inrupt.net/">michaud</a> built this.
                             It is an exploration of <a href="https://solidproject.org/">Solid</a> using 
                             the <a href="https://inrupt.com/sdk">SDK</a> by <a href="https://inrupt.com">Inrupt</a>.</p>
+                            <p>If you use the app and want to send me some love, and, although I'm not actively supporting this app, if there are any issues with the app, send me a tweet: <a href="https://twitter.com/michaudv">@michaud</a>, I'll see what I can do.</p>
                             <p>What I used:</p>
                             <ul>
                                 <li>Started with <a href="https://github.com/inrupt/generator-solid-react">inrupt / generator-solid-react</a> for generating the application framework</li>
@@ -70,7 +71,12 @@ const About = () => {
                                 <li><a href="https://solid.inrupt.com/docs/">Inrupt Solid docs</a></li>
                                 <li><a href="https://ruben.verborgh.org/blog/2018/12/28/designing-a-linked-data-developer-experience/">Ruben's article</a></li>
                             </ul>
+                            <p>You can find the source code @ <a href="https://github.com/michaud/gca-solid">github</a>.</p>
                             <p>Currently hosted @ <a href="https://gca-solid.now.sh/">https://gca-solid.now.sh</a> by <a href="https://zeit.co/home">ZEIT</a> using <a href="https://zeit.co/github">ZEIT Now for GitHub</a></p>
+                            <p>This program is distributed in the hope that it will be useful,
+                                but WITHOUT ANY WARRANTY; without even the implied warranty of
+                                MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the <a href="https://opensource.org/licenses/AGPL-3.0">GNU Affero General Public License</a> for more details.</p>
+                            <p>Copyright (C) 2020  Michaud Venant</p>
                         </div>
                     </div> :
                     null
