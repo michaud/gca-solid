@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
 
-import getFieldControl from '@utils/getFieldControl';
-import formStyles from '@styles/form.style';
 import Button from '@material-ui/core/Button';
+
+import getFieldControl from '@golfutils/getFieldControl';
+import formStyles from '@golfstyles/form.style';
 import {
     FlexContainer,
     FlexItemLabel,
     FlexItemValue,
     FlexItem,
     FlexItemRight
-} from '@styles/layout.style';
+} from '@golfstyles/layout.style';
 
 const checkFieldsChanged = (player, state) => {
 
-    const hasData = player !== undefined && state !== undefined;
-    const handicapChanged = player.handicap.value !== state.handicap.value;
 
-    return hasData && handicapChanged;
+    const hasData = player !== undefined && state !== undefined;
+    const handicapChanged = hasData && player.handicap.value !== state.handicap.value;
+
+    return handicapChanged;
 };
 
 const PlayerUpdate = ({
@@ -54,7 +56,7 @@ const PlayerUpdate = ({
 
     const canSave = checkFieldsChanged(player, playerState);
 
-    const handicapField = getFieldControl({
+    const handicapField = playerState && getFieldControl({
         data: playerState.handicap,
         styles: classes,
         onChange: onChangeHandicap,
@@ -62,34 +64,39 @@ const PlayerUpdate = ({
     });
     
     return (
-        <div className="c-box">
-            <header className="c-header--sec">{ title }</header>
-            <div className="c-box">
+        <div className="c-box" style={{ minHeight: '8rem' }}>
+            <header className="c-header nudge">{ title }</header>
+            { 
+                player ? <>
+                <div className="c-box">
+                    <FlexContainer>
+                        <FlexItemLabel>Name</FlexItemLabel>
+                        <FlexItemValue>{ `${ player.givenName.value } ${ player.familyName.value }`}</FlexItemValue>
+                    </FlexContainer>
+                </div>
+                { handicapField }
                 <FlexContainer>
-                    <FlexItemLabel>Name</FlexItemLabel>
-                    <FlexItemValue>{ `${ player.givenName.value } ${ player.familyName.value }`}</FlexItemValue>
-                </FlexContainer>
-            </div>
-            { handicapField }
-            <FlexContainer>
-                <FlexItem>
-                    <Button
+                    <FlexItem>
+                        <Button
+                            variant="contained"
+                            disabled={ !canSave }
+                            onClick={ saveHandler }
+                            className={ classes.button }
+                            color="primary">{ actionLabel }</Button>
+                    </FlexItem>
+                    <FlexItemRight>
+                    { onCancel && <Button
                         variant="contained"
                         disabled={ !canSave }
-                        onClick={ saveHandler }
+                        onClick={ onCancel }
                         className={ classes.button }
-                        color="primary">{ actionLabel }</Button>
-                </FlexItem>
-                <FlexItemRight>
-                { onCancel && <Button
-                    variant="contained"
-                    disabled={ !canSave }
-                    onClick={ onCancel }
-                    className={ classes.button }
-                    color="primary">Cancel</Button>
-                }
-                </FlexItemRight>
-            </FlexContainer>
+                        color="primary">Cancel</Button>
+                    }
+                    </FlexItemRight>
+                </FlexContainer>
+                </>
+                : null
+        }
         </div>
     );
 };

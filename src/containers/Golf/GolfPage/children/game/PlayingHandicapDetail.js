@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+    useState,
+    useEffect
+} from 'react';
 
-import displayStates from '@utils/displayStates';
-import EditActions from '@containers/Golf/components/EditActions';
-import playingHandicapShape from '@contexts/playing-handicap-shape.json';
-import golf from '@utils/golf-namespace';
-import PLayingHandicapForm from './PLayingHandicapForm';
+import ulog from 'ulog';
+
+import playingHandicapShape from '@golfcontexts/playing-handicap-shape.json';
+import displayStates from '@golfutils/displayStates';
+import golf from '@golfconstants/golf-namespace';
+
+import EditActions from '@golf/components/EditActions';
+import PLayingHandicapForm from '@golfpagectrl/game/PLayingHandicapForm';
 
 import {
     FieldContainer,
@@ -13,7 +19,9 @@ import {
     FlexItemLabel,
     FlexItemValue,
     FlexItemTools
-} from '@styles/layout.style';
+} from '@golfstyles/layout.style';
+
+const log = ulog('usePublicTypeIndex');
 
 const getFieldData = (field, handicap) => {
 
@@ -38,7 +46,8 @@ const getFieldData = (field, handicap) => {
         default: {
 
             value = 'error';
-            console.error('no field type', field)
+
+            log.error('error: ','no field type', field);
         }
     }
     
@@ -59,9 +68,7 @@ const PlayingHandicapDetail = ({ handicap, onChange }) => {
 
     useEffect(() => {
 
-        if (handicap) {
-            setHandicapState(handicap);
-        }
+        if (handicap) setHandicapState(handicap);
 
     }, [handicap]);
 
@@ -81,20 +88,24 @@ const PlayingHandicapDetail = ({ handicap, onChange }) => {
 
     return (
         <div className="c-box">
-            <header className="c-header--sec">Playing handicap</header>
+            <header className="c-header nudge">Playing handicap</header>
             <FieldContainer>
                 <FlexContainer>
                     <FlexItemData>
                     {
-                        displayFields.map((field, index) => <FlexContainer key={ index }>
+                        displayFields.map((field, index) => <FlexContainer key={ `${ field.predicate }${ index }` }>
                             <FlexItemLabel>{ field.label }</FlexItemLabel>
                             <FlexItemValue>{ field.value }</FlexItemValue>
                         </FlexContainer>)
                     }
                     </FlexItemData>
-                    <FlexItemTools>
-                        <EditActions onEdit={ onEdit }/>
-                    </FlexItemTools>
+                    {
+                        onChange !== undefined ? 
+                            <FlexItemTools>
+                                <EditActions onEdit={ onEdit }/>
+                            </FlexItemTools> :
+                            null
+                    }
                 </FlexContainer>
             </FieldContainer>
         </div>

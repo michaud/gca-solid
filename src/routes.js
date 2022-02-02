@@ -1,6 +1,13 @@
 import React, { Fragment } from 'react';
-import { PrivateLayout, PublicLayout, NotLoggedInLayout } from '@layouts';
+
 import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
+
+import {
+  PrivateLayout,
+  PublicLayout,
+  NotLoggedInLayout
+} from '@layouts';
+
 
 import {
   Login,
@@ -9,10 +16,7 @@ import {
   Welcome,
   RegistrationSuccess,
   Profile,
-  GameList,
-  GamePage,
-  GolfPage,
-  SplashScreen
+  GolfPage
 } from './containers';
 
 const privateRoutes = [
@@ -29,7 +33,7 @@ const privateRoutes = [
   {
     id: 'golf',
     path: '/golf',
-    component: SplashScreen
+    component: GolfPage
   },
   {
     id: 'golf',
@@ -62,31 +66,28 @@ const privateRoutes = [
     component: GolfPage
   },
   {
-    id: 'tictactoe',
-    path: '/tictactoe',
-    component: GameList
-  },
-  {
-    id: 'tictactoegame',
-    path: '/tictactoe/:gameId',
-    component: GamePage
+    id: 'golf',
+    path: '/golf/settings/games/new',
+    component: GolfPage
   }
 ];
 
-const Routes = () => (
+const Routes = () => {
+
+  return (
   <Router>
     <Fragment>
       <Switch>
-        <NotLoggedInLayout component={Login} path="/login" exact />
-        <NotLoggedInLayout component={Register} path="/register" exact />
-        <NotLoggedInLayout path="/register/success" component={RegistrationSuccess} exact />
-        <PublicLayout path="/404" component={PageNotFound} exact />
-        <Redirect from="/" to="/welcome" exact />
-        <PrivateLayout path="/" routes={privateRoutes} />
-        <Redirect to="/404" />
+        <NotLoggedInLayout component={ Login } path="/login" exact/>
+        <NotLoggedInLayout component={ Register } path="/register" exact />
+        <NotLoggedInLayout path="/register/success" component={ RegistrationSuccess } exact/>
+        <PublicLayout path="/404" component={ PageNotFound } exact/>
+        <Redirect from="/" to="/welcome" exact/>
+        <PrivateLayout path="/" routes={ privateRoutes }/>
+        <Redirect to="/404"/>
       </Switch>
     </Fragment>
   </Router>
-);
+)};
 
 export default Routes;

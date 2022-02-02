@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 
+import { IconButton } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import formStyles from '@styles/form.style';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLesIcon from '@material-ui/icons/ExpandLess';
 
+import formStyles from '@golfstyles/form.style';
 import {
     FlexContainer,
-    FlexItem,
-    FlexItemTools
-} from '@styles/layout.style';
-import { IconButton } from '@material-ui/core';
+    FlexItem
+} from '@golfstyles/layout.style';
 
 const GameSummary = ({
     game,
@@ -34,6 +33,7 @@ const GameSummary = ({
     const marker = `marker: ${ gameMarker.value.givenName.value } ${ gameMarker.value.familyName.value}`
 
     const playGameHandler = iri => () => onPlay && onPlay(iri);
+
     const onShowDetailHandler = iri => () => {
 
         setShowDetail(state => !state);
@@ -41,29 +41,29 @@ const GameSummary = ({
     };
 
     return (
-        <div className={ showDetail ? 'summary-container u-pad--bum' : 'summary-container' }>
-            <FlexContainer>
-                <FlexItem>
-                    <h2 className="game-container__header">{ title }</h2>
-                    <div className="c-box">{ holeCount }, { marker }</div>
+        <div className={ showDetail ? 'summary-container' : 'summary-container' }>
+            <FlexContainer alignitems="stretch">
+                <FlexItem className="summary__content">
+                    <h2 className="c-detail__header">{ title }</h2>
+                    <div>{ holeCount }, { marker }</div>
                 </FlexItem>
-                <FlexItemTools>
+                <FlexContainer narrow alignitems="center">
                     <Button
-                    variant="contained"
-                    onClick={ playGameHandler(game.iri) }
-                    className={ classes.button }
-                    color="primary">Play</Button>
-
+                        variant="contained"
+                        onClick={ playGameHandler(game.iri) }
+                        className={ classes.button }
+                        color="primary">Play</Button>
+                </FlexContainer>
+                <FlexContainer narrow alignitems="center">
                     { onShowDetail && <IconButton
                         color="primary"
                         aria-label="expand"
                         component="div"
-                        className={ classes.expandButton }
                         onClick={ onShowDetailHandler(gameId) }>
                         { !showDetail ? <ExpandMoreIcon fontSize="large"/> : <ExpandLesIcon  fontSize="large"/> }
                     </IconButton>
                     }
-                </FlexItemTools>
+                </FlexContainer>
             </FlexContainer>
         </div>
     );

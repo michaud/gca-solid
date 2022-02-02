@@ -1,88 +1,67 @@
 import React, { useState, useEffect } from 'react';
 
-import useMarkers from '@hooks/useMarkers';
-import { useTranslation } from 'react-i18next';
+import golf from '@golfconstants/golf-namespace';
+import getPlayer from '@golfservices/getPlayer';
+import deleteMarker from '@golfservices/deleteMarker';
+import saveResource from '@golfservices/saveResource';
+import { usePlayerData } from '@golfcontexts/dataProvider/AppDataProvider';
+import MarkerList from '@golfpagectrl/player/MarkerList';
+import PlayerDetail from '@golfpagectrl/player/PlayerDetail';
 
-import getPlayer from '@services/getPlayer';
-import golf from '@utils/golf-namespace';
-import MarkerList from './MarkerList';
-import PlayerDetail from './PlayerDetail';
-import { useNotification } from '@inrupt/solid-react-components';
-import { errorToaster } from '@utils/';
-import deleteMarker from '@services/deleteMarker';
-import saveResource from '@services/saveResource';
+const ManageMarkers = () => {
 
-const ManageMarkers = ({
-    webId
-}) => {
-
-    const [reload, setReload] = useState(false);
-    const { notification } = useNotification(webId);
-    const markerData = useMarkers(reload);
     const [markers, setMarkers] = useState([]);
-    const { t } = useTranslation();
+    const [newMarker, setNewMarker] = useState(getPlayer(undefined, golf.classes.Marker));
+    const {
+        markerListData,
+        reloadMarkers
+    } = usePlayerData();
+
+    useEffect(() => {
+
+        let didCancel = false;
+
+        const init = () => {
+
+            if(!didCancel) setMarkers(markerListData.list);
+        }
+
+        init();
+
+        return () => { didCancel = true; }
+
+    }, [markerListData.list]);
 
     const onSaveMarker = (marker) => {
 
         saveResource({
             resource: marker,
-            doc: markerData.doc,
+            doc: markerListData.doc,
             type: golf.classes.Marker
-        });
-        setReload(true);
+        }).then(() => reloadMarkers());
     };
 
     const onDeleteMarker = marker => {
 
-        deleteMarker(marker, markerData.doc);
-        setReload(true);
+        deleteMarker(marker, markerListData.doc);
+        reloadMarkers();
     };
+    const handleCancelAdd = () => {
 
-    const init = async () => {
-
-        try {   
-
-            if (markerData.list) {
-
-                const markerList = markerData.list;
-                setMarkers(markerList);
-                setReload(false);
-            }
-
-        } catch (e) {
-            /**
-             * Check if something fails when we try to create a inbox
-             * and show user a possible solution
-             */
-            if (e.name === 'Inbox Error') {
-                return errorToaster(e.message, 'Error', {
-                    label: t('errorCreateInbox.link.label'),
-                    href: t('errorCreateInbox.link.href')
-                });
-            }
-
-            errorToaster(e.message, 'Error');
-        }
+        setNewMarker(getPlayer(undefined, golf.classes.Marker));
     };
-
-    useEffect(() => {
-
-        if (webId && notification.notify) {
-            init();
-        }
-
-    }, [webId, markerData, notification.notify, reload]);
-
-    const marker = getPlayer(undefined, golf.classes.Marker);
 
     return (
         <>
             <header className="c-header">Markers</header>
-            <PlayerDetail
-                target="marker"
-                player={ marker }
-                onDelete={ onDeleteMarker }
-                onSave={ onSaveMarker }/>
+            <div className="c-box">
+                <PlayerDetail
+                    target="marker"
+                    player={ newMarker }
+                    onDelete={ onDeleteMarker }
+                    onSave={ onSaveMarker }
+                    onCancel={ handleCancelAdd }/>
+            </div>
             <MarkerList
                 markers={ markers }
                 onDelete={ onDeleteMarker }

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-import formStyles from '@styles/form.style';
-
+import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import { Paper, Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+
+import formStyles from '@golfstyles/form.style';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -21,12 +21,12 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const CourseSelector = ({courses = [], onChange }) => {
+const CourseSelector = ({ courses = [], selected, onChange }) => {
 
+    const [selectedCourse, setSelectedCourse] = useState(selected);
     const classes = formStyles();
     const classesmui = useStyles();
 
-    const [selectedCourse, setSelectedCourse] = useState();
 
     const handleListItemClick = course => () => {
 
@@ -36,8 +36,8 @@ const CourseSelector = ({courses = [], onChange }) => {
 
     return (
         <>
-            <header className="c-header--push">Select course</header>
-            <Grid container spacing={2} className={ classesmui.root }>
+            <header className="c-header nudge">Select course</header>
+            <Grid container className={ classesmui.root }>
                 <Grid item className={ classesmui.gridItem }>
                     <Paper className={ classes.listContainer }>
                         <List dense 
@@ -45,14 +45,16 @@ const CourseSelector = ({courses = [], onChange }) => {
                             component="div"
                             role="list">
                         {
-                            courses && courses.map((course, idx) => {
+                            courses && courses.map(course => {
 
                                 const secondaryText = `${ course.courseSlope.label }: ${ course.courseSlope.value }, holes: ${ course.courseHoles.value.length }`;
+                                const isSelected = course !== undefined && selectedCourse !== undefined && (selectedCourse.iri.split("#")[1] === course.iri.split("#")[1]); 
 
-                                return <ListItem key={ idx }
+                                return <ListItem key={ course.iri }
                                     className={ classes.listItem }
                                     role="listitem"
-                                    selected={ selectedCourse === course }
+                                    selected={ isSelected }
+                                    autoFocus={ true }
                                     onClick={ handleListItemClick(course) }
                                     button>
                                     <ListItemText

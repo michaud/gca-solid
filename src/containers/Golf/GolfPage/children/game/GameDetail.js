@@ -1,33 +1,39 @@
 import React, { useState } from 'react';
 
 import { format } from 'date-fns'
-import golf from '@utils/golf-namespace';
-import gameShape from '@contexts/game-shape.json';
-import displayStates from '@utils/displayStates';
-import GameForm from './GameForm';
-import HoleTable from '../hole/HoleTable';
-import CourseDetail from '../course/CourseDetail';
-import BagDetail from './BagDetail';
-import EditActions from '@containers/Golf/components/EditActions';
-import PlayerDetail from '../player/PlayerDetail';
-import PlayingHandicapDetail from './PlayingHandicapDetail';
+import golf from '@golfconstants/golf-namespace';
+import gameShape from '@golfcontexts/game-shape.json';
+import displayStates from '@golfutils/displayStates';
+
+import Button from '@material-ui/core/Button';
+
+import GameForm from '@golfpagectrl/game/GameForm';
+import HoleTable from '@golfpagectrl/hole/HoleTable';
+import BagDetail from '@golfpagectrl/game/BagDetail';
+import PlayerDetail from '@golfpagectrl/player/PlayerDetail';
+import PlayingHandicapDetail from '@golfpagectrl/game/PlayingHandicapDetail';
+import CourseSummary from '@golfpagectrl/course/CourseSummary';
+
+import formStyles from '@golfstyles/form.style';
 import {
     FlexContainer,
     FlexItemLabel,
     FlexItemValue,
-} from '@styles/layout.style';
+    FlexItem,
+    FlexItemRight,
+} from '@golfstyles/layout.style';
 
-const getDisplayField = (data, handlers, idx) => {
-    
-    switch (data.type) {
+const getDisplayField = (fieldData, idx, data) => {
+
+    switch (fieldData.type) {
         
         case golf.types.dateTime : {
 
-            const value = data.value instanceof Date ? format(new Date(data.value), 'dd-MM-yy HH:mm') : ''
+            const value = fieldData.value instanceof Date ? format(new Date(fieldData.value), 'dd-MM-yy HH:mm') : ''
 
             return (
                 <FlexContainer key={ idx }>
-                    <FlexItemLabel>{ data.label }</FlexItemLabel>
+                    <FlexItemLabel>{ fieldData.label }</FlexItemLabel>
                     <FlexItemValue>{ value }</FlexItemValue>
                 </FlexContainer>
             );
@@ -35,18 +41,22 @@ const getDisplayField = (data, handlers, idx) => {
 
         case golf.classes.Hole : {
 
-            const { editHoleHandler } = handlers;
-
+            const { playingHandicap } = data;
             return (
-                <HoleTable onEdit={ editHoleHandler }  key={ idx } holes={ data.value }/>
+                <div className="c-box">
+                    <label className="f-label--plain">holes</label>
+                    <HoleTable key={ idx } playingHandicap={ playingHandicap } holes={ fieldData.value }/>
+                </div>
             );
         }
 
         case golf.classes.Course : {
 
+            const { playingHandicap } = data;
+
             return (
                 <div className="u-pad--coppertop"  key={ idx }>
-                    <CourseDetail course={ data.value }/>
+                    <CourseSummary course={ fieldData.value } playingHandicap={ playingHandicap }/>
                 </div>
             );
         }
@@ -55,7 +65,7 @@ const getDisplayField = (data, handlers, idx) => {
 
             return (
                 <BagDetail key={ idx }
-                    bag={ data.value }/>
+                    bag={ fieldData.value }/>
             );
         }
 
@@ -63,7 +73,7 @@ const getDisplayField = (data, handlers, idx) => {
 
             return (
                 <PlayerDetail key={ idx }
-                    player={ data.value }/>
+                    player={ fieldData.value }/>
             );
         }
 
@@ -71,14 +81,15 @@ const getDisplayField = (data, handlers, idx) => {
 
             return (
                 <PlayerDetail key={ idx }
-                    player={ data.value }/>
+                    target="Marker"
+                    player={ fieldData.value }/>
             );
         }
 
         case golf.classes.GamePlayingHandicap: {
 
             return (
-                <PlayingHandicapDetail handicap={ data.value } key={ idx }/>
+                <PlayingHandicapDetail handicap={ fieldData.value } key={ idx }/>
             )
         }
 
@@ -86,8 +97,8 @@ const getDisplayField = (data, handlers, idx) => {
 
             return (
                 <FlexContainer key={ idx }>
-                    <FlexItemLabel>{ data.label }</FlexItemLabel>
-                    <FlexItemValue>{ data.value }</FlexItemValue>
+                    <FlexItemLabel>{ fieldData.label }</FlexItemLabel>
+                    <FlexItemValue>{ fieldData.value }</FlexItemValue>
                 </FlexContainer>
             );
         }
@@ -95,51 +106,39 @@ const getDisplayField = (data, handlers, idx) => {
 };
 
 const GameDetail = ({
-    game,
+    gameData,
     onSave,
     onDelete
 }) => {
 
     const [displayState, setDisplayState] = useState(displayStates.detail);
 
-    const onEdit = () => {
+    const classes = formStyles();
 
-        setDisplayState(displayStates.edit);
-    }
+    const onEditHandler = () => setDisplayState(displayStates.edit);
 
-    const cancelEdit = () => {
+    const onDeleteHandler = () => onDelete(gameData.game);
 
-        setDisplayState(displayStates.detail);
-    };
-
-    const onSaveHandler = () => {
+    const onSaveHandler = game => {
 
         onSave(game);
         setDisplayState(displayStates.detail);
     };
 
-    const onDeleteHandler = () => {
 
-        onDelete(game);
+    const onCancelHandler = () => {
+
+        setDisplayState(displayStates.detail);
     };
 
-    const editHoleHandler = index => {
-
-    };
-    
-    if(!game.iri) return <GameForm
-        title={ `Create game` }
-        actionLabel={ `Save game` }
-        onSave={ onSaveHandler }
-        onCancel={ cancelEdit }
-        game={ game }/>;
-
-    if(displayState === displayStates.edit) return <GameForm
-        title={ `Edit game` }
-        actionLabel={ `Save game` }
-        onSave={ onSaveHandler }
-        onCancel={ cancelEdit }
-        game={ game }/>;
+    if(displayState === displayStates.edit) return <div className="c-block">
+        <GameForm
+            title={ `Edit game` }
+            actionLabel={ `Save game` }
+            onSave={ onSaveHandler }
+            onCancel={ onCancelHandler }
+            game={ gameData.game }/>
+    </div>;
 
     const displayFields = [];
 
@@ -147,16 +146,36 @@ const GameDetail = ({
 
     gameShape.shape.forEach(field => {
         
-        displayFields.push(getDisplayField(game[field.predicate], {
-            editHoleHandler
-        }, count++));
+        displayFields.push(
+            getDisplayField(
+                gameData.game[field.predicate],
+                `${ field.predicate }${ count++ }`,
+                { playingHandicap: gameData.game.gamePlayingHandicap.value }
+            )
+        );
     });
 
     return (
-        <div>
-            {/* <header className="c-header">{ game.gameName.value }</header> */}
+        <div className="c-block">
+            <div className="c-box">
             { displayFields }
-            <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
+            </div>
+            <FlexContainer>
+                <FlexItem>
+                    <Button
+                        variant="contained"
+                        onClick={ onDeleteHandler }
+                        className={ classes.button }
+                        color="primary">Delete</Button>
+                </FlexItem>
+                <FlexItemRight>
+                    <Button
+                        variant="contained"
+                        onClick={ onEditHandler }
+                        className={ classes.button }
+                        color="primary">Edit</Button>
+                </FlexItemRight>
+            </FlexContainer>
         </div>
     );
 };

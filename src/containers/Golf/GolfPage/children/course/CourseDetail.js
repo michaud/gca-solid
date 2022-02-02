@@ -1,29 +1,26 @@
 import React, { useState } from 'react';
 
-import golf from '@utils/golf-namespace';
-import courseShape from '@contexts/course-shape.json';
 import {
-    FieldContainer,
     FlexContainer,
     FlexItemData,
-    FlexItemLabel,
-    FlexItemValue,
     FlexItemTools
-} from '@styles/layout.style';
+} from '@golfstyles/layout.style';
 
-import displayStates from '@utils/displayStates';
-import CourseForm from './CourseForm';
-import HoleTable from '../hole/HoleTable';
-import EditActions from '@containers/Golf/components/EditActions';
+import displayStates from '@golfutils/displayStates';
+
+import CourseForm from '@golfpagectrl/course/CourseForm';
+import EditActions from '@golf/components/EditActions';
+import { useCourseData } from '@golfcontexts/dataProvider/AppDataProvider';
+import deleteHoleFromCourse from '@golfutils/deleteHoleFromCourse';
 
 const CourseDetail = ({
     course,
     onSave,
-    onDelete,
-    showEdit = false
+    onDelete
 }) => {
 
     const [displayState, setDisplayState] = useState(displayStates.detail);
+    const { courseListData, reloadCourses } = useCourseData();
 
     const onEdit = () => {
 
@@ -35,7 +32,7 @@ const CourseDetail = ({
         setDisplayState(displayStates.detail);
     };
 
-    const onSaveHandler = () => {
+    const onSaveHandler = (course) => {
 
         onSave(course);
         setDisplayState(displayStates.detail);
@@ -46,68 +43,43 @@ const CourseDetail = ({
         onDelete(course);
     };
 
-    const editHoleHandler = index => {
+    const onDeleteHoleHandler = hole => {
 
-    };
-    
-    const getDisplayField = (field, index) => {
-
-        switch (field.type) {
-
-            case golf.classes.Hole : {
-
-                return <HoleTable onEdit={ editHoleHandler }  key={ index } holes={ field.value }/>;
-            }
-
-            default: {
-
-                return <FlexContainer key={ index }>
-                    <FlexItemLabel>{ field.label }</FlexItemLabel>
-                    <FlexItemValue>{ field.value }</FlexItemValue>
-                </FlexContainer>;
-            }
-        }
+        deleteHoleFromCourse(hole, course, courseListData);
+        reloadCourses();
     };
 
-    if(!course.iri) return <CourseForm
-        title={ `Create Course` }
-        actionLabel={ `Save Course` }
-        onSave={ onSaveHandler }
-        onCancel={ cancelEdit }
-        course={ course }/>;
-
-    if(displayState === displayStates.edit) return <CourseForm
-        title={ `Edit Course` }
-        actionLabel={ `Save Course` }
-        onSave={ onSaveHandler }
-        onCancel={ cancelEdit }
-        course={ course }/>;
-
-    const displayFields = [];
-
-    let count = 0;
-
-    courseShape.shape.forEach(field => {
-
-        displayFields.push(getDisplayField(course[field.predicate], count++));
-    });
+    const courseDescription = `${
+        course.courseName.value
+    }, ${
+        course.courseHoles.value.length
+    } ${
+        course.courseHoles.value.length > 1 ? 'holes' : 'hole'
+    }`;
 
     return (
-        <>
-        <header className="c-header--sec">Course</header>
-        <FieldContainer>
-            <FlexContainer>
-                <FlexItemData>
-                    { displayFields }
+        <div className="c-detail__container">
+            <FlexContainer alignitems="center">
+                <FlexItemData className="summary__content" vertical alignitems="center">
+                    <div>{ courseDescription }</div>
                 </FlexItemData>
-                { 
-                    showEdit && <FlexItemTools>
-                        <EditActions onEdit={ onEdit } onDelete={ onDeleteHandler }/>
-                    </FlexItemTools>
-                }
+                <FlexItemTools>
+                    <EditActions onEdit={ onEdit }/>
+                </FlexItemTools>
             </FlexContainer>
-        </FieldContainer>
-    </>
+            { displayState === displayStates.edit && (
+                <div className="c-block--akimbo c-box">
+                    <CourseForm
+                        title={ `Edit Course` }
+                        actionLabel={ `Save` }
+                        onSave={ onSaveHandler }
+                        onCancel={ cancelEdit }
+                        onDelete={ onDeleteHandler(course) }
+                        onDeleteHole={ onDeleteHoleHandler }
+                        course={ course }/>
+                </div>
+            )}
+        </div>
     );
 };
 

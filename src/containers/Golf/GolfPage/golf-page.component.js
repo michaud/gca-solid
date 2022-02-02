@@ -1,30 +1,24 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+
+import { Route } from 'react-router-dom';
 
 import { StylesProvider } from '@material-ui/core/styles';
 
-import GolfApp from '@containers/Golf/GolfPage/children/GolfApp';
-import PlayGame from '@containers/Golf/GolfPage/children/playGame/PlayGame';
-import ClubTypeContext from '@utils/clubTypeContext';
-import useClubDefinitions from '@hooks/useClubDefinitions';
+import { AppDataProvider } from '@golfcontexts/dataProvider/AppDataProvider';
 
-const GolfPage = ({ match, webId, history }) => {
-    
-    const clubTypeDefinitions = useClubDefinitions();
-    const clubTypeDefs = clubTypeDefinitions || { clubTypes: [], clubType: null };
+import GolfApp from '@golfpagectrl/GolfApp';
 
-    return (<StylesProvider>
-            <ClubTypeContext.Provider value={ clubTypeDefs }>
-                <Route>
-                    <Switch>
-                        <Route path="/golf/game/:gameid" render={ routerProps => <PlayGame { ...routerProps } webId={ webId } /> }/>
-                        <Route
-                            path="/golf"
-                            webId={ webId }
-                            render={routerProps => <GolfApp { ...routerProps } webId={ webId } />}/>
-                    </Switch>
-                </Route>
-            </ClubTypeContext.Provider>
+import '@golfcssstyles/_style.scss';
+
+const GolfPage = () => {
+
+    return (
+        <StylesProvider>
+            <AppDataProvider>
+                <Route
+                    path="/golf"
+                    render={ routerProps => <GolfApp { ...routerProps }/> } />
+            </AppDataProvider>
         </StylesProvider>
     );
 };

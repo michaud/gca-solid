@@ -1,143 +1,210 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+    useEffect,
+    useState
+} from 'react';
 
-import Button from '@material-ui/core/Button';
-import { useTranslation } from 'react-i18next';
-import { Redirect } from 'react-router-dom';
-import { useNotification } from '@inrupt/solid-react-components';
-import useGames from '@hooks/useGames';
-import ModuleHeader from '../ModuleHeader';
-import { errorToaster } from '@utils/';
-import { PageContainer } from '@styles/page.style';
-import GameForm from '@containers/Golf/GolfPage/children/game/GameForm';
-import GameList from '@containers/Golf/GolfPage/children/game/GameList';
-import { withClubTypeContext } from '@utils/clubTypeContext';
-import formStyles from '@styles/form.style';
-import golf from '@utils/golf-namespace';
-import saveResource from '@services/saveResource';
+import {
+    Redirect,
+    NavLink
+} from 'react-router-dom';
 
-const ManageGames = ({
-    match,
-    webId,
-    history,
-    clubTypes, clubType
-}) => {
+import SportsGolfIcon from '@material-ui/icons/SportsGolf';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import {
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+    Button
+} from '@material-ui/core';
 
-    const { notification } = useNotification(webId);
-    const classes = formStyles();
-    const [reload, setReload] = useState(false);
-    const gameData = useGames(clubTypes, clubType, reload);
-    const [currentGame, setCurrentGame] = useState();
-    const [games, setGames] = useState([]);
-    const [showGameForm, setShowGameForm] = useState(false);
-    const [playGame, setPlayGame] = useState();
+import golf from '@golfconstants/golf-namespace';
+import saveGameResourse from '@golfservices/saveGameResourse';
+import { useGameListData } from '@golfcontexts/dataProvider/AppDataProvider';
 
-    const { t } = useTranslation();
+import ModuleHeader from '@golf/components/ModuleHeader';
+import GameList from '@golfpagectrl/game/GameList';
+import IntroPanel from '@golf/components/IntroPanel';
 
-    const toggleShowGameForm = () => setShowGameForm(state => !state);
+import {
+    PageContainer,
+    PageContent
+} from '@golfstyles/page.style';
+import {
+    FlexContainer,
+    FlexItem
+} from '@golfstyles/layout.style';
+import deleteGame from '@golfutils/deleteGame';
 
-    const onSaveGameHandler = (game) => {
+import { makeStyles } from '@material-ui/core/styles';
 
-        saveResource({
-            resource: game,
-            doc: gameData.doc,
-            type: golf.classes.Game
-        });
 
-        setReload(true);
-    };
+const dialogStyles = makeStyles(theme => ({
+    root: {
+        justifyContent: 'stretch',
+        alignItems: 'stretch'
+    },
 
-    const onCancelHandler = () => {
-
-        setShowGameForm(false);
-    };
-
-    const onDeleteGameHandler = (game) => {
-
-//        deleteGame(game, gameData.doc);
-        setReload(true);
-    };
-
-    const onPlayGameHandler = (game) => {
-
-        setPlayGame(game.split('#')[1]);
-    };
-        
-    const init = async () => {
-
-        try {
-
-            if (gameData) {
-
-                const gameList = gameData.list;
-                setGames(gameList);
-
-                if(reload) {
-                    setCurrentGame();
-                }
-
-                setReload(false);
+    button: {
+        maxWidth: '100%',
+        flex: 1,
+        color: 'white',
+        '&:hover': {
+            color: 'white',
+            borderColor: 'darkgreen'
+        },
+        background: 'linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%)',
+        '& .MuiButton-label': {
+            color: 'white'
+        },
+        '&.Mui-disabled.Mui-disabled': {
+            background: 'linear-gradient(171deg, rgb(241, 234, 208) 0%, rgb(218, 208, 169) 100%)',
+        },
+        '&:disabled': {
+            opacity: 1,
+            '& .MuiButton-label': {
+                color: 'rgba(0,0,0,.5)'
             }
-
-
-        } catch (e) {
-            /**
-             * Check if something fails when we try to create a inbox
-             * and show user a possible solution
-             */
-            if (e.name === 'Inbox Error') {
-                return errorToaster(e.message, 'Error', {
-                    label: t('errorCreateInbox.link.label'),
-                    href: t('errorCreateInbox.link.href')
-                });
-            }
-
-            errorToaster(e.message, 'Error');
         }
-    };
+    },
+    angryButton: {
+        maxWidth: '100%',
+        flex: 1,
+        color: 'white',
+        '&:hover': {
+            color: 'white',
+            borderColor: 'darkgreen',
+            background: ' linear-gradient(45deg, rgba(111,195,34,0) 0%, rgba(106,190,30,0) 16%, rgba(105,189,29,1) 17%, rgba(99,183,24,1) 32%, rgba(99,183,24,0) 33%, rgba(94,177,19,0) 46%, rgba(93,176,18,1) 47%, rgba(89,171,14,1) 64%, rgba(88,170,13,0) 66%, rgba(82,163,8,0) 79%, rgba(81,162,7,1) 81%, rgba(73,153,0,1) 100%), linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%)'
+        },
+        background: 'linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%)',
+        '& .MuiButton-label': {
+            color: 'white'
+        },
+        '&.Mui-disabled.Mui-disabled': {
+            background: 'linear-gradient(171deg, rgb(241, 234, 208) 0%, rgb(218, 208, 169) 100%)',
+        },
+        '&:disabled': {
+            opacity: 1,
+            '& .MuiButton-label': {
+                color: 'rgba(0,0,0,.5)'
+            }
+        }
+    }
+}));
+
+
+const ManageGames = () => {
+
+    const [games, setGames] = useState([]);
+    const [playGame, setPlayGame] = useState(false);
+    const [deletedGame, setDeletedGame] = React.useState();
+    const classes = dialogStyles();
+
+    const {
+        gameListData,
+        gameListDataIsLoading,
+        reloadGames
+    } = useGameListData()
 
     useEffect(() => {
 
-        if (webId && notification.notify) {
-            init();
+        let didCancel = false;
+
+        const init = () => {
+
+            if (!didCancel) setGames(gameListData.list);
         }
 
-    }, [webId, gameData, notification.notify]);
+        init();
 
-    if (playGame) {
+        return () => { didCancel = true }
 
-        return <Redirect to={ `/golf/game/${ playGame }` } />
-    }
+    }, [gameListData]);
+
+    const deleteGameConfirmCloseHandler = (confirm) => async () => { 
+
+        if(confirm === true) {
+            await deleteGame(deletedGame, gameListData);
+            reloadGames();
+        }
+
+        setDeletedGame();
+    };
+
+    const onSaveGameHandler = game => {
+
+        saveGameResourse({
+            resource: game,
+            list: gameListData.doc,
+            type: golf.classes.Game
+        });
+
+        reloadGames();
+    };
+
+    const onDeleteGameHandler = async (game) => {
+
+        setDeletedGame(game);
+    };
+
+    const onPlayGameHandler = game => setPlayGame(game.split('#')[1]);
+
+    if (playGame) return <Redirect to={ `/golf/game/${playGame}` } />
 
     return (
         <>
-            <ModuleHeader label="Games" screenheader={ true }/>
+            <ModuleHeader label="Games"
+                screenheader={ true }
+                loading={ gameListDataIsLoading } />
             <PageContainer>
-                {
-                    showGameForm && <div className="c-box c-box--hold-height">
-                        <GameForm
-                            game={ currentGame }
-                            onSave={ onSaveGameHandler }
-                            onCancel={ onCancelHandler }/>
+                <PageContent>
+                    <div className="c-box">
+                        <IntroPanel
+                            icon={ <SportsGolfIcon className="c-content-icon plain" /> }>
+                            <NavLink className="a-intro-link" to="/golf/settings/games/new">
+                                <FlexContainer className="intro-summary" alignitems="center">
+                                    <FlexItem>
+                                        <h3 className="h-intro">Add a Game</h3>
+                                        <p>Do you feel lucky, punk?</p>
+                                    </FlexItem>
+                                    <FlexItem narrow>
+                                        <ArrowForwardIosIcon className="action-intro" />
+                                    </FlexItem>
+                                </FlexContainer>
+                            </NavLink>
+                        </IntroPanel>
                     </div>
-                }
-                {
-                    !showGameForm && <div className="c-box">
-                        <Button
-                            variant="contained"
-                            onClick={ toggleShowGameForm }
-                            className={ classes.button }
-                            fullWidth={ true }
-                            color="primary">New game</Button>
-                    </div>
-                }
-                <GameList
-                    games={ games }
-                    onDelete={ onDeleteGameHandler }
-                    onSave={ onSaveGameHandler }
-                    onPlay={ onPlayGameHandler }/>
+                    <GameList
+                        games={ games }
+                        onDelete={ onDeleteGameHandler }
+                        onSave={ onSaveGameHandler }
+                        onPlay={ onPlayGameHandler } />
+                </PageContent>
             </PageContainer>
+            <Dialog
+                open={ deletedGame !== undefined }
+                onClose={ deleteGameConfirmCloseHandler() }
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description">
+                <DialogTitle id="alert-dialog-title">Delete { deletedGame ? deletedGame.gameName.value : '' }?</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Ok, this is final so you get an 'are you sure' pop-up, sorry.
+                        You realy want to delete: { deletedGame ? deletedGame.gameName.value : '' }?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions className={ classes.root }>
+                    <Button className={ classes.button } onClick={ deleteGameConfirmCloseHandler() } color="primary">
+                        Ah, sorry,<br/>didn't mean it
+                    </Button>
+                    <Button className={ classes.angryButton } onClick={ deleteGameConfirmCloseHandler(true) } color="primary" autoFocus>
+                        Yep, delete already!
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </>
     );
 };
 
-export default withClubTypeContext(ManageGames);
+export default ManageGames;

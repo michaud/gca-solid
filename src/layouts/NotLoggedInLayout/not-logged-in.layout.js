@@ -1,20 +1,17 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { withTranslation, useTranslation } from 'react-i18next';
-import { NavBar, Footer } from '@components';
+import { NavBar } from '@components';
 import { withWebId } from '@inrupt/solid-react-components';
 import { LanguageDropdown } from '@util-components';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  height: 100%;
-  position: relative;
-`;
-
-const FooterContainer = styled.div`
   position: absolute;
-  bottom: 0;
-  width: 100%;
+  top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 `;
 
 const NotLoggedInLayout = props => {
@@ -23,7 +20,7 @@ const NotLoggedInLayout = props => {
   const ComponentWrapper = styled(Component)`
     padding-bottom: 60px;
     height: 100%;
-    padding-top: 60px;
+    padding-top: 45px;
   `;
   return !webId ? (
     <Route
@@ -40,9 +37,6 @@ const NotLoggedInLayout = props => {
             ]}
           />
           <ComponentWrapper {...matchProps} />
-          <FooterContainer>
-            <Footer />
-          </FooterContainer>
         </Container>
       )}
     />

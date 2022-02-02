@@ -1,82 +1,74 @@
 import React, { useState, useEffect } from 'react';
-import ManageMarkers from './ManageMarkers';
-import ModuleHeader from '@containers/Golf/GolfPage/children/ModuleHeader';
-import { useTranslation } from 'react-i18next';
-import { useNotification } from '@inrupt/solid-react-components';
-import PlayerDetail from '@containers/Golf/GolfPage/children/player/PlayerDetail';
-import usePlayer from '@hooks/usePlayer';
-import { errorToaster } from '@utils/';
-import { PageContainer } from '@styles/page.style';
-import golf from '@utils/golf-namespace';
-import saveResource from '@services/saveResource';
 
-const ManagePlayers = ({
-    match,
-    webId,
-    history
-}) => {
+import { usePlayerData } from '@golfcontexts/dataProvider/AppDataProvider';
 
-    const { notification } = useNotification(webId);
+import golf from '@golfconstants/golf-namespace';
+import saveResource from '@golfservices/saveResource';
+
+import ModuleHeader from '@golf/components/ModuleHeader';
+import ManageMarkers from '@golfpagectrl/player/ManageMarkers';
+import PlayerDetail from '@golfpagectrl/player/PlayerDetail';
+
+
+import {
+    PageContainer,
+    PageContent
+} from '@golfstyles/page.style';
+
+const ManagePlayers = () => {
+
     const [player, setPlayer] = useState();
-    const [reload, setReload] = useState(false);
-    const playerDetails = usePlayer(reload);
-    const { t } = useTranslation();
 
-    const onSavePlayer = (playerData) => {
-
-        saveResource({
-            resource: playerData,
-            doc: playerDetails.doc,
-            type: golf.classes.Player
-        });
-        
-        setReload(true);
-    };
-
-    const init = async () => {
-
-        try {
-
-            if (playerDetails) {
-
-                setPlayer(playerDetails.player);
-                setReload(false)
-            }
-
-        } catch (e) {
-            /**
-             * Check if something fails when we try to create a inbox
-             * and show user a possible solution
-             */
-            if (e.name === 'Inbox Error') {
-                return errorToaster(e.message, 'Error', {
-                    label: t('errorCreateInbox.link.label'),
-                    href: t('errorCreateInbox.link.href')
-                });
-            }
-
-            errorToaster(e.message, 'Error');
-        }
-    };
+    const {
+        playerData,
+        playerDataIsLoading,
+        reloadPlayer
+    } = usePlayerData();
 
     useEffect(() => {
 
-        if (webId && notification.notify) {
-            init();
+        let didCancel = false;
+
+        const init = () => {
+
+            if (!didCancel) setPlayer(playerData.player);
         }
 
-    }, [webId, playerDetails, reload, notification.notify]);
+        init();
+
+        return () => { didCancel = true; }
+
+    }, [playerData]);
+
+    const onSavePlayer = (player) => {
+
+        saveResource({
+            resource: player,
+            doc: playerData.doc,
+            type: golf.classes.Player
+        }).then(() => reloadPlayer());
+    };
 
     return (
         <>
-            <ModuleHeader label={ t('golf.players') } screenheader={ true }/>
+            <ModuleHeader
+                label="Players"
+                screenheader={ true }
+                loading={ playerDataIsLoading } />
             <PageContainer>
-                { 
-                    player && <PlayerDetail
-                        onSave={ onSavePlayer }
-                        player={ player }/> 
-                }
-                <ManageMarkers webId={ webId }/>
+                <PageContent>
+                    {
+                        player && <div className="c-box">
+                            <PlayerDetail
+                                onSave={ onSavePlayer }
+                                showEdit={ true }
+                                player={ player } />
+                        </div>
+                    }
+                    {
+                        player && <ManageMarkers />
+                    }
+                </PageContent>
             </PageContainer>
         </>
     );

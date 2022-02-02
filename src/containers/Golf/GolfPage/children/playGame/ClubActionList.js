@@ -1,10 +1,13 @@
 import React from 'react';
-import golf from '@utils/golf-namespace';
-import ClubAction from './ClubAction';
+
+import golf from '@golfconstants/golf-namespace';
+
+import ClubAction from '@golfpagectrl/playGame/ClubAction';
 
 const ClubActionList = ({ clubs, onAction }) => {
 
     const onStrokeWithClub = club => () => {
+
         onAction && onAction(club);
     };
 
@@ -28,11 +31,11 @@ const ClubActionList = ({ clubs, onAction }) => {
     return (
         <ol className="plain-list play-bag-club-list">
         {
-            clubs && clubs.map((club, idx) => {
+            clubs && clubs.map(club => {
 
                 const classString = getClassNameFromClubType(club);
                 
-                return <ClubAction key={ idx }
+                return <ClubAction key={ club.iri }
                     club={ club }
                     classString={ classString }
                     onStrokeWithClub={ onStrokeWithClub }/>

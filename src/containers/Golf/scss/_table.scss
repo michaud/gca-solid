@@ -1,0 +1,172 @@
+.hole-table {
+
+    border: none;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+
+    &:last-child {
+
+        margin-bottom: 0;
+    }
+
+    td, th {
+
+        padding: .35rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        text-align: center;
+        font-size: .95rem;
+    }
+    
+    td {
+
+        border: 1px solid green;
+
+        &.hole-table__cell--empty {
+
+            border-color: rgb(218, 208, 169);
+        }
+        &.invalid {
+            border: 2px solid red;
+        }
+        &.hole-table__cell--score {
+            font-weight: bold;
+        }
+    }
+    .t-row--player-score {
+
+        td:first-child {
+
+            position: relative;
+
+            &:after {
+
+                content: "player";
+                display: block;
+                font-size: .7rem;
+                position: absolute;
+                width: 100%;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+        }
+    }
+
+    .t-row--marker-score {
+
+        td:first-child {
+
+            position: relative;
+
+            &:after {
+
+                content: "marker";
+                display: block;
+                font-size: .7rem;
+                margin: 0;
+                position: absolute;
+                width: 100%;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+        }
+    }
+
+    .t-row--par {
+
+        td:first-child {
+
+            position: relative;
+
+            &:after {
+
+                content: "par";
+                display: block;
+                font-size: .7rem;
+                margin: 0;
+                position: absolute;
+                width: 100%;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+        }
+    }
+
+    .t-row--si {
+
+        td:first-child {
+
+            position: relative;
+
+            &:after {
+
+                content: "S.I.";
+                display: block;
+                font-size: .7rem;
+                margin: 0;
+                position: absolute;
+                width: 100%;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+        }
+    }
+
+    .t-row--length {
+
+        td:first-child {
+
+            position: relative;
+
+            &:after {
+
+                content: "length";
+                display: block;
+                font-size: .7rem;
+                margin: 0;
+                position: absolute;
+                width: 100%;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+        }
+    }
+}
+
+.hole-table__header--button {
+
+    border: none;
+    border-radius: 3px;
+    background: linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%);
+    color: rgba(255, 255, 255, 0.9);
+    span {
+        pointer-events: none;
+    }
+
+    &:hover {
+
+        background: linear-gradient(171deg, rgb(55, 127, 0) 0%, rgb(25, 86, 0) 100%);
+    }
+
+    &:active {
+
+        background: linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%);
+    }
+}
+
+.hole-table__header--empty {
+
+    background: linear-gradient(171deg, rgb(241, 234, 208) 0%, rgb(218, 208, 169) 100%);
+    border: 1px solid rgb(218, 208, 169);
+    border-radius: 3px;
+}
+
+.hole-table__cell--empty {
+
+    border-color: rgb(218, 208, 169);
+}

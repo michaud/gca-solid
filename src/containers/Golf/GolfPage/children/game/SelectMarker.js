@@ -1,18 +1,23 @@
 import React from 'react';
 
 import Button from '@material-ui/core/Button';
-import MarkerSelector from './MarkerSelector';
+import MarkerSelector from '@golfpagectrl/game/MarkerSelector';
 
-import formStyles from '@styles/form.style';
+import formStyles from '@golfstyles/form.style';
 
-const SelectMarker = ({ markers = [], onSave, onChange }) => {
+const SelectMarker = ({
+    markers = [],
+    selected,
+    onChange,
+    onAdd
+}) => {
 
     const classes = formStyles();
 
     const hasMarkers = markers.length > 0;
 
-    const saveHandler = () => {
-
+    const addHandler = () => {
+        onAdd();
     };
 
     const displayFields = [];
@@ -22,17 +27,18 @@ const SelectMarker = ({ markers = [], onSave, onChange }) => {
         displayFields.push(<MarkerSelector
             key={ 0 }
             markers={ markers }
+            selected={ selected }
             onSelect={ onChange }/>)
     }
 
     displayFields.push(<Button key={ displayFields.length }
         variant="contained"
-        onClick={ saveHandler }
+        onClick={ addHandler }
         className={ classes.button }
         color="primary">Add Marker</Button>)
 
     return (
-        <div className="c-box">{ displayFields }</div>
+        <div className="c-box" style={{ minHeight: '19.687rem' }}>{ displayFields }</div>
     );
 };
 

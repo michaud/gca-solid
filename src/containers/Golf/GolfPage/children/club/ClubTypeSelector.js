@@ -1,18 +1,19 @@
 import React from 'react';
 
-import { withClubTypeContext } from '@utils/clubTypeContext';
-
-import formStyles from '@styles/form.style';
 import AutoComplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
+
+import { useClubData } from '@golfcontexts/dataProvider/AppDataProvider';
+
+import formStyles from '@golfstyles/form.style';
 
 const ClubTypeSelector = ({
     label,
     value,
-    onChange,
-    clubTypes
+    onChange
 }) => {
 
+    const { clubDefinitions } = useClubData();
     const classes = formStyles();
 
     const handleOnChange = (event, value) => {
@@ -22,7 +23,7 @@ const ClubTypeSelector = ({
 
     return (
         <AutoComplete
-            options={ clubTypes }
+            options={ clubDefinitions.clubTypes }
             getOptionLabel={ option => option === "" ? "" : option.label }
             renderInput={ params => (
                 <TextField
@@ -37,4 +38,4 @@ const ClubTypeSelector = ({
     );
 };
 
-export default withClubTypeContext(ClubTypeSelector);
+export default ClubTypeSelector;

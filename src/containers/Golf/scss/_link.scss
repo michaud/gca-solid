@@ -1,0 +1,17 @@
+a {
+    color: green;
+    
+    &:hover {
+        &:visited {
+            color: black;
+        }
+    }
+
+    &:visited {
+        color: green;
+    }
+}
+.a-intro-link {
+    display: block;
+    text-decoration: none;
+}

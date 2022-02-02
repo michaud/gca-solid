@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import GameDetail from './GameDetail';
-import GameSummary from './GameSummary';
+import GameDetail from '@golfpagectrl/game/GameDetail';
+import GameSummary from '@golfpagectrl/game/GameSummary';
 
 const GameList = ({
     games,
@@ -25,7 +25,6 @@ const GameList = ({
     const onPlayGameHandler = iri => onPlay(iri);
     
     const onShowDetailHandler = iri => {
-        console.log('iri: ', iri);
         
         setShowDetail(state => iri === state ? undefined : iri);
     };
@@ -33,15 +32,15 @@ const GameList = ({
     return (
         <div>
             {
-                games && games.length > 0 && games.map((game, index) => <div className="game-container" key={ index }>
+                games && games.length > 0 && games.map(gameData => <div className="c-detail__container" key={ gameData.game.iri }>
                     <GameSummary
-                        game={ game }
+                        game={ gameData.game }
                         onPlay={ onPlayGameHandler }
                         onShowDetail={ onShowDetailHandler }/>
-                    { showDetail && showDetail === game.iri && <GameDetail
+                    { showDetail && showDetail === gameData.game.iri && <GameDetail
                         onSave={ onSaveGameHandler }
                         onDelete={ onDeleteGameHandler }
-                        game={ game } />
+                        gameData={ gameData } />
                     }
                 </div>)
             }

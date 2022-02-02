@@ -1,0 +1,76 @@
+.c-header {
+
+    margin: 0 0 1rem 0;
+    font-family: "archivo_narrowsemibold";
+    font-size: 1.25rem;
+
+    &.nudge {
+        margin: 0 0 .5rem 0;
+    }
+
+    .push {
+        margin: 0 0 1rem 0;
+    }
+
+    .shove {
+        margin: 0 0 1.5rem 0;
+    }
+}
+
+.hole-list--item {
+
+    margin: 1rem 0;
+}
+
+.header--action {
+
+    display: flex;
+    padding: 0 1rem .5rem 1rem;
+
+    margin: 0;
+    align-items: center;
+    font-size: 1.5rem;
+    flex-direction: row;
+    position: relative;
+}
+
+.header--screen {
+    padding: 0 1rem 0 5rem;
+    min-height: 4rem;
+    background: linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%);
+    font-family: $header-font-stack;
+    font-weight: normal;
+    color: rgba(255,255,255,.75);
+    font-size: 1.55rem;
+}
+
+.header--action__text {
+    flex: 1 0;
+    z-index: 1;
+}
+
+/*override inrupt theming*/
+header.header, footer.footer, header.header__desktop {
+    height: 45px;
+}
+
+.nav.nav__primary > ul {
+    height: 45px;
+}
+
+nav.nav > ul {
+    min-height: 45px;
+}
+
+nav.nav__primary > ul > li > a:hover,
+nav.nav__primary > ul > li > a.active,
+nav.nav__primary > ul > li > button:hover,
+nav.nav__primary > ul > li > button.active {
+    background: transparent;
+    border-bottom: 4px solid rgb(0, 128, 0);
+
+}
+
+.mobile-navigation__toggle > button, .mobile-navigation__toggle > a {
+    padding: 0 1rem;
+}

@@ -2,17 +2,20 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const bagTransferListStyles = makeStyles(theme => ({
     grid: {
-            display: 'grid',
-            gridTemplateColumns: '1fr 4rem 1fr',
-            gridTemplateRows: '2rem 1fr',
-            gridColumnGap: '.75rem',
-            gridRowGap: '0px'
+        display: 'grid',
+        gridTemplateColumns: '1fr 2.8rem 1fr',
+        gridTemplateRows: '2rem 1fr',
+        gridColumnGap: '.75rem',
+        gridRowGap: '0px',
+        margin: '0 -1rem'
     },
     gridLeftHeader: {
-        gridArea: '1 / 1 / 2 / 2'
+        gridArea: '1 / 1 / 2 / 2',
+        padding: '0 0 0 1rem'
     },
     gridRightHeader: {
-        gridArea: '1 / 3 / 2 / 4'
+        gridArea: '1 / 3 / 2 / 4',
+        padding: '0 0 0 1rem'
     },
     gridLeft: {
         gridArea: '2 / 1 / 3 / 2',
@@ -48,13 +51,15 @@ const bagTransferListStyles = makeStyles(theme => ({
     },
     button: {
         margin: theme.spacing(0.5, 0),
+        minWidth: 45,
+        minHeight: 45
     },
     listItem: {
-        paddingLeft: '.5rem',
+        paddingLeft: '0',
         paddingRight: '.5rem'
     },
     listItemIcon: {
-        minWidth: '2.5rem'
+        minWidth: '2rem'
     },
     listItemText: {
         margin: '.125rem 0'

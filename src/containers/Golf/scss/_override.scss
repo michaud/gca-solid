@@ -1,0 +1,22 @@
+.logo-block {
+    padding-left: 1rem!important;
+    padding: 1.4rem 1rem 1rem 1rem;
+}
+
+.mobile-navigation__toggle > button {
+    padding: .3rem .8rem 0 1rem;
+}
+
+.c-content-icon {
+
+    &.MuiSvgIcon-root {
+
+        width: 2.25rem;
+        height: 2.25rem;
+
+        &.plain {
+
+            fill: rgb(55, 116, 0);
+        }
+    }
+}

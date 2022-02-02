@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import holeShape from '@contexts/hole-shape.json';
 import update from 'immutability-helper';
-import setupDataObject from '@utils/setupDataObject';
+
 import Button from '@material-ui/core/Button';
-import formStyles from '@styles/form.style';
-import { useTranslation } from 'react-i18next';
-import checkCanSave from '@utils/checkCanSave';
-import getFieldValue from '@utils/getFieldValue';
-import getFieldControl from '@utils/getFieldControl';
+import holeShape from '@golfcontexts/hole-shape.json';
+import setupDataObject from '@golfutils/setupDataObject';
+import checkCanSave from '@golfutils/checkCanSave';
+import getFieldValue from '@golfutils/getFieldValue';
+import getFieldControl from '@golfutils/getFieldControl';
+
+import formStyles from '@golfstyles/form.style';
 import {
     FlexContainer,
     FlexItem,
     FlexItemRight,
-} from '@styles/layout.style';
+} from '@golfstyles/layout.style';
 
 const HoleForm = ({
     hole: holeData,
@@ -21,27 +22,64 @@ const HoleForm = ({
     onSave,
     onEdit,
     onCancel,
+    onDelete,
     title = 'Add hole',
-    actionLabel = 'add hole'
+    actionLabel = 'add',
+    availableStrokeIndices,
+    availableHoleNumbers
 }) => {
 
     const [holeState, setHoleState] = useState();
+    const [canDelete, setCanDelete] = useState(false);
     const focusRef = useRef();
     const classes = formStyles();
-    const { t } = useTranslation();
-    const holeFields = [];
+
+    useEffect(() => {
+
+        let didCancel = false;
+
+        const update = () => {
+
+            if(holeData) {
+                
+                if(!didCancel) {
+                    setHoleState(holeData);
+                    setCanDelete(true);
+                }
+
+            } else {
+
+                if(!didCancel) {
+                    setHoleState(setupDataObject(holeShape, {
+                        holeNumber
+                    }));
+
+                    setCanDelete(false);
+                }
+            }
+        }
+
+        update();
+
+        return () => { didCancel = true; }
+
+    }, [holeData, holeNumber]);
 
     const saveHandler = () => {
 
         if(holeData) {
+
             onEdit(holeState);
+            setCanDelete(true);
         } else {
+            
             onSave(holeState);
+            focusRef.current.focus();
         }            
     };
 
     const onChangeHoleField = fieldDef => (...args)  => {
-
+        
         const value = getFieldValue(fieldDef, args);
 
         setHoleState(state => update(state, {
@@ -49,21 +87,9 @@ const HoleForm = ({
         }));
     };
 
-    useEffect(() => {
+    const onDeleteHandler = hole => () => onDelete(hole);
 
-        holeData ? setHoleState(holeData) : setHoleState(setupDataObject(holeShape, {
-            holeNumber
-        }));
-
-        if(focusRef && focusRef.current) {
-
-            const { current } = focusRef;
-            current.focus();
-            current.select();
-        }
-
-    }, [holeData, holeNumber, focusRef.current]);
-
+    const holeFields = [];
 
     if(holeState) {
 
@@ -76,34 +102,52 @@ const HoleForm = ({
                 styles: classes,
                 onChange: onChangeHoleField,
                 inputRef: focusRef,
-                idx: index++
+                availableStrokeIndices,
+                availableHoleNumbers,
+                idx: `${ field.predicate }${ index++ }`
             });
+
             holeFields.push(fieldControl);
         });
     }
-    
+
     const canSave = checkCanSave(holeState, holeShape);
+    const handleDelete = typeof(onDelete) === 'function' ? onDeleteHandler : undefined;
 
     return (
-        <div>
+        <div style={{ marginTop: '1rem' }} className="c-box">
             <header className="c-header">{ title }</header>
+            <div className="hole-form-layout">
             { holeFields }
+            </div>
             <FlexContainer>
                 <FlexItem>
                     <Button
                         variant="contained"
-                        disabled={ !canSave }
+                        disabled={ !canSave.can }
                         onClick={ saveHandler }
                         className={ classes.button }
                         color="primary">{ actionLabel }</Button>
                 </FlexItem>
+                {
+                    handleDelete ? (
+                        <FlexItem>
+                            <Button
+                                variant="contained"
+                                disabled={ !canDelete }
+                                onClick={ handleDelete(holeState) }
+                                className={ classes.button }
+                                color="primary">Delete</Button>
+                        </FlexItem>
+                    ) : null
+                }
                 <FlexItemRight>
                 { onCancel && <Button
                     variant="contained"
-                    disabled={ !canSave }
+                    disabled={ !canSave.can }
                     onClick={ onCancel }
                     className={ classes.button }
-                    color="primary">{ t('golf.cancel') }</Button>
+                    color="primary">Cancel</Button>
                 }
                 </FlexItemRight>
             </FlexContainer>

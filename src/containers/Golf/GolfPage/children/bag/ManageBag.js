@@ -1,37 +1,78 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+    useEffect,
+    useState
+} from 'react';
 
 import { StylesProvider } from '@material-ui/core/styles';
-import { errorToaster } from '@utils';
-import { useNotification } from '@inrupt/solid-react-components';
-import useClubs from '@hooks/useClubs';
-import useBagClubs from '@hooks/useBagClubs';
-import { useTranslation } from 'react-i18next';
+import Button from '@material-ui/core/Button';
 
-import removeFromBag from '@services/removeFromBag';
-import addToBag from '@services/addToBag';
-import deleteClub from '@services/deleteClub';
+import { useClubData } from '@golfcontexts/dataProvider/AppDataProvider';
+import removeClubsFromBag from '@golfservices/removeClubsFromBag';
+import addToBag from '@golfservices/addToBag';
+import deleteClub from '@golfservices/deleteClub';
+import saveResource from '@golfservices/saveResource';
 
-import ClubForm from '@containers/Golf/GolfPage/children/club/ClubForm';
-import ClubList from '@containers/Golf/GolfPage/children/club/ClubList';
-import ModuleHeader from '@containers/Golf/GolfPage/children/ModuleHeader';
-import BagTransferList from '@containers/Golf/GolfPage/children/bag/BagTransferList';
-import { PageContainer } from '@styles/page.style';
-import saveResource from '@services/saveResource';
-import golf from '@utils/golf-namespace';
-import { withClubTypeContext } from '@utils/clubTypeContext';
+import golf from '@golfconstants/golf-namespace';
+import {
+    PageContainer,
+    PageContent
+} from '@golfstyles/page.style';
 
-const ManageBag = ({ match, webId, history, clubTypes, clubType }) => {
+import ClubList from '@golfpagectrl/club/ClubList';
+import ModuleHeader from '@golf/components/ModuleHeader';
+import BagTransferList from '@golfpagectrl/bag/BagTransferList';
+import ClubForm from '@golfpagectrl/club/ClubForm';
 
-    const { notification } = useNotification(webId);
-    const [reload, setReload] = useState(false);
+import {
+    FlexContainer,
+    FlexItem,
+    FlexItemRight,
+} from '@golfstyles/layout.style';
+import formStyles from '@golfstyles/form.style';
 
-    const bagData = useBagClubs(clubTypes, clubType, reload);
-    const clubListData = useClubs(clubTypes, clubType, reload);
+const ManageBag = ({ onSave, onCancel }) => {
+
     const [clubs, setClubs] = useState();
-    const [bagClubs, setBagClubs] = useState();
-    const { t } = useTranslation();
+    const [bagClubsState, setBagClubsState] = useState();
 
-    const addClubHandler = async (club) => {
+    const {
+        clubDefinitions,
+        clubListData,
+        clubListDataIsLoading,
+        reloadClubs,
+        bagData,
+        reloadBag,
+        bagDataIsLoading
+    } = useClubData();
+
+    const classes = formStyles();
+    
+    useEffect(() => {
+        
+        let didCancel = false;
+
+        const init = () => {
+
+            if(!didCancel && clubListData.doc && bagData.doc) {
+
+                setClubs(clubListData.list);
+
+                setBagClubsState(bagData.bag.clubs.value);
+            }
+        }
+
+        init();
+
+        return () => { didCancel = true; }
+
+    }, [
+        clubListData.list,
+        bagData.bag,
+        clubs,
+        bagClubsState
+    ]);
+
+    const addClubHandler = club => {
 
         if (!clubListData) return;
 
@@ -39,95 +80,100 @@ const ManageBag = ({ match, webId, history, clubTypes, clubType }) => {
             resource: club,
             doc: clubListData.doc,
             type: golf.classes.Club
-        });
-        setReload(true);
+        }).then(() => reloadClubs());
     };
 
-    const saveClubHandler = async (club) => {
+    const saveClubHandler = club => {
         
         saveResource({
             resource: club,
             doc: clubListData.doc,
             type: golf.classes.Club
-        });
-        setReload(true);
+        }).then(() => reloadClubs());
     };
 
     const deleteClubHandler = club => {
 
-        removeFromBag([club], bagData.doc);
+        const isClubInBag = bagData.bag.clubs.value.find(testClub => testClub.iri === club.iri);
+
+        if(isClubInBag) removeClubsFromBag([club], bagData.doc);
+
         deleteClub(club, clubListData.doc);
-        setReload(true);
+        reloadClubs();
+        reloadBag();
     };
 
     const addToBagHandler = (clubs) => {
-        
+
         addToBag(clubs, bagData.doc);
-        setReload(true)
+        reloadClubs();
+        reloadBag();
     };
     
-    const removeFromBagHandler = (clubs) => {
+    const removeClubsFromBagHandler = (clubs) => {
+
+        removeClubsFromBag(clubs, bagData.doc);
+        reloadClubs();
+        reloadBag();
+    };
+
+    const PageContainerOrNot = ({ plain, children }) => {
         
-        removeFromBag(clubs, bagData.doc);
-        setReload(true)
+        return plain ? children :
+        <PageContainer>
+            <PageContent>
+            { children }
+            </PageContent>
+        </PageContainer>;
     };
-
-    const init = async () => {
-
-        try {
-
-            if (clubListData) {
-
-                const clubs = clubListData.list;
-                setClubs(clubs);
-                setReload(false);
-            }
-
-            if(bagData) {
-
-                setBagClubs(bagData);
-            }
-        } catch (e) {
-            /**
-             * Check if something fails when we try to create a inbox
-             * and show user a possible solution
-             */
-            if (e.name === 'Inbox Error') {
-                return errorToaster(e.message, 'Error', {
-                    label: t('errorCreateInbox.link.label'),
-                    href: t('errorCreateInbox.link.href')
-                });
-            }
-
-            errorToaster(e.message, 'Error');
-        }
-    };
-
-    useEffect(() => {
-
-        if (webId && notification.notify) {
-            init();
-        }
-
-    }, [webId, clubListData, bagData, reload, notification.notify]);
 
     return (
         <StylesProvider>
-            <ModuleHeader label={ t('golf.whatsInTheBag') } screenheader={ true }/>
-            <PageContainer>
+            { !onSave  ? <ModuleHeader
+                label={ `What's in the bag` }
+                screenheader={ true }
+                loading={ clubListDataIsLoading === true || bagDataIsLoading === true }/> : null }
+             <PageContainerOrNot plain={ onSave !== undefined }>
                 <BagTransferList
                     clubs={ clubs }
-                    bag={ bagClubs }
-                    onRemoveFromBag={ removeFromBagHandler }
+                    bag={ bagClubsState }
+                    clubDefinitions={ clubDefinitions }
+                    onRemoveClubsFromBag={ removeClubsFromBagHandler }
                     onAddToBag={ addToBagHandler }/>
-                <ClubForm onSave={ addClubHandler } />
-                {clubs && <ClubList
+                <div className="c-box">
+                    <ClubForm
+                        onSave={ addClubHandler }
+                        clubDefinitions={ clubDefinitions }/>
+                </div>
+                { clubs && <ClubList
                     onSave={ saveClubHandler }
                     onDelete={ deleteClubHandler }
                     clubs={ clubs } />}
-            </PageContainer>
+                <FlexContainer>
+                    <FlexItem>
+                    { onSave !== undefined ? (
+                        <Button
+                            variant="contained"
+                            onClick={ onSave }
+                            className={ classes.button }
+                            color="primary">Save bag</Button>
+                    ) : null }
+                    </FlexItem>
+                    <FlexItemRight>
+                    { onCancel !== undefined ? (
+                        <Button
+                            variant="contained"
+                            onClick={ onCancel }
+                            className={ classes.button }
+                            color="primary">
+                                Cancel
+                        </Button>
+                    ) : null }
+                    </FlexItemRight>
+                </FlexContainer>
+            </PageContainerOrNot>
         </StylesProvider>
     );
 };
 
-export default withClubTypeContext(ManageBag);
+export default ManageBag;

@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import formStyles from '@styles/form.style';
-
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -10,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
+import formStyles from '@golfstyles/form.style';
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
@@ -22,12 +21,16 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const MarkerSelector = ({ markers = [], onSelect }) => {
+const MarkerSelector = ({
+    markers = [],
+    onSelect,
+    selected
+}) => {
 
     const classes = formStyles();
     const classesmui = useStyles();
 
-    const [selectedMarker, setSelectedMarker] = useState();
+    const [selectedMarker, setSelectedMarker] = useState(selected);
 
     const handleListItemClick = marker => () => {
 
@@ -37,8 +40,8 @@ const MarkerSelector = ({ markers = [], onSelect }) => {
 
     return (
         <>
-            <header className="c-header--push">Select marker</header>
-            <Grid container spacing={2} className={ classesmui.root }>
+            <header className="c-header nudge">Select marker</header>
+            <Grid container className={ classesmui.root }>
                 <Grid item className={ classesmui.gridItem }>
                     <Paper className={ classes.listContainer }>
                         <List dense
@@ -46,14 +49,17 @@ const MarkerSelector = ({ markers = [], onSelect }) => {
                             component="div"
                             role="list">
                         {
-                            markers && markers.map((marker, idx) => {
+                            markers && markers.map(marker => {
+
+                                const isSelected = marker !== undefined && selectedMarker !== undefined && (selectedMarker.iri.split("#")[1] === marker.iri.split("#")[1]);
 
                                 return <ListItem
-                                    key={ idx }
+                                    key={ marker.iri }
                                     className={ classes.listItem }
                                     role="listitem"
                                     button
-                                    selected={ selectedMarker === marker }
+                                    autoFocus={ true }
+                                    selected={ isSelected }
                                     onClick={ handleListItemClick(marker) }>
                                     <ListItemText
                                         primary={ `${ marker.givenName.value } ${ marker.familyName.value }` }

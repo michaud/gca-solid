@@ -1,0 +1,128 @@
+.btn--action {
+
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 0 .5rem;
+    min-height: 4rem;
+    border-radius: 0;
+    border: 1px solid green;
+    border: none;
+    font-size: .8rem;
+    background: linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%);
+    color: rgba(255,255,255,.9);
+
+    &:disabled {
+
+        background: rgba(84, 175, 0, 0.28);
+        color: rgb(232, 246, 218);
+    }
+
+    &:link, &:active, &:visited {
+        color: rgba(255, 255,255,.7);
+    }
+
+    &:hover, &:visited:hover {
+        color: rgb(169, 236, 161);
+    }
+
+    &:focus {
+        outline: none;
+        color: white;
+    } 
+
+    &.active:after {
+        content: "";
+        display: block;
+        height: 5px;
+        background-color: rgba(255, 255, 255,.4);
+        background: linear-gradient(90deg, rgba(255, 255, 255,.1) 0%, rgba(255, 255, 255,.35) 40%, rgba(255, 255, 255,.35) 60%, rgba(255, 255, 255,.1) 100%);
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+    }
+}
+
+.btn--action__label {
+    flex: 1
+}
+.btn--trail {
+    margin-left: 1rem;
+}
+
+.btn--header {
+    
+}
+
+.btn--add {
+    font-size: 2rem;
+}
+
+.btn--club {
+
+    display: flex;
+    flex:1;
+    flex-direction: column;
+    text-align: center;
+    text-decoration: none;
+    padding: .5rem .5rem .65rem .5rem;
+    min-height: 4rem;
+    border-radius: 0;
+    align-items: center;
+    border-top: transparent;
+    border-left: transparent;
+    border-right: 1px solid rgb(210, 199, 157);
+    border-bottom: 1px solid rgb(210, 199, 157);
+    background: linear-gradient(171deg, rgb(245, 240, 214) 0%, rgb(220, 210, 173) 100%);
+    width: 100%;
+    color:  rgba(0, 0, 0, 0.9);
+    font-family: Raleway, sans-serif;
+
+    &:hover {
+        color:  rgba(0, 0, 0, 0.9);
+
+        border-right: 1px solid rgb(210, 199, 157);
+        border-bottom: 1px solid rgb(210, 199, 157);
+    }
+
+    &:active {
+        color:  rgba(0, 0, 0, 0.9);
+        background: linear-gradient(171deg, rgb(220, 210, 173) 0%, rgb(245, 240, 214) 100%);
+        border-right: 1px solid rgb(210, 199, 157);
+        border-bottom: 1px solid rgb(210, 199, 157);
+    }
+}
+
+.btn--club__name {
+
+    padding: 0 0 0.25rem 0;
+    font-size: .8rem;
+    cursor: default;
+    pointer-events: none;
+}
+
+.btn--club__type {
+
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.btn--start {
+
+    display: block;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    padding: .5rem 1rem;
+    text-decoration: none;
+    background: linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%);
+    border: 1px solid rgba(255,255,255,.5);
+    border-radius: 5px;
+    color: rgba(255,255,255,.8);
+    font-size: 1.75rem;
+    font-weight: bold;
+}

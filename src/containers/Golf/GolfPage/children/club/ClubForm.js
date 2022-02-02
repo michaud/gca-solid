@@ -1,43 +1,48 @@
 import React, { useState, useEffect } from 'react';
 
 import update from 'immutability-helper';
-import { useTranslation } from 'react-i18next';
+
 import Button from '@material-ui/core/Button';
-import { withClubTypeContext } from '@utils/clubTypeContext';
-import clubShape from '@contexts/club-shape.json';
-import formStyles from '@styles/form.style';
-import getFieldValue from '@utils/getFieldValue';
-import checkCanSave from '@utils/checkCanSave';
-import getFieldControl from '@utils/getFieldControl';
+
+import { useClubData } from '@golfcontexts/dataProvider/AppDataProvider';
+
+import clubShape from '@golfcontexts/club-shape.json';
+import getFieldValue from '@golfutils/getFieldValue';
+import checkCanSave from '@golfutils/checkCanSave';
+import getFieldControl from '@golfutils/getFieldControl';
+import formStyles from '@golfstyles/form.style';
 import {
     FlexContainer,
     FlexItem,
     FlexItemRight
-} from '@styles/layout.style';
+} from '@golfstyles/layout.style';
 
 const ClubForm = ({
     club,
     onSave,
     onCancel,
-    clubTypes,
-    clubType,
+    onDelete,
     title ='Add club',
     actionLabel = 'add club'
 }) => {
 
     const [clubState, setClubState] = useState(club);
-    const { t } = useTranslation();
+
+    const { clubDefinitions } = useClubData();
+    
     const classes = formStyles();
 
     const saveHandler = () => {
 
         onSave(clubState);
-        setClubState(clubType);
+        setClubState(clubDefinitions.clubType);
     };
+
+    const onDeleteHandler = club => () => onDelete(club);
 
     const onChangeClubField = fieldDef => (...args)  => {
 
-        const value = getFieldValue(fieldDef, [...args, clubTypes]);
+        const value = getFieldValue(fieldDef, [...args, clubDefinitions.clubTypes]);
 
         setClubState(state => update(state, {
             [fieldDef.predicate]: { value: { $set: value } }
@@ -52,10 +57,10 @@ const ClubForm = ({
     
         } else {
             
-            if(clubType) setClubState(clubType);
+            if(clubDefinitions.clubType) setClubState(clubDefinitions.clubType);
         }
 
-    }, [club, clubType]);
+    }, [club, clubDefinitions]);
 
     const clubFields = [];
     
@@ -67,7 +72,7 @@ const ClubForm = ({
 
             const fieldControl = getFieldControl({
                 data: clubState[field.predicate],
-                label: t('golf.selectClubType'),
+                label: 'Select Club type',
                 styles: classes,
                 onChange: onChangeClubField,
                 idx: index++
@@ -78,6 +83,7 @@ const ClubForm = ({
     }
 
     const canSave = checkCanSave(clubState, clubShape);
+    const handleDelete = typeof(onDelete) === 'function' ? onDeleteHandler : undefined;
 
     return (
         <form noValidate autoComplete="off">
@@ -87,11 +93,23 @@ const ClubForm = ({
                 <FlexItem>
                     <Button
                         variant="contained"
-                        disabled={ !canSave }
+                        disabled={ !canSave.can }
                         onClick={ saveHandler }
                         className={ classes.button }
                         color="primary">{ actionLabel }</Button>
                 </FlexItem>
+                {
+                    handleDelete ? (
+                        <FlexItem>
+                            <Button
+                                variant="contained"
+                                disabled={ !canSave.can }
+                                onClick={ handleDelete(club) }
+                                className={ classes.button }
+                                color="primary">Delete</Button>
+                        </FlexItem>
+                    ) : null
+                }
                 <FlexItemRight>
                 { onCancel && <Button
                     variant="contained"
@@ -105,4 +123,4 @@ const ClubForm = ({
     );
 };
 
-export default withClubTypeContext(ClubForm);
+export default ClubForm;

@@ -1,0 +1,25 @@
+.marker-stableford-score {
+
+    display: flex;
+    position: relative;
+    min-width: 5rem;
+    min-height: 3rem;
+    padding: 1rem;
+    flex-direction: column;
+    justify-content: center;
+
+    text-align: center;
+    font-size: 1rem;
+
+    &:after {
+
+        content: "stableford";
+        display: block;
+        font-size: .7rem;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+}

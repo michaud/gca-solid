@@ -1,7 +1,11 @@
 import React, { useState, useMemo } from 'react';
 
-import playerShape from '@contexts/player-shape.json';
-import displayStates from '@utils/displayStates';
+import playerShape from '@golfcontexts/player-shape.json';
+import displayStates from '@golfutils/displayStates';
+
+import getFieldDisplayData from '@golfutils/getFieldDisplayData';
+import EditActions from '@golf/components/EditActions';
+import PlayerForm from '@golfpagectrl/player/PlayerForm';
 
 import {
     FieldContainer,
@@ -10,22 +14,19 @@ import {
     FlexItemLabel,
     FlexItemValue,
     FlexItemTools
-} from '@styles/layout.style';
+} from '@golfstyles/layout.style';
 
-import PlayerForm from './PlayerForm';
-import getFieldDisplayData from '@utils/getFieldDisplayData';
-import EditActions from '@containers/Golf/components/EditActions';
 
 const PlayerDetail = ({
     player,
     onSave,
     onDelete,
+    onCancel,
     target = 'Player',
     showEdit = false
 }) => {
 
     const [displayState, setDisplayState] = useState(displayStates.detail);
-    //const { t } = useTranslation();
 
     const onSaveHandler = (player) => {
         
@@ -41,6 +42,7 @@ const PlayerDetail = ({
     const cancelEdit = () => {
 
         setDisplayState(displayStates.detail);
+        onCancel();
     };
 
     const onDeleteHandler = () => {
@@ -82,12 +84,12 @@ const PlayerDetail = ({
     
         return (
             <>
-                <header className="c-header--sec">{ target }</header>
+                <header className="c-header nudge">{ target }</header>
                 <FieldContainer>
                     <FlexContainer>
                         <FlexItemData>
                         {
-                            displayFields.map((field, index) => <FlexContainer key={ index }>
+                            displayFields.map((field, index) => <FlexContainer key={ `${ field.predicate }${ index }` }>
                                 <FlexItemLabel>{ field.label }</FlexItemLabel>
                                 <FlexItemValue>{ field.value }</FlexItemValue>
                             </FlexContainer>)

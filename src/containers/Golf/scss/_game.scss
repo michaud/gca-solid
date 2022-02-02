@@ -1,0 +1,35 @@
+.game-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1; 
+}
+
+.game-item__label {
+    display: flex;
+    flex: 1; 
+}
+
+.game-label__field {
+    flex: 1;
+    &.name {
+        flex: 5;
+    }
+
+}
+
+.summary-container {
+    position: relative;
+}
+
+.summary__content {
+    padding: 1rem;
+}
+
+.summary__actions {
+    padding: 1rem 0;
+    
+}
+
+.summary__expand {
+    padding-top: 1rem;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
-import ClubDetail from './ClubDetail';
+
+import ClubDetail from '@golfpagectrl/club/ClubDetail';
 
 const ClubList = ({
     clubs = [],
@@ -11,10 +12,10 @@ const ClubList = ({
         <div>
             <header className="c-header">Club List</header>
             {
-                clubs.length > 0 && clubs.map((club, index) => <ClubDetail
+                clubs.length > 0 && clubs.map(club => <ClubDetail
                     onSave={ onSave }
                     onDelete={ onDelete }
-                    key={ index }
+                    key={ club.iri }
                     club={ club } />)
             }
         </div>

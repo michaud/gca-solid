@@ -1,5 +1,6 @@
 import React from 'react';
-import HoleDetail from './HoleDetail';
+
+import HoleDetail from '@golfpagectrl/hole/HoleDetail';
 
 const HoleList = ({
     holes,
@@ -10,10 +11,10 @@ const HoleList = ({
 
     return (
         <>
-            <header className="c-header--sec">{ listTitle }</header>
+            <header className="c-header nudge">{ listTitle }</header>
             {
-                holes.length > 0 ? holes.map((hole, index) => <HoleDetail
-                    key={ index }
+                holes.length > 0 ? holes.map(hole => <HoleDetail
+                    key={ hole.iri }
                     onSave={ onSave }
                     onDelete={ onDelete }
                     hole={ hole }/>

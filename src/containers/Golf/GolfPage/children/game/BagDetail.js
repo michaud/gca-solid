@@ -1,38 +1,48 @@
 import React from 'react';
 
 import Button from '@material-ui/core/Button';
-import formStyles from '@styles/form.style';
+
+import golf from '@golfconstants/golf-namespace';
+
+import formStyles from '@golfstyles/form.style';
 import {
     FlexContainer,
     FlexItem,
     FlexItemRight
-} from '@styles/layout.style';
+} from '@golfstyles/layout.style';
 
-const BagDetail = ({ bag }) => {
+const BagDetail = ({
+    bag,
+    onEdit,
+    onCancel
+}) => {
 
     const classes = formStyles();
 
-    const onCancel = () => {
-
+    const editHandler = () => {
+        onEdit && onEdit();
     };
 
-    const saveHandler = () => {
-
-    };
+    const onCancelHandler = () => {
+        onCancel();
+    }
 
     const canSave = false;
     const actionLabel = 'Edit bag';
 
     return (
         <div className="c-box">
-            <header className="c-header--sec">Bag</header>
+            <header className="c-header nudge">Bag</header>
             <div className="c-box">
             <ol className="plain-list bag-summary-list">
             {
-                bag && bag.clubs.value.map((club, idx) => {
+                bag && bag.clubs.value.map(club => {
 
-                    return <li key={ idx } className="bag-summary-list__club bag-summary-list__club--span">
-                        <button className="bag-summary-list__club__btn">
+                    const iri = club.clubType.value.iri;
+                    const span = iri === golf.classes.Driver || iri === golf.classes.Putter;
+
+                    return <li key={ club.iri } className={ `bag-summary-list__club${ span ? ' bag-summary-list__club--span' : '' }` }>
+                        <button className="club__btn">
                             <div className="club__name">{ club.clubBrand.value } { club.clubName.value }</div>
                             <div className="club__type">{ club.clubType.value.label }</div>
                         </button>
@@ -43,18 +53,19 @@ const BagDetail = ({ bag }) => {
             </div>
             <FlexContainer>
                 <FlexItem>
-                    <Button
+                {
+                    onEdit && <Button
                         variant="contained"
-                        disabled={ !canSave }
-                        onClick={ saveHandler }
+                        onClick={ editHandler }
                         className={ classes.button }
                         color="primary">{ actionLabel }</Button>
+                }
                 </FlexItem>
                 <FlexItemRight>
                 { onCancel && <Button
                     variant="contained"
                     disabled={ !canSave }
-                    onClick={ onCancel }
+                    onClick={ onCancelHandler }
                     className={ classes.button }
                     color="primary">Cancel</Button>
                 }

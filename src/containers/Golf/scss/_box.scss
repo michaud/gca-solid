@@ -1,0 +1,45 @@
+.c-box {
+    margin-bottom: 1.5rem;
+}
+
+.c-box--sixpack {
+    margin-bottom: .5rem;
+}
+
+.c-box--hold-height {
+
+    min-height: 2.125rem;
+}
+
+.c-box--belly {
+    margin-right: 2rem;
+}
+
+.c-block {
+    padding: 0 1rem 1rem;
+}
+
+.c-block--akimbo {
+    margin: 0 1rem;
+    padding-bottom: 1rem;
+}
+
+.c-detail__container {
+    position: relative;
+    margin-bottom: 1rem;
+    background-color: rgb(242, 235, 207);
+    border-radius: 4px;
+    box-shadow: 1px 2px 5px hsla(48, 29%, 43%, .4);
+
+    &.buff {
+        min-height: 6.75rem;
+    }
+}
+ 
+.c-detail__header {
+    margin-top: 0;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0;
+    color: rgba(0,0,0,.9);
+}

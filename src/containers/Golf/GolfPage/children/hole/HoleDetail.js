@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 
-import holeShape from '@contexts/hole-shape.json';
-import getFieldDisplayData from '@utils/getFieldDisplayData';
+import holeShape from '@golfcontexts/hole-shape.json';
+import getFieldDisplayData from '@golfutils/getFieldDisplayData';
+import displayStates from '@golfutils/displayStates';
+
+import EditActions from '@golf/components/EditActions';
+import HoleForm from '@golfpagectrl/hole/HoleForm';
 
 import {
     FieldContainer,
@@ -10,10 +14,7 @@ import {
     FlexItemLabel,
     FlexItemValue,
     FlexItemTools
-} from '@styles/layout.style';
-import displayStates from '@utils/displayStates';
-import HoleForm from './HoleForm';
-import EditActions from '@containers/Golf/components/EditActions';
+} from '@golfstyles/layout.style';
 
 const HoleDetail = ({
     hole,
@@ -66,7 +67,7 @@ const HoleDetail = ({
                 <FlexContainer>
                     <FlexItemData>
                         {
-                            displayFields.map((field, index) => <FlexContainer key={ index }>
+                            displayFields.map((field, index) => <FlexContainer key={ `${ field.predicate }${ index}` }>
                                 <FlexItemLabel>{ field.label }</FlexItemLabel>
                                 <FlexItemValue>{ field.value }</FlexItemValue>
                             </FlexContainer>)
