@@ -22,20 +22,13 @@ const NotLoggedInLayout = props => {
     height: 100%;
     padding-top: 45px;
   `;
+  console.log('NotLoggedInLayout')
+
   return !webId ? (
     <Route
       {...rest}
       component={matchProps => (
         <Container>
-          <NavBar
-            {...matchProps}
-            toolbar={[
-              {
-                component: () => <LanguageDropdown {...{ t, ...props }} />,
-                id: 'language'
-              }
-            ]}
-          />
           <ComponentWrapper {...matchProps} />
         </Container>
       )}

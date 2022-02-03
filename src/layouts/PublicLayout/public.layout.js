@@ -20,32 +20,21 @@ const PublicLayout = props => {
     height: 100%;
     padding-top: 60px;
   `;
+
   return (
     <Route
       {...rest}
-      component={({ history, location, match }) => (
+      component={({ history, location, match }) => {
+
+        return (
         <Container>
-          {webId ? (
+          {webId && (
             <AuthNavBar {...{ history, location, match, webId }} />
-          ) : (
-            <NavBar
-              {...{ history, location, match }}
-              toolbar={[
-                {
-                  component: () => <LanguageDropdown {...{ t, i18n }} />,
-                  id: 'language'
-                },
-                {
-                  component: () => <Link to="/login">Login</Link>,
-                  label: 'authComponent',
-                  id: 'authComponent'
-                }
-              ]}
-            />
           )}
           <ComponentWrapper {...{ history, location, match }} />
         </Container>
-      )}
+      )
+      }}
     />
   );
 };

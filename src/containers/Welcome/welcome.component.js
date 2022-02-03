@@ -1,15 +1,9 @@
 import React from 'react';
-import { Uploader } from '@inrupt/solid-react-components';
-import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import {
   WelcomeWrapper,
-  WelcomeCard,
-  WelcomeProfile,
-  WelcomeName,
-  ImageWrapper
 } from './welcome.style';
-import { ImageProfile } from '@components';
-import { errorToaster } from '@utils';
+import { SplashScreen } from '@containers/Golf/GolfPage/children';
 
 /**
  * Welcome Page UI component, containing the styled components for the Welcome Page
@@ -17,58 +11,27 @@ import { errorToaster } from '@utils';
  * @param props
  */
 export const WelcomePageContent = props => {
-  const { webId, image, updatePhoto, name } = props;
-  const { t } = useTranslation();
-  const limit = 2100000;
+  const { webId } = props;
+
   return (
     <WelcomeWrapper data-testid="welcome-wrapper">
-      <WelcomeCard className="card">
-        <WelcomeProfile data-testid="welcome-profile">
-          <h3>
-            {t('welcome.welcome')}, <WelcomeName>{name}</WelcomeName>
-          </h3>
-          <ImageWrapper>
-            <Uploader
-              {...{
-                fileBase: webId && webId.split('/card')[0],
-                limitFiles: 1,
-                limitSize: limit,
-                accept: 'jpg,jpeg,png',
-                errorsText: {
-                  sizeLimit: t('welcome.errors.sizeLimit', {
-                    limit: `${limit / 1000000}Mbs`
-                  }),
-                  unsupported: t('welcome.errors.unsupported'),
-                  maximumFiles: t('welcome.errors.maximumFiles')
-                },
-                onError: error => {
-                  if (error && error.statusText) {
-                    errorToaster(error.statusText, t('welcome.errorTitle'));
-                  }
-                },
-                onComplete: uploadedFiles => {
-                  updatePhoto(
-                    uploadedFiles[uploadedFiles.length - 1].uri,
-                    t('welcome.uploadSuccess'),
-                    t('welcome.successTitle')
-                  );
-                },
-                render: props => (
-                  <ImageProfile
-                    {...{
-                      ...props,
-                      webId,
-                      photo: image,
-                      text: t('welcome.upload'),
-                      uploadingText: t('welcome.uploadingText')
-                    }}
-                  />
-                )
-              }}
-            />
-          </ImageWrapper>
-        </WelcomeProfile>
-      </WelcomeCard>
+      { !webId ? <>
+        <SplashScreen>
+          <div className="splash-intro">
+            <div className="splash-login">
+              <p><Link to="/login">log-in</Link></p>
+            </div>
+            <div className="splash-intro__content">
+              <p>this app uses a Solid Pod to save your golf data.<br/>
+                Pods are where you store your data. Any kind of data can be stored in a Solid Pod. Once stored in a Pod, you control who can access your data.</p>
+              <div>
+                <p><Link to="https://solidproject.org/">Solid: Your data, your choice</Link></p>
+                <p><Link to="/register">Register</Link></p>
+              </div>
+            </div>
+          </div>
+        </SplashScreen>
+        </> : <div>loggedin</div> } 
     </WelcomeWrapper>
   );
 };

@@ -11,7 +11,7 @@ import { useMonitorData } from '@golfcontexts/dataProvider/AppDataProvider';
 
 import NavigationShell from '@golf/components/NavigationShell';
 import Alert from '@golf/components/Alert';
-import SplashScreen from '@golfpagectrl/splash/SplashScreen';
+import SplashScreenLoading from '@golfpagectrl/splash/SplashScreenLoading';
 
 const Home = lazy(() => import('@golfpagectrl/home/Home'));
 const ManageBag = lazy(() => import('@golfpagectrl/bag/ManageBag'));
@@ -72,7 +72,7 @@ const GolfApp = () => {
                 return (
                     <Switch location={ props.location }>
                         <Route exact path="/golf"
-                            render={ routerProps => <SplashScreen completed={ completed }
+                            render={ routerProps => <SplashScreenLoading completed={ completed }
                                 { ...routerProps }/> }/>
                         <Route
                             path="/golf/game/:gameid"

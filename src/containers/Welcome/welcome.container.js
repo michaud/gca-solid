@@ -12,7 +12,6 @@ const defaultProfilePhoto = '/img/icon/empty-profile.svg';
 export class WelcomeComponent extends Component<Props> {
   constructor(props) {
     super(props);
-
     this.state = {
       name: '',
       image: defaultProfilePhoto,
@@ -22,6 +21,7 @@ export class WelcomeComponent extends Component<Props> {
   }
 
   componentDidMount() {
+
     const { webId } = this.props;
     if (webId) this.getProfileData();
   }

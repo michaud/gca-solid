@@ -26,12 +26,12 @@ const useStyles = makeStyles({
     }
 }, { name: 'MuiLinearProgress' });
 
-const SplashScreen = ({ children }) => {
+const SplashScreenLoading = ({ completed }) => {
 
     const classes = useStyles();
 
     return (
-        <div className="splash" style={{minHeight: '100vh'}}>
+        <div className="splash">
             <svg className="splash-graph" viewBox="0 0 1600 1000">
                 <defs>
                     <filter id="shadow">
@@ -51,7 +51,7 @@ const SplashScreen = ({ children }) => {
                     </linearGradient>
                 </defs>
                 <g>
-                    <g transform="translate(20,-225)">
+                    <g>
                         <ellipse ry="102" rx="102" id="svg_14" cy="461.841207" cx="800" fillOpacity="0.5" fill="#fff" />
                         <ellipse ry="102" rx="102" id="svg_8" cy="352.420144" cx="608.078165" fillOpacity="0.5" fill="#fff" />
                         <ellipse ry="102" rx="102" id="svg_7" cy="569.223594" cx="991.395672" fillOpacity="0.5" fill="#fff" />
@@ -63,17 +63,17 @@ const SplashScreen = ({ children }) => {
                         <path d="m0,0l800,473l0,4000l-800,0l0,0z" fillOpacity="0.6" fill="url(#svg_1)" />
                         <path d="m1600,0l0,4000l-800,0l0,-3527l0,0z" fillOpacity="0.6" fill="url(#svg_3)" />
                     </g>
-                    <g transform="translate(20,-250)">
+                    <g>
                         <text
-                            x="475px"
-                            y="-40px"
+                            x="700px"
+                            y="-120px"
                             fill="rgba(255, 255, 255, 0.8)"
                             style={{
                                 fontSize: '7rem',
                                 filter: 'url(#shadow)',
                                 fontWeight: 'bold',
                                 color: 'white'
-                            }}>Golf Course</text>
+                            }}>Golf</text>
                         <text
                             y="-24px"
                             x="610px"
@@ -83,7 +83,7 @@ const SplashScreen = ({ children }) => {
                                 filter: 'url(#shadow)',
                                 fontWeight: 'bold',
                                 color: 'white'
-                            }}></text>
+                            }}>Course</text>
                         <text
                             y="88px"
                             x="550px"
@@ -97,9 +97,14 @@ const SplashScreen = ({ children }) => {
                     </g>
                 </g>
             </svg>
-            { children }
+            <div>
+                {
+                    completed === 100 ? <Redirect to="/golf/settings" /> :
+                        <LinearProgress classes={ classes } variant="determinate" value={ completed } />
+                }
+            </div>
         </div>
     );
 };
 
-export default SplashScreen;
+export default SplashScreenLoading;

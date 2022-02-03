@@ -2,18 +2,7 @@ import styled from 'styled-components';
 import { media } from '../../utils';
 
 export const WelcomeWrapper = styled.section`
-  width: 100%;
-  padding: 50px 0;
-
-  h3 {
-    color: #666666;
-    span {
-      font-weight: bold;
-    }
-    a {
-      font-size: 1.9rem;
-    }
-  }
+  min-height: 100vh
 `;
 
 export const WelcomeCard = styled.div`

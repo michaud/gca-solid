@@ -26,6 +26,7 @@ const Content = styled.div`
 `;
 
 const PrivateLayout = ({ routes, webId, location, history, ...rest }) => {
+
   const { t } = useTranslation();
   /**
    * SDK app will need all the permissions by the user pod so
@@ -65,6 +66,7 @@ const PrivateLayout = ({ routes, webId, location, history, ...rest }) => {
               <AuthNavBar {...{ location, webId, history }} />
               <Switch>
                 {routes.map(route => {
+
                   const { component: RouteComponent } = route;
                   return (
                     <Route
